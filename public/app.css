@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+:root {
+  --app-font: "Mulish", sans-serif;
+}
+
+body {
+  font-family: var(--app-font) !important;
+}
+
+body * {
+  transition: all .1s ease;
+}
+
+main.wrapper {
+  margin-top: 72px;
+}
+
+.mh-100vh {
+  min-height: 100vh;
+}
+
+.mh-75vh {
+  min-height: 75vh;
+}
+
+.mh-50vh {
+  min-height: 50vh;
+}
+
+
+.mw-100 {
+  max-width: 100px;
+}
+
+.mw-200 {
+  max-width: 200px;
+}
+
+.mw-300 {
+  max-width: 300px;
+}
+
+.mw-400 {
+  max-width: 400px;
+}
+
+.mw-500 {
+  max-width: 500px;
+}
+
+.mw-600 {
+  max-width: 600px;
+}
+
+.mw-700 {
+  max-width: 700px;
+}
+
+.mw-800 {
+  max-width: 800px;
+}
+
+.mw-900 {
+  max-width: 900px;
+}
+
+.form-control {
+  padding: 0.5rem .75rem !important;
+}
+
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: var(-bs-dark);
+  text-align: center;
+  height: 1.5em;
+  opacity: 0.5;
+}
+
+.hr-text:before {
+  content: "";
+  background: linear-gradient(to right, transparent, #818078, transparent);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+}
+
+.hr-text:after {
+  content: attr(data-content);
+  position: relative;
+  display: inline-block;
+  color: var(--bs-dark);
+  padding: 0 0.5em;
+  line-height: 1.5em;
+  color: var(--bs-gray);
+  background-color: var(--bs-light);
+}
+
+.form-check-lg input {
+  background-color: var(--bs-light);
+}
+
+.form-check-lg input {
+  zoom: 1.4;
+}
+
+.form-check-lg {
+  padding-left: 2em !important;
+}
+
+input.form-control,
+select.form-control,
+textarea.form-control,
+.accordion-item {
+  border-bottom-width: 2px !important;
+}
+
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  border-bottom: 2px solid var(--bs-primary) !important;
+}
+
+.w-h-50 {
+  width: 50px;
+  height: 50px;
+}
+
+.w-h-60 {
+  width: 60px;
+  height: 60px;
+}
+
+body .border-none,
+body .border-none:focus {
+  border: 0px !important;
+}
+
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.place-image {
+  height: 200px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+
+.place:hover img.place-image {
+  filter: brightness(0.75);
+}
+
+.hover-bg-primary:hover {
+  background-color: var(--bs-primary) !important;
+}
+
+.categories img {
+  opacity: 0.5;
+}
+
+.categories .card:hover img {
+  filter: invert(1);
+}
+
+.input-group>.input-group-append>.btn,
+.input-group>.input-group-append>.input-group-text,
+.input-group>.input-group-prepend:first-child>.btn:not(:first-child),
+.input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child),
+.input-group>.input-group-prepend:not(:first-child)>.btn,
+.input-group>.input-group-prepend:not(:first-child)>.input-group-text {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.input-group>.custom-select:not(:last-child),
+.input-group>.form-control:not(:last-child) {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.border-bottom-2 {
+  border-bottom-width: 2px !important;
+}
+
+.cities img {
+  height: 300px;
+  object-fit: cover;
+  object-position: center center;
+  filter: contrast(0.75) brightness(0.75);
+}
+
+.image-fit {
+  object-fit: cover;
+  object-position: center center Im !important;
+}
+
+.w-h-40 {
+  width: 40px;
+  height: 40px;
+}
+
+.agent-container {
+  margin-top: -3em;
+}
+
+.agent-container>.card {
+  background: linear-gradient(180deg, white, var(--bs-light));
+}
+
+.place-image-small {
+  height: 160px;
+}
+
+.w-35 {
+  width: 35%;
+}
+
+.contact-card,
+.search-card {
+  position: sticky !important;
+  top: 94px;
+}
+
+.background-fit {
+  background-size: cover;
+  background-position: center center;
+}
+
+#galleryModal img {
+  max-height: 100vh;
+  max-width: 100%;
+}
+
+.modal-close {
+  backdrop-filter: blur(2px);
+  background-color: #0000003b;
+  color: var(--bs-light);
+}
+
+textarea {
+  min-height: 120px !important;
+}
+
+.label-top label {
+  position: absolute;
+  color: var(--bs-primary);
+  font-size: small;
+  left: 13px;
+  top: 5px;
+  font-weight: 500;
+}
+
+.form-group {
+  position: relative;
+}
+
+.label-top input.form-control,
+.label-top select.form-control,
+.label-top textarea.form-control,
+.label-top.element-container {
+  padding-top: 1.75em !important;
+}
+
+input.p-none,
+select.p-none {
+  padding: 0px !important;
+}
+
+.btn-light.active {
+  background: var(--bs-dark) !important;
+  color: var(--bs-white) !important;
+}
+
+.navbar-brand img {
+  max-width: 90px;
+}

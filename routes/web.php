@@ -13,16 +13,13 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::get('/', function () {
-    return redirect()->intended(route('login'));
-});
+// Route::get('/', function () {
+//     return redirect()->intended(route('login'));
+// });
 
 Route::get('/dashboard', function () {return Inertia::render('Seller/Dashboard');})->name('dashboard');
 
 Route::get('/admin', function () {return Inertia::render('Admin/Dashboard');})->middleware(['auth', 'verified'])->name('admin');
-
-Route::get('/seller', function () {return Inertia::render('Seller/Dashboard');})->middleware(['auth', 'verified'])->name('seller');
-
 
 Route::group(['middleware' => ['auth', 'verified'],'prefix'=>'admin', 'as' => 'admin.','namespace' => 'App\Http\Controllers\Admin'], function(){
     Route::get('/', function () {return Inertia::render('Admin/Dashboard');})->name('index');
@@ -58,6 +55,60 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+Route::group(['middleware' => [],'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
+    Route::get('/', function () {return Inertia::render('Seller/Dashboard');})->name('index');
+
+    Route::get('/properties', function () {return Inertia::render('Seller/Properties');});
+    Route::get('/leads', function () {return Inertia::render('Seller/Leads');});
+    Route::get('/profile', function () {return Inertia::render('Seller/Profile');});
+    Route::get('/settings', function () {return Inertia::render('Seller/Settings');});
+});
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::get('/search', function () {
+    return view('search');
+});
+
+
+Route::get('/agent', function () {
+    return view('agent');
+});
+
+Route::get('/listing', function () {
+    return view('listing');
+});
+
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::get('/auth', function () {
+    return view('auth.index');
+});
+
+Route::get('/auth/customer', function () {
+    return view('auth.customer');
+});
+
+Route::get('/auth/agent', function () {
+    return view('auth.agent');
+});
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/{slug}', function () {
+    return view('page');
 });
 
 require __DIR__.'/auth.php';

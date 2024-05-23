@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Closure;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -13,6 +14,14 @@ class HandleInertiaRequests extends Middleware
      * @var string
      */
     protected $rootView = 'app';
+
+    public function handle(Request $request,  Closure $next){
+        if($request->is('seller*')){
+            $this->rootView = 'sellerApp';
+        }
+
+        return parent::handle($request, $next);
+    }
 
     /**
      * Determine the current asset version.
