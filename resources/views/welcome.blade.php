@@ -11,8 +11,8 @@
     @include('home.search')
     </div>
     <div class="pb-5">
-        @include('home.places', ['title' => 'Businesses'])
-        @include('home.places', ['title' => 'Franchises'])
+        @include('home.places', ['title' => 'Business'])
+        @include('home.places', ['title' => 'Franchise'])
         @include('home.categories')
         @include('home.cities')
         @include('home.brokers')
