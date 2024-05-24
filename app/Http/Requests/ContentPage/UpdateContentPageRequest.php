@@ -1,10 +1,10 @@
 <?php
-namespace App\Http\Requests\Content;
+namespace App\Http\Requests\ContentPage;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreContentPageRequest extends FormRequest
+class UpdateContentPageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreContentPageRequest extends FormRequest
         return [
             'title'     => ['required', 'max:255'],
             'image'     => ['nullable', 'image'],
-            'content'   => ['required'],
+            'contents'   => ['required'],
             'position'  => ['integer'],
             'seo_title'   => ['required'],
             'seo_keywords'   => ['required'],

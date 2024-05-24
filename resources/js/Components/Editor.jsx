@@ -11,19 +11,20 @@ import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import EmailEditor from 'react-email-editor';
 
 export default function Create({ auth }) {
-
-
     const { data, setData, post, errors, reset } = useForm({
         title: '',
         content: '',
-        status: 1,
         seo_title: '',
         seo_keywords: '',
         seo_description: '',
+        status: 1,
         image: '',
-        design: ''
     });
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route('admin.content-page.store'));
+    };
 
     const [imagePreview, setImagePreview] = useState('');
 
@@ -42,43 +43,26 @@ export default function Create({ auth }) {
 
     const handleChange = (key, value) => {
         setData(key, value);
-        console.log(key, value)
     };
-
 
     const emailEditorRef = useRef(null);
+
     const exportHtml = () => {
-        return new Promise((resolve, reject) => {
-            emailEditorRef.current.editor.exportHtml((data2) => {
-                const { design, html } = data2;
-                handleChange("design", design)
-                handleChange("content", html)
-             
-            });
-            resolve();
+        emailEditorRef.current.editor.exportHtml((data) => {
+            const { design, html } = data;
+            setData('content', html);
+            handleSubmit();
         });
-    }
-
-
-    function postData(){
-           console.log(data);
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-
-        await exportHtml();
-        
-        await postData();
-
-
-        // await exportDesign();
-        // await setData(data); // Ensure that the latest data is set
-        // post(route('admin.content-page.store'));
-        // console.log(data); // Logs updated data after form submission
     };
 
+    const onLoad = () => {
+        // editor instance is created
+    };
+
+    const onReady = () => {
+        // editor is ready
+        console.log('onReady');
+    };
 
     return (
         <Authenticated
@@ -210,8 +194,6 @@ export default function Create({ auth }) {
                                                                                 onChange={handleImageChange}
                                                                             />
                                                                         </div>
-                                                                        <InputError message={errors.image} className="mt-2 col-12" />
-
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -221,11 +203,11 @@ export default function Create({ auth }) {
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="form-group">
-                                                            <InputLabel className="fw-700 fs-16 form-label form-label">Content</InputLabel>
-                                                            <InputError message={errors.content} className="mt-2 col-12" />
-
+                                                            <InputLabel className="fw-700 fs-16 form-label form-group__label">Content</InputLabel>
                                                             <EmailEditor
                                                                 ref={emailEditorRef}
+                                                                onLoad={onLoad}
+                                                                onReady={onReady}
                                                             />
                                                         </div>
                                                     </div>
@@ -258,7 +240,7 @@ export default function Create({ auth }) {
                                             </div>
 
                                             <div className="form-actions mt-10">
-                                                <button type="s" className="btn btn-primary">
+                                                <button type="button" className="btn btn-primary" onClick={exportHtml}>
                                                     <i className="bi bi-check"></i> Save Data
                                                 </button>
                                             </div>

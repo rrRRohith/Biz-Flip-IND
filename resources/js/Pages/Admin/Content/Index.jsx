@@ -4,15 +4,15 @@ import Authenticated from '@/Layouts/AdminAuthenticated';
 
 import { Dropdown } from '@mui/joy';
 
-export default function Index({ categoryList, auth, success = null, error = null }) {
+export default function Index({ pageList, auth, success = null, error = null }) {
      
-    const deleteCategory = (category) => {
-        if (!window.confirm("Are you sure you want to delete the category?")) {
+    const deletePage = (page) => {
+        if (!window.confirm("Are you sure you want to delete the page?")) {
           return;
         }
         
       
-        router.delete(route("admin.category.destroy", category.id))
+        router.delete(route("admin.content-page.destroy", page.id))
       }
 
       
@@ -20,11 +20,11 @@ export default function Index({ categoryList, auth, success = null, error = null
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Category</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Content Page</h2>}
             success = {success}
             error   = {error}
         >
-            <Head title="Category List" />
+            <Head title="page List" />
 
             {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">
@@ -35,13 +35,13 @@ export default function Index({ categoryList, auth, success = null, error = null
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Categories</h4>
+                                        <h4 className="page-title">Content Page</h4>
                                     </div>
                                 </div>
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <Link className='btn btn-danger btn-sm text-end' href={route('admin.category.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    <Link className='btn btn-danger btn-sm text-end' href={route('admin.content-page.create')}><i className='bi bi-plus'></i> Create</Link>
                                 </div>
                             </div>
                         </div>
@@ -69,28 +69,28 @@ export default function Index({ categoryList, auth, success = null, error = null
                                                 </thead>
                                                 <tbody>
 
-                                                {categoryList.data.map((category) => (
+                                                {pageList.data.map((page) => (
                                                 
-                                                    <tr key={category.id} className="hover-primary">
-                                                        <td>{category.id}</td>
+                                                    <tr key={page.id} className="hover-primary">
+                                                        <td>{page.id}</td>
                                                         
                                                         <td>
                                                         <img
-                                                            src={category.icon}
+                                                            src={page.icon}
                                                             className='w-100 rounded-5 '
-                                                            alt={`${category.icon} icon`}
+                                                            alt={`${page.icon} icon`}
                                                             onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                         />
                                                         </td>
-                                                        <td>{category.name}</td>
-                                                        <td>{category.position}</td>
-                                                        <td>{category.status}</td>
-                                                        <td>{category.updated_at}</td>
+                                                        <td>{page.name}</td>
+                                                        <td>{page.position}</td>
+                                                        <td>{page.status}</td>
+                                                        <td>{page.updated_at}</td>
                                                         <td>
-                                                            <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
+                                                            <Link className='btn btn-transparent' href={route('admin.content-page.edit', page.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
-                                                            <button onClick={(e) => deleteCategory(category)} className="btn btn-transparent border-0">
+                                                            <button onClick={(e) => deletePage(page)} className="btn btn-transparent border-0">
                                                                 <i className="bi bi-trash"></i>
                                                             </button>
                                                         </td>

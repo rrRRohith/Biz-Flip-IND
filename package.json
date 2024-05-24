@@ -27,6 +27,7 @@
         "@mui/material": "^5.15.18",
         "apexcharts": "^3.49.1",
         "react-apexcharts": "^1.4.1",
+        "react-email-editor": "^1.7.10",
         "react-router-dom": "^6.23.1",
         "react-select": "^5.8.0",
         "react-slick": "^0.30.2",

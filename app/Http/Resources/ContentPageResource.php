@@ -22,11 +22,12 @@ class ContentPageResource extends JsonResource
             'title'          => $this->title,	
             'slug'           => $this->slug,
             'content'        => $this->content,	
+            'data'           => $this->data,	
             'seo_title'      => $this->seo_title,	
             'seo_keywords'   => $this->seo_keywords,	
             'seo_desscription'=> $this->seo_desscription,	
             'status'         => $this->status == 1 ? 'Published' : 'Draft',
-            'breadcumb_image'=> $this->image && !(str_starts_with($this->breadcumb_image, 'http')) ?
+            'breadcumb_image'=> $this->breadcumb_image && !(str_starts_with($this->breadcumb_image, 'http')) ?
                                 asset('images/'.$this->breadcumb_image) : $this->breadcumb_image,
             'created_at'     => (new Carbon($this->created_at))->format('Y-m-d'),
             'updated_at'     => (new Carbon($this->updated_at))->format('Y-m-d'),

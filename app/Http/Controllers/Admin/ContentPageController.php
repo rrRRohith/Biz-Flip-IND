@@ -19,9 +19,9 @@ class ContentPageController extends Controller
      */
     public function index()
     {
-        $categoryList = ContentPage::query()->paginate(10);
+        $pageList = ContentPage::query()->paginate(10);
        
-        return Inertia::render('Admin/Category/Index',['categoryList' => ContentPageResource::collection($categoryList),'success' => session('success'),'error' => session('error')]);
+        return Inertia::render('Admin/Content/Index',['pageList' => ContentPageResource::collection($pageList),'success' => session('success'),'error' => session('error')]);
 
     }
 
@@ -38,26 +38,30 @@ class ContentPageController extends Controller
      */
     public function store(StoreContentPageRequest $request)
     {
+       
+        dd($request->all());
         //
-        
         /** @var $image \Illuminate\Http\UploadedFile */
         $image =$request->image ?? null;
    
         if ($image) {
             $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('categories', $imageName, 'images');
-         
+            $imagePath = $image->storeAs('page', $imageName, 'images');
         }
-        $new        = new ContentPage();
-        $new->name  = $request->category_name;
-        $new->slug  = Str::slug($request->category_name);
-        $new->icon  = $imagePath;
-        $new->parent= null;
-        $new->position=$request->position;
-        $new->status= $request->status;
+
+        $new                    = new ContentPage();
+        $new->name              = $request->title;
+        $new->slug              = Str::slug($request->title);
+        $new->content           = $request->title;
+        $new->data              = $request->data;
+        $new->breadcumb_image   = $imagePath ??  null;
+        $new->seo_title         = $request->seo_title;
+        $new->seo_keywords      = $request->seo_keywords;
+        $new->seo_desscription  = $request->seo_desscription;
+        $new->status            = $request->status;
         try{
             $new->save();			
-            return to_route('admin.category.index')->with('success', 'Category was created.');
+            return to_route('admin.content-page.index')->with('success', 'page was created.');
         }
         catch(Exception $e){
             return $e->getMessage();
@@ -68,7 +72,7 @@ class ContentPageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ContentPage $category)
+    public function show(ContentPage $page)
     {
         //
     }
@@ -79,10 +83,9 @@ class ContentPageController extends Controller
     public function edit($id)
     {
         //
-        
-        $category = ContentPage::where('id',$id)->first();
+        $page = ContentPage::where('id',$id)->first();
       
-        return Inertia::render('Admin/Content/Edit',['category_item' => new ContentPageResource($category),'success' => session('success'),'error' => session('error')]);
+        return Inertia::render('Admin/Content/Edit',['page_item' => new ContentPageResource($page),'success' => session('success'),'error' => session('error')]);
 
     }
 
@@ -93,40 +96,42 @@ class ContentPageController extends Controller
     {
         //
 
-      
-
-        $category = ContentPage::where('id',$id)->first() ?? abort(404);
+        $page = ContentPage::where('id',$id)->first() ?? abort(404);
         $data = $request->validated();
         $image = $data['image'] ?? null;
 
 
         // Handle image removal
         if ($request->remove_image) {
-            if ($category->icon) {
-                Storage::disk('images')->delete($category->icon);
-                $category->icon = null;
+            if ($page->icon) {
+                Storage::disk('images')->delete($page->icon);
+                $page->icon = null;
             }
         }
 
         if ($image) {
-            if ($category->icon) {
-                Storage::disk('images')->delete($category->icon);
+            if ($page->icon) {
+                Storage::disk('images')->delete($page->icon);
             }
             $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('categories', $imageName, 'images');
-            $category->icon  = $imagePath;
+            $imagePath = $image->storeAs('page', $imageName, 'images');
+            $page->icon  = $imagePath;
         }
 
-        $category->name  = $request->category_name;
-        $category->slug  = Str::slug($request->category_name);
-      
-        $category->parent= null;
-        $category->position=$request->position;
-        $category->status= $request->status;
-        $category->save();
+        $page->name              = $request->title;
+        $page->slug              = Str::slug($request->title);
+        $page->content           = $request->title;
+        $page->data              = $request->data;
+        $page->breadcumb_image   = $imagePath ??  null;
+        $page->seo_title         = $request->seo_title;
+        $page->seo_keywords      = $request->seo_keywords;
+        $page->seo_desscription  = $request->seo_desscription;
+        $page->status            = $request->status;
+        
+        $page->save();
 
-        return to_route('admin.category.index')
-            ->with('success', "Content Page \"$category->name\" was updated");
+        return to_route('admin.content-page.index')
+            ->with('success', "Content Page \"$page->name\" was updated");
 
     }
 
@@ -136,14 +141,14 @@ class ContentPageController extends Controller
     public function destroy($id)
     {
    
-        $category = ContentPage::where('id',$id)->first() ?? abort(404);
-        $name = $category->name;
-        $category->delete();
-        if ($category->icon) {
-            Storage::disk('images')->delete($category->icon);
+        $page = ContentPage::where('id',$id)->first() ?? abort(404);
+        $name = $page->name;
+        $page->delete();
+        if ($page->icon) {
+            Storage::disk('images')->delete($page->breadcumb_image);
            
         }
-        return to_route('admin.category.index')
+        return to_route('admin.content-page.index')
             ->with('success', "Content Page \"$name\" was deleted");
     }
 }

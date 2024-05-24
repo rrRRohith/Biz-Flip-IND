@@ -9,13 +9,13 @@ import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
 
-export default function Create({ category_item ,queryParams = null, auth}) {
+export default function Create({ page_item ,queryParams = null, auth}) {
    
     const { data, setData, post, errors, reset } = useForm({
         image: '',
-        category_name: category_item.name || '',
-        status: category_item.status = 'published' ? 1 : 0 || 1,
-        position: category_item.position || '', _method: "PUT",
+        category_name: page_item.name || '',
+        status: page_item.status = 'published' ? 1 : 0 || 1,
+        position: page_item.position || '', _method: "PUT",
         remove_image: false,
     });
    
@@ -23,10 +23,10 @@ export default function Create({ category_item ,queryParams = null, auth}) {
 
     useEffect(() => {
         // Set the initial image preview if an image exists
-        if (category_item.icon) {
-            setImagePreview(category_item.icon);
+        if (page_item.icon) {
+            setImagePreview(page_item.icon);
         }
-    }, [category_item.icon]);
+    }, [page_item.icon]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -48,7 +48,7 @@ export default function Create({ category_item ,queryParams = null, auth}) {
         const handleSubmit = (e) => {
             e.preventDefault();
       
-            post(route("admin.category.update", category_item.id));
+            post(route("admin.content-page.update", page_item.id));
           };
 
          
@@ -59,21 +59,21 @@ export default function Create({ category_item ,queryParams = null, auth}) {
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Category/Edit</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Content Page/Edit</h2>}
         >
-            <Head title="Category Edit" />
+            <Head title="Content Page Edit" />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Edit Category</h4>
+                                    <h4 className="page-title"> Edit Content Page</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
-                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.category.index')}>Category</Link></li>
+                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Content Page</Link></li>
                                                 <li className="breadcrumb-item active" aria-current="page">Edit</li>
                                             </ol>
                                         </nav>

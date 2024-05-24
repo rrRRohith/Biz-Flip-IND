@@ -17,9 +17,10 @@ return new class extends Migration
             $table->mediumText('slug')->nullable();
             $table->string('breadcumb_image')->nullable();
             $table->longText('content')->nullable();
+            $table->longText('data')->nullable();
             $table->mediumText('seo_title')->nullable();
             $table->mediumText('seo_keywords')->nullable();
-            $table->mediumText('seo_desscription')->nullable();
+            $table->mediumText('seo_description')->nullable();
             $table->integer('status')->comment('0=hidden,1=active');
             $table->softDeletes();
             $table->timestamps();
