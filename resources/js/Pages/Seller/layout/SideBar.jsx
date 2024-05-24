@@ -6,18 +6,6 @@ const urlMatches = (currentUrl, pattern) => {
     return regex.test(currentUrl);
 };
 
-const testUrlMatches = () => {
-    console.log(urlMatches('/seller', '/seller')); // Should print true
-    console.log(urlMatches('/seller/properties', '/seller/properties*')); // Should print true
-    console.log(urlMatches('/seller/properties/123', '/seller/properties*')); // Should print true
-    console.log(urlMatches('/seller/leads', '/seller/leads*')); // Should print true
-    console.log(urlMatches('/seller/profile', '/seller/profile*')); // Should print true
-    console.log(urlMatches('/seller/settings', '/seller/settings*')); // Should print true
-    console.log(urlMatches('/some/other/path', '/seller*')); // Should print false
-};
-
-testUrlMatches();
-
 const SideBar = () => {
     const path = window.location.pathname;
     return (
