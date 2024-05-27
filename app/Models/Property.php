@@ -9,4 +9,10 @@ class Property extends Model
 {
      use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    
+    function seller(){
+        return $this->belongsTo(User::class, 'vendor_id', 'id');
+    }
+    
 }

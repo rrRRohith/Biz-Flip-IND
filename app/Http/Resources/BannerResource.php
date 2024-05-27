@@ -26,7 +26,7 @@ class BannerResource extends JsonResource
             'picture_desktop'=> $this->picture_desktop && !(str_starts_with($this->picture_desktop, 'http')) ?
                                 asset('images/'.$this->picture_desktop) : $this->picture_desktop,
             'picture_mobile'=>  $this->picture_mobile && !(str_starts_with($this->picture_mobile, 'http')) ?
-                                 asset('images/'.$this->picture_mobile) : $this->icon,
+                                 asset('images/'.$this->picture_mobile) : $this->picture_mobile,
             'position'      =>  $this->position,
             'status'        =>  $this->status == 1 ? 'Published' : 'Draft',
             'created_at'    =>  (new Carbon($this->created_at))->format('Y-m-d'),

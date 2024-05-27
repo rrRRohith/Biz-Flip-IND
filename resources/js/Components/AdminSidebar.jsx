@@ -34,7 +34,7 @@ export default function AdminSidebar() {
                                     {openDropdown === 'seller' && (
                                         <ul className="treeview-menu">
                                             <li>
-                                                <Link href={route('admin.sellers')}>
+                                                <Link href={route('admin.sellers.index')}>
                                                     <i className="icon-Commit"></i>Seller List
                                                 </Link>
                                             </li>
@@ -157,12 +157,12 @@ export default function AdminSidebar() {
                                     {openDropdown === 'leads' && (
                                         <ul className="treeview-menu">
                                             <li>
-                                                <Link href={route('admin.contact-messages.index')}>
+                                                <Link href={route('admin.contact_index')}>
                                                     <i className="icon-Commit"></i>Contact Message
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href={route('admin.property-leads.index')}>
+                                                <Link href={route('admin.propery_leads_index')}>
                                                     <i className="icon-Commit"></i>Property Leads
                                                 </Link>
                                             </li>
@@ -170,7 +170,7 @@ export default function AdminSidebar() {
                                     )}
                                 </li>
                                 <li className="treeview">
-                                    <Link href={route('admin.support-tickets')}>
+                                    <Link href={route('admin.support-tickets.index')}>
                                         <i className="bi bi-ticket-perforated" title="Support Tickets"></i>
                                         <span>Support Tickets</span>
                                     </Link>
@@ -186,12 +186,12 @@ export default function AdminSidebar() {
                                     {openDropdown === 'settings' && (
                                         <ul className="treeview-menu">
                                             <li>
-                                                <Link href={route('admin.company-settings')}>
+                                                <Link href={route('admin.company-settings.index')}>
                                                     <i className="icon-Commit"></i>Company Settings
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href={route('admin.app-settings')}>
+                                                <Link href={route('admin.app-settings.index')}>
                                                     <i className="icon-Commit"></i>App Settings
                                                 </Link>
                                             </li>

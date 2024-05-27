@@ -25,7 +25,7 @@ export default function AdminHeader({ user, header, onSidebarToggle }) {
                 </Link>
             </div>
             {/* <!-- Header Navbar --> */}
-            <nav className="navbar navbar-static-top">
+            <nav className="navbar navbar-static-top bg-danger-light">
                 {/* <!-- Sidebar toggle button--> */}
                 <div className="app-menu">
                     <ul className="header-megamenu nav">

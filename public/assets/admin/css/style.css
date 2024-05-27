@@ -38055,3 +38055,14 @@ img.away, img.busy, img.offline, img.online {
 .css-13cymwt-control{
   border-radius: 10px !important;
 }
+
+.content-header{
+  
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+
+.content .box .box-body{
+  padding: 40px;
+}

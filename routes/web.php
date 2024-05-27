@@ -23,30 +23,36 @@ Route::get('/admin', function () {return Inertia::render('Admin/Dashboard');})->
 
 Route::group(['middleware' => ['auth', 'verified'],'prefix'=>'admin', 'as' => 'admin.','namespace' => 'App\Http\Controllers\Admin'], function(){
     Route::get('/', function () {return Inertia::render('Admin/Dashboard');})->name('index');
+    Route::resources([
+        'category'          => CategoryController::class,
+        'features'          => FeaturesController::class,
+        'feature-label'     => FeatureLabelController::class,
+        'facilities'        => FacilityController::class,
+        'country'           => CountryController::class,
+        'province'          => ProvinceController::class,
+        'city'              => CityController::class,
+        'subscribers'       => NewsSubscriberController::class,
+        'banners'           => BannerController::class,
+        'testimonial'       => TestimonialController::class,
+        'content-page'      => ContentPageController::class,
+        'navigation-menu'   => NavigationMenuController::class,
+        'company-settings'  => CompanySettingsController::class,
+        'app-settings'      => AppSettingsController::class,
+        'support-tickets'   => TicketController::class,
+        'property'          => TicketController::class,
+        'seller'            => TicketController::class
+    ]);
 
-    Route::resource('category', CategoryController::class);
-    Route::resource('features', FeaturesController::class);
-    Route::resource('feature-label', FeatureLabelController::class);
-    Route::resource('facilities', FacilityController::class);
-    Route::resource('country', CountryController::class);
-    Route::resource('province', ProvinceController::class);
     Route::get('provinces/{countryId}', 'CityController@getProvincesByCountry');
-    Route::resource('city', CityController::class);
-    Route::resource('subscribers', NewsSubscriberController::class);
-    Route::resource('banners', BannerController::class);
+    Route::get('contact-messages', 'EnquiryController@contact_index')->name('contact_index');
+    Route::get('contact-leads/{id}', 'EnquiryController@contact_show')->name('contact_show');
+    Route::delete('contact-leads/{id}', 'EnquiryController@contact_delete')->name('contact_delete');
+    Route::get('property-leads', 'EnquiryController@propery_leads_index')->name('propery_leads_index');
+    Route::get('contact-leads/{id}', 'EnquiryController@propery_lead_show')->name('propery_lead_show');
+    Route::delete('contact-leads/{id}', 'EnquiryController@propery_lead_delete')->name('propery_lead_delete');
 
-    Route::resource('testimonial', TestimonialController::class);
-    Route::resource('content-page', ContentPageController::class);
-    Route::resource('contact-messages', EnquiryController::class);
-    Route::resource('property-leads', EnquiryController::class);
-    Route::resource('navigation-menu', NavigationMenuController::class);
-
-    Route::get('sellers', 'VendorController@index')->name('sellers');
     Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
-    Route::get('company-settings', function () {return view('Admin.index');})->name('company-settings');
-    Route::get('app-settings', function () {return view('Admin.index');})->name('app-settings');
     Route::get('role-permissions', function () {return view('Admin.index');})->name('role-permissions');
-    Route::get('support-tickets', function () {return view('Admin.index');})->name('support-tickets');
 
 
 });
