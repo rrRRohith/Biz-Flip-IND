@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\AppSettings;
 use Illuminate\Http\Request;
+use App\Http\Resources\AppSettingsResource;
+use Inertia\Inertia;
 
 class AppSettingsController extends Controller
 {
@@ -13,40 +15,13 @@ class AppSettingsController extends Controller
     public function index()
     {
         //
+        $app_settings = AppSettings::first();
+       
+        return Inertia::render('Admin/AppSettings/Index',['app_settings' => new AppSettingsResource($app_settings),'success' => session('success'),'error' => session('error')]);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(AppSettings $appSettings)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AppSettings $appSettings)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      */
@@ -55,11 +30,4 @@ class AppSettingsController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AppSettings $appSettings)
-    {
-        //
-    }
 }

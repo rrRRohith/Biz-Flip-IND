@@ -1,6 +1,6 @@
 // Create.jsx
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import InputError from '@/Components/InputError';
@@ -12,7 +12,6 @@ import EmailEditor from 'react-email-editor';
 
 export default function Create({ auth }) {
 
-
     const { data, setData, post, errors, reset } = useForm({
         title: '',
         content: '',
@@ -23,7 +22,6 @@ export default function Create({ auth }) {
         image: '',
         design: ''
     });
-
 
     const [imagePreview, setImagePreview] = useState('');
 
@@ -42,43 +40,22 @@ export default function Create({ auth }) {
 
     const handleChange = (key, value) => {
         setData(key, value);
-        console.log(key, value)
     };
 
-
     const emailEditorRef = useRef(null);
-    const exportHtml = () => {
-        return new Promise((resolve, reject) => {
-            emailEditorRef.current.editor.exportHtml((data2) => {
-                const { design, html } = data2;
-                handleChange("design", design)
-                handleChange("content", html)
-             
-            });
-            resolve();
-        });
-    }
-
-
-    function postData(){
-           console.log(data);
-    }
-
+   
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
-        await exportHtml();
-        
-        await postData();
-
-
-        // await exportDesign();
-        // await setData(data); // Ensure that the latest data is set
-        // post(route('admin.content-page.store'));
-        // console.log(data); // Logs updated data after form submission
+        emailEditorRef.current.editor.exportHtml((data2) => {
+            const { design, html } = data2;
+            handleChange("design", design);
+            setData("content", html);
+            console.log(data);
+        });
+    
     };
-
+   
 
     return (
         <Authenticated

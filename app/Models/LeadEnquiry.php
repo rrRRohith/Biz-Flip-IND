@@ -9,4 +9,8 @@ class LeadEnquiry extends Model
 {
      use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    function property(){
+        return $this->belongsTo(Property::class);
+    }
 }

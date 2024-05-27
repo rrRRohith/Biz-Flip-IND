@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\CompanySettings;
 use Illuminate\Http\Request;
+use App\Http\Resources\CompanySettingsResource;
+use Inertia\Inertia;
 
 class CompanySettingsController extends Controller
 {
@@ -13,38 +15,11 @@ class CompanySettingsController extends Controller
     public function index()
     {
         //
-    }
+        $company_settings = CompanySettings::first();
+       
+        return Inertia::render('Admin/CompanySettings/Index',['company_settings' => new CompanySettingsResource($company_settings),'success' => session('success'),'error' => session('error')]);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(CompanySettings $companySettings)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(CompanySettings $companySettings)
-    {
-        //
+        
     }
 
     /**
@@ -53,13 +28,21 @@ class CompanySettingsController extends Controller
     public function update(Request $request, CompanySettings $companySettings)
     {
         //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(CompanySettings $companySettings)
-    {
-        //
+        $company_settings                           = CompanySettings::first();
+        $company_settings->facebook_link            = $request->facebook_link;
+        $company_settings->instagram_link           = $request->instagram_link;
+        $company_settings->linkedin_link            = $request->linkedin_link;
+        $company_settings->youtube_link             = $request->youtube_link;
+        $company_settings->twitter_link             = $request->twitter_link;
+        $company_settings->seo_title                = $request->seo_title;
+        $company_settings->seo_description          = $request->seo_description;
+        $company_settings->seo_keywords             = $request->seo_keywords;
+        $company_settings->email_config_api_url     = $request->email_config_api_url;
+        $company_settings->email_config_api_key     = $request->email_config_api_key;
+        $company_settings->email_config_api_method  = $request->email_config_api_method;
+        $company_settings->save();
+
+        return to_route('admin.company-settings.index')->with('success', "Settings was updated");
     }
 }
