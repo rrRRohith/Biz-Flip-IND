@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('company_settings', function (Blueprint $table) {
             $table->id();
-            $table->mediumText('facebook_link')->nullable();
-            $table->mediumText('instagram_link')->nullable();
-            $table->mediumText('linkedin_link')->nullable();
-            $table->mediumText('youtube_link')->nullable();
-            $table->mediumText('twitter_link')->nullable();
             $table->mediumText('seo_title')->nullable();
             $table->mediumText('seo_description')->nullable();
             $table->mediumText('seo_keywords')->nullable();

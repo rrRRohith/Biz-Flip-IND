@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();   
+            $table->string('code')->nullable();
             $table->mediumText('image')->nullable();
             $table->integer('position')->nullable();
             $table->integer('status')->comment('0=inactive,1=active');    
