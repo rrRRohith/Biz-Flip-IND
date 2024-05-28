@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => [],'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
     Route::get('/', function () {return Inertia::render('Seller/Dashboard');})->name('index');
     Route::get('/properties', function () {return Inertia::render('Seller/Properties');});
+    Route::get('/properties/create', function () {return Inertia::render('Seller/PropertyForm');});
     Route::get('/leads', function () {return Inertia::render('Seller/Leads');});
     Route::get('/profile', function () {return Inertia::render('Seller/Profile');});
     Route::get('/settings', function () {return Inertia::render('Seller/Settings');});

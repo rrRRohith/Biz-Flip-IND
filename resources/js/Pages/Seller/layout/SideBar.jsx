@@ -1,5 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import { useLocation } from 'react-router-dom';
+import ProfileDropdown from '../Components/ProfileDropdown';
 
 const urlMatches = (currentUrl, pattern) => {
     const regex = new RegExp(`^${pattern.replace(/\*/g, '.*')}$`);
@@ -27,52 +28,66 @@ const SideBar = () => {
                                 </div>
                             </a>
                             <div className="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-                                <a href="#" className="dropdown-item">Profile</a>
-                                <a href="#" className="dropdown-item">Settings</a>
-                                <hr className="dropdown-divider" />
-                                <a href="#" className="dropdown-item">Logout</a>
+                                <ProfileDropdown></ProfileDropdown>
                             </div>
                         </div>
                     </div>
                     <div className="collapse navbar-collapse" id="sidebarCollapse">
                         <div className="mt-auto" />
                         <div className="mb-5 text-center d-none d-lg-block">
-                        <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-big rounded-circle border-2 border-light rounded-circle" />
+                            <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-big rounded-circle border-2 border-light rounded-circle" />
                             <div className="text-center text-md font-bold">Tahlia Mooney</div>
                         </div>
                         <ul className="navbar-nav p-0 px-lg-3">
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller') ? 'bg-gray-100' : ''}`}>
                                 <Link className='nav-link text-md rounded-3' href="/seller">
-                                <i className="bi bi-speedometer"></i> Dashboard
+                                    <i className="bi bi-speedometer"></i> Dashboard
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/properties*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-3" href="/seller/properties">
-                                <i className="bi bi-house"></i> Properties
+                                    <i className="bi bi-house"></i> Properties
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/leads*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-3" href="/seller/leads">
-                                <i className="bi bi-house-check"></i> Leads
+                                    <i className="bi bi-house-check"></i> Leads
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-3" href="/seller/profile">
-                                <i className="bi bi-person"></i> Account
+                                    <i className="bi bi-person"></i> Account
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/settings*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-3" href="/seller/settings">
-                                <i className="bi bi-gear"></i> Settings
+                                    <i className="bi bi-gear"></i> Settings
                                 </Link>
                             </li>
                             <li className="nav-item rounded-3 mb-2">
                                 <Link className="nav-link text-md rounded-3" href="/logout">
-                                <i className="bi bi-power"></i> Logout
+                                    <i className="bi bi-power"></i> Logout
                                 </Link>
                             </li>
                         </ul>
                         <div className="mb-auto" />
+                        <div className="my-4 px-lg-6 position-relative d-none d-lg-block">
+                            <div className="dropup w-full">
+                                <button className="btn-light d-flex w-full py-3 ps-3 pe-4 align-items-center border-0 border-none shadow-none rounded-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span className="me-3">
+                                        <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar- rounded-circle" />
+                                    </span>
+                                    <span className="flex-fill text-start text-sm font-semibold">Tahlia Mooney </span>
+                                    <span>
+                                        <i className="bi bi-chevron-expand text-dark text-opacity-70" />
+                                    </span>
+                                </button>
+                                <div className="dropdown-menu dropdown-menu-end w-full mb-2 shadow-sm">
+                                <ProfileDropdown></ProfileDropdown>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </nav>
