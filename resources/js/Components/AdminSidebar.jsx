@@ -219,8 +219,8 @@ export default function AdminSidebar() {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href={route('admin.role-permissions')}>
-                                                    <i className="icon-Commit"></i>Role & Permissions
+                                                <Link href={route('admin.role-responsibilities.index')}>
+                                                    <i className="icon-Commit"></i>Role & Responsibilities
                                                 </Link>
                                             </li>
                                         </ul>

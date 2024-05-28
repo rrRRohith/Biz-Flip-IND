@@ -40,7 +40,9 @@ Route::group(['middleware' => ['auth', 'verified'],'prefix'=>'admin', 'as' => 'a
         'app-settings'      => AppSettingsController::class,
         'support-tickets'   => TicketController::class,
         'property'          => TicketController::class,
-        'sellers'            => VendorController::class
+        'sellers'           => VendorController::class,
+        'role-responsibilities'=> RoleController::class
+        
     ]);
 
 
@@ -57,7 +59,6 @@ Route::group(['middleware' => ['auth', 'verified'],'prefix'=>'admin', 'as' => 'a
     Route::delete('contact-leads/{id}', 'EnquiryController@propery_lead_delete')->name('propery_lead_delete');
 
     Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
-    Route::get('role-permissions', function () {return view('Admin.index');})->name('role-permissions');
 
 
 });
@@ -71,7 +72,6 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['middleware' => [],'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
     Route::get('/', function () {return Inertia::render('Seller/Dashboard');})->name('index');
-
     Route::get('/properties', function () {return Inertia::render('Seller/Properties');});
     Route::get('/leads', function () {return Inertia::render('Seller/Leads');});
     Route::get('/profile', function () {return Inertia::render('Seller/Profile');});
@@ -81,7 +81,7 @@ Route::group(['middleware' => [],'prefix'=>'seller', 'as' => 'seller.','namespac
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 
 Route::get('/search', function () {
