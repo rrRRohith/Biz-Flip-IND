@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use App\Http\Resources\VendorResource;
-use App\Http\Requests\VenderStoreRequest
+use App\Http\Requests\VenderStoreRequest;
 use Exception;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
