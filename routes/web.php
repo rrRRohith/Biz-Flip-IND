@@ -40,8 +40,13 @@ Route::group(['middleware' => ['auth', 'verified'],'prefix'=>'admin', 'as' => 'a
         'app-settings'      => AppSettingsController::class,
         'support-tickets'   => TicketController::class,
         'property'          => TicketController::class,
-        'seller'            => TicketController::class
+        'sellers'            => VendorController::class
     ]);
+
+
+
+
+    
 
     Route::get('provinces/{countryId}', 'CityController@getProvincesByCountry');
     Route::get('contact-messages', 'EnquiryController@contact_index')->name('contact_index');

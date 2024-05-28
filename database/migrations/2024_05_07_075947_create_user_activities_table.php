@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
-            $table->string('info')->nullable();
+            $table->string('activity')->nullable();
             $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('users')->onDelete("cascade");
             $table->string('ip_address')->nullable();

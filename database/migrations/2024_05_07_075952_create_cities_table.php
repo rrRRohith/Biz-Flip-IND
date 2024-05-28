@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('province_id')->unsigned()->nullable();
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete("cascade");
             $table->string('name')->nullable();
+            $table->string('code')->nullable();
             $table->mediumText('image')->nullable();
             $table->string('slug')->nullable();
             $table->integer('position')->nullable();

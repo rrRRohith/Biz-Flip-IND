@@ -4,6 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use App\Http\Resources\VendorResource;
+use App\Http\Requests\VenderStoreRequest
+use Exception;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class VendorController extends Controller
 {
@@ -12,7 +19,11 @@ class VendorController extends Controller
      */
     public function index()
     {
-        //
+        $vendorsList = Vendor::with('user')->get();
+      
+        return Inertia::render('Admin/Seller/Index',['vendorsList' => VendorResource::collection($vendorsList),'success' => session('success'),'error' => session('error')]);
+
+
     }
 
     /**
@@ -21,6 +32,7 @@ class VendorController extends Controller
     public function create()
     {
         //
+        return Inertia::render('Admin/Seller/Create');
     }
 
     /**

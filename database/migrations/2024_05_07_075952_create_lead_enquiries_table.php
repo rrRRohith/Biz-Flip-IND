@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('message')->nullable();
             $table->string('ipaddess')->nullable();
-            $table->bigInteger('property_id')->unsigned()->nullable();
-            $table->foreign('property_id')->references('id')->on('properties')->onUpdate("SET NULL");
+            $table->bigInteger('ad_id')->unsigned()->nullable();
+            $table->foreign('ad_id')->references('id')->on('ads')->onUpdate("SET NULL");
             $table->boolean('available_any_day')->default(0)->nullable();
             $table->date('available_day')->nullable();
             $table->string('available_any_time')->default(0)->nullable();

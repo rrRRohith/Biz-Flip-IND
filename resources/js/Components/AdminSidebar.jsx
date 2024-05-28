@@ -39,8 +39,31 @@ export default function AdminSidebar() {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href="{{ route('seller-approvel') }}">
-                                                    <i className="icon-Commit"></i> Approvel Pending
+                                                <Link href="">
+                                                    <i className="icon-Commit"></i> Pending Approvel 
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    )}
+                                </li>
+                                <li className={`treeview ${openDropdown === 'properties' ? 'active' : ''}`}>
+                                    <a href="#" onClick={() => handleToggle('properties')}>
+                                        <i className="bi bi-person-check" title="properties"></i>
+                                        <span>Properties</span>
+                                        <span className="pull-right-container">
+                                            <i className={`fa ${openDropdown === 'properties' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
+                                        </span>
+                                    </a>
+                                    {openDropdown === 'properties' && (
+                                        <ul className="treeview-menu">
+                                            <li>
+                                                <Link href="">
+                                                    <i className="icon-Commit"></i>Properties List
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="">
+                                                    <i className="icon-Commit"></i>Peding Approvel
                                                 </Link>
                                             </li>
                                         </ul>

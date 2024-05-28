@@ -24,7 +24,6 @@ class StoreProvinceRequest extends FormRequest
         return [
             "name" => ['required', 'max:255'],
             'image' => ['nullable', 'image'],
-            "province" => ['required'],
             'country' => ['required'],
             "position" => ['integer'],
             'status' => ['required', Rule::in(['0', '1'])]
