@@ -12,7 +12,7 @@ export default function Profile() {
                     <div className="container">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Your profile settings</div>
-                            <div className="card">
+                            <div className="card rounded-input">
                                 <div className="card-body">
                                     <div className="d-flex align-items-center">
                                         <div>

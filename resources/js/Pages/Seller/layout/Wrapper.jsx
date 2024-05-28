@@ -8,8 +8,8 @@ const Wrapper = ({ children }) => {
             <div className="">
                 <div className="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
                     <SideBar></SideBar>
-                    <div className="mt-0 mt-lg-5 py-0 pt-lg-5 h-screen flex-grow-1 overflow-y-lg-auto">
-                        <div className="mt-0 mt-lg-5 py-0 pt-lg-5">
+                    <div className="mt-0 mt-lg-5 py-0 pt-lg-5 flex-grow-1">
+                        <div className="mt-0 mt-lg-5 py-0 pt-lg-5 pb-lg-5">
                             {children}
                         </div>
                     </div>

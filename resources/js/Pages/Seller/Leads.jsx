@@ -5,7 +5,7 @@ import Wrapper from './layout/Wrapper';
 export default function Leads() {
     return (
         <>
-            <Head title="Profile" />
+            <Head title="Leads" />
             <Wrapper>
 
                 <main className="py-6 bg-surface-secondary">
