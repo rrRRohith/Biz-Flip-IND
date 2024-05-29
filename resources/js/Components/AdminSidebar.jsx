@@ -23,10 +23,16 @@ export default function AdminSidebar() {
                                         <span>Dashboard</span>
                                     </Link>
                                 </li>
+                                <li className="">
+                                    <Link href={route('admin.category.index')} title="Categories">
+                                        <i className="bi bi-bookmark-star"></i>
+                                        <span>Categories</span>
+                                    </Link>
+                                </li>
                                 <li className={`treeview ${openDropdown === 'seller' ? 'active' : ''}`}>
                                     <a href="#" onClick={() => handleToggle('seller')}>
                                         <i className="bi bi-person-check" title="Seller"></i>
-                                        <span>Seller</span>
+                                        <span>Sellers</span>
                                         <span className="pull-right-container">
                                             <i className={`fa ${openDropdown === 'seller' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
                                         </span>
@@ -35,7 +41,7 @@ export default function AdminSidebar() {
                                         <ul className="treeview-menu">
                                             <li>
                                                 <Link href={route('admin.sellers.index')}>
-                                                    <i className="icon-Commit"></i>Seller List
+                                                    <i className="icon-Commit"></i>Sellers List
                                                 </Link>
                                             </li>
                                             <li>
@@ -48,8 +54,8 @@ export default function AdminSidebar() {
                                 </li>
                                 <li className={`treeview ${openDropdown === 'properties' ? 'active' : ''}`}>
                                     <a href="#" onClick={() => handleToggle('properties')}>
-                                        <i className="bi bi-person-check" title="properties"></i>
-                                        <span>Properties</span>
+                                        <i className="bi bi-badge-ad" title="properties"></i>
+                                        <span>Ads</span>
                                         <span className="pull-right-container">
                                             <i className={`fa ${openDropdown === 'properties' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
                                         </span>
@@ -58,7 +64,7 @@ export default function AdminSidebar() {
                                         <ul className="treeview-menu">
                                             <li>
                                                 <Link href="">
-                                                    <i className="icon-Commit"></i>Properties List
+                                                    <i className="icon-Commit"></i>Ads Listing
                                                 </Link>
                                             </li>
                                             <li>
@@ -69,34 +75,24 @@ export default function AdminSidebar() {
                                         </ul>
                                     )}
                                 </li>
-                                <li className={`treeview ${openDropdown === 'collections' ? 'active' : ''}`}>
-                                    <a href="#" onClick={() => handleToggle('collections')}>
-                                        <i className="bi bi-files-alt" title="Collections"></i>
-                                        <span>Collections</span>
+                                <li className={`treeview ${openDropdown === 'leads' ? 'active' : ''}`}>
+                                    <a href="#" onClick={() => handleToggle('leads')}>
+                                        <i className="bi bi-at" title="Leads"></i>
+                                        <span>Leads</span>
                                         <span className="pull-right-container">
-                                            <i className={`fa ${openDropdown === 'collections' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
+                                            <i className={`fa ${openDropdown === 'leads' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
                                         </span>
                                     </a>
-                                    {openDropdown === 'collections' && (
+                                    {openDropdown === 'leads' && (
                                         <ul className="treeview-menu">
                                             <li>
-                                                <Link href={route('admin.category.index')}>
-                                                    <i className="icon-Commit"></i>Category
+                                                <Link href={route('admin.contact_index')}>
+                                                    <i className="icon-Commit"></i>Contact Message
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href={route('admin.features.index')}>
-                                                    <i className="icon-Commit"></i>Features
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href={route('admin.facilities.index')}>
-                                                    <i className="icon-Commit"></i>Facilities
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href={route('admin.feature-label.index')}>
-                                                    <i className="icon-Commit"></i>Feature Label
+                                                <Link href={route('admin.propery_leads_index')}>
+                                                    <i className="icon-Commit"></i>Property Leads
                                                 </Link>
                                             </li>
                                         </ul>
@@ -130,21 +126,29 @@ export default function AdminSidebar() {
                                         </ul>
                                     )}
                                 </li>
+                               
+                                <li className="treeview">
+                                    <Link href={route('admin.support-tickets.index')}>
+                                        <i className="bi bi-ticket-perforated" title="Support Tickets"></i>
+                                        <span>Support Tickets</span>
+                                    </Link>
+                                </li>
                                 <li>
                                     <Link href={route('admin.subscribers.index')}>
                                         <i className="bi bi-person-vcard" title="Subscribers"></i>
                                         <span>Subscribers</span>
                                     </Link>
                                 </li>
-                                <li className={`treeview ${openDropdown === 'website' ? 'active' : ''}`}>
-                                    <a href="#" onClick={() => handleToggle('website')}>
-                                        <i className="bi bi-globe-americas" title="Website Manage"></i>
-                                        <span>Website</span>
+                              
+                                <li className={`treeview ${openDropdown === 'collections' ? 'active' : ''}`}>
+                                    <a href="#" onClick={() => handleToggle('collections')}>
+                                        <i className="bi bi-files-alt" title="Collections"></i>
+                                        <span>Collections</span>
                                         <span className="pull-right-container">
-                                            <i className={`fa ${openDropdown === 'website' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
+                                            <i className={`fa ${openDropdown === 'collections' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
                                         </span>
                                     </a>
-                                    {openDropdown === 'website' && (
+                                    {openDropdown === 'collections' && (
                                         <ul className="treeview-menu">
                                             <li>
                                                 <Link href={route('admin.banners.index')}>
@@ -163,41 +167,28 @@ export default function AdminSidebar() {
                                             </li>
                                             <li>
                                                 <Link href={route('admin.content-page.index')}>
-                                                    <i className="icon-Commit"></i>Content Page
+                                                    <i className="icon-Commit"></i>Content Pages
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href={route('admin.features.index')}>
+                                                    <i className="icon-Commit"></i>Features
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href={route('admin.facilities.index')}>
+                                                    <i className="icon-Commit"></i>Facilities
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href={route('admin.feature-label.index')}>
+                                                    <i className="icon-Commit"></i>Feature Label
                                                 </Link>
                                             </li>
                                         </ul>
                                     )}
                                 </li>
-                                <li className={`treeview ${openDropdown === 'leads' ? 'active' : ''}`}>
-                                    <a href="#" onClick={() => handleToggle('leads')}>
-                                        <i className="bi bi-at" title="Leads"></i>
-                                        <span>Leads</span>
-                                        <span className="pull-right-container">
-                                            <i className={`fa ${openDropdown === 'leads' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
-                                        </span>
-                                    </a>
-                                    {openDropdown === 'leads' && (
-                                        <ul className="treeview-menu">
-                                            <li>
-                                                <Link href={route('admin.contact_index')}>
-                                                    <i className="icon-Commit"></i>Contact Message
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href={route('admin.propery_leads_index')}>
-                                                    <i className="icon-Commit"></i>Property Leads
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    )}
-                                </li>
-                                <li className="treeview">
-                                    <Link href={route('admin.support-tickets.index')}>
-                                        <i className="bi bi-ticket-perforated" title="Support Tickets"></i>
-                                        <span>Support Tickets</span>
-                                    </Link>
-                                </li>
+                                
                                 <li className={`treeview ${openDropdown === 'settings' ? 'active' : ''}`}>
                                     <a href="#" onClick={() => handleToggle('settings')}>
                                         <i className="bi bi-gear" title="Settings"></i>
@@ -219,8 +210,8 @@ export default function AdminSidebar() {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href={route('admin.role-permissions')}>
-                                                    <i className="icon-Commit"></i>Role & Permissions
+                                                <Link href={route('admin.role-responsibilities.index')}>
+                                                    <i className="icon-Commit"></i>Role & Responsibilities
                                                 </Link>
                                             </li>
                                         </ul>

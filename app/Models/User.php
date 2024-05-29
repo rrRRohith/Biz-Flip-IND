@@ -52,12 +52,12 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->acc_type === 'admin';
+        return $this->type === 'admin';
     }
 
     public function isSeller()
     {
-        return $this->acc_type === 'seller';
+        return $this->type === 'seller';
     }
 
     public function getPictureAttribute($picture){

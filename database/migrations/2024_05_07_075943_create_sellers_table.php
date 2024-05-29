@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('company_name')->nullable();
             $table->text('address')->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->string('phone')->unique()->nullable();
+            $table->string('email','191')->unique()->nullable();
+            $table->string('phone','191')->unique()->nullable();
             $table->string('alt_email')->nullable()->comment('use comma for multiple allowed');
             $table->string('alt_phone')->nullable()->comment('use comma for multiple allowed');
             $table->string('map_code')->nullable();

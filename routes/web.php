@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SetupController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +26,9 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'app-settings'      => AppSettingsController::class,
         'support-tickets'   => TicketController::class,
         'property'          => TicketController::class,
-        'sellers'            => VendorController::class
+        'sellers'           => VendorController::class,
+        'role-responsibilities'=> RoleController::class
+        
     ]);
 
     Route::get('provinces/{countryId}', 'CityController@getProvincesByCountry');
@@ -39,11 +41,31 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
 
     Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
     Route::get('role-permissions', function () {return view('Admin.index');})->name('role-permissions');
+
+
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+Route::group(['middleware' => [],'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
+    Route::get('/', function () {return Inertia::render('Seller/Dashboard');})->name('index');
+
+    Route::get('/properties', function () {return Inertia::render('Seller/Properties');});
+    Route::get('/properties/create', function () {return Inertia::render('Seller/PropertyForm');});
+    Route::get('/leads', function () {return Inertia::render('Seller/Leads');});
+    Route::get('/profile', function () {return Inertia::render('Seller/Profile');});
+    Route::get('/settings', function () {return Inertia::render('Seller/Settings');});
+});
+
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 
 Route::get('/search', function () {
@@ -78,16 +100,6 @@ Route::get('/auth/agent', function () {
 
 Route::get('/login', function () {
     return view('auth.login');
-});
-
-require __DIR__.'/auth.php';
-
-require __DIR__.'/seller.php';
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::get('/{slug}', function () {

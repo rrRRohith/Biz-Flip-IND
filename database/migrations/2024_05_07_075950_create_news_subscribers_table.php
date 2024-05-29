@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('news_subscribers', function (Blueprint $table) {
             $table->id();
-            $table->string('email_id')->unique();
+            $table->string('email_id','191')->unique();
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->mediumText('categories')->comment('use comma multiple type allowed')->nullable();

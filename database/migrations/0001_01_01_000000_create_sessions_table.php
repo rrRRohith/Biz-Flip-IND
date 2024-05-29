@@ -14,7 +14,7 @@ return new class extends Migration
         public function up()
         {
             Schema::create('sessions', function (Blueprint $table) {
-                $table->string('id', 255)->primary();
+                $table->string('id',191)->primary();
                 $table->unsignedBigInteger('user_id')->nullable();
                 $table->string('ip_address', 45)->nullable();
                 $table->text('user_agent')->nullable();

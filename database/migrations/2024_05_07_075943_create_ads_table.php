@@ -36,7 +36,7 @@ return new class extends Migration
             $table->mediumText('seo_keywords')->nullable();
             $table->string('property_type')->nullable();
             $table->string('space')->comment('property length')->nullable();
-            $table->mediumText('unique_code')->unique();
+            $table->string('unique_code','191')->unique();
             $table->mediumText('tags')->comment('use comma multiple allowed')->nullable();
             $table->timestamp('publish_at')->nullable();
             $table->integer('position')->nullable();
