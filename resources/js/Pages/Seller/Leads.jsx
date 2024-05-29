@@ -2,13 +2,13 @@ import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/react';
 import Wrapper from './layout/Wrapper';
 
-export default function Leads() {
+export default function Leads({ auth }) {
     return (
         <>
             <Head title="Leads" />
-            <Wrapper>
+            <Wrapper user={auth.user}>
 
-                <main className="py-6 bg-surface-secondary">
+                <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-lg vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Leads</div>

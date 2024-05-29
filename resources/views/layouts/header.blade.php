@@ -23,7 +23,7 @@
                 @auth
                     @if(auth()->user()->type == 'admin')
                     <li class="nav-item">
-                        <a class="nav-link p-2 fw-semibold" href="/dashboard">Dashboard</a>
+                        <a class="nav-link p-2 fw-semibold" href="/admin">Dashboard</a>
                     </li>
                     @elseif(auth()->user()->type == 'seller')
                     <li class="nav-item">

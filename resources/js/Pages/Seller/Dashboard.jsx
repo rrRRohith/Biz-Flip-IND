@@ -6,8 +6,8 @@ export default function Dashboard({ auth }) {
     return (
         <>
             <Head title="Dashboard" />
-            <Wrapper>
-                <main className="py-6 bg-surface-secondary">
+            <Wrapper user={auth.user}>
+                <main className="py-6">
                     <div className="container">
                         <div className="row g-6">
                             <div className="col-xl-3 col-sm-6 col-12">

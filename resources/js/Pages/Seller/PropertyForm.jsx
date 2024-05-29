@@ -2,9 +2,9 @@ import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/react';
 import Wrapper from './layout/Wrapper';
 import { Link } from '@inertiajs/react';
-import SelectBox from './Components/SelectBox';
 import AdditionalInfo from './Components/AdditionalInfo';
 import React, { useState } from 'react';
+import Select from 'react-select';
 
 const features_options = [
     {
@@ -73,7 +73,7 @@ const province_options = [
     },
 ];
 
-export default function PropertyForm() {
+export default function PropertyForm({ auth }) {
     const [additionalInfo, setAdditionalInfo] = useState([]);
 
     const addInfo = () => {
@@ -100,9 +100,9 @@ export default function PropertyForm() {
     return (
         <>
             <Head title="Create property" />
-            <Wrapper>
+            <Wrapper user={auth.user}>
 
-                <main className="py-6 bg-surface-secondary">
+                <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="d-flex align-items-center">
@@ -129,19 +129,19 @@ export default function PropertyForm() {
                                         </div>
                                         <div className="col-md-6">
                                             <label>Property type</label>
-                                            <SelectBox name="type" options={type_options}></SelectBox>
+                                            <Select options={type_options}></Select>
                                         </div>
                                         <div className="col-md-6">
                                             <label>Property category</label>
-                                            <SelectBox name="category" options={categories_options}></SelectBox>
+                                            <Select options={categories_options}></Select>
                                         </div>
                                         <div className="col-md-6">
                                             <label>Facilities</label>
-                                            <SelectBox name="facilities" multiple="true" options={facilities_options}></SelectBox>
+                                            <Select isMulti options={facilities_options}></Select>
                                         </div>
                                         <div className="col-md-6">
                                             <label>Features</label>
-                                            <SelectBox name="features" multiple="true" options={features_options}></SelectBox>
+                                            <Select isMulti options={features_options}></Select>
                                         </div>
                                     </div>
                                     <div className="mb-5">
@@ -159,7 +159,7 @@ export default function PropertyForm() {
                                         </div>
                                         <div className="col-md-6">
                                             <div><label>Province</label> 
-                                            <SelectBox name="province" options={province_options}></SelectBox>
+                                            <Select options={province_options}></Select>
                                             </div>
                                         </div>
                                         <div className="col-md-12">

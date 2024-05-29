@@ -1,10 +1,10 @@
 import { Link } from "@inertiajs/react";
-export default function ProfileDropdown() {
+export default function ProfileDropdown({user}) {
     return (
         <div>
             <div className="dropdown-header">
                 <span className="d-block text-sm text-muted mb-1">Signed in as</span>
-                <span className="d-block text-heading font-semibold">Tahlia Mooney</span>
+                <span className="d-block text-heading font-semibold">{user.firstname} {user.lastname}</span>
             </div>
             <div className="dropdown-divider"></div>
             <Link className="dropdown-item" href="/seller/profile">

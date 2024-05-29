@@ -7,7 +7,7 @@ const urlMatches = (currentUrl, pattern) => {
     return regex.test(currentUrl);
 };
 
-const SideBar = () => {
+const SideBar = ({user}) => {
     const path = window.location.pathname;
     return (
         <>
@@ -23,20 +23,20 @@ const SideBar = () => {
                         <div className="dropdown">
                             <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div className="avatar-parent-child">
-                                    <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar- rounded-circle" />
+                                    <img alt="Image Placeholder" src={user.picture_url} className="avatar avatar- rounded-circle" />
                                     <span className="avatar-child avatar-badge bg-success" />
                                 </div>
                             </a>
                             <div className="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-                                <ProfileDropdown></ProfileDropdown>
+                                <ProfileDropdown user={user}></ProfileDropdown>
                             </div>
                         </div>
                     </div>
                     <div className="collapse navbar-collapse" id="sidebarCollapse">
                         <div className="mt-auto" />
                         <div className="mb-5 text-center d-none d-lg-block">
-                            <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar-big rounded-circle border-2 border-light rounded-circle" />
-                            <div className="text-center text-md font-bold">Tahlia Mooney</div>
+                            <img alt="Image Placeholder" src={user.picture_url} className="avatar avatar-big rounded-circle border-2 border-light rounded-circle" />
+                            <div className="text-center text-md font-bold">{user.firstname} {user.lastname}</div>
                         </div>
                         <ul className="navbar-nav p-0 px-lg-3">
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller') ? 'bg-gray-100' : ''}`}>
@@ -75,15 +75,15 @@ const SideBar = () => {
                             <div className="dropup w-full">
                                 <button className="btn-light d-flex w-full py-3 ps-3 pe-4 align-items-center border-0 border-none shadow-none rounded-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <span className="me-3">
-                                        <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar- rounded-circle" />
+                                        <img alt="Image Placeholder" src={user.picture_url} className="avatar avatar- rounded-circle" />
                                     </span>
-                                    <span className="flex-fill text-start text-sm font-semibold">Tahlia Mooney </span>
+                                    <span className="flex-fill text-start text-sm font-semibold">{user.firstname} {user.lastname}</span>
                                     <span>
                                         <i className="bi bi-chevron-expand text-dark text-opacity-70" />
                                     </span>
                                 </button>
                                 <div className="dropdown-menu dropdown-menu-end w-full mb-2 shadow-sm">
-                                <ProfileDropdown></ProfileDropdown>
+                                <ProfileDropdown user={user}></ProfileDropdown>
                                 </div>
                             </div>
                         </div>

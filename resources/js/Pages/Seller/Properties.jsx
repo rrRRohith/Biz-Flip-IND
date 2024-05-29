@@ -3,13 +3,13 @@ import { Head } from '@inertiajs/react';
 import Wrapper from './layout/Wrapper';
 import {Link} from '@inertiajs/react';
 
-export default function Properties() {
+export default function Properties({ auth }) {
     return (
         <>
             <Head title="Properties" />
-            <Wrapper>
+            <Wrapper user={auth.user}>
 
-                <main className="py-6 bg-surface-secondary">
+                <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-lg vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Leads</div>

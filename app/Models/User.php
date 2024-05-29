@@ -13,15 +13,20 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
        protected $dates = ['deleted_at'];
+
+    protected $appends = ['picture_url'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
+        'phone',
         'email',
         'password',
+        'picture',
     ];
 
     /**
@@ -53,5 +58,17 @@ class User extends Authenticatable
     public function isSeller()
     {
         return $this->acc_type === 'seller';
+    }
+
+    public function getPictureAttribute($picture){
+        return $picture ? : 'default.png';
+    }
+
+    public function getPictureUrlAttribute($picture){
+        return asset('images/'.$this->picture);
+    }
+
+    public function seller(){
+        return $this->hasOne(Seller::class);
     }
 }
