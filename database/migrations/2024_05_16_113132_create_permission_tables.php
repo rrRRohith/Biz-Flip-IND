@@ -29,8 +29,8 @@ return new class extends Migration
             $table->string('name', 125);       // For MySQL 8.0 use string('name', 125);
             $table->string('guard_name', 125); // For MySQL 8.0 use string('guard_name', 125);
             $table->string('section', 125)->nullable();
+            $table->string('type', 125)->default('common')->nullable();
             $table->timestamps();
-
             $table->unique(['name', 'guard_name']);
         });
 
@@ -42,6 +42,7 @@ return new class extends Migration
             }
             $table->string('name', 125);       // For MySQL 8.0 use string('name', 125);
             $table->string('guard_name', 125); // For MySQL 8.0 use string('guard_name', 125);
+            $table->integer('user_id')->nullable();
             $table->timestamps();
             if ($teams || config('permission.testing')) {
                 $table->unique([$columnNames['team_foreign_key'], 'name', 'guard_name']);

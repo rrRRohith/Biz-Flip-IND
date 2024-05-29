@@ -11,8 +11,9 @@ use App\Http\Resources\RoleResource;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Http\Requests\Banner\StoreBannerRequest;
+use App\Http\Requests\Role\StoreRoleRequest;
 use App\Http\Requests\Banner\UpdateBannerRequest;
+use Illuminate\Support\Facades\Artisan;
 
 class RoleController extends Controller
 {
@@ -22,8 +23,7 @@ class RoleController extends Controller
     public function index()
     {
         //
-        $roleList = Role::query()->paginate(10);
-       
+        $roleList = Role::with('permissions')->get();
         return Inertia::render('Admin/Role/Index',['roleList' => RoleResource::collection($roleList),'success' => session('success'),'error' => session('error')]);
 
     }
@@ -42,14 +42,16 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBannerRequest $request)
+    public function store(StoreRoleRequest $request)
     {
         //
-        $new                = new Role();
-        $new->name          = $request->name;	
-        $new->guard_name    = 'web';
+        $role                = new Role();
+        $role->name          = $request->name;	
+        $role->guard_name    = 'web';
         try{
-            $new->save();			
+            $role->save();
+            $role->syncPermissions($request->input('permissions'));
+            Artisan::call('permission:cache-reset');
             return to_route('admin.role-responsibilities.index')->with('success', 'Role Responsibilities was Created.');
         }
         catch(Exception $e){
@@ -73,8 +75,11 @@ class RoleController extends Controller
     public function edit($id)
     {
         //
-        $role = Role::where('id',$id)->first();
-        return Inertia::render('Admin/Role/Edit',['role' => new RoleResource($role),'success' => session('success'),'error' => session('error')]);
+        $role = Role::with('permissions')->where('id',$id)->first();
+        
+        $permissions = Permission::get();
+        $permissions = $permissions->groupBy('section');
+        return Inertia::render('Admin/Role/Edit',['role' => new RoleResource($role),'success' => session('success'),'error' => session('error'),'permissionsList' =>$permissions]);
 
     }
 
@@ -85,13 +90,17 @@ class RoleController extends Controller
     {   
         //
 
+    
+
         $role = Role::where('id',$id)->first();
         $role->name          = $request->name;	
         $role->guard_name    = 'web';
 
         try{
-            $role->save();			
-            return to_route('admin.role.index')->with('success', 'Role Responsibilities was updated.');
+            $role->save();	
+            $role->syncPermissions($request->input('permissions'));	 
+            Artisan::call('permission:cache-reset');	
+            return to_route('admin.role-responsibilities.index')->with('success', 'Role Responsibilities was updated.');
         }
         catch(Exception $e){
             return $e->getMessage();

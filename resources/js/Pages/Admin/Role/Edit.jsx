@@ -1,5 +1,5 @@
 
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import InputError from '@/Components/InputError';
@@ -7,72 +7,57 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import Form from 'react-bootstrap/Form';
 
-export default function Edit({ country_item ,queryParams = null, auth}) {
-   
+
+export default function Edit({ role, permissionsList, queryParams = null, auth }) {
+
+    const initialPermissions = role.permissions ? Object.keys(role.permissions).map(id => parseInt(id)) : [];
+
     const { data, setData, post, errors, reset } = useForm({
-        image: '',
-        name: country_item.name || '',
-        status: country_item.status = 'published' ? 1 : 0 || 1,
-        position: country_item.position || '', _method: "PUT",
-        remove_image: false,
+        permissions: initialPermissions || [],
+        name: role.name || '',
+        _method: "PUT",
     });
-   
-    const [imagePreview, setImagePreview] = useState('');
 
-    useEffect(() => {
-        // Set the initial image preview if an image exists
-        if (country_item.image) {
-            setImagePreview(country_item.image);
-        }
-    }, [country_item.image]);
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setData('image', file);
-            setImagePreview(URL.createObjectURL(file));
-        }
-        // setData('remove_image', false);
+        post(route("admin.role-responsibilities.update", role.id));
     };
 
-    const handleRemoveImage = () => {
-        setData('image', '');
-        setImagePreview('');
-      
-        setData('remove_image', true);
-    };
-
-
-        const handleSubmit = (e) => {
-            e.preventDefault();
-      
-            post(route("admin.country.update", country_item.id));
-          };
-
-         
     const handleChange = (key, value) => {
         setData(key, value);
+    };
+
+    const handleCheckboxChange = (permissionId) => {
+        let updatedPermissions;
+        if (data.permissions.includes(permissionId)) {
+            updatedPermissions = data.permissions.filter(id => id !== permissionId);
+        } else {
+            updatedPermissions = [...data.permissions, permissionId];
+        }
+        setData('permissions', updatedPermissions);
     };
 
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Country/Edit</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Role & Responsibilities/Edit</h2>}
         >
-            <Head title="Country Edit" />
+            <Head title="Role & Responsibilities Edit" />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Edit Country</h4>
+                                    <h4 className="page-title"> Edit Role & Responsibilities</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
-                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.country.index')}>Country</Link></li>
+                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.role-responsibilities.index')}>Role & Responsibilities</Link></li>
                                                 <li className="breadcrumb-item active" aria-current="page">Edit</li>
                                             </ol>
                                         </nav>
@@ -91,7 +76,7 @@ export default function Edit({ country_item ,queryParams = null, auth}) {
                                         <form onSubmit={handleSubmit}>
                                             <div className="form-body">
                                                 <div className="row">
-                                                    <div className="col-lg-9">
+                                                    <div className="col-lg-12">
                                                         <div className="row">
                                                             <div className="col-md-12 mb-3">
                                                                 <div className="form-group">
@@ -108,82 +93,30 @@ export default function Edit({ country_item ,queryParams = null, auth}) {
                                                                     <InputError message={errors.name} className="mt-2 col-12" />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-md-12 mb-3">
-                                                                <div className="form-group">
-                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
-                                                                    <SelectOption
-                                                                        onChange={(value) => handleChange("position", value)}
-                                                                        value={data.position}
-                                                                        defaultValue={data.position}
-                                                                    />
-                                                                    <InputError message={errors.position} className="mt-2 col-12" />
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="row">
-                                                            <div className="col-md-6">
-                                                                <div className="form-group">
-                                                                    <label className="fw-700 fs-16 form-label">Status</label>
-                                                                    <div className="radio-list">
-                                                                        <RadioButtonLabel
-                                                                            name="status"
-                                                                            onChange={(value) => handleChange("status", value)}
-                                                                            value="1"
-                                                                            checked={data.status === 1}
-                                                                            label="Published"
-                                                                        />
-                                                                        <RadioButtonLabel
-                                                                            name="status"
-                                                                            onChange={(value) => handleChange("status", value)}
-                                                                            value="0"
-                                                                            checked={data.status === 0}
-                                                                            label="Draft"
-                                                                        />
-                                                                      <InputError message={errors.status} className="mt-2 col-12" />
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-lg-3">
-                                                        <div className="row">
-                                                            <div className="col-md-12">
-                                                                <div className="border rounded-4 p-3  text-center">
-                                                                    <h4 className="box-title text-center">Image</h4>
-                                                                    <div className="product-img">
-                                                                        {imagePreview ? (
-                                                                            <div className="mb-15 text-center position-relative">
-                                                                                <img src={imagePreview} alt="Selected" className="w-100 rounded-5" />
-                                                                                <i className="bi bi-x-lg fw-bold position-absolute text-danger top-0" role="button" onClick={handleRemoveImage}></i>
-                                                                                
-                                                                            </div>
-                                                                        ) : (
-                                                                            <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
-                                                                        )}
-                                                                        <div className="btn mb-20">
-                                                                        <button
-                                                                                type="button"
-                                                                                className="btn btn-primary"
-                                                                                onClick={() => document.getElementById('project_image_path').click()}
-                                                                            >
-                                                                                Choose Image
-                                                                            </button>
-                                                                            <TextInput
-                                                                                id="project_image_path"
-                                                                                type="file"
-                                                                                name="image"
-                                                                                className="d-none mt-1 block w-full upload"
-                                                                                onChange={handleImageChange}
+                                                    <div className="col-lg-12">
+                                                        <h5>Permissions</h5>
+                                                        <InputError message={errors.permissions} className="mt-2 col-12" />
+                                                        {Object.keys(permissionsList).map((sectionKey) => (
+                                                            <div key={sectionKey}>
+                                                                <h6>{sectionKey}</h6>
+                                                                <div className="row my-3">
+                                                                    {permissionsList[sectionKey].map((permission) => (
+                                                                        <div className="col-lg-2 col-6" key={permission.id}>
+                                                                            <Form.Check
+                                                                                type="checkbox"
+                                                                                id={`default-checkbox-${permission.id}`}
+                                                                                label={permission.name}
+                                                                                name="permissions[]"
+                                                                                checked={data.permissions.includes(permission.id)}
+                                                                                onChange={() => handleCheckboxChange(permission.id)}
                                                                             />
-                                                                            
                                                                         </div>
-                                                                    </div>
-                                                                    
+                                                                    ))}
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        ))}
                                                     </div>
                                                 </div>
                                             </div>

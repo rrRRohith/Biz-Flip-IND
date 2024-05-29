@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SetupController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -63,13 +63,6 @@ Route::group(['middleware' => ['auth', 'verified'],'prefix'=>'admin', 'as' => 'a
 
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-
 Route::group(['middleware' => [],'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
     Route::get('/', function () {return Inertia::render('Seller/Dashboard');})->name('index');
     Route::get('/properties', function () {return Inertia::render('Seller/Properties');});
@@ -118,6 +111,19 @@ Route::get('/auth/agent', function () {
 Route::get('/login', function () {
     return view('auth.login');
 });
+
+
+Route::get('import-permissions', function () {
+    return '<form action="' . route('uploadPermissions') . '" method="POST" enctype="multipart/form-data">
+                ' . csrf_field() . '
+                <input type="file" name="excel_file">
+                <button type="submit">Upload Excel</button>
+            </form>';
+});
+
+Route::post('uploadExcel', [SetupController::class, 'upload'])->name('uploadPermissions');
+
+
 
 Route::get('/{slug}', function () {
     return view('page');

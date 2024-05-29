@@ -10,6 +10,7 @@
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "maatwebsite/excel": "^3.1",
         "spatie/laravel-permission": "^6.7",
         "tightenco/ziggy": "^2.0"
     },
@@ -35,8 +36,7 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "app/Helper/BaseHelper.php",
-            "app/Helper/Admin.php"
+            "app/Helper/BaseHelper.php"
         ]
         
     },

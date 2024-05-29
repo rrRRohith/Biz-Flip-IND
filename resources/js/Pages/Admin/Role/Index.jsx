@@ -56,6 +56,7 @@ export default function Index({ roleList, auth, success = null, error = null }) 
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Name</th>
+                                                        <th>No of Permissions</th>
                                                         <th>Last Modified</th>
                                                         <th></th>
                                                     </tr>
@@ -67,9 +68,10 @@ export default function Index({ roleList, auth, success = null, error = null }) 
                                                     <tr key={role.id} className="hover-primary">
                                                         <td>{role.id}</td>
                                                         <td>{role.name}</td>
-                                                        <td>{role.updated_at}</td>
+                                                     
+                                                        <td>{Object.keys(role.permissions).length}</td>
                                                         <td>
-                                                            <Link className='btn btn-transparent' href={route('admin.role.edit', role.id)}>
+                                                            <Link className='btn btn-transparent' href={route('admin.role-responsibilities.edit', role.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
                                                             <button onClick={(e) => deleteRole(role)} className="btn btn-transparent border-0">

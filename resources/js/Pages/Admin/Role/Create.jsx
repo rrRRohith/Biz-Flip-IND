@@ -8,24 +8,31 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import Form from 'react-bootstrap/Form';
 
-export default function Create({ permissionsList,auth }) {
+export default function Create({ permissionsList, auth }) {
     const { data, setData, post, errors, reset } = useForm({
-        image: '',
         name: '',
-        status: '1', // Default status to '1' (Published)
-        position: '',
+        permissions: [],
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log('Data to be submitted:', data);
-        post(route('admin.role-responsibilities.store'))
+        post(route('admin.role-responsibilities.store'));
     };
-    
 
     const handleChange = (key, value) => {
         setData(key, value);
+    };
+
+    const handleCheckboxChange = (permissionId) => {
+        let updatedPermissions;
+        if (data.permissions.includes(permissionId)) {
+            updatedPermissions = data.permissions.filter(id => id !== permissionId);
+        } else {
+            updatedPermissions = [...data.permissions, permissionId];
+        }
+        setData('permissions', updatedPermissions);
     };
 
     return (
@@ -40,12 +47,16 @@ export default function Create({ permissionsList,auth }) {
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Create Role & Responsibilities</h4>
+                                    <h4 className="page-title">Create Role & Responsibilities</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
-                                                <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
-                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.role-responsibilities.index')}>Role & Responsibilities</Link></li>
+                                                <li className="breadcrumb-item">
+                                                    <Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link>
+                                                </li>
+                                                <li className="breadcrumb-item" aria-current="page">
+                                                    <Link href={route('admin.role-responsibilities.index')}>Role & Responsibilities</Link>
+                                                </li>
                                                 <li className="breadcrumb-item active" aria-current="page">Create</li>
                                             </ol>
                                         </nav>
@@ -84,19 +95,27 @@ export default function Create({ permissionsList,auth }) {
                                                         </div>
                                                     </div>
                                                     <div className="col-lg-12">
-                                                        {/* {permissionsList.data.map((sections) => (
-                                                            <div key={sections.id}>
-                                                            {sections.data.map((permission) => (
-                                                                <Form.Check
-                                                                type="checkbox"
-                                                                id={`default-checkbox-${permission.id}`}
-                                                                label={permission.name}
-                                                                name="permissions[]"
-                                                                key={permission.id}
-                                                                />
-                                                            ))}
+                                                        <h5>Permissions</h5>
+                                                        <InputError message={errors.permissions} className="mt-2 col-12" />
+                                                        {Object.keys(permissionsList).map((sectionKey) => (
+                                                            <div key={sectionKey}>
+                                                                <h6>{sectionKey}</h6>
+                                                                <div className="row my-3">
+                                                                    {permissionsList[sectionKey].map((permission) => (
+                                                                        <div className="col-lg-2 col-6" key={permission.id}>
+                                                                            <Form.Check
+                                                                                type="checkbox"
+                                                                                id={`default-checkbox-${permission.id}`}
+                                                                                label={permission.name}
+                                                                                name="permissions[]"
+                                                                                checked={data.permissions.includes(permission.id)}
+                                                                                onChange={() => handleCheckboxChange(permission.id)}
+                                                                            />
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
                                                             </div>
-                                                        ))} */}
+                                                        ))}
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,4 +132,5 @@ export default function Create({ permissionsList,auth }) {
             </div>
         </Authenticated>
     );
+
 }

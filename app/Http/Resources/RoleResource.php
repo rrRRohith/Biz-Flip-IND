@@ -21,6 +21,7 @@ class RoleResource extends JsonResource
             'id'            => $this->id,
             'name'          => $this->name,
             'guard_name'    => $this->guard_name,
+            'permissions'   => $this->permissions->pluck('name','id'),
             'created_at'    => (new Carbon($this->created_at))->format('Y-m-d'),
             'updated_at'    => (new Carbon($this->updated_at))->format('Y-m-d'),
           
