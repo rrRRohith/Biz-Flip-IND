@@ -27,12 +27,14 @@
         "@mui/material": "^5.15.18",
         "apexcharts": "^3.49.1",
         "bootstrap": "^5.3.3",
+        "nprogress": "^0.2.0",
         "react-apexcharts": "^1.4.1",
         "react-bootstrap": "^2.10.2",
         "react-email-editor": "^1.7.10",
         "react-router-dom": "^6.23.1",
         "react-select": "^5.8.0",
         "react-slick": "^0.30.2",
+        "react-spinners": "^0.13.8",
         "react-toastify": "^10.0.5",
         "slick-carousel": "^1.8.1"
     }

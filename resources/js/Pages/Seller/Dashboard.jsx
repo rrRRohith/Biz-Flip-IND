@@ -9,7 +9,7 @@ export default function Dashboard({ auth }) {
             <Wrapper>
                 <main className="py-6 bg-surface-secondary">
                     <div className="container">
-                        <div class="row g-6">
+                        <div className="row g-6">
                             <div className="col-xl-3 col-sm-6 col-12">
                                 <div className="card rounded-input">
                                     <div className="card-body">
@@ -99,7 +99,6 @@ export default function Dashboard({ auth }) {
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                 </main>
             </Wrapper>

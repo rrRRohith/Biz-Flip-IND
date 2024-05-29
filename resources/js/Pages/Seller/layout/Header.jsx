@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 const Header = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom px-0 fixed-top d-none d-lg-block">
@@ -23,10 +24,7 @@ const Header = () => {
                             <a className="nav-link p-2" href="/careers">Careers</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link p-2" href="/login">Login</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link p-2" href="/auth">Register</a>
+                            <Link className="nav-link p-2" href={route('seller.index')}>Dashboard</Link>
                         </li>
                     </ul>
                 </div>

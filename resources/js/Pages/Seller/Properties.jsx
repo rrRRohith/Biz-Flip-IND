@@ -21,7 +21,7 @@ export default function Properties() {
                                                 <input type="search" placeholder='Search by name, location etc' className='form-control' />
                                             </div>
                                             <div className="ms-auto">
-                                                <Link class="btn btn-primary" href="/seller/properties/create"><i className="bi bi-plus text-md"></i> New property</Link>
+                                                <Link className="btn btn-primary" href={route('seller.properties.create')}><i className="bi bi-plus text-md"></i> New property</Link>
                                             </div>
                                         </div>
                                     </div>

@@ -147,7 +147,7 @@ export default function Settings() {
                                                             onChange={() => handleCheckboxChange(day.id)}
                                                         />
                                                         <label role="button" className="mt-1" htmlFor={`office_${day.id}`}>
-                                                            {day.label} {checkedDays[day.id] ? <span class="text-success">(opened)</span> : <span class="text-danger">(closed)</span>}
+                                                            {day.label} {checkedDays[day.id] ? <span className="text-success">(opened)</span> : <span className="text-danger">(closed)</span>}
                                                         </label>
                                                     </div>
                                                 ))}

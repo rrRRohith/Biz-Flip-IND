@@ -40,27 +40,27 @@ const SideBar = () => {
                         </div>
                         <ul className="navbar-nav p-0 px-lg-3">
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller') ? 'bg-gray-100' : ''}`}>
-                                <Link className='nav-link text-md rounded-3' href="/seller">
+                                <Link className='nav-link text-md rounded-3' href={route('seller.index')}>
                                     <i className="bi bi-speedometer"></i> Dashboard
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/properties*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href="/seller/properties">
+                                <Link className="nav-link text-md rounded-3" href={route('seller.properties.index')}>
                                     <i className="bi bi-house"></i> Properties
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/leads*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href="/seller/leads">
+                                <Link className="nav-link text-md rounded-3" href={route('seller.leads.index')}>
                                     <i className="bi bi-house-check"></i> Leads
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href="/seller/profile">
-                                    <i className="bi bi-person"></i> Account
+                                <Link className="nav-link text-md rounded-3" href={route('seller.profile.index')}>
+                                    <i className="bi bi-person"></i> Profile
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/settings*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href="/seller/settings">
+                                <Link className="nav-link text-md rounded-3" href={route('seller.settings.index')}>
                                     <i className="bi bi-gear"></i> Settings
                                 </Link>
                             </li>

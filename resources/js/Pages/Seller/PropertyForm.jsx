@@ -108,7 +108,7 @@ export default function PropertyForm() {
                             <div className="d-flex align-items-center">
                                 <div className="text-xl font-bold">Create new property</div>
                                 <div className="ms-auto">
-                                    <Link href="/seller/properties" className="btn btn-neutral"><i class="bi bi-arrow-left"></i> Go back</Link>
+                                    <Link href={route('seller.properties.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
                                 </div>
                             </div>
                             <div>
@@ -174,7 +174,7 @@ export default function PropertyForm() {
                                             <div className="card rounded-input border-dashed">
                                                 <div className="card-body">
                                                     <div className="text-center py-5" role="button">
-                                                        <i class="bi bi-upload text-lg"></i>
+                                                        <i className="bi bi-upload text-lg"></i>
                                                         <div className="font-semibold">
                                                             Upload a file or drag and drop
                                                         </div>
@@ -196,7 +196,7 @@ export default function PropertyForm() {
                                                 onDelete={removeInfo} info={info}></AdditionalInfo>
                                         ))}
                                         <div className="col-12">
-                                            <button type="button" class="btn btn-secondary" onClick={addInfo}><i class="bi bi-plus"></i> Add additional info</button>
+                                            <button type="button" className="btn btn-secondary" onClick={addInfo}><i className="bi bi-plus"></i> Add additional info</button>
                                         </div>
                                     </div>
                                     <div className="row g-5">

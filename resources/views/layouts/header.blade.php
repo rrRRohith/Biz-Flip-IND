@@ -20,12 +20,24 @@
                 <li class="nav-item">
                     <a class="nav-link p-2 fw-semibold" href="/careers">Careers</a>
                 </li>
+                @auth
+                    @if(auth()->user()->type == 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link p-2 fw-semibold" href="/dashboard">Dashboard</a>
+                    </li>
+                    @elseif(auth()->user()->type == 'seller')
+                    <li class="nav-item">
+                        <a class="nav-link p-2 fw-semibold" href="/seller">Dashboard</a>
+                    </li>
+                    @endif
+                @else
                 <li class="nav-item">
                     <a class="nav-link p-2 fw-semibold" href="/login">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link p-2 fw-semibold" href="/auth">Register</a>
                 </li>
+                @endif
             </ul>
         </div>
     </div>
