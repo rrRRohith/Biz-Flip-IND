@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-export default function ToastNotification({ success, error }) {
+import { usePage } from '@inertiajs/react'
+export default function ToastNotification() {
+    const { flash } = usePage().props
     useEffect(() => {
-        if (success) {
-            toast.success(success, {
+        if (flash.success) {
+            toast.success(flash.success, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -15,8 +16,8 @@ export default function ToastNotification({ success, error }) {
                 progress: undefined,
             });
         }
-        if (error) {
-            toast.error(error, {
+        if (flash.error) {
+            toast.error(flash.error, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -25,8 +26,9 @@ export default function ToastNotification({ success, error }) {
                 draggable: false,
                 progress: undefined,
             });
-        }
-    }, [success, error]); // Add success and error to the dependency array
+            flash.reset();
+        }}, [flash]);
+  
 
     return (
         <ToastContainer

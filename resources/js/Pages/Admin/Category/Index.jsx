@@ -1,10 +1,11 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 import { Dropdown } from '@mui/joy';
 
-export default function Index({ categoryList, auth, success = null, error = null }) {
+export default function Index({ categoryList, auth }) {
      
     const deleteCategory = (category) => {
         if (!window.confirm("Are you sure you want to delete the category?")) {
@@ -21,8 +22,6 @@ export default function Index({ categoryList, auth, success = null, error = null
         <Authenticated
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Category</h2>}
-            success = {success}
-            error   = {error}
         >
             <Head title="Category List" />
 
@@ -41,19 +40,21 @@ export default function Index({ categoryList, auth, success = null, error = null
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
+                                <PermissionAllow permission={'Category Create'}>
                                     <Link className='btn btn-danger btn-sm text-end' href={route('admin.category.create')}><i className='bi bi-plus'></i> Create</Link>
+                                </PermissionAllow>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-
                     {/* <!-- Main content --> */}
                     <section className="content">
                         <div className="row">
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
+                                        <PermissionAllow permission={'Categories Listing'}  message="true">
                                         <div className="table-responsive rounded card-table">
                                             <table className="table border-no" id="example1">
                                                 <thead>
@@ -87,12 +88,16 @@ export default function Index({ categoryList, auth, success = null, error = null
                                                         <td>{category.status}</td>
                                                         <td>{category.updated_at}</td>
                                                         <td>
-                                                            <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
-                                                                <i className="bi bi-pencil"></i>
-                                                            </Link>
-                                                            <button onClick={(e) => deleteCategory(category)} className="btn btn-transparent border-0">
-                                                                <i className="bi bi-trash"></i>
-                                                            </button>
+                                                            <PermissionAllow permission={'Category Edit'}>
+                                                                <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
+                                                                    <i className="bi bi-pencil"></i>
+                                                                </Link>
+                                                            </PermissionAllow>
+                                                            <PermissionAllow permission={'Category Delete'}>
+                                                                <button onClick={(e) => deleteCategory(category)} className="btn btn-transparent border-0">
+                                                                    <i className="bi bi-trash"></i>
+                                                                </button>
+                                                            </PermissionAllow>
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -100,13 +105,13 @@ export default function Index({ categoryList, auth, success = null, error = null
                                                 </tbody>
                                             </table>
                                         </div>
+                                        </PermissionAllow>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
                     {/* <!-- /.content --> */}
-
                 </div>
             </div>
             {/* <!-- /.content-wrapper --> */}

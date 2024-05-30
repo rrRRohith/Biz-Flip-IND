@@ -23,7 +23,10 @@ class RoleController extends Controller
     public function index()
     {
         //
-        $roleList = Role::with('permissions')->get();
+        $roleList = Role::with(['permissions' => function($q){
+                                $q->where('type', '<>','seller');
+                            }])   
+                            ->get();
         return Inertia::render('Admin/Role/Index',['roleList' => RoleResource::collection($roleList),'success' => session('success'),'error' => session('error')]);
 
     }
@@ -75,9 +78,15 @@ class RoleController extends Controller
     public function edit($id)
     {
         //
-        $role = Role::with('permissions')->where('id',$id)->first();
-        
-        $permissions = Permission::get();
+   
+        $role = Role::with('permissions')->where('id',$id)->first() ?? abort(404);
+        if($role->name == 'admin'){
+            $permissions = Permission::where('type', '<>','seller')->get();
+        }
+        else{
+            $permissions = Permission::where('type', '<>','admin')->get();
+        }
+       
         $permissions = $permissions->groupBy('section');
         return Inertia::render('Admin/Role/Edit',['role' => new RoleResource($role),'success' => session('success'),'error' => session('error'),'permissionsList' =>$permissions]);
 

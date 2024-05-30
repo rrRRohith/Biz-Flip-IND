@@ -7,7 +7,8 @@ import React, { useState, useEffect } from 'react';
 import Spinner from './Components/Spinner';
 import './app.css';  // Import the CSS file for styling the spinner
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+const appName = import.meta.env.VITE_APP_NAME || 'Bizflip';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

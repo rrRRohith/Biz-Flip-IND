@@ -6,10 +6,10 @@ import AdminHeader from '@/Components/AdminHeader';
 import AdminSidebar from '@/Components/AdminSidebar';
 import ToastNotification from '@/Components/ToastNotification';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
 
-export default function AdminAuthenticated({ user, header, children,success,error }) {
-   
+
+export default function AdminAuthenticated({ user, header, children}) {
+
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
     const handleSidebarToggle = () => {
@@ -24,7 +24,7 @@ export default function AdminAuthenticated({ user, header, children,success,erro
             <AdminSidebar isCollapsed={isSidebarCollapsed} />
             <main>{children}</main>
            
-            <ToastNotification success={success} error={error}/>
+            <ToastNotification />
         </div>
         
     );

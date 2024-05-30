@@ -14,6 +14,16 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('can:Categories Listing',  ['only' => ['index']]);
+        $this->middleware('can:Category Create', ['only' => ['create','store']]);
+        $this->middleware('can:Category Edit',   ['only' => ['edit','update']]);
+        $this->middleware('can:Category Delete', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -21,7 +31,7 @@ class CategoryController extends Controller
     {
         $categoryList = Category::query()->paginate(10);
        
-        return Inertia::render('Admin/Category/Index',['categoryList' => CategoryResource::collection($categoryList),'success' => session('success'),'error' => session('error')]);
+        return Inertia::render('Admin/Category/Index',['categoryList' => CategoryResource::collection($categoryList)]);
 
     }
 

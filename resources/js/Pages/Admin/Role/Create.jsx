@@ -95,11 +95,11 @@ export default function Create({ permissionsList, auth }) {
                                                         </div>
                                                     </div>
                                                     <div className="col-lg-12">
-                                                        <h5>Permissions</h5>
+                                                        <h5 className="mb-25"><u>Allow Permissions</u></h5>
                                                         <InputError message={errors.permissions} className="mt-2 col-12" />
                                                         {Object.keys(permissionsList).map((sectionKey) => (
                                                             <div key={sectionKey}>
-                                                                <h6>{sectionKey}</h6>
+                                                                <h6 className="fw-bold">{sectionKey}</h6>
                                                                 <div className="row my-3">
                                                                     {permissionsList[sectionKey].map((permission) => (
                                                                         <div className="col-lg-2 col-6" key={permission.id}>

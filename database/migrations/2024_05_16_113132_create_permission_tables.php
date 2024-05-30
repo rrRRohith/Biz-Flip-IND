@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Artisan;
 
 return new class extends Migration
 {
@@ -117,6 +118,12 @@ return new class extends Migration
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+
+
+             // Call the seeder here
+        Artisan::call('db:seed', [
+            '--class' => 'RolesAndPermissionsSeeder',
+        ]);
     }
 
     /**

@@ -27894,7 +27894,9 @@ body .main-header .navbar .nav > li.search-box > a:hover, body .main-header .nav
     position: fixed;
     width: 19.29rem;
     padding-bottom: 0;
-    height: calc(100% - 80px); }
+    height: calc(100% - 80px);
+    overflow: auto; 
+  }
 
   .sidebar-collapse .multinav {
     width: 60px; }
@@ -37847,6 +37849,7 @@ img.away, img.busy, img.offline, img.online {
   margin-bottom: 0.125rem;
   font-size: 10px;
   align-items: center;
+  margin-bottom:10px ;
 }
 
 .form-check label{
@@ -37859,4 +37862,20 @@ img.away, img.busy, img.offline, img.online {
 .form-check-input {
   width: 1.5em;
   height: 1.5em;
+}
+
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray; 
+  border-radius: 10px;
 }

@@ -7,7 +7,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import { Inertia } from '@inertiajs/inertia';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function AdminHeader({ user, header, onSidebarToggle }) {
     // const navigate = useNavigate();
@@ -191,20 +191,23 @@ export default function AdminHeader({ user, header, onSidebarToggle }) {
                                         className="dropdown-toggle p-0 text-dark hover-primary ms-md-30 ms-10"
                                         id="dropdown-custom-components"
                                     >
-                                        <span className="ps-30 d-md-inline-block d-none">Hello,</span>
-                                        <strong className="d-md-inline-block d-none">Alia</strong>
+                                        <span className='fs-2 text-muted'>|</span>
+                                        <span className="ps-30 d-md-inline-block d-none">Hello, &nbsp;</span>
+                                        <strong className="d-md-inline-block d-none">{user.firstname} {user.lastname}</strong>
                                         <img
-                                            src="/assets/admin/images/avatar/avatar-11.png"
+                                            src={`/images/`+user.picture}  onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                             className="user-image rounded-circle avatar bg-white mx-10"
                                             alt="User Image"
                                         />
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu className="animated flipInX">
-                                        <Dropdown.Item href="#">
+                                        <PermissionAllow permission={'Profile Edit'}>
+                                        <Dropdown.Item href={route('admin.profile.index')}>
                                             <i className="ti-user text-muted me-2"></i> Profile
                                         </Dropdown.Item>
                                         <Dropdown.Divider />
+                                        </PermissionAllow>
                                         <Dropdown.Item href="#">
                                            
                                             <Link onClick={handleClick} >

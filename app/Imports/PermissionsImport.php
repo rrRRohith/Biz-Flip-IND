@@ -3,6 +3,7 @@
 namespace App\Imports;
 use Maatwebsite\Excel\Concerns\ToModel;
 
+use App\Models\Permission;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -13,12 +14,14 @@ class PermissionsImport implements ToModel, WithStartRow
    public function model(array $row)
     {
         if($row[0] != NULL && $row[1] != NULL && $row[2] != NULL ){
-            DB::table('permissions')->insert([
-                'name' => trim($row[0]),
-                'guard_name' => 'web',
-                'section' => trim($row[1]),
-                'type' => trim($row[2]),
-            ]);
+            if(!Permission::where('name',$row[0])->first()){
+                DB::table('permissions')->insert([
+                    'name' => trim($row[0]),
+                    'guard_name' => 'web',
+                    'section' => trim($row[1]),
+                    'type' => trim($row[2]),
+                ]);
+            }
         }
     }
     

@@ -7,11 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-    use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Traits\HasPermissions;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+   
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles, HasPermissions;
        protected $dates = ['deleted_at'];
 
     protected $appends = ['picture_url'];
@@ -70,5 +75,10 @@ class User extends Authenticatable
 
     public function seller(){
         return $this->hasOne(Seller::class);
+    }
+
+    public function getRole()
+    {
+        return $this->belongsTo('App\Models\Role','role_id','id');
     }
 }

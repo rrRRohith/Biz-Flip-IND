@@ -8,7 +8,7 @@ const Spinner = () => {
                 <ClipLoader
                     color="#4c95dd"
                     cssOverride={{
-                        'border-width': '4px'
+                        'borderWidth': '4px'
                     }}
                     size={50}
                 />

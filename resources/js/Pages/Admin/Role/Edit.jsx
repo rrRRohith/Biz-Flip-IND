@@ -30,6 +30,8 @@ export default function Edit({ role, permissionsList, queryParams = null, auth }
         setData(key, value);
     };
 
+    const isReadOnly = role.name === 'admin' || role.name === 'seller';
+
     const handleCheckboxChange = (permissionId) => {
         let updatedPermissions;
         if (data.permissions.includes(permissionId)) {
@@ -87,7 +89,8 @@ export default function Edit({ role, permissionsList, queryParams = null, auth }
                                                                         name="name"
                                                                         className="form-control"
                                                                         value={data.name}
-                                                                        onChange={(e) => handleChange("name", e.target.value)}
+                                                                        onChange={isReadOnly ? null : (e) => handleChange("name", e.target.value)}
+                                                                        readOnly={isReadOnly}
                                                                         autoComplete="off"
                                                                     />
                                                                     <InputError message={errors.name} className="mt-2 col-12" />
@@ -96,11 +99,11 @@ export default function Edit({ role, permissionsList, queryParams = null, auth }
                                                         </div>
                                                     </div>
                                                     <div className="col-lg-12">
-                                                        <h5>Permissions</h5>
+                                                        <h5 className="mb-25"><u>Allow Permissions</u></h5>
                                                         <InputError message={errors.permissions} className="mt-2 col-12" />
                                                         {Object.keys(permissionsList).map((sectionKey) => (
                                                             <div key={sectionKey}>
-                                                                <h6>{sectionKey}</h6>
+                                                                <h6 className="fw-bold">{sectionKey}</h6>
                                                                 <div className="row my-3">
                                                                     {permissionsList[sectionKey].map((permission) => (
                                                                         <div className="col-lg-2 col-6" key={permission.id}>

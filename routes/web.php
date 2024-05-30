@@ -31,6 +31,12 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         
     ]);
 
+    Route::resource('/profile', ProfileController::class, [
+        'only' => ['index', 'store']
+    ])->parameters([
+        'profiles' => 'profile'
+    ]);
+
     Route::get('provinces/{countryId}', 'CityController@getProvincesByCountry');
     Route::get('contact-messages', 'EnquiryController@contact_index')->name('contact_index');
     Route::get('contact-leads/{id}', 'EnquiryController@contact_show')->name('contact_show');
@@ -79,6 +85,18 @@ Route::get('/auth/customer', function () {
 Route::get('/auth/agent', function () {
     return view('auth.agent');
 });
+
+
+
+Route::get('import-permissions', function () {
+    return '<form action="' . route('uploadPermissions') . '" method="POST" enctype="multipart/form-data">
+                ' . csrf_field() . '
+                <input type="file" name="excel_file">
+                <button type="submit">Upload Excel</button>
+            </form>';
+});
+
+Route::post('uploadExcel', [SetupController::class, 'upload'])->name('uploadPermissions');
 
 
 require __DIR__.'/auth.php';
