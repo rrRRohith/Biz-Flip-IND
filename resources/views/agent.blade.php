@@ -2,6 +2,7 @@
 @section('contents')
 @section('title', 'Agent')
 <div>
+    
     <div class="container-fluid w-100 d-flex align-items-center"
         style="
       background-image: linear-gradient( #00000078, #00000024 ), url(https://bookly.indigitalapi.com/uploads/static/res/auth.webp);
