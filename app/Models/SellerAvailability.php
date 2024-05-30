@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class SellerAvailability extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'mon',
+        'tue',
+        'wed',
+        'thu',
+        'fri',
+        'sat',
+        'sun',
+    ];
 }

@@ -7,7 +7,7 @@ const urlMatches = (currentUrl, pattern) => {
     return regex.test(currentUrl);
 };
 
-const SideBar = ({user}) => {
+const SideBar = ({ user }) => {
     const path = window.location.pathname;
     return (
         <>
@@ -46,12 +46,17 @@ const SideBar = ({user}) => {
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/properties*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-3" href={route('seller.properties.index')}>
-                                    <i className="bi bi-house"></i> Properties
+                                    <i className="bi bi-house"></i> Ads
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/leads*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-3" href={route('seller.leads.index')}>
                                     <i className="bi bi-house-check"></i> Leads
+                                </Link>
+                            </li>
+                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/tickets*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-3" href={route('seller.tickets.index')}>
+                                    <i className="bi bi-headset"></i> Support tickets
                                 </Link>
                             </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
@@ -83,7 +88,7 @@ const SideBar = ({user}) => {
                                     </span>
                                 </button>
                                 <div className="dropdown-menu dropdown-menu-end w-full mb-2 shadow-sm">
-                                <ProfileDropdown user={user}></ProfileDropdown>
+                                    <ProfileDropdown user={user}></ProfileDropdown>
                                 </div>
                             </div>
                         </div>

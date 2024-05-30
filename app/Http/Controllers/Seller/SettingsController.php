@@ -45,7 +45,10 @@ class SettingsController extends Controller{
                     'logo' => $logoPath,
                 ]);
             }
+
+            $availability = $this->user->availability ? : $this->user->availability()->create(['user_id' => $this->user->id]);
             
+            $availability->update($request->days);
 
             return to_route('seller.settings.index')->with('success', 'Settings updated successfully.');
         }

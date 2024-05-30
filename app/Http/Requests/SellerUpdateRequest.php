@@ -21,10 +21,12 @@ class SellerUpdateRequest extends FormRequest
             'lastname' => ['required', 'string', 'max:255'],
             'short_description' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
-            //'employees' => ['required', 'string', 'max:255'],
+            'employee' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'phone' => ['required', 'numeric', 'digits:10'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
+            'website' => ['sometimes', 'nullable', 'string'],
+            'days' => 'sometimes|nullable|array',
         ];
     }
 }

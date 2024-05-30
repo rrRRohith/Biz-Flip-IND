@@ -49,7 +49,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-
+    public function getNameAttribute(){
+        return "{$this->firstname} {$this->lastname}";
+    }
+    
     public function isAdmin()
     {
         return $this->type === 'admin';
@@ -70,5 +73,13 @@ class User extends Authenticatable
 
     public function seller(){
         return $this->hasOne(Seller::class);
+    }
+
+    public function availability(){
+        return $this->hasOne(SellerAvailability::class);
+    }
+    
+    public function tickets(){
+        return $this->hasMany(Ticket::class);
     }
 }

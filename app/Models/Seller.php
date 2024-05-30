@@ -19,6 +19,8 @@ class Seller extends Model
         'short_description',
         'description',
         'address',
+        'website',
+        'employee'
     ];
 
     public function getLogoAttribute($logo){

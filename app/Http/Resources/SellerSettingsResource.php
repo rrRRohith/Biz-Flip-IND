@@ -21,13 +21,22 @@ class SellerSettingsResource extends JsonResource
             'email'=> $this->seller->email ?? null,
             'phone'=> $this->seller->phone ?? null,
             'position'=> $this->seller->position ?? null,
-            'employees'=> $this->seller->employees ?? null,
+            'employee'=> $this->seller->employee ?? null,
             'address'=> $this->seller->address ?? null,
             'firstname'=> $this->firstname ?? null,
             'lastname'=> $this->lastname ?? null,
             'short_description'=> $this->seller->short_description ?? null,
             'description'=> $this->seller->description ?? null,
             'website' => $this->seller->website ?? null,
+            'days' => [
+                'mon' => (bool) ($this->availability->mon ?? false),
+                'tue' => (bool) ($this->availability->tue ?? false),
+                'wed' => (bool) ($this->availability->wed ?? false),
+                'thu' => (bool) ($this->availability->thu ?? false),
+                'fri' => (bool) ($this->availability->fri ?? false),
+                'sat' => (bool) ($this->availability->sat ?? false),
+                'sun'  => (bool) ($this->availability->sun ?? false),
+            ]
         ];
     }
 }
