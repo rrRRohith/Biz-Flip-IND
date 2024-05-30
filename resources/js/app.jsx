@@ -1,9 +1,11 @@
 // import './bootstrap';
 // import '../css/app.css';
-import React,{ useEffect,useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp, router } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import React, { useState, useEffect } from 'react';
+import Spinner from './Components/Spinner';
+import './app.css';  // Import the CSS file for styling the spinner
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
