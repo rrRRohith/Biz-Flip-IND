@@ -34,3 +34,32 @@
     padding-top: 0.213em;
     padding-bottom: 0.213em;
 }
+
+.message-avatar {
+    width: 50px;
+    height: 50px;
+}
+
+.message.w-auto {
+    max-width: max-content;
+}
+
+.status-low {
+    background: var(--x-info);
+}
+
+.status-medium {
+    background: var(--x-warning);
+}
+
+.status-high {
+    background: var(--x-danger);
+}
+
+.status-solved {
+    background: var(--x-success);
+}
+
+.status-open {
+    background: var(--x-secondary);
+}

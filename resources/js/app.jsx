@@ -40,7 +40,7 @@ createInertiaApp({
             );
         };
         root.render(<AppWrapper {...props} />);
-        //root.render(<App {...props} />);
+        root.render(<App {...props} />);
     },
     progress: false,
 });

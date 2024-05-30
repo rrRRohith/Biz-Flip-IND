@@ -118,21 +118,21 @@ export default function PropertyForm({ auth }) {
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-6">
-                                            <div><label>Property name</label> <input type="text" placeholder="Property name" className="form-control" /></div>
+                                            <div><label>Name</label> <input type="text" placeholder="Name" className="form-control" /></div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Property price</label> <input type="text" placeholder="Property price" className="form-control" /></div>
+                                            <div><label>Price</label> <input type="text" placeholder="Price" className="form-control" /></div>
                                         </div>
                                         <div className="col-md-12">
                                             <label>Description</label>
                                             <textarea placeholder="Tell us about your property in detail" className="form-control"></textarea>
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Property type</label>
+                                            <label>Type</label>
                                             <Select options={type_options}></Select>
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Property category</label>
+                                            <label>Category</label>
                                             <Select options={categories_options}></Select>
                                         </div>
                                         <div className="col-md-6">
@@ -167,7 +167,7 @@ export default function PropertyForm({ auth }) {
                                         </div>
                                     </div>
                                     <div className="mb-5">
-                                        <h4>Property gallery</h4>
+                                        <h4>Gallery</h4>
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-12">

@@ -5,7 +5,7 @@ import Select from 'react-select';
 import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
 
-const employees_options = [
+const employee_options = [
     {
         'label': 'Select an option',
         'value': 'Select an option',
@@ -33,38 +33,29 @@ const employees_options = [
 ];
 
 const days = [
-    { id: 'monday', label: 'Monday' },
-    { id: 'tuesday', label: 'Tuesday' },
-    { id: 'wednesday', label: 'Wednesday' },
-    { id: 'thursday', label: 'Thursday' },
-    { id: 'friday', label: 'Friday' },
-    { id: 'saturday', label: 'Saturday' },
-    { id: 'sunday', label: 'Sunday' }
+    { id: 'mon', label: 'Monday' },
+    { id: 'tue', label: 'Tuesday' },
+    { id: 'wed', label: 'Wednesday' },
+    { id: 'thu', label: 'Thursday' },
+    { id: 'fri', label: 'Friday' },
+    { id: 'sat', label: 'Saturday' },
+    { id: 'sun', label: 'Sunday' }
 ];
 
 export default function Settings({ seller, auth, success, error }) {
-    const [checkedDays, setCheckedDays] = useState({
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false,
-        sunday: false
-    });
+    const [checkedDays, setCheckedDays] = useState(seller.days);
 
     const { data, setData, post, errors, reset } = useForm({
         logo: '',
         company_name: seller.company_name,
         email: seller.email,
         phone: seller.phone,
-        employees: seller.employees,
+        employee: seller.employee,
         address: seller.address,
-        firstname: seller.firstname,
-        lastname: seller.lastname,
         short_description: seller.short_description,
         description: seller.description,
         website: seller.website,
+        //days: checkedDays
     });
 
     const [imagePreview, setImagePreview] = useState('');
@@ -81,7 +72,10 @@ export default function Settings({ seller, auth, success, error }) {
             setData('logo', file);
             setImagePreview(URL.createObjectURL(file));
         }
+    };
 
+    const handleSelect = (key, e) => {
+        setData(key, e.value);
     };
 
     const handleChange = (key, value) => {
@@ -90,14 +84,22 @@ export default function Settings({ seller, auth, success, error }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route("seller.settings.store"));
+        await post(route("seller.settings.store", {
+            days : checkedDays
+        }), {
+            preserveScroll: true,
+            onSuccess: () => {
+
+            },
+        });
     };
 
-    const handleCheckboxChange = (day) => {
-        setCheckedDays((prevCheckedDays) => ({
+    const handleCheckboxChange = async (day) => {
+        await setCheckedDays((prevCheckedDays) => ({
             ...prevCheckedDays,
             [day]: !prevCheckedDays[day]
         }));
+        //setData('days', checkedDays);
     };
     return (
         <>
@@ -136,7 +138,7 @@ export default function Settings({ seller, auth, success, error }) {
                                         </div>
 
                                         <div className="col-md-12">
-                                            <label>Short bio</label>
+                                            <label>Short description</label>
                                             <input value={data.short_description} onChange={(e) => { handleChange('short_description', e.target.value) }} placeholder="Tell us about your business briefly" className="form-control" />
                                             <InputError message={errors.short_description} />
                                         </div>
@@ -152,26 +154,20 @@ export default function Settings({ seller, auth, success, error }) {
                                         </div>
                                         <div className="col-md-6">
                                             <label>No of employees</label>
-                                            <Select value={data.employees} onChange={(e) => { handleChange('employees', e.target.value) }} name="employees" options={employees_options}></Select>
-                                            <InputError message={errors.employees} />
+                                            <Select defaultValue={{ value: data.employee, label: data.employee }} onChange={(e) => { handleSelect('employee', e) }} name="employee" options={employee_options}></Select>
+                                            <InputError message={errors.employee} />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div><label>Website</label>
+                                                <input value={data.website} onChange={(e) => { handleChange('website', e.target.value) }} type="text" placeholder="Your website url" className="form-control" />
+                                            </div>
+                                            <InputError message={errors.website} />
                                         </div>
                                     </div>
                                     <div className="mb-5">
-                                        <h4>Contact person</h4>
+                                        <h4>Contact Information</h4>
                                     </div>
                                     <div className="row g-5 mb-5">
-                                        <div className="col-md-6">
-                                            <div><label>First name</label>
-                                                <input value={data.firstname} onChange={(e) => { handleChange('firstname', e.target.value) }} type="text" placeholder="Your first name" className="form-control" id="first_name" />
-                                            </div>
-                                            <InputError message={errors.firstname} />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Last name</label>
-                                                <input value={data.lastname} onChange={(e) => { handleChange('lastname', e.target.value) }} type="text" placeholder="Your last name" className="form-control" />
-                                            </div>
-                                            <InputError message={errors.lastname} />
-                                        </div>
                                         <div className="col-md-6">
                                             <div><label htmlFor="email">Email</label>
                                                 <input value={data.email} onChange={(e) => { handleChange('email', e.target.value) }} placeholder="Your email address" type="email" className="form-control" />
@@ -183,32 +179,6 @@ export default function Settings({ seller, auth, success, error }) {
                                                 <input value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
                                             </div>
                                             <InputError message={errors.phone} />
-                                        </div>
-                                    </div>
-                                    <div className="mb-5">
-                                        <h4>Socials media & website</h4>
-                                    </div>
-                                    <div className="row g-5 mb-5">
-                                        <div className="col-md-6">
-                                            <div><label>Facebook</label> <input type="text" placeholder="Your facebook page" className="form-control" /></div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Instagram</label> <input type="text" placeholder="Your instagram page" className="form-control" /></div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Youtube</label> <input type="text" placeholder="Your youtube page" className="form-control" /></div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Linkedin</label> <input type="text" placeholder="Your linkedin page" className="form-control" /></div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Twitter</label> <input type="text" placeholder="Your twitter page" className="form-control" /></div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Website</label>
-                                                <input value={data.website} onChange={(e) => { handleChange('website', e.target.value) }} type="text" placeholder="Your website url" className="form-control" />
-                                            </div>
-                                            <InputError message={errors.website} />
                                         </div>
                                     </div>
                                     <div className="mb-5">

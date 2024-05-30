@@ -25,4 +25,8 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     ]);
 
     // Route::resource('profile', [App\Http\Controllers\Seller\ProfileController::class]);
+
+    Route::resource('/tickets', App\Http\Controllers\Seller\TicketController::class, [
+        'only' => ['index', 'show', 'update', 'create', 'store']
+    ]);
 });
