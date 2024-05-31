@@ -1,6 +1,7 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 import { Dropdown } from '@mui/joy';
 
@@ -41,12 +42,16 @@ export default function Index({ labelList, auth, success = null, error = null })
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
+                                    <PermissionAllow permission={'Feature Label Create'}>
                                     <Link className='btn btn-danger btn-sm text-end' href={route('admin.feature-label.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    </PermissionAllow>
                                 </div>
                             </div>
                         </div>
 
                     </div>
+
+                    
 
                     {/* <!-- Main content --> */}
                     <section className="content">
@@ -55,6 +60,7 @@ export default function Index({ labelList, auth, success = null, error = null })
                                 <div className="box">
                                     <div className="box-body">
                                         <div className="table-responsive rounded card-table">
+                                            <PermissionAllow permission={'Feature Label Listing'} message={true}>
                                             <table className="table border-no" id="example1">
                                                 <thead>
                                                     <tr>
@@ -79,18 +85,23 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                         <td>{label.status}</td>
                                                         <td>{label.updated_at}</td>
                                                         <td>
+                                                        <PermissionAllow permission={'Feature Label Edit'}>
                                                             <Link className='btn btn-transparent' href={route('admin.feature-label.edit', label.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
+                                                        </PermissionAllow>
+                                                            <PermissionAllow permission={'Feature Label Delete'}>
                                                             <button onClick={(e) => deleteLabel(label)} className="btn btn-transparent border-0">
                                                                 <i className="bi bi-trash"></i>
                                                             </button>
+                                                            </PermissionAllow>
                                                         </td>
                                                     </tr>
                                                 ))}
 
                                                 </tbody>
                                             </table>
+                                            </PermissionAllow>
                                         </div>
                                     </div>
                                 </div>

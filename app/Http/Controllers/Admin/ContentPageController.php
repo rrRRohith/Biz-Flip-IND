@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\ContentPage;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContentPage\StoreContentPageRequest;
 use App\Http\Requests\ContentPage\UpdateContentPageRequest;
@@ -19,7 +19,7 @@ class ContentPageController extends Controller
      */
     public function index()
     {
-        $pageList = ContentPage::query()->paginate(10);
+        $pageList = Page::query()->paginate(10);
        
         return Inertia::render('Admin/Content/Index',['pageList' => ContentPageResource::collection($pageList),'success' => session('success'),'error' => session('error')]);
 
@@ -49,7 +49,7 @@ class ContentPageController extends Controller
             $imagePath = $image->storeAs('page', $imageName, 'images');
         }
 
-        $new                    = new ContentPage();
+        $new                    = new Page();
         $new->name              = $request->title;
         $new->slug              = Str::slug($request->title);
         $new->content           = $request->title;
@@ -72,7 +72,7 @@ class ContentPageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ContentPage $page)
+    public function show(Page $page)
     {
         //
     }
@@ -83,7 +83,7 @@ class ContentPageController extends Controller
     public function edit($id)
     {
         //
-        $page = ContentPage::where('id',$id)->first();
+        $page = Page::where('id',$id)->first();
       
         return Inertia::render('Admin/Content/Edit',['page_item' => new ContentPageResource($page),'success' => session('success'),'error' => session('error')]);
 
@@ -96,7 +96,7 @@ class ContentPageController extends Controller
     {
         //
 
-        $page = ContentPage::where('id',$id)->first() ?? abort(404);
+        $page = Page::where('id',$id)->first() ?? abort(404);
         $data = $request->validated();
         $image = $data['image'] ?? null;
 
@@ -141,7 +141,7 @@ class ContentPageController extends Controller
     public function destroy($id)
     {
    
-        $page = ContentPage::where('id',$id)->first() ?? abort(404);
+        $page = Page::where('id',$id)->first() ?? abort(404);
         $name = $page->name;
         $page->delete();
         if ($page->icon) {

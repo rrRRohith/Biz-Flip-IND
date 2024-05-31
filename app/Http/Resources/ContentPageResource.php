@@ -28,7 +28,7 @@ class ContentPageResource extends JsonResource
             'seo_desscription'=> $this->seo_desscription,	
             'status'         => $this->status == 1 ? 'Published' : 'Draft',
             'breadcumb_image'=> $this->breadcumb_image && !(str_starts_with($this->breadcumb_image, 'http')) ?
-                                asset('images/'.$this->breadcumb_image) : $this->breadcumb_image,
+                                asset('images/'.$this->breadcumb_image) : 'dummy.png',
             'created_at'     => (new Carbon($this->created_at))->format('Y-m-d'),
             'updated_at'     => (new Carbon($this->updated_at))->format('Y-m-d'),
         ];

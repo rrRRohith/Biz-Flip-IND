@@ -24,7 +24,7 @@ class FeaturesResource extends JsonResource
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
             'icon'          => $this->icon && !(str_starts_with($this->icon, 'http')) ?
-                                asset('images/'.$this->icon) : $this->icon,
+                                asset('images/'.$this->icon) : 'dummy.png',
             'created_at'    => (new Carbon($this->created_at))->format('Y-m-d'),
             'updated_at'    => (new Carbon($this->updated_at))->format('Y-m-d'),
           

@@ -24,9 +24,9 @@ class BannerResource extends JsonResource
             'type'          =>  $this->type,
             'new_window'    =>  $this->new_window,
             'picture_desktop'=> $this->picture_desktop && !(str_starts_with($this->picture_desktop, 'http')) ?
-                                asset('images/'.$this->picture_desktop) : $this->picture_desktop,
+                                asset('images/'.$this->picture_desktop) :  'dummy.png',
             'picture_mobile'=>  $this->picture_mobile && !(str_starts_with($this->picture_mobile, 'http')) ?
-                                 asset('images/'.$this->picture_mobile) : $this->picture_mobile,
+                                 asset('images/'.$this->picture_mobile) : 'dummy.png',
             'position'      =>  $this->position,
             'status'        =>  $this->status == 1 ? 'Published' : 'Draft',
             'created_at'    =>  (new Carbon($this->created_at))->format('Y-m-d'),

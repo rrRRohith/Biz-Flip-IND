@@ -8,6 +8,7 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
@@ -45,7 +46,9 @@ export default function Create({ auth }) {
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
-                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.feature-label.index')}>Feature Label</Link></li>
+                                                <PermissionAllow permission={'Feature Label Listing'}>
+                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.feature-label.index')}>Feature Label</Link></li>
+                                                </PermissionAllow>
                                                 <li className="breadcrumb-item active" aria-current="page">Create</li>
                                             </ol>
                                         </nav>
@@ -61,6 +64,7 @@ export default function Create({ auth }) {
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
+                                    <PermissionAllow permission={'Feature Label Create'} message={true}>
                                         <form onSubmit={handleSubmit}>
                                             <div className="form-body">
                                                 <div className="row">
@@ -140,6 +144,7 @@ export default function Create({ auth }) {
                                                 <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
                                             </div>
                                         </form>
+                                    </PermissionAllow>
                                     </div>
                                 </div>
                             </div>
