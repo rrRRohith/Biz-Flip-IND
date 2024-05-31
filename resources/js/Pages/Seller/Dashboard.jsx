@@ -1,6 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/react';
 import Wrapper from './layout/Wrapper';
+import LeadsTable from './LeadsTable';
+import PropertiesTable from './PropertiesTable';
 
 export default function Dashboard({ auth }) {
     return (
@@ -97,6 +99,12 @@ export default function Dashboard({ auth }) {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="text-xl font-bold mt-5">Latest leads</div>
+                        <div>
+                            <div className="card">
+                                <LeadsTable></LeadsTable>
                             </div>
                         </div>
                     </div>

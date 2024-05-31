@@ -17,8 +17,8 @@ class SellerUpdateRequest extends FormRequest
         return [
             'picture' => ['nullable', 'image'],
             'company_name' => ['required', 'string', 'max:255'],
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
+            // 'firstname' => ['required', 'string', 'max:255'],
+            // 'lastname' => ['required', 'string', 'max:255'],
             'short_description' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
             'employee' => ['required', 'string', 'max:255'],

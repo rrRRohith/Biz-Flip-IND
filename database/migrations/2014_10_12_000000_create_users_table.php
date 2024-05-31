@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('parent_id')->references('id')->on('users')->onDelete("cascade");
             $table->string('picture')->nullable();
             $table->string('designation')->nullable();
-            $table->string('unique_code','191')->unique();
+            $table->string('unique_code','191')->unique()->nullable();
             $table->mediumText('device_token_mobile')->nullable();
             $table->mediumText('device_token_desktop')->nullable();
             $table->timestamp('email_verified_at')->nullable();

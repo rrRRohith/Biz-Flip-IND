@@ -37,7 +37,7 @@ class RoleController extends Controller
     public function create()
     {
         //
-        $permissions = Permission::get();
+        $permissions = Permission::admin()->get();
         $permissions = $permissions->groupBy('section');
         return Inertia::render('Admin/Role/Create',['permissionsList' =>$permissions]);
     }
@@ -81,10 +81,10 @@ class RoleController extends Controller
    
         $role = Role::with('permissions')->where('id',$id)->first() ?? abort(404);
         if($role->name == 'admin'){
-            $permissions = Permission::where('type', '<>','seller')->get();
+            $permissions = Permission::admin()->get();
         }
         else{
-            $permissions = Permission::where('type', '<>','admin')->get();
+            $permissions = Permission::seller()->get();
         }
        
         $permissions = $permissions->groupBy('section');

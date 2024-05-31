@@ -28,7 +28,7 @@ class SettingsController extends Controller{
 
     public function store(SellerUpdateRequest $request){
         try{		
-            $this->user->seller OR $this->user->seller()->create($request->validated());
+            $this->user->seller ? : $this->user->seller()->create($request->validated());
             
             $seller = $this->user->seller;
 

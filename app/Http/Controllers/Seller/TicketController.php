@@ -53,7 +53,7 @@ class TicketController extends BaseController{
             $ticket->messages()->create($request->only(['message']))->update([
                 'user_id' => $this->user->id,
             ]);
-            return to_route('seller.tickets.show', ['ticket' => $ticket->id])->with('success', 'Ticket created successfully successfully.');
+            return to_route('seller.tickets.show', ['ticket' => $ticket->id])->with('success', 'Ticket created successfully.');
         }
         catch(\Exception $e){
             return $e->getMessage();

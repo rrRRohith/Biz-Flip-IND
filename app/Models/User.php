@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
-
+use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable
 {
@@ -91,5 +91,9 @@ class User extends Authenticatable
     
     public function tickets(){
         return $this->hasMany(Ticket::class);
+    }
+
+    public function seller_roles(){
+        return $this->hasMany(Role::class, 'user_id', 'id');
     }
 }

@@ -19,7 +19,7 @@ export default function Index({ auth, tickets }) {
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input type="search" placeholder='Search by name, location etc' className='form-control' />
+                                                <input type="search" placeholder='Search by subject' className='form-control' />
                                             </div>
                                             <div className="ms-auto">
                                                 <Link className="btn btn-primary" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i> Open ticket</Link>
@@ -39,35 +39,45 @@ export default function Index({ auth, tickets }) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {tickets.data.map((ticket) => (
+                                                {tickets.data.length ? (
                                                     <>
-                                                        <tr>
-                                                            <td>
-                                                                #{ticket.id}
-                                                            </td>
-                                                            <td>
-                                                                {ticket.subject}
-                                                            </td>
+                                                        {tickets.data.map((ticket) => (
+                                                            <>
+                                                                <tr>
+                                                                    <td>
+                                                                        #{ticket.id}
+                                                                    </td>
+                                                                    <td>
+                                                                        {ticket.subject}
+                                                                    </td>
 
-                                                            <td>
-                                                                {ticket.date_text}
-                                                            </td>
-                                                            <td>
-                                                                <div className={`btn btn-sm p-2 py-1 text-white small text-capitalize status-${ticket.priority}`}>
-                                                                    {ticket.priority}
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div className={`btn btn-sm p-2 py-1 text-white small text-capitalize status-${ticket.status}`}>
-                                                                    {ticket.status}
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <Link href={route('seller.tickets.show', ticket.id)} className="btn btn-sm btn-square btn-neutral"><i className="bi bi-eye"></i></Link>
-                                                            </td>
-                                                        </tr>
+                                                                    <td>
+                                                                        {ticket.date_text}
+                                                                    </td>
+                                                                    <td>
+                                                                        <div className={`btn btn-sm p-2 py-1 text-white small text-capitalize status-${ticket.priority}`}>
+                                                                            {ticket.priority}
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div className={`btn btn-sm p-2 py-1 text-white small text-capitalize status-${ticket.status}`}>
+                                                                            {ticket.status}
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <Link href={route('seller.tickets.show', ticket.id)} className="btn btn-sm btn-square btn-neutral"><i className="bi bi-eye"></i></Link>
+                                                                    </td>
+                                                                </tr>
+                                                            </>
+                                                        ))}
                                                     </>
-                                                ))}
+                                                ) : (<>
+                                                    <tr>
+                                                        <td className="text-center" colspan="100">
+                                                            No records found..
+                                                        </td>
+                                                    </tr>
+                                                </>)}
                                             </tbody>
                                         </table>
                                     </div>

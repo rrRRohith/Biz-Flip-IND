@@ -47,8 +47,19 @@ class HandleInertiaRequests extends Middleware
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
-                'error' => fn () => $request->session()->get('error')
+                'error' => fn () => $this->errors(),
             ],
         ];
+    }
+
+    private function errors(){
+        if(request()->session()->get('error')){
+            return request()->session()->get('error');
+        }
+        else if(request()->session()->get('errors')){
+            return "Ops there are some problems";
+        }
+
+        return false;
     }
 }
