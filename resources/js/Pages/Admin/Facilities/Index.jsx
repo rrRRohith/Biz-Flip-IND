@@ -1,6 +1,7 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 import { Dropdown } from '@mui/joy';
 
@@ -41,6 +42,7 @@ export default function Index({ facilityList, auth, success = null, error = null
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
+                                    
                                     <Link className='btn btn-danger btn-sm text-end' href={route('admin.facilities.create')}><i className='bi bi-plus'></i> Create</Link>
                                 </div>
                             </div>
@@ -54,6 +56,7 @@ export default function Index({ facilityList, auth, success = null, error = null
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
+                                    <PermissionAllow permission={'Feature Create'} message={true}>
                                         <div className="table-responsive rounded card-table">
                                             <table className="table border-no" id="example1">
                                                 <thead>
@@ -87,12 +90,16 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                         <td>{facility.status}</td>
                                                         <td>{facility.updated_at}</td>
                                                         <td>
+                                                        <PermissionAllow permission={''}>
                                                             <Link className='btn btn-transparent' href={route('admin.facilities.edit', facility.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
+                                                        </PermissionAllow>
+                                                        <PermissionAllow permission={''}>
                                                             <button onClick={(e) => deleteFacility(facility)} className="btn btn-transparent border-0">
                                                                 <i className="bi bi-trash"></i>
                                                             </button>
+                                                        </PermissionAllow>
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -100,6 +107,7 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                 </tbody>
                                             </table>
                                         </div>
+                                    </PermissionAllow>
                                     </div>
                                 </div>
                             </div>

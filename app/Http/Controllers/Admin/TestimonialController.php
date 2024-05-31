@@ -51,8 +51,9 @@ class TestimonialController extends Controller
 
         $new                = new Testimonial();
         $new->name          = $request->name;
+        $new->company_name  = $request->company_name;
         $new->designation   = $request->designation;
-        $new->image         = $imagePath;
+        $new->image         = $imagePath ?? null;
         $new->message       = $request->message;
         $new->position      = $request->position;
         $new->status        = $request->status;
@@ -119,6 +120,7 @@ class TestimonialController extends Controller
         }
 
         $testimonial->name          = $request->name;
+        $testimonial->company_name  = $request->company_name;
         $testimonial->designation   = $request->designation;
         $testimonial->message       = $request->message;
         $testimonial->position      = $request->position;

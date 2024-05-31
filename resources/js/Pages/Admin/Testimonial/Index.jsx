@@ -1,28 +1,29 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 import { Dropdown } from '@mui/joy';
 
 export default function Index({ testimonialList, auth, success = null, error = null }) {
-     
+
     const deleteTestimonial = (testimonial) => {
         if (!window.confirm("Are you sure you want to delete the testimonial?")) {
-          return;
+            return;
         }
-        
-      
-        router.delete(route("admin.testimonial.destroy", testimonial.id))
-      }
 
-      
+
+        router.delete(route("admin.testimonial.destroy", testimonial.id))
+    }
+
+
 
     return (
         <Authenticated
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Testimonial</h2>}
-            success = {success}
-            error   = {error}
+            success={success}
+            error={error}
         >
             <Head title="Testimonial List" />
 
@@ -41,7 +42,9 @@ export default function Index({ testimonialList, auth, success = null, error = n
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <Link className='btn btn-danger btn-sm text-end' href={route('admin.testimonial.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    <PermissionAllow permission={'Testimonial Create'}>
+                                        <Link className='btn btn-danger btn-sm text-end' href={route('admin.testimonial.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    </PermissionAllow>
                                 </div>
                             </div>
                         </div>
@@ -54,54 +57,62 @@ export default function Index({ testimonialList, auth, success = null, error = n
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
-                                        <div className="table-responsive rounded card-table">
-                                            <table className="table border-no" id="example1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Image</th>
-                                                        <th>Name</th>
-                                                        <th>Designation</th>
-                                                        <th>Position</th>
-                                                        <th>Status</th>
-                                                        <th>Last Modified</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                        <PermissionAllow permission={'Testimonials Listing'} message={true}>
+                                            <div className="table-responsive rounded card-table">
+                                                <table className="table border-no" id="example1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Image</th>
+                                                            <th>Name</th>
+                                                            <th>Company</th>
+                                                            <th>Designation</th>
+                                                            <th>Position</th>
+                                                            <th>Status</th>
+                                                            <th>Last Modified</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
 
-                                                {testimonialList.data.map((testimonial) => (
-                                                
-                                                    <tr key={testimonial.id} className="hover-primary">
-                                                        <td>{testimonial.id}</td>
-                                                        
-                                                        <td>
-                                                        <img
-                                                            src={testimonial.image}
-                                                            className='w-100 rounded-5 '
-                                                            alt={`${testimonial.image} icon`}
-                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                        />
-                                                        </td>
-                                                        <td>{testimonial.name}</td>
-                                                        <td>{testimonial.designation}</td>
-                                                        <td>{testimonial.position}</td>
-                                                        <td>{testimonial.status}</td>
-                                                        <td>{testimonial.updated_at}</td>
-                                                        <td>
-                                                            <Link className='btn btn-transparent' href={route('admin.testimonial.edit', testimonial.id)}>
-                                                                <i className="bi bi-pencil"></i>
-                                                            </Link>
-                                                            <button onClick={(e) => deleteTestimonial(testimonial)} className="btn btn-transparent border-0">
-                                                                <i className="bi bi-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
+                                                        {testimonialList.data.map((testimonial) => (
 
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            <tr key={testimonial.id} className="hover-primary">
+                                                                <td>{testimonial.id}</td>
+
+                                                                <td>
+                                                                    <img
+                                                                        src={testimonial.image}
+                                                                        className='w-100 rounded-5 '
+                                                                        alt={`${testimonial.image} icon`}
+                                                                        onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                                                    />
+                                                                </td>
+                                                                <td>{testimonial.name}</td>
+                                                                <td>{testimonial.company_name}</td>
+                                                                <td>{testimonial.designation}</td>
+                                                                <td>{testimonial.position}</td>
+                                                                <td>{testimonial.status}</td>
+                                                                <td>{testimonial.updated_at}</td>
+                                                                <td>
+                                                                    <PermissionAllow permission={'Testimonial Edit'}>
+                                                                        <Link className='btn btn-transparent' href={route('admin.testimonial.edit', testimonial.id)}>
+                                                                            <i className="bi bi-pencil"></i>
+                                                                        </Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission={'Testimonial Delete'}>
+                                                                        <button onClick={(e) => deleteTestimonial(testimonial)} className="btn btn-transparent border-0">
+                                                                            <i className="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </PermissionAllow>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </PermissionAllow>
                                     </div>
                                 </div>
                             </div>
