@@ -106,7 +106,6 @@ export default function Form({ role , permissions, auth, success, error }) {
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </main>
             </Wrapper>
