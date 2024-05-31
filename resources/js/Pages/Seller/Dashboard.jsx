@@ -101,7 +101,6 @@ export default function Dashboard({ auth }) {
                                 </div>
                             </div>
                         </div>
-
                         <div className="text-xl font-bold mt-5">Latest leads</div>
                         <div>
                             <div className="card">
