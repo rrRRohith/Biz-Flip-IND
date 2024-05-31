@@ -6,12 +6,12 @@ import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
 
 
-export default function Form({ role , permissions, auth, success, error }) {
-    
+export default function Form({ role, permissions, auth, success, error }) {
+
     const initialPermissions = role ? Object.keys(role.permissions).map(id => parseInt(id)) : [];
     console.log(initialPermissions);
     const [checkedPermissions, setCheckedPermissions] = useState({});
-    
+
     const handleCheckboxChange = (permissionId) => {
         let updatedPermissions;
         if (data.permissions.includes(permissionId)) {
@@ -100,7 +100,7 @@ export default function Form({ role , permissions, auth, success, error }) {
                                             <InputError message={errors.permissions} />
                                         </div>
                                         <div className="col-12 text-end">
-                                            <button type="button" className="btn btn-neutral me-2">Cancel</button>
+                                            <Link href={route('seller.roles.index')} className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Save changes</button></div>
                                     </div>
                                 </form>

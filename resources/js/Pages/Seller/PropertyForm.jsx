@@ -158,8 +158,8 @@ export default function PropertyForm({ auth }) {
                                             <div><label>Postcode</label> <input type="text" placeholder="Postcode" className="form-control" /></div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Province</label> 
-                                            <Select options={province_options}></Select>
+                                            <div><label>Province</label>
+                                                <Select options={province_options}></Select>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
@@ -209,7 +209,7 @@ export default function PropertyForm({ auth }) {
                                             <div className="text-muted small">Your property will not visible to your clients if not published.</div>
                                         </div>
                                         <div className="col-12 text-end">
-                                            <button type="button" className="btn btn-neutral me-2">Cancel</button>
+                                            <Link href={route('seller.properties.index')} className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>

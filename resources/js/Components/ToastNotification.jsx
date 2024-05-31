@@ -26,7 +26,6 @@ export default function ToastNotification() {
                 draggable: false,
                 progress: undefined,
             });
-            flash.reset();
         }}, [flash]);
   
 

@@ -84,29 +84,29 @@ export default function Create({ auth, success, error }) {
                                             <div className="">
                                                 {priority_options.map((option) => (
                                                     <>
-                                                    <div className="form-check form-check-lg">
-                                                        <input
-                                                            role="button"
-                                                            className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
-                                                            type="radio"
-                                                            id={`priority_${option.value}`}
-                                                            checked={data.priority == option.value}
-                                                            value={option.value}
-                                                            onChange={(e) => { handleChange('priority', e.target.value) }}
-                                                        />
-                                                        <label role="button" className="mt-1 font-bold" htmlFor={`priority_${option.value}`}>
-                                                            {option.label}
-                                                        </label>
-                                                        
-                                                    </div>
-                                                    <div className='mb-3'>{option.description}</div>
+                                                        <div className="form-check form-check-lg">
+                                                            <input
+                                                                role="button"
+                                                                className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                                type="radio"
+                                                                id={`priority_${option.value}`}
+                                                                checked={data.priority == option.value}
+                                                                value={option.value}
+                                                                onChange={(e) => { handleChange('priority', e.target.value) }}
+                                                            />
+                                                            <label role="button" className="mt-1 font-bold" htmlFor={`priority_${option.value}`}>
+                                                                {option.label}
+                                                            </label>
+
+                                                        </div>
+                                                        <div className='mb-3'>{option.description}</div>
                                                     </>
                                                 ))}
                                             </div>
                                             <InputError message={errors.priority} />
                                         </div>
                                         <div className="col-12 text-end">
-                                            <button type="button" className="btn btn-neutral me-2">Cancel</button>
+                                            <Link href={route('seller.tickets.index')} className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Open new ticket</button></div>
                                     </div>
                                 </form>
