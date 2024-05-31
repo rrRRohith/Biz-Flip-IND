@@ -60,7 +60,7 @@ export default function Create({ auth, success, error }) {
                             <div>
                                 <form onSubmit={handleSubmit}>
                                     <div className="row g-5">
-                                        <div className="mb-5">
+                                        <div className="mb-0">
                                             <h4>Subject and message</h4>
                                         </div>
                                         <div className="col-md-12">

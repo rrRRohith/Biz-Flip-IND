@@ -22,10 +22,11 @@ class UpdateRoleRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->role->id ?? null;
         return [
             
-            "name" => ['required', 'max:255',Rule::unique('roles'),'name'],
-            'permissions' => ['required']
+            "name" => ['required', 'max:255',"unique:roles,name,{$id}"],
+            'permissions' => ['required', 'array']
         ];
     }
 }

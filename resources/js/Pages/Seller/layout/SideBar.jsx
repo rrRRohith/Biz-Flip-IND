@@ -54,6 +54,11 @@ const SideBar = ({ user }) => {
                                     <i className="bi bi-house-check"></i> Leads
                                 </Link>
                             </li>
+                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/roles*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-3" href={route('seller.roles.index')}>
+                                    <i className="bi bi-house-check"></i> Roles
+                                </Link>
+                            </li>
                             <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/tickets*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-3" href={route('seller.tickets.index')}>
                                     <i className="bi bi-headset"></i> Support tickets

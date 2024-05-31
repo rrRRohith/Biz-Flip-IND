@@ -1,28 +1,35 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
-import { Head } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import Wrapper from '../layout/Wrapper';
-import { Link } from '@inertiajs/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-export default function Index({ auth, tickets }) {
+export default function Index({ auth, roles }) {
+    const deleteRole = function (role) {
+        if (!window.confirm("Are you sure you want to delete the role?")) {
+            return;
+        }
+
+
+        router.delete(route("seller.roles.destroy", role))
+    }
     return (
         <>
-            <Head title="Support tickets" />
+            <Head title="Staff roles" />
             <Wrapper user={auth.user}>
 
                 <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-lg vstack gap-6 m-auto">
-                            <div className="text-xl font-bold">Support tickets</div>
+                            <div className="text-xl font-bold">Staff roles</div>
                             <div>
                                 <div className="card">
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input type="search" placeholder='Search by subject' className='form-control' />
+                                                <input type="search" placeholder='Search by name' className='form-control' />
                                             </div>
                                             <div className="ms-auto">
-                                                <Link className="btn btn-primary" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i> Open ticket</Link>
+                                                <Link className="btn btn-primary" href={route('seller.roles.create')}><i className="bi bi-plus text-md"></i> New role</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -31,41 +38,35 @@ export default function Index({ auth, tickets }) {
                                             <thead className="table-light">
                                                 <tr>
                                                     <th scope="col">ID</th>
-                                                    <th scope="col">Subject</th>
-                                                    <th scope="col">Date created</th>
-                                                    <th scope="col">Priority</th>
-                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Permissions</th>
+                                                    <th scope="col">Last updated</th>
                                                     <th scope="col" />
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {tickets.data.length ? (
+                                                {roles.data.length ? (
                                                     <>
-                                                        {tickets.data.map((ticket) => (
+                                                        {roles.data.map((role) => (
                                                             <>
                                                                 <tr>
                                                                     <td>
-                                                                        #{ticket.id}
+                                                                        #{role.id}
                                                                     </td>
                                                                     <td>
-                                                                        {ticket.subject}
+                                                                        {role.name}
                                                                     </td>
 
                                                                     <td>
-                                                                        {ticket.date_text}
+                                                                        <Link class="text-decoration-none">{role.total_permissions} permissions</Link>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {role.updated_text}
                                                                     </td>
                                                                     <td>
-                                                                        <div className={`btn btn-sm p-2 py-1 text-white small text-capitalize status-${ticket.priority}`}>
-                                                                            {ticket.priority}
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div className={`btn btn-sm p-2 py-1 text-white small text-capitalize status-${ticket.status}`}>
-                                                                            {ticket.status}
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <Link href={route('seller.tickets.show', ticket.id)} className="btn btn-sm btn-square btn-neutral"><i className="bi bi-eye"></i></Link>
+                                                                        <Link href={route('seller.roles.edit', role.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
+                                                                        <button onClick={(e) => deleteRole(role.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
                                                                     </td>
                                                                 </tr>
                                                             </>
