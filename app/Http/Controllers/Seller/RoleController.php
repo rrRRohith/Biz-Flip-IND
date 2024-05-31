@@ -64,6 +64,19 @@ class RoleController extends BaseController{
     }
 
     /**
+     * Show the specified resource.
+     * 
+     * @param Request $request
+     * @param Role $role
+     */
+    public function show(Request $request, Role $role){
+        $this->user->seller_roles()->findOrfail($role->id);
+        return response()->json([
+            'permissions' => $role->permissions()->get()->groupBy('section'),
+        ]);
+    }
+
+    /**
      * Edit the specified resource.
      * 
      * @param Request $request
