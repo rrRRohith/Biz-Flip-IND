@@ -33,6 +33,7 @@ export default function Index({ auth, roles }) {
         setLoading(false);
         setShow(true);
     }
+    
     return (
         <>
             <Head title="Staff roles" />
