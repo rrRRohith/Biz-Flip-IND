@@ -8,7 +8,6 @@ export default function Leads({ auth }) {
         <>
             <Head title="Leads" />
             <Wrapper user={auth.user}>
-
                 <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-lg vstack gap-6 m-auto">
