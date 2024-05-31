@@ -43,16 +43,17 @@ class ContentPageController extends Controller
        
         $pageContent            = $request->pageContent;
         $new                    = new Page();
-        $new->name              = $request->title;
+        $new->title             = $request->title;
         $new->slug              = Str::slug($request->title);
         $new->content           = $pageContent['html'] ?? '';
-        $new->data              = json_decode(json_encode($pageContent['design'] ?? ''));
+        $new->data              = json_encode($pageContent['design'] ?? '');
         $new->banner_id         = $request->image ??  null;
         $new->seo_title         = $request->seo_title;
         $new->seo_keywords      = $request->seo_keywords;
-        $new->seo_desscription  = $request->seo_desscription;
+        $new->seo_description   = $request->seo_description;
         $new->status            = $request->status;
-        
+       
+      
         try{
             $new->save();			
             return to_route('admin.content-page.index')->with('success', 'page was created.');
@@ -78,8 +79,8 @@ class ContentPageController extends Controller
     {
         //
         $page = Page::where('id',$id)->first();
-      
-        return Inertia::render('Admin/Content/Edit',['page_item' => new ContentPageResource($page),'success' => session('success'),'error' => session('error')]);
+        $imageList = Banner::where('type','Page Top Tile')->pluck('title','id');
+        return Inertia::render('Admin/Content/Edit',['imageList' => $imageList, 'page_item' => new ContentPageResource($page),'success' => session('success'),'error' => session('error')]);
 
     }
 
@@ -91,41 +92,21 @@ class ContentPageController extends Controller
         //
 
         $page = Page::where('id',$id)->first() ?? abort(404);
-        $data = $request->validated();
-        $image = $data['image'] ?? null;
 
-
-        // Handle image removal
-        if ($request->remove_image) {
-            if ($page->icon) {
-                Storage::disk('images')->delete($page->icon);
-                $page->icon = null;
-            }
-        }
-
-        if ($image) {
-            if ($page->icon) {
-                Storage::disk('images')->delete($page->icon);
-            }
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('page', $imageName, 'images');
-            $page->icon  = $imagePath;
-        }
-
-        $page->name              = $request->title;
+        $pageContent            = $request->pageContent;
+      
+        $page->title             = $request->title;
         $page->slug              = Str::slug($request->title);
-        $page->content           = $request->title;
-        $page->data              = $request->data;
-        $page->breadcumb_image   = $imagePath ??  null;
+        $page->content           = $pageContent['html'] ?? '';
+        $page->data              = json_encode($pageContent['design'] ?? '');
+        $page->banner_id         = $request->image ??  null;
         $page->seo_title         = $request->seo_title;
         $page->seo_keywords      = $request->seo_keywords;
-        $page->seo_desscription  = $request->seo_desscription;
+        $page->seo_description   = $request->seo_description;
         $page->status            = $request->status;
-        
         $page->save();
-
         return to_route('admin.content-page.index')
-            ->with('success', "Content Page \"$page->name\" was updated");
+            ->with('success', "Content Page \"$page->title\" was updated");
 
     }
 
@@ -136,12 +117,8 @@ class ContentPageController extends Controller
     {
    
         $page = Page::where('id',$id)->first() ?? abort(404);
-        $name = $page->name;
+        $name = $page->title;
         $page->delete();
-        if ($page->icon) {
-            Storage::disk('images')->delete($page->breadcumb_image);
-           
-        }
         return to_route('admin.content-page.index')
             ->with('success', "Content Page \"$name\" was deleted");
     }

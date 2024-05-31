@@ -120,7 +120,7 @@ export default function Create({ auth,imageList }) {
                                             onChange={(value) => handleChange("image", value)}
                                             value={data.image}
                                             options={images}
-                                            name="banner_id"
+                                            name="image"
                                         />
                                         <InputError message={errors.image} className="mt-2 col-12" />
 

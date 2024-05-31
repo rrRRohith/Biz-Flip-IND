@@ -1,60 +1,66 @@
-// Create.jsx
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
-import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import EmailEditor from 'react-email-editor';
+import PermissionAllow from "@/Components/PermissionAllow";
+import DynamicSelect from "@/Components/DynamicSelect";
 
-export default function Create({ page_item, queryParams = null, auth }) {
+export default function Edit({ page_item, auth, imageList }) {
+    const images = Object.entries(imageList).map(([key, value]) => ({
+        value: key,
+        label: value
+    }));
+
+    const [editorDesign, setEditorDesign] = useState(null);
+
+
+    const returnPageContent = ({
+                                    design: page_item.data,
+                                    html: page_item.content,
+                                });
 
     const { data, setData, post, errors, reset } = useForm({
-        image: '',
-        category_name: page_item.name || '',
-        status: page_item.status = 'published' ? 1 : 0 || 1,
-        position: page_item.position || '', _method: "PUT",
-        remove_image: false,
+        title: page_item.title || '',
+        status: 1,
+        seo_title: page_item.seo_title || '',
+        seo_keywords: page_item.seo_keywords || '',
+        seo_description: page_item.seo_description || '',
+        image: page_item.banner_id || '',
+        pageContent: returnPageContent,
+        _method:'PUT'
     });
-
-    const [imagePreview, setImagePreview] = useState('');
-
-    useEffect(() => {
-        // Set the initial image preview if an image exists
-        if (page_item.icon) {
-            setImagePreview(page_item.icon);
-        }
-    }, [page_item.icon]);
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setData('image', file);
-            setImagePreview(URL.createObjectURL(file));
-        }
-        // setData('remove_image', false);
-    };
-
-    const handleRemoveImage = () => {
-        setData('image', '');
-        setImagePreview('');
-
-        setData('remove_image', true);
-    };
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        post(route("admin.content-page.update", page_item.id));
-    };
-
 
     const handleChange = (key, value) => {
         setData(key, value);
     };
+
+
+    const emailEditorRef = useRef(null);
+
+
+    useEffect(() => {
+        setData('pageContent', editorDesign);
+    }, [editorDesign]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        post(route('admin.content-page.update',page_item.id));
+    };
+
+    const onDesignChange = () => {
+        emailEditorRef.current.editor.exportHtml((data3) => {
+            const { design, html } = data3;
+            setEditorDesign({
+                design: design,
+                html: html,
+            });
+        });
+    };
+
 
     return (
         <Authenticated
@@ -74,7 +80,7 @@ export default function Create({ page_item, queryParams = null, auth }) {
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
                                                 <PermissionAllow permission={'Content Pages Listing'}>
-                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Content Page</Link></li>
+                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Content Page</Link></li>
                                                 </PermissionAllow>
                                                 <li className="breadcrumb-item active" aria-current="page">Edit</li>
                                             </ol>
@@ -95,104 +101,125 @@ export default function Create({ page_item, queryParams = null, auth }) {
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-body">
                                                     <div className="row">
-                                                        <div className="col-lg-9">
+                                                        <div className="col-lg-12">
                                                             <div className="row">
-                                                                <div className="col-md-12 mb-3">
+                                                                <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Title</InputLabel>
                                                                         <TextInput
-                                                                            id="category-name"
+                                                                            id="title"
                                                                             type="text"
-                                                                            name="category_name"
+                                                                            name="title"
                                                                             className="form-control"
-                                                                            value={data.category_name}
-                                                                            onChange={(e) => handleChange("category_name", e.target.value)}
+                                                                            value={data.title}
+                                                                            onChange={(e) => handleChange("title", e.target.value)}
                                                                             autoComplete="off"
                                                                         />
-                                                                        <InputError message={errors.category_name} className="mt-2 col-12" />
+                                                                        <InputError message={errors.title} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Image</InputLabel>
+                                                                        <DynamicSelect
+                                                                            onChange={(value) => handleChange("image", value)}
+                                                                            value={data.image}
+                                                                            options={images}
+                                                                            name="image"
+                                                                            defaultValue={page_item.image}
+                                                                        />
+                                                                        <InputError message={errors.image} className="mt-2 col-12" />
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Title</InputLabel>
+                                                                        <TextInput
+                                                                            id="seo_title"
+                                                                            type="text"
+                                                                            name="seo_title"
+                                                                            className="form-control"
+                                                                            value={data.seo_title}
+                                                                            onChange={(e) => handleChange("seo_title", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.seo_title} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Keywords</InputLabel>
+                                                                        <TextInput
+                                                                            id="seo_keywords"
+                                                                            type="text"
+                                                                            name="seo_keywords"
+                                                                            className="form-control"
+                                                                            value={data.seo_keywords}
+                                                                            onChange={(e) => handleChange("seo_keywords", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.seo_keywords} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
-                                                                        <SelectOption
-                                                                            onChange={(value) => handleChange("position", value)}
-                                                                            value={data.position}
-                                                                            defaultValue={data.position}
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Description</InputLabel>
+                                                                        <TextInput
+                                                                            id="seo_description"
+                                                                            type="text"
+                                                                            name="seo_description"
+                                                                            className="form-control"
+                                                                            value={data.seo_description}
+                                                                            onChange={(e) => handleChange("seo_description", e.target.value)}
+                                                                            autoComplete="off"
                                                                         />
-                                                                        <InputError message={errors.position} className="mt-2 col-12" />
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row">
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group">
-                                                                        <label className="fw-700 fs-16 form-label">Status</label>
-                                                                        <div className="radio-list">
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="1"
-                                                                                checked={data.status === 1}
-                                                                                label="Published"
-                                                                            />
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="0"
-                                                                                checked={data.status === 0}
-                                                                                label="Draft"
-                                                                            />
-                                                                            <InputError message={errors.status} className="mt-2 col-12" />
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-lg-3">
-                                                            <div className="row">
-                                                                <div className="col-md-12">
-                                                                    <div className="border rounded-4 p-3  text-center">
-                                                                        <h4 className="box-title text-center">Icon/Image</h4>
-                                                                        <div className="product-img">
-                                                                            {imagePreview ? (
-                                                                                <div className="mb-15 text-center position-relative">
-                                                                                    <img src={imagePreview} alt="Selected" className="w-100 rounded-5" />
-                                                                                    <i className="bi bi-x-lg fw-bold position-absolute text-danger top-0" role="button" onClick={handleRemoveImage}></i>
-
-                                                                                </div>
-                                                                            ) : (
-                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
-                                                                            )}
-                                                                            <div className="btn mb-20">
-                                                                                <button
-                                                                                    type="button"
-                                                                                    className="btn btn-primary"
-                                                                                    onClick={() => document.getElementById('project_image_path').click()}
-                                                                                >
-                                                                                    Choose Image
-                                                                                </button>
-                                                                                <TextInput
-                                                                                    id="project_image_path"
-                                                                                    type="file"
-                                                                                    name="image"
-                                                                                    className="d-none mt-1 block w-full upload"
-                                                                                    onChange={handleImageChange}
-                                                                                />
-
-                                                                            </div>
-                                                                        </div>
-
+                                                                        <InputError message={errors.seo_description} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                    <div className="row">
+                                                        <div className="col-md-12">
+                                                            <div className="form-group">
+                                                                <InputLabel className="fw-700 fs-16 form-label form-label">Content</InputLabel>
+                                                                <InputError message={errors.pageContent} className="mt-2 col-12" />
+                                                                <EmailEditor ref={emailEditorRef} onLoad={() => {
+                                                                    emailEditorRef.current.editor.addEventListener('design:updated', onDesignChange);
+                                                                    emailEditorRef.current.editor.loadDesign(page_item.data);
+                                                                }} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-md-6">
+                                                            <div className="form-group">
+                                                                <label className="fw-700 fs-16 form-label">Status</label>
+                                                                <div className="radio-list">
+                                                                    <RadioButtonLabel
+                                                                        name="status"
+                                                                        onChange={(value) => handleChange("status", value)}
+                                                                        value="1"
+                                                                        checked={data.status === 1}
+                                                                        label="Published"
+                                                                    />
+                                                                    <RadioButtonLabel
+                                                                        name="status"
+                                                                        onChange={(value) => handleChange("status", value)}
+                                                                        value="0"
+                                                                        checked={data.status === 0}
+                                                                        label="Draft"
+                                                                    />
+                                                                </div>
+                                                                <InputError message={errors.status} className="mt-2 col-12" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-actions mt-3 text-center">
+                                                        <button type="submit" className="btn btn-primary me-2">Save</button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </PermissionAllow>

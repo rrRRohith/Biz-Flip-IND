@@ -27,7 +27,7 @@ class StoreContentPageRequest extends FormRequest
             'pageContent' => ['required'],
             'seo_title'   => ['nullable'],
             'seo_keywords'   => ['nullable'],
-            'seo_desscription'   => ['nullable'],
+            'seo_description'   => ['nullable'],
             'status' => ['required', Rule::in(['0', '1'])]
         ];
     }

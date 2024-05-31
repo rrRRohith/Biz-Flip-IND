@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Banner;
 
 class ContentPageResource extends JsonResource
 {
@@ -22,13 +23,13 @@ class ContentPageResource extends JsonResource
             'title'          => $this->title,	
             'slug'           => $this->slug,
             'content'        => $this->content,	
-            'data'           => $this->data,	
+            'data'           => json_decode($this->data),	
             'seo_title'      => $this->seo_title,	
             'seo_keywords'   => $this->seo_keywords,	
-            'seo_desscription'=> $this->seo_desscription,	
+            'seo_description'=> $this->seo_description,	
             'status'         => $this->status == 1 ? 'Published' : 'Draft',
-            'breadcumb_image'=> $this->breadcumb_image && !(str_starts_with($this->breadcumb_image, 'http')) ?
-                                asset('images/'.$this->breadcumb_image) : 'dummy.png',
+            'image'          => Banner::where('id',$this->banner_id)->pluck('title','id')->first(), 
+            'banner_id'      => $this->banner_id,
             'created_at'     => (new Carbon($this->created_at))->format('Y-m-d'),
             'updated_at'     => (new Carbon($this->updated_at))->format('Y-m-d'),
         ];

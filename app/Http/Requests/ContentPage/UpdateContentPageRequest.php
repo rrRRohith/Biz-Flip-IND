@@ -23,12 +23,11 @@ class UpdateContentPageRequest extends FormRequest
     {
         return [
             'title'     => ['required', 'max:255'],
-            'image'     => ['nullable', 'image'],
-            'contents'   => ['required'],
-            'position'  => ['integer'],
-            'seo_title'   => ['required'],
-            'seo_keywords'   => ['required'],
-            'seo_desscription'   => ['required'],
+            'image'     => ['required'],
+            'pageContent' => ['required'],
+            'seo_title'   => ['nullable'],
+            'seo_keywords'   => ['nullable'],
+            'seo_description'   => ['nullable'],
             'status' => ['required', Rule::in(['0', '1'])]
         ];
     }

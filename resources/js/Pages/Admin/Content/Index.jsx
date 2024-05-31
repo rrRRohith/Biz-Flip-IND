@@ -63,9 +63,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Icon</th>
-                                                            <th>Name</th>
-                                                            <th>Position</th>
+                                                            <th>Title</th>
                                                             <th>Status</th>
                                                             <th>Last Modified</th>
                                                             <th></th>
@@ -77,30 +75,20 @@ export default function Index({ pageList, auth, success = null, error = null }) 
 
                                                             <tr key={page.id} className="hover-primary">
                                                                 <td>{page.id}</td>
-
-                                                                <td>
-                                                                    <img
-                                                                        src={page.icon}
-                                                                        className='w-100 rounded-5 '
-                                                                        alt={`${page.icon} icon`}
-                                                                        onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                    />
-                                                                </td>
-                                                                <td>{page.name}</td>
-                                                                <td>{page.position}</td>
+                                                                <td>{page.title}</td>
                                                                 <td>{page.status}</td>
                                                                 <td>{page.updated_at}</td>
                                                                 <td>
-                                                                <PermissionAllow permission={'Content Page Edit'}>
-                                                                    <Link className='btn btn-transparent' href={route('admin.content-page.edit', page.id)}>
-                                                                        <i className="bi bi-pencil"></i>
-                                                                    </Link>
-                                                                </PermissionAllow>
-                                                                <PermissionAllow permission={'Content Page Delete'}>
-                                                                    <button onClick={(e) => deletePage(page)} className="btn btn-transparent border-0">
-                                                                        <i className="bi bi-trash"></i>
-                                                                    </button>
-                                                                </PermissionAllow>
+                                                                    <PermissionAllow permission={'Content Page Edit'}>
+                                                                        <Link className='btn btn-transparent' href={route('admin.content-page.edit', page.id)}>
+                                                                            <i className="bi bi-pencil"></i>
+                                                                        </Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission={'Content Page Delete'}>
+                                                                        <button onClick={(e) => deletePage(page)} className="btn btn-transparent border-0">
+                                                                            <i className="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </PermissionAllow>
                                                                 </td>
                                                             </tr>
                                                         ))}
