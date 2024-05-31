@@ -42,8 +42,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::get('contact-leads/{id}', 'EnquiryController@contact_show')->name('contact_show');
     Route::delete('contact-leads/{id}', 'EnquiryController@contact_delete')->name('contact_delete');
     Route::get('property-leads', 'EnquiryController@propery_leads_index')->name('propery_leads_index');
-    Route::get('contact-leads/{id}', 'EnquiryController@propery_lead_show')->name('propery_lead_show');
-    Route::delete('contact-leads/{id}', 'EnquiryController@propery_lead_delete')->name('propery_lead_delete');
+    Route::get('property-leads/{id}', 'EnquiryController@propery_lead_show')->name('propery_lead_show');
+    Route::delete('property-leads/{id}', 'EnquiryController@propery_lead_delete')->name('propery_lead_delete');
 
     Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
     Route::get('role-permissions', function () {return view('Admin.index');})->name('role-permissions');
