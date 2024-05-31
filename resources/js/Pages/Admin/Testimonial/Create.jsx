@@ -82,7 +82,7 @@ export default function Create({ auth }) {
                                                 <div className="row">
                                                     <div className="col-lg-9">
                                                         <div className="row">
-                                                            <div className="col-md-6 mb-3">
+                                                            <div className="col-md-4 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
                                                                     <TextInput
@@ -97,7 +97,22 @@ export default function Create({ auth }) {
                                                                     <InputError message={errors.name} className="mt-2 col-12" />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-md-6 mb-3">
+                                                            <div className="col-md-4 mb-3">
+                                                                <div className="form-group">
+                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Company</InputLabel>
+                                                                    <TextInput
+                                                                        id="company"
+                                                                        type="text"
+                                                                        name="company"
+                                                                        className="form-control"
+                                                                        value={data.company}
+                                                                        onChange={(e) => handleChange("company", e.target.value)}
+                                                                        autoComplete="off"
+                                                                    />
+                                                                    <InputError message={errors.company} className="mt-2 col-12" />
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-4 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Designation</InputLabel>
                                                                     <TextInput
@@ -115,19 +130,17 @@ export default function Create({ auth }) {
                                                             <div className="col-md-12 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Message</InputLabel>
-                                                                    <TextInput
-                                                                        id="message"
+                                                                    <textarea id="message"
                                                                         type="text"
                                                                         name="message"
-                                                                        className="form-control"
-                                                                        value={data.message}
+                                                                        className="form-control"  value={data.message}
                                                                         onChange={(e) => handleChange("message", e.target.value)}
-                                                                        autoComplete="off"
-                                                                    />
+                                                                        autoComplete="off" rows={4} cols={40} />
+                                                                  
                                                                     <InputError message={errors.message} className="mt-2 col-12" />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-md-12 mb-3">
+                                                            <div className="col-md-6 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
                                                                     <SelectOption
@@ -180,10 +193,10 @@ export default function Create({ auth }) {
                                                                         ) : (
                                                                             <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
                                                                         )}
-                                                                        <div className="btn mb-20">
+                                                                        <div className=" mb-20">
                                                                         <button
                                                                                 type="button"
-                                                                                className="btn btn-primary"
+                                                                                className="btn btn-sm btn-neutral"
                                                                                 onClick={() => document.getElementById('project_image_path').click()}
                                                                             >
                                                                                 Choose Image

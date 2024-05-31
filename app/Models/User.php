@@ -80,17 +80,16 @@ class User extends Authenticatable
         return $this->hasOne(Seller::class);
     }
 
-<<<<<<< HEAD
     public function getRole()
     {
         return $this->belongsTo('App\Models\Role','role_id','id');
-=======
+    }
+    
     public function availability(){
         return $this->hasOne(SellerAvailability::class);
     }
     
     public function tickets(){
         return $this->hasMany(Ticket::class);
->>>>>>> 627d1251e36dfc51315f06aaba5cef117a19969d
     }
 }

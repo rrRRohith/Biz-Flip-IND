@@ -61,7 +61,7 @@ class CategoryController extends Controller
         $new        = new Category();
         $new->name  = $request->category_name;
         $new->slug  = Str::slug($request->category_name);
-        $new->icon  = $imagePath;
+        $new->icon  = $imagePath ?? null;
         $new->parent= null;
         $new->position=$request->position;
         $new->status= $request->status;
