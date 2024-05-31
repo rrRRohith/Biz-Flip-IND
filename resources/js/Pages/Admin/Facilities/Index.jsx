@@ -42,8 +42,9 @@ export default function Index({ facilityList, auth, success = null, error = null
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    
-                                    <Link className='btn btn-danger btn-sm text-end' href={route('admin.facilities.create')}><i className='bi bi-plus'></i> Create</Link>
+                                <PermissionAllow permission={'Facility Create'}>
+                                <Link className='btn btn-danger btn-sm text-end' href={route('admin.facilities.create')}><i className='bi bi-plus'></i> Create</Link>
+                                </PermissionAllow>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +57,7 @@ export default function Index({ facilityList, auth, success = null, error = null
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
-                                    <PermissionAllow permission={'Feature Create'} message={true}>
+                                    <PermissionAllow permission={'Facilities Listing'} message={true}>
                                         <div className="table-responsive rounded card-table">
                                             <table className="table border-no" id="example1">
                                                 <thead>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Page;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContentPage\StoreContentPageRequest;
 use App\Http\Requests\ContentPage\UpdateContentPageRequest;
@@ -30,7 +31,8 @@ class ContentPageController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Content/Create');
+        $imageList = Banner::where('type','Page Top Tile')->pluck('title','id');
+        return Inertia::render('Admin/Content/Create',['imageList' => $imageList]);
     }
 
     /**
@@ -39,26 +41,18 @@ class ContentPageController extends Controller
     public function store(StoreContentPageRequest $request)
     {
        
-        dd($request->all());
-        //
-        /** @var $image \Illuminate\Http\UploadedFile */
-        $image =$request->image ?? null;
-   
-        if ($image) {
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('page', $imageName, 'images');
-        }
-
+        $pageContent            = $request->pageContent;
         $new                    = new Page();
         $new->name              = $request->title;
         $new->slug              = Str::slug($request->title);
-        $new->content           = $request->title;
-        $new->data              = $request->data;
-        $new->breadcumb_image   = $imagePath ??  null;
+        $new->content           = $pageContent['html'] ?? '';
+        $new->data              = json_decode(json_encode($pageContent['design'] ?? ''));
+        $new->banner_id         = $request->image ??  null;
         $new->seo_title         = $request->seo_title;
         $new->seo_keywords      = $request->seo_keywords;
         $new->seo_desscription  = $request->seo_desscription;
         $new->status            = $request->status;
+        
         try{
             $new->save();			
             return to_route('admin.content-page.index')->with('success', 'page was created.');

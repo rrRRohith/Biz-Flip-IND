@@ -22,14 +22,13 @@ class StoreContentPageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'title'     => ['required', 'max:255'],
-            // 'image'     => ['nullable', 'image'],
-            // 'contents'   => ['required'],
-            // 'position'  => ['integer'],
-            // 'seo_title'   => ['required'],
-            // 'seo_keywords'   => ['required'],
-            // 'seo_desscription'   => ['required'],
-            // 'status' => ['required', Rule::in(['0', '1'])]
+            'title'     => ['required', 'max:255'],
+            'image'     => ['required'],
+            'pageContent' => ['required'],
+            'seo_title'   => ['nullable'],
+            'seo_keywords'   => ['nullable'],
+            'seo_desscription'   => ['nullable'],
+            'status' => ['required', Rule::in(['0', '1'])]
         ];
     }
 }

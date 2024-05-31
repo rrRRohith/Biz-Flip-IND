@@ -37879,3 +37879,26 @@ img.away, img.busy, img.offline, img.online {
   background: gray; 
   border-radius: 10px;
 }
+
+
+.css-w9q2zk-Input2 {
+  visibility: visible;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: inline-grid;
+  grid-area: 1 / 1 / 2 / 3;
+  grid-template-columns: 0 min-content;
+  margin: 0 !important;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+  color: hsl(0, 0%, 20%);
+  box-sizing: border-box;
+}
+
+.css-art2ul-ValueContainer2{
+  padding: 0px 8px !important;
+}
+.css-13cymwt-control{
+  border-color: #86a4c3 !important;
+}

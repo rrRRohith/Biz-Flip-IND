@@ -51,7 +51,7 @@ class FeaturesController extends Controller
         $new        = new Features();
         $new->name  = $request->feature_name;
         $new->slug  = Str::slug($request->feature_name);
-        $new->icon  = $imagePath;
+        $new->icon  = $imagePath ?? null;
      
         $new->position=$request->position;
         $new->status= $request->status;

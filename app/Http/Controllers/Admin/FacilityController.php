@@ -51,7 +51,7 @@ class FacilityController extends Controller
         $new        = new Facility();
         $new->name  = $request->facility_name;
         $new->slug  = Str::slug($request->facility_name);
-        $new->icon  = $imagePath;
+        $new->icon  = $imagePath ?? null;
      
         $new->position=$request->position;
         $new->status= $request->status;

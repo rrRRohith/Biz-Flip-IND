@@ -16,24 +16,6 @@
     z-index: 9999;
 }
 
-.css-13cymwt-control {
-    border-width: 2px !important;
-    border-color: #e7eaf0 !important;
-    border-radius: .375rem !important;
-    box-shadow: none !important;
-    padding-top: 0.213em;
-    padding-bottom: 0.213em;
-}
-
-.css-t3ipsp-control {
-    border-width: 2px !important;
-    box-shadow: none !important;
-    border-radius: .375rem !important;
-    border-color: #5c60f5 !important;
-    outline: 0;
-    padding-top: 0.213em;
-    padding-bottom: 0.213em;
-}
 
 .message-avatar {
     width: 50px;

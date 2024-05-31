@@ -469,6 +469,53 @@ return $permissions = [
         "Permissions" => "Role and Responsibilities Delete",
         "Section" => "Settings",
         "Type" => "Common"
-    ]
+    ],
+    [
+        "Permissions" => "Profile",
+        "Section" => "Sidebar",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Profile Show",
+        "Section" => "Profile",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Profile Edit",
+        "Section" => "Profile",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Sellers Pending Approvel",
+        "Section" => "Sidebar",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Ads Peding Approvel",
+        "Section" => "Sidebar",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Facilities Listing",
+        "Section" => "Facilities",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Facility Create",
+        "Section" => "Facilities",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Facility Edit",
+        "Section" => "Facilities",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Facility Delete",
+        "Section" => "Facilities",
+        "Type" => "Common"
+    ],
+
+    
 ];
 ?>

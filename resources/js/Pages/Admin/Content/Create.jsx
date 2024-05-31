@@ -8,74 +8,52 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import EmailEditor from 'react-email-editor';
+import PermissionAllow from "@/Components/PermissionAllow";
+import DynamicSelect from "@/Components/DynamicSelect";
 
-export default function Create({ auth }) {
+export default function Create({ auth,imageList }) {
+  const images = Object.entries(imageList).map(([key, value]) => ({
+    value: key,
+    label: value
+  }));
 
-
+  const [editorDesign, setEditorDesign] = useState(null);
   const { data, setData, post, errors, reset } = useForm({
     title: '',
-    content: '',
     status: 1,
     seo_title: '',
     seo_keywords: '',
     seo_description: '',
     image: '',
-    design: ''
+    pageContent: ''
   });
 
 
-  const [imagePreview, setImagePreview] = useState('');
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setData('image', file);
-      setImagePreview(URL.createObjectURL(file));
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setData('image', '');
-    setImagePreview('');
-  };
-
   const handleChange = (key, value) => {
     setData(key, value);
-    console.log(key, value)
   };
 
 
   const emailEditorRef = useRef(null);
-  const exportHtml = () => {
-    return new Promise((resolve, reject) => {
-      emailEditorRef.current.editor.exportHtml((data2) => {
-        const { design, html } = data2;
-        handleChange("design", design)
-        handleChange("content", html)
-
-      });
-      resolve();
-    });
-  }
 
 
-  function postData() {
-    console.log(data);
-  }
+  useEffect(() => {
+    setData('pageContent', editorDesign);
+  }, [editorDesign]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    post(route('admin.content-page.store'));
+  };
 
-
-    await exportHtml();
-
-    await postData();
-
-
-    // await exportDesign();
-    // await setData(data); // Ensure that the latest data is set
-    // post(route('admin.content-page.store'));
-    console.log(data); // Logs updated data after form submission
+  const onDesignChange = () => {
+    emailEditorRef.current.editor.exportHtml((data3) => {
+      const { design, html } = data3;
+      setEditorDesign({
+          design : design,
+          html : html,
+      });
+    });
   };
 
 
@@ -118,9 +96,9 @@ export default function Create({ auth }) {
                       <form onSubmit={handleSubmit}>
                         <div className="form-body">
                           <div className="row">
-                            <div className="col-lg-9">
+                            <div className="col-lg-12">
                               <div className="row">
-                                <div className="col-md-12 mb-3">
+                                <div className="col-md-6 mb-3">
                                   <div className="form-group">
                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Title</InputLabel>
                                     <TextInput
@@ -135,6 +113,20 @@ export default function Create({ auth }) {
                                     <InputError message={errors.title} className="mt-2 col-12" />
                                   </div>
                                 </div>
+                                <div className="col-md-6 mb-3">
+                                    <div className="form-group">
+                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Image</InputLabel>
+                                        <DynamicSelect
+                                            onChange={(value) => handleChange("image", value)}
+                                            value={data.image}
+                                            options={images}
+                                            name="banner_id"
+                                        />
+                                        <InputError message={errors.image} className="mt-2 col-12" />
+
+                                    </div>
+                                </div>
+                                
                                 <div className="col-md-6 mb-3">
                                   <div className="form-group">
                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Title</InputLabel>
@@ -182,49 +174,15 @@ export default function Create({ auth }) {
                                 </div>
                               </div>
                             </div>
-                            <div className="col-lg-3">
-                              <div className="row">
-                                <div className="col-md-12">
-                                  <div className="border rounded-4 p-3 text-center">
-                                    <h4 className="box-title text-center">Breadcrumb Image</h4>
-                                    <div className="product-img">
-                                      {imagePreview ? (
-                                        <div className="mb-15 text-center position-relative">
-                                          <img src={imagePreview} alt="Selected" className="w-50 rounded-5" />
-                                          <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
-                                        </div>
-                                      ) : (
-                                        <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 w-75 text-center" />
-                                      )}
-                                      <div className="btn mb-20">
-                                        <button
-                                          type="button"
-                                          className="btn btn-primary"
-                                          onClick={() => document.getElementById('project_image_path').click()}
-                                        >
-                                          Choose Image
-                                        </button>
-                                        <TextInput
-                                          id="project_image_path"
-                                          type="file"
-                                          name="image"
-                                          className="d-none mt-1 block w-full upload"
-                                          onChange={handleImageChange}
-                                        />
-                                      </div>
-                                      <InputError message={errors.image} className="mt-2 col-12" />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
                           </div>
                           <div className="row">
                             <div className="col-md-12">
                               <div className="form-group">
                                 <InputLabel className="fw-700 fs-16 form-label form-label">Content</InputLabel>
-                                <InputError message={errors.content} className="mt-2 col-12" />
-                                <EmailEditor ref={emailEditorRef} />
+                                <InputError message={errors.pageContent} className="mt-2 col-12" />
+                                <EmailEditor ref={emailEditorRef}  onLoad={() => {
+                                  emailEditorRef.current.editor.addEventListener('design:updated', onDesignChange);
+                                }} />
                               </div>
                             </div>
                           </div>
@@ -252,9 +210,8 @@ export default function Create({ auth }) {
                               </div>
                             </div>
                           </div>
-                          <div className="form-actions mt-3 d-flex justify-content-end">
+                          <div className="form-actions mt-3 text-center">
                             <button type="submit" className="btn btn-primary me-2">Save</button>
-                            <button type="button" className="btn btn-secondary" onClick={() => reset()}>Reset</button>
                           </div>
                         </div>
                       </form>

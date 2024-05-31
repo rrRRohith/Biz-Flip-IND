@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Vendor;
+use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Http\Resources\VendorResource;
 use App\Http\Requests\VenderStoreRequest;
@@ -19,7 +19,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        $vendorsList = Vendor::with('user')->get();
+        $vendorsList = Seller::with('user')->get();
       
         return Inertia::render('Admin/Seller/Index',['vendorsList' => VendorResource::collection($vendorsList),'success' => session('success'),'error' => session('error')]);
 
@@ -46,7 +46,7 @@ class VendorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Vendor $vendor)
+    public function show(Seller $vendor)
     {
         //
     }
@@ -54,7 +54,7 @@ class VendorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Vendor $vendor)
+    public function edit(Seller $vendor)
     {
         //
     }
@@ -62,7 +62,7 @@ class VendorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Vendor $vendor)
+    public function update(Request $request, Seller $vendor)
     {
         //
     }
@@ -70,7 +70,7 @@ class VendorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Vendor $vendor)
+    public function destroy(Seller $vendor)
     {
         //
     }
