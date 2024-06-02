@@ -10,35 +10,35 @@ import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import Form from 'react-bootstrap/Form';
 
 
-export default function Create({ auth }) {
+export default function Edit({ auth, seller }) {
     const { data, setData, post, errors, reset } = useForm({
-        'firstname' : '',
-        'lastname'  : '',
-        'email'     : '',
-        'phone'     : '',
-        'address'   : '',
-        'postalcode': '',
-        'city'      : '',
-        'province'  : '',
-        'picture'   : '',
-        'short_bio' : '',
-        'description': '',
-        'logo'      : '',
-        'company_name': '',
-        'full_address' : '',
-        'alt_emails': '',
-        'alt_phone' : '',
-        'lat'       : '',
-        'long'      : '',
-        'no_employee': '',
-        'website'   : '',
-        'designation': '',
-        'business_type': '',
-        'public_profile_on': '',
-        'company_email': '',
-        'company_phone': '',
-        'position'  : '',
-        'status'    : '1'
+        'firstname' : seller.firstname || '',
+        'lastname'  : seller.lastname || '',
+        'email'     : seller.email || '',
+        'phone'     : seller.phone || '',
+        'address'   : seller.address || '',
+        'postalcode': seller.postalcode || '',
+        'city'      : seller.city || '',
+        'province'  : seller.province || '',
+        'picture'   : seller.picture || '',
+        'short_bio' : seller.short_bio || '',
+        'description': seller.description || '',
+        'logo'      : seller.logo || '',
+        'company_name': seller.company_name || '',
+        'full_address' : seller.full_address || '',
+        'alt_emails': seller.alt_emails || '',
+        'alt_phone' : seller.alt_phone || '',
+        'lat'       : seller.lat || '',
+        'long'      : seller.long || '',
+        'employee': seller.employee || '',
+        'website'   : seller.website || '',
+        'designation': seller.designation || '',
+        'business_type': seller.business_type || '',
+        'public_profile_on': seller.public_profile_on || '',
+        'company_email': seller.company_email || '',
+        'company_phone': seller.company_phone || '',
+        'position'  : seller.position || '',
+        'status'    : seller.status || '1'
     });
 
     const handleSubmit = (e) => {

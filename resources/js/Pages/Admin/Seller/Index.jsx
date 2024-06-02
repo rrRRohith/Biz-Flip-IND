@@ -7,7 +7,7 @@ import { Dropdown } from '@mui/joy';
 export default function Index({ vendorsList, auth, success = null, error = null }) {
      
     const deleteVendor = (vendor) => {
-        if (!window.confirm("Are you sure you want to delete the Vendor?")) {
+        if (!window.confirm("Are you sure you want to delete the Seller?")) {
           return;
         }
         
@@ -15,6 +15,7 @@ export default function Index({ vendorsList, auth, success = null, error = null 
         router.delete(route("admin.sellers.destroy", vendor.id))
       }
 
+      console.log(vendorsList)
       
 
     return (
@@ -61,8 +62,8 @@ export default function Index({ vendorsList, auth, success = null, error = null 
                                                         <th>#</th>
                                                         <th>Image</th>
                                                         <th>Name</th>
+                                                        <th>Company Name</th>
                                                         <th>Designation</th>
-                                                        <th>Position</th>
                                                         <th>Status</th>
                                                         <th>Last Modified</th>
                                                         <th></th>
@@ -77,19 +78,19 @@ export default function Index({ vendorsList, auth, success = null, error = null 
                                                         
                                                         <td>
                                                         <img
-                                                            src={vendor.image}
+                                                            src={vendor.picture}
                                                             className='w-100 rounded-5 '
                                                             alt={`${vendor.image} icon`}
                                                             onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                         />
                                                         </td>
                                                         <td>{vendor.name}</td>
+                                                        <td>{vendor.company_name}</td>
                                                         <td>{vendor.designation}</td>
-                                                        <td>{vendor.position}</td>
                                                         <td>{vendor.status}</td>
                                                         <td>{vendor.updated_at}</td>
                                                         <td>
-                                                            <Link className='btn btn-transparent' href={route('admin.sellers.edit', vendor.id)}>
+                                                            <Link className='btn btn-transparent' href={route('admin.sellers.edit', vendor.user_id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
                                                             <button onClick={(e) => deleteVendor(vendor)} className="btn btn-transparent border-0">
