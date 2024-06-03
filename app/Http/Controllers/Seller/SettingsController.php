@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\SellerUpdateRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Exception;
 
 class SettingsController extends Controller{
     private $user;

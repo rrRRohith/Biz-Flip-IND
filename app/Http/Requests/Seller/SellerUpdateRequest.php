@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SellerStoreRequest extends FormRequest
+class SellerUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,13 +16,12 @@ class SellerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+           
             'firstname'     => ['required'],
             'lastname'      => ['required'],
-            'email'         => ['required','email','max:255',Rule::unique('users'),'email'],
+            'email'         => ['required','email','max:255'],
             'phone'         => ['required','max:10'],
             'address'       => ['required'],
-            'password'      => ['required','min:8'],
             'postalcode'    => ['required'],
             'city'          => ['required'],
             'province'      => ['required'],
