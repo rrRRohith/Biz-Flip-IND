@@ -27,6 +27,10 @@ class Seller extends Model
         return $this->hasOne(User::class,'id','user_id');
     }
 
+    public function availableDays(){
+        return $this->hasOne(SellerAvailability::class,'user_id','user_id');
+    }
+
     public function getLogoAttribute($logo){
         return $logo ? : 'default.png';
     }

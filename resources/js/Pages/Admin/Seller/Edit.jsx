@@ -1,5 +1,5 @@
-
-import React, { useState } from "react";
+    
+import React, { useState, useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import InputError from '@/Components/InputError';
@@ -7,48 +7,125 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import Select from 'react-select';
 import Form from 'react-bootstrap/Form';
 
 
 export default function Edit({ auth, seller }) {
     const { data, setData, post, errors, reset } = useForm({
-        'firstname' : seller.firstname || '',
-        'lastname'  : seller.lastname || '',
-        'email'     : seller.email || '',
-        'phone'     : seller.phone || '',
-        'address'   : seller.address || '',
-        'postalcode': seller.postalcode || '',
-        'city'      : seller.city || '',
-        'province'  : seller.province || '',
-        'picture'   : seller.picture || '',
-        'short_bio' : seller.short_bio || '',
-        'description': seller.description || '',
-        'logo'      : seller.logo || '',
-        'company_name': seller.company_name || '',
-        'full_address' : seller.full_address || '',
-        'alt_emails': seller.alt_emails || '',
-        'alt_phone' : seller.alt_phone || '',
-        'lat'       : seller.lat || '',
-        'long'      : seller.long || '',
-        'employee': seller.employee || '',
-        'website'   : seller.website || '',
-        'designation': seller.designation || '',
-        'business_type': seller.business_type || '',
-        'public_profile_on': seller.public_profile_on || '',
-        'company_email': seller.company_email || '',
-        'company_phone': seller.company_phone || '',
-        'position'  : seller.position || '',
-        'status'    : seller.status || '1'
+        firstname   : seller.firstname || '',
+        lastname    : seller.lastname || '',
+        email       : seller.email || '',
+        phone       : seller.phone || '',
+        address     : seller.address || '',
+        postalcode  : seller.postalcode || '',
+        password    : '',
+        city        : seller.city || '',
+        province    : seller.province || '',
+        picture     : '',
+        short_description   : seller.short_description || '',
+        description : seller.description || '',
+        logo        : '',
+        company_name: seller.company_name || '',
+        full_address: seller.full_address || '',
+        alt_emails  : seller.alt_emails || '',
+        alt_phone   : seller.alt_phone || '',
+        lat         : seller.lat || '',
+        long        : seller.long || '',
+        employee    : seller.employee || '',
+        website     : seller.website || '',
+        designation : seller.designation || '',
+        public_profile_on: seller.public_profile_on || 0,
+        company_email: seller.company_email || '',
+        company_phone: seller.company_phone || '',
+        position    : seller.position || '',
+        business_type: '',
+        status      : seller.status == 'active' ? 1 : (seller.status == 'suspended' ? -1 : 0) || 1,
+         _method    : "PUT",
+         remove_image: false,
     });
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // console.log('Data to be submitted:', data);
-        post(route('admin.sellers.store'))
-    };
-
+    
     const [imagePreview, setImagePreview] = useState('');
     const [imagePreviewLogo, setImagePreviewLogo] = useState('');
+
+
+    console.log(seller)
+    useEffect(() => {
+        if (seller.picture) {
+            setImagePreview(seller.picture);
+        }
+    }, [seller.picture]);
+
+    useEffect(() => {
+        if (seller.logo) {
+            setImagePreviewLogo(seller.logo);
+        }
+    }, [seller.logo]);
+
+    const days = [
+        { id: 'mon', label: 'Monday' },
+        { id: 'tue', label: 'Tuesday' },
+        { id: 'wed', label: 'Wednesday' },
+        { id: 'thu', label: 'Thursday' },
+        { id: 'fri', label: 'Friday' },
+        { id: 'sat', label: 'Saturday' },
+        { id: 'sun', label: 'Sunday' }
+    ];
+
+    const [checkedDays, setCheckedDays] = useState({
+        mon: seller.availableDays.mon || false,
+        tue: seller.availableDays.tue || false,
+        wed: seller.availableDays.wed || false,
+        thu: seller.availableDays.thu || false,
+        fri: seller.availableDays.fri || false,
+        sat: seller.availableDays.sat || false,
+        sun: seller.availableDays.sun || false,
+    });
+
+    const handleCheckboxChange = (day) => {
+        setCheckedDays((prevCheckedDays) => ({
+            ...prevCheckedDays,
+            [day]: !prevCheckedDays[day]
+        }));
+
+        setData('days', checkedDays);
+    };
+
+    const employee_options = [
+        {
+            'label': 'Select an option',
+            'value': 'Select an option',
+        },
+        {
+            'label': 'Less than 10',
+            'value': 'Less than 10',
+        },
+        {
+            'label': '10 to 25',
+            'value': '10 to 25',
+        },
+        {
+            'label': '25 to 50',
+            'value': '25 to 50',
+        },
+        {
+            'label': '50 to 100',
+            'value': '50 to 100',
+        },
+        {
+            'label': 'More than 100',
+            'value': 'More than 100',
+        }
+    ];
+
+    
+    const businessTypes = [
+        { id: 'Agency', label: 'Agency' },
+        { id: 'Mortgage Brokerage', label: 'Mortgage Brokerage' },
+        { id: 'Residential Real Estate Agent', label: 'Residential Real Estate Agent' },
+        { id: 'Commercial Property Broker', label: 'Commercial Property Broker' },
+        { id: 'Other', label: 'Other' },
+    ];
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -61,7 +138,11 @@ export default function Edit({ auth, seller }) {
     const handleRemoveImage = () => {
         setData('picture', '');
         setImagePreview('');
+        
+        setData('remove_picture', true);
     };
+
+    
 
     const handleImageChangeLogo = (e) => {
         const file = e.target.files[0];
@@ -74,11 +155,26 @@ export default function Edit({ auth, seller }) {
     const handleRemoveImageLogo = () => {
         setData('logo', '');
         setImagePreviewLogo('');
+        
+        setData('remove_logo', true);
     };
 
     const handleChange = (key, value) => {
         setData(key, value);
     };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await post(route("admin.sellers.update",seller.user_id), {
+            preserveScroll: true,
+            onSuccess: () => {
+
+            },
+        });
+    };
+
+
 
     return (
         <Authenticated
@@ -119,7 +215,7 @@ export default function Edit({ auth, seller }) {
                                                     <div className="row">
                                                         <div className="col-lg-9">
 
-                                                            <h4 className="col-lg-12 pb-30"><u>Personal Information</u></h4>
+                                                            <h4 className="col-lg-12 pb-30"><u>Contact Person Information</u></h4>
                                                             <div className="row">
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
@@ -181,6 +277,21 @@ export default function Edit({ auth, seller }) {
                                                                             autoComplete="off"
                                                                         />
                                                                         <InputError message={errors.phone} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Password</InputLabel>
+                                                                        <TextInput
+                                                                            id="password"
+                                                                            type="text"
+                                                                            name="password"
+                                                                            className="form-control"
+                                                                            value={data.password}
+                                                                            onChange={(e) => handleChange("password", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.password} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
@@ -253,7 +364,7 @@ export default function Edit({ auth, seller }) {
                                                                     <div className="product-img">
                                                                         {imagePreview ? (
                                                                             <div className="mb-15 text-center position-relative">
-                                                                                <img src={imagePreview} alt="Selected" className="w-50 h-50 rounded-circle" />
+                                                                                <img src={imagePreview} alt="Selected" className="w-100 h-100 rounded-circle" />
                                                                                 <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
 
                                                                             </div>
@@ -323,15 +434,15 @@ export default function Edit({ auth, seller }) {
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Short Bio</InputLabel>
                                                                         <TextInput
-                                                                            id="short_bio"
+                                                                            id="short_description"
                                                                             type="text"
-                                                                            name="short_bio"
+                                                                            name="short_description"
                                                                             className="form-control"
-                                                                            value={data.short_bio}
-                                                                            onChange={(e) => handleChange("short_bio", e.target.value)}
+                                                                            value={data.short_description}
+                                                                            onChange={(e) => handleChange("short_description", e.target.value)}
                                                                             autoComplete="off"
                                                                         />
-                                                                        <InputError message={errors.short_bio} className="mt-2 col-12" />
+                                                                        <InputError message={errors.short_description} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-12 mb-3">
@@ -478,30 +589,14 @@ export default function Edit({ auth, seller }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">No Employees</InputLabel>
-                                                                        <TextInput
-                                                                            id="no_employee"
-                                                                            type="text"
-                                                                            name="no_employee"
-                                                                            className="form-control"
-                                                                            value={data.no_employee}
-                                                                            onChange={(e) => handleChange("no_employee", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.no_employee} className="mt-2 col-12" />
+                                                                        <Select onChange={(e) => { handleChange('employee', e) }} defaultValue={{ value: data.employee, label: data.employee }}  name="employee" options={employee_options}></Select>
+                                                                        <InputError message={errors.employee} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
-                                                                        <TextInput
-                                                                            id="business_type"
-                                                                            type="text"
-                                                                            name="business_type"
-                                                                            className="form-control"
-                                                                            value={data.business_type}
-                                                                            onChange={(e) => handleChange("business_type", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
+                                                                        <Select onChange={(e) => { handleChange('business_type', e) }} defaultValue={{ value: data.business_type, label: data.business_type }} name="business_type" options={businessTypes}></Select>
                                                                         <InputError message={errors.business_type} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
@@ -511,6 +606,7 @@ export default function Edit({ auth, seller }) {
                                                                         <SelectOption
                                                                             onChange={(value) => handleChange("position", value)}
                                                                             value={data.position}
+                                                                            defaultValue={data.position}
                                                                         />
                                                                         <InputError message={errors.position} className="mt-2 col-12" />
 
@@ -561,106 +657,79 @@ export default function Edit({ auth, seller }) {
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-12 mb-3">
+
                                                                     <div className="form-group px-20">
                                                                         <InputLabel className="fw-700  form-label small">Available Days</InputLabel>
-                                                                        <div className="row pt-5 ">
+                                                                        <div className="row pt-5">
+                                                                            {days.map((day) => (
+                                                                                <div key={day.id} className="col-12">
+                                                                                    <Form.Check
+                                                                                        type="checkbox"
+                                                                                        id={`default-checkbox-${day.id}`}
+                                                                                        name={day.id}
+                                                                                        label={
+                                                                                            <>
+                                                                                                {day.label}
+                                                                                                {checkedDays[day.id] ? (
+                                                                                                    <span className="text-success"> (opened)</span>
+                                                                                                ) : (
+                                                                                                    <span className="text-danger"> (closed)</span>
+                                                                                                )}
+                                                                                            </>
+                                                                                        }
+                                                                                        checked={checkedDays[day.id]}
+                                                                                        onChange={() => handleCheckboxChange(day.id)}
+                                                                                    />
+                                                                                </div>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <div className="form-group px-30">
                                                                             <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-mon`}
-                                                                                name="mon"
-                                                                                label='Monday'
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-tue`}
-                                                                                label='Tuesday'
-                                                                                name="tue"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-wed`}
-                                                                                label='Wednesday'
-                                                                                name="wed"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-thu`}
-                                                                                label='Thusday'
-                                                                                name="thu"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-fri`}
-                                                                                label='Friday'
-                                                                                name="fri"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-sat`}
-                                                                                label='Saturday'
-                                                                                name="sat"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-sun`}
-                                                                                label='Sunday'
-                                                                                name="sun"
-                                                                                className="col-6"
+                                                                                type="switch"
+                                                                                id="custom-switch"
+                                                                                name="public_profile_on"
+                                                                                checked={data.public_profile_on === 1}
+                                                                                label="Public Profile Show"
+
                                                                             />
                                                                         </div>
                                                                     </div>
-                                                                </div>
 
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group px-30">
-                                                                        <Form.Check
-                                                                            type="switch"
-                                                                            id="custom-switch"
-                                                                            name="public_profile_on"
-                                                                            label="Public Profile Show"
-
-                                                                        />
-                                                                    </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group px-10">
+                                                            <label className="fw-700 fs-16 form-label">Status</label>
+                                                            <div className="radio-list">
+                                                                <RadioButtonLabel
+                                                                    name="status"
+                                                                    onChange={(value) => handleChange("status", value)}
+                                                                    value="1"
+                                                                    checked={data.status === 1}
+                                                                    label="Published"
+                                                                />
+                                                                <RadioButtonLabel
+                                                                    name="status"
+                                                                    onChange={(value) => handleChange("status", value)}
+                                                                    value="0"
+                                                                    checked={data.status === 0}
+                                                                    label="Draft"
+                                                                />
+                                                                <InputError message={errors.status} className="mt-2 col-12" />
 
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="col-md-12">
-                                                    <div className="form-group px-10">
-                                                        <label className="fw-700 fs-16 form-label">Status</label>
-                                                        <div className="radio-list">
-                                                            <RadioButtonLabel
-                                                                name="status"
-                                                                onChange={(value) => handleChange("status", value)}
-                                                                value="1"
-                                                                checked={data.status === "1"}
-                                                                label="Published"
-                                                            />
-                                                            <RadioButtonLabel
-                                                                name="status"
-                                                                onChange={(value) => handleChange("status", value)}
-                                                                value="0"
-                                                                checked={data.status === "0"}
-                                                                label="Draft"
-                                                            />
-                                                            <InputError message={errors.status} className="mt-2 col-12" />
 
-                                                        </div>
-                                                    </div>
                                                 </div>
 
-                                            </div>
-
-                                            <div className="form-actions mt-10">
-                                                <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                <div className="form-actions mt-10">
+                                                    <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>

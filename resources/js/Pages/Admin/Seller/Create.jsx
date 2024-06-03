@@ -7,45 +7,105 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import Select from 'react-select';
 import Form from 'react-bootstrap/Form';
 
 
 export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
-        'firstname' : '',
-        'lastname'  : '',
-        'email'     : '',
-        'phone'     : '',
-        'address'   : '',
+        'firstname': '',
+        'lastname': '',
+        'email': '',
+        'password': '',
+        'phone': '',
+        'address': '',
         'postalcode': '',
-        'city'      : '',
-        'province'  : '',
-        'picture'   : '',
-        'short_bio' : '',
+        'city': '',
+        'province': '',
+        'picture': '',
+        'short_description': '',
         'description': '',
-        'logo'      : '',
+        'logo': '',
         'company_name': '',
-        'full_address' : '',
-        'alt_emails': '',
-        'alt_phone' : '',
-        'lat'       : '',
-        'long'      : '',
-        'no_employee': '',
-        'website'   : '',
+        'full_address': '',
+        'alt_email': '',
+        'alt_phone': '',
+        'lat': '',
+        'long': '',
+        'employee': '',
+        'website': '',
         'designation': '',
         'business_type': '',
         'public_profile_on': '',
         'company_email': '',
         'company_phone': '',
-        'position'  : '',
-        'status'    : '1'
+        'position': '',
+        'status': '1'
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // console.log('Data to be submitted:', data);
-        post(route('admin.sellers.store'))
+    const days = [
+        { id: 'mon', label: 'Monday' },
+        { id: 'tue', label: 'Tuesday' },
+        { id: 'wed', label: 'Wednesday' },
+        { id: 'thu', label: 'Thursday' },
+        { id: 'fri', label: 'Friday' },
+        { id: 'sat', label: 'Saturday' },
+        { id: 'sun', label: 'Sunday' }
+    ];
+
+    const [checkedDays, setCheckedDays] = useState({
+        mon: false,
+        tue: false,
+        wed: false,
+        thu: false,
+        fri: false,
+        sat: false,
+        sun: false
+    });
+
+    const handleCheckboxChange = (day) => {
+        setCheckedDays((prevCheckedDays) => ({
+            ...prevCheckedDays,
+            [day]: !prevCheckedDays[day]
+        }));
     };
+
+
+    const businessTypes = [
+        { id: 'Agency', label: 'Agency' },
+        { id: 'Mortgage Brokerage', label: 'Mortgage Brokerage' },
+        { id: 'Residential Real Estate Agent', label: 'Residential Real Estate Agent' },
+        { id: 'Commercial Property Broker', label: 'Commercial Property Broker' },
+        { id: 'Other', label: 'Other' },
+    ];
+
+    const employee_options = [
+        {
+            'label': 'Select an option',
+            'value': 'Select an option',
+        },
+        {
+            'label': 'Less than 10',
+            'value': 'Less than 10',
+        },
+        {
+            'label': '10 to 25',
+            'value': '10 to 25',
+        },
+        {
+            'label': '25 to 50',
+            'value': '25 to 50',
+        },
+        {
+            'label': '50 to 100',
+            'value': '50 to 100',
+        },
+        {
+            'label': 'More than 100',
+            'value': 'More than 100',
+        }
+    ];
+
 
     const [imagePreview, setImagePreview] = useState('');
     const [imagePreviewLogo, setImagePreviewLogo] = useState('');
@@ -79,6 +139,24 @@ export default function Create({ auth }) {
     const handleChange = (key, value) => {
         setData(key, value);
     };
+
+    const handleSelect = (key, e) => {
+        setData(key, e.value);
+    };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await post(route("admin.sellers.store", {
+            days: checkedDays
+        }), {
+            preserveScroll: true,
+            onSuccess: () => {
+
+            },
+        });
+    };
+
 
     return (
         <Authenticated
@@ -119,7 +197,7 @@ export default function Create({ auth }) {
                                                     <div className="row">
                                                         <div className="col-lg-9">
 
-                                                            <h4 className="col-lg-12 pb-30"><u>Personal Information</u></h4>
+                                                            <h4 className="col-lg-12 pb-30"><u>Contact Person Information</u></h4>
                                                             <div className="row">
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
@@ -181,6 +259,21 @@ export default function Create({ auth }) {
                                                                             autoComplete="off"
                                                                         />
                                                                         <InputError message={errors.phone} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Password</InputLabel>
+                                                                        <TextInput
+                                                                            id="password"
+                                                                            type="text"
+                                                                            name="password"
+                                                                            className="form-control"
+                                                                            value={data.password}
+                                                                            onChange={(e) => handleChange("password", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.password} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
@@ -323,15 +416,15 @@ export default function Create({ auth }) {
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Short Bio</InputLabel>
                                                                         <TextInput
-                                                                            id="short_bio"
+                                                                            id="short_description"
                                                                             type="text"
-                                                                            name="short_bio"
+                                                                            name="short_description"
                                                                             className="form-control"
-                                                                            value={data.short_bio}
-                                                                            onChange={(e) => handleChange("short_bio", e.target.value)}
+                                                                            value={data.short_description}
+                                                                            onChange={(e) => handleChange("short_description", e.target.value)}
                                                                             autoComplete="off"
                                                                         />
-                                                                        <InputError message={errors.short_bio} className="mt-2 col-12" />
+                                                                        <InputError message={errors.short_description} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-12 mb-3">
@@ -358,7 +451,7 @@ export default function Create({ auth }) {
                                                                             type="text"
                                                                             name="full_address"
                                                                             className="form-control"
-                                                                            value={data.address}
+                                                                            value={data.full_address}
                                                                             onChange={(e) => handleChange("full_address", e.target.value)}
                                                                             autoComplete="off"
                                                                         />
@@ -478,30 +571,16 @@ export default function Create({ auth }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">No Employees</InputLabel>
-                                                                        <TextInput
-                                                                            id="no_employee"
-                                                                            type="text"
-                                                                            name="no_employee"
-                                                                            className="form-control"
-                                                                            value={data.no_employee}
-                                                                            onChange={(e) => handleChange("no_employee", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.no_employee} className="mt-2 col-12" />
+                                                                        <Select onChange={(e) => { handleSelect('employee', e) }} name="employee" options={employee_options}></Select>
+                                                                        <InputError message={errors.employee} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
-                                                                        <TextInput
-                                                                            id="business_type"
-                                                                            type="text"
-                                                                            name="business_type"
-                                                                            className="form-control"
-                                                                            value={data.business_type}
-                                                                            onChange={(e) => handleChange("business_type", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
+                                                                        
+                                                                        <Select onChange={(e) => { handleSelect('business_type', e) }} name="business_type" options={businessTypes}></Select>
+                                                                     
                                                                         <InputError message={errors.business_type} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
@@ -561,106 +640,78 @@ export default function Create({ auth }) {
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-12 mb-3">
+
                                                                     <div className="form-group px-20">
                                                                         <InputLabel className="fw-700  form-label small">Available Days</InputLabel>
-                                                                        <div className="row pt-5 ">
+                                                                        <div className="row pt-5">
+                                                                            {days.map((day) => (
+                                                                                <div key={day.id} className="col-12">
+                                                                                    <Form.Check
+                                                                                        type="checkbox"
+                                                                                        id={`default-checkbox-${day.id}`}
+                                                                                        name={day.id}
+                                                                                        label={
+                                                                                            <>
+                                                                                                {day.label}
+                                                                                                {checkedDays[day.id] ? (
+                                                                                                    <span className="text-success"> (opened)</span>
+                                                                                                ) : (
+                                                                                                    <span className="text-danger"> (closed)</span>
+                                                                                                )}
+                                                                                            </>
+                                                                                        }
+                                                                                        checked={checkedDays[day.id]}
+                                                                                        onChange={() => handleCheckboxChange(day.id)}
+                                                                                    />
+                                                                                </div>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-12 mb-3">
+                                                                        <div className="form-group px-30">
                                                                             <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-mon`}
-                                                                                name="mon"
-                                                                                label='Monday'
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-tue`}
-                                                                                label='Tuesday'
-                                                                                name="tue"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-wed`}
-                                                                                label='Wednesday'
-                                                                                name="wed"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-thu`}
-                                                                                label='Thusday'
-                                                                                name="thu"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-fri`}
-                                                                                label='Friday'
-                                                                                name="fri"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-sat`}
-                                                                                label='Saturday'
-                                                                                name="sat"
-                                                                                className="col-6"
-                                                                            />
-                                                                            <Form.Check
-                                                                                type='checkbox'
-                                                                                id={`default-checkbox-sun`}
-                                                                                label='Sunday'
-                                                                                name="sun"
-                                                                                className="col-6"
+                                                                                type="switch"
+                                                                                id="custom-switch"
+                                                                                name="public_profile_on"
+                                                                                label="Public Profile Show"
+
                                                                             />
                                                                         </div>
                                                                     </div>
-                                                                </div>
 
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group px-30">
-                                                                        <Form.Check
-                                                                            type="switch"
-                                                                            id="custom-switch"
-                                                                            name="public_profile_on"
-                                                                            label="Public Profile Show"
-
-                                                                        />
-                                                                    </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group px-10">
+                                                            <label className="fw-700 fs-16 form-label">Status</label>
+                                                            <div className="radio-list">
+                                                                <RadioButtonLabel
+                                                                    name="status"
+                                                                    onChange={(value) => handleChange("status", value)}
+                                                                    value="1"
+                                                                    checked={data.status === "1"}
+                                                                    label="Published"
+                                                                />
+                                                                <RadioButtonLabel
+                                                                    name="status"
+                                                                    onChange={(value) => handleChange("status", value)}
+                                                                    value="0"
+                                                                    checked={data.status === "0"}
+                                                                    label="Draft"
+                                                                />
+                                                                <InputError message={errors.status} className="mt-2 col-12" />
 
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="col-md-12">
-                                                    <div className="form-group px-10">
-                                                        <label className="fw-700 fs-16 form-label">Status</label>
-                                                        <div className="radio-list">
-                                                            <RadioButtonLabel
-                                                                name="status"
-                                                                onChange={(value) => handleChange("status", value)}
-                                                                value="1"
-                                                                checked={data.status === "1"}
-                                                                label="Published"
-                                                            />
-                                                            <RadioButtonLabel
-                                                                name="status"
-                                                                onChange={(value) => handleChange("status", value)}
-                                                                value="0"
-                                                                checked={data.status === "0"}
-                                                                label="Draft"
-                                                            />
-                                                            <InputError message={errors.status} className="mt-2 col-12" />
 
-                                                        </div>
-                                                    </div>
                                                 </div>
 
-                                            </div>
-
-                                            <div className="form-actions mt-10">
-                                                <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                <div className="form-actions mt-10">
+                                                    <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>

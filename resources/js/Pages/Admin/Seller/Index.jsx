@@ -15,7 +15,7 @@ export default function Index({ vendorsList, auth, success = null, error = null 
         router.delete(route("admin.sellers.destroy", vendor.id))
       }
 
-      console.log(vendorsList)
+     
       
 
     return (
@@ -72,19 +72,20 @@ export default function Index({ vendorsList, auth, success = null, error = null 
                                                 <tbody>
 
                                                 {vendorsList.data.map((vendor) => (
-                                                
+                                                    <React.Fragment key={vendor.id}>
+                                                   {console.log(vendor)}
                                                     <tr key={vendor.id} className="hover-primary">
                                                         <td>{vendor.id}</td>
                                                         
                                                         <td>
                                                         <img
                                                             src={vendor.picture}
-                                                            className='w-100 rounded-5 '
-                                                            alt={`${vendor.image} icon`}
+                                                            className='w-30 rounded-circle '
+                                                            alt={`${vendor.picture} icon`}
                                                             onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                         />
                                                         </td>
-                                                        <td>{vendor.name}</td>
+                                                        <td>{vendor.firstname} {vendor.lastname}</td>
                                                         <td>{vendor.company_name}</td>
                                                         <td>{vendor.designation}</td>
                                                         <td>{vendor.status}</td>
@@ -98,6 +99,7 @@ export default function Index({ vendorsList, auth, success = null, error = null 
                                                             </button>
                                                         </td>
                                                     </tr>
+                                                    </React.Fragment>
                                                 ))}
 
                                                 </tbody>
