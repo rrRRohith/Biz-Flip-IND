@@ -50,14 +50,14 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                             </div>
                             <div>
                                 <div className="d-flex flex-row-reverse">
-                                    <div className="bg-light text-primary ms-2 rounded-circle d-flex align-items-center message-avatar">
+                                    <div className="alert-primary alert p-0 text-primary ms-2 rounded-circle d-flex align-items-center message-avatar">
                                         <div className="m-auto fond-bold text-md">
                                             {ticket.sender_name.substring(0, 1)}
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div className="small">{ticket.date_text}</div>
-                                        <div className='message alert bg-primary rounded-input text-white mb-3'>
+                                        <div className='message alert alert-primary rounded-input mb-3'>
                                             You opened ticket at with {ticket.priority}.
                                             <div>
                                                 Subject.{ticket.subject}
@@ -68,7 +68,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                 {messages.data.map((message) => (
                                     <>
                                         <div className={`d-flex ${message.is_sender ? 'flex-row-reverse' : ''}`}>
-                                            <div className={`bg-light text-primary d-flex rounded-circle align-items-center message-avatar ${message.is_sender ? 'ms-2' : 'me-2'}`}>
+                                            <div className={`d-flex rounded-circle align-items-center message-avatar alert p-0 ${message.is_sender ? 'ms-2 alert-primary' : 'me-2 alert-secondary'}`}>
                                                 <div className="m-auto font-bold text-md">
                                                     {message.sender_name.substring(0, 1)}
                                                 </div>
@@ -77,7 +77,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                                 <div className={`${message.is_sender ? 'text-end' : 'text-start'} small`}>
                                                     {!message.is_sender ? message.sender_name : ''} {message.date_text}
                                                 </div>
-                                                <div className={`${message.is_sender ? 'bg-primary text-end ms-auto' : 'me-auto text-start text-dark bg-light'} message w-auto alert rounded-input text-white mb-3`}>
+                                                <div className={`${message.is_sender ? 'alert-primary text-end ms-auto' : 'me-auto text-start text-dark alert-secondary'} alert rounded-input message w-auto alert rounded-input mb-3`}>
                                                     {message.message}
                                                 </div>
                                             </div>

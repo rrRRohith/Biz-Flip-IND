@@ -9,4 +9,8 @@ class Role extends \Spatie\Permission\Models\Role
 {
      use HasFactory;
 
+     public function scopeSearch($q){
+          $request = request();
+          return $q->when($request->q, fn($q) => $q->where('name', 'LIKE', "%{$request->q}%"));
+     }
 }

@@ -29,7 +29,7 @@ class ProfileController extends Controller{
     public function store(ProfileUpdateRequest $request){
         try{		
             $this->user->update($request->only(['firstname', 'lastname', 'email', 'phone']));
-            if($request->has('password')){
+            if($request->has('password') && $request->password){
                 $this->user->update([
                     'password' => Hash::make($request->password),
                 ]);

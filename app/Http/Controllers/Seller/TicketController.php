@@ -11,6 +11,7 @@ use App\Http\Resources\{TicketMessageResource, TicketResource};
 
 class TicketController extends BaseController{
     public $user;
+    public $seller;
     /**
      * Create a new controller instance.
      *
@@ -21,6 +22,7 @@ class TicketController extends BaseController{
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
 			$this->user = \Auth::user();
+            $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
     }
@@ -31,7 +33,7 @@ class TicketController extends BaseController{
      */
     public function index(Request $request){
         return Inertia::render('Seller/Ticket/Index', [
-            'tickets' => TicketResource::collection($this->user->tickets()->latest()->get()),
+            'tickets' => TicketResource::collection($this->seller->tickets()->latest()->get()),
         ]);
     }
 
@@ -49,7 +51,7 @@ class TicketController extends BaseController{
      */
     public function store(TicketRequest $request){
         try{
-            $ticket = $this->user->tickets()->create($request->only(['subject', 'priority']));
+            $ticket = $this->seller->tickets()->create($request->only(['subject', 'priority']));
             $ticket->messages()->create($request->only(['message']))->update([
                 'user_id' => $this->user->id,
             ]);
@@ -67,7 +69,7 @@ class TicketController extends BaseController{
      * @param Ticket $ticket
      */
     public function show(Request $request, Ticket $ticket){
-        $this->user->tickets()->findOrfail($ticket->id);
+        $this->seller->tickets()->findOrfail($ticket->id);
 
         $messages = $ticket->messages()->get();
         
@@ -86,7 +88,7 @@ class TicketController extends BaseController{
      * @param Ticket $ticket
      */
     public function update(MessageRequest $request, Ticket $ticket){
-        $this->user->tickets()->whereStatus('open')->findOrfail($ticket->id);
+        $this->seller->tickets()->whereStatus('open')->findOrfail($ticket->id);
         try{
             $message = $ticket->messages()->create($request->validated());
             $message->update([

@@ -39,43 +39,52 @@ const SideBar = ({ user }) => {
                             <div className="text-center text-md font-bold">{user.firstname} {user.lastname}</div>
                         </div>
                         <ul className="navbar-nav p-0 px-lg-3">
-                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller') ? 'bg-gray-100' : ''}`}>
-                                <Link className='nav-link text-md rounded-3' href={route('seller.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller') ? 'bg-gray-100' : ''}`}>
+                                <Link className='nav-link text-md rounded-0 rounded-lg-3' href={route('seller.index')}>
                                     <i className="bi bi-speedometer"></i> Dashboard
                                 </Link>
                             </li>
-                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/properties*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href={route('seller.properties.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/properties*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.properties.index')}>
                                     <i className="bi bi-house"></i> Ads
                                 </Link>
                             </li>
-                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/leads*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href={route('seller.leads.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/leads*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.leads.index')}>
                                     <i className="bi bi-house-check"></i> Leads
                                 </Link>
                             </li>
-                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/roles*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href={route('seller.roles.index')}>
-                                    <i className="bi bi-house-check"></i> Roles
-                                </Link>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2`}>
+                                <a className={`nav-link text-md rounded-0 rounded-lg-3 ${urlMatches(path, '/seller/staffs*') ? 'bg-gray-100' : ''}`} href="#sidebar-staffs" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar-settings">
+                                <i className="bi bi-people"></i> Staff management </a>
+                                <div className={`collapse ${urlMatches(path, '/seller/staffs*') ? 'show' : ''}`} id="sidebar-staffs" style={{}}>
+                                    <ul className="nav nav-sm flex-column">
+                                        <li className="nav-item">
+                                            <Link href={route('seller.staffs.index')} className="nav-link">Staffs</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link href={route('seller.roles.index')} className="nav-link">Roles</Link>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
-                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/tickets*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href={route('seller.tickets.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/tickets*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.tickets.index')}>
                                     <i className="bi bi-headset"></i> Support tickets
                                 </Link>
                             </li>
-                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href={route('seller.profile.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.profile.index')}>
                                     <i className="bi bi-person"></i> Profile
                                 </Link>
                             </li>
-                            <li className={`nav-item rounded-3 mb-2 ${urlMatches(path, '/seller/settings*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-3" href={route('seller.settings.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/settings*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.settings.index')}>
                                     <i className="bi bi-gear"></i> Settings
                                 </Link>
                             </li>
-                            <li className="nav-item rounded-3 mb-2">
-                                <Link className="nav-link text-md rounded-3" href="/logout">
+                            <li className="nav-item rounded-0 rounded-lg-3 mb-2">
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href="/logout">
                                     <i className="bi bi-power"></i> Logout
                                 </Link>
                             </li>
@@ -83,7 +92,7 @@ const SideBar = ({ user }) => {
                         <div className="mb-auto" />
                         <div className="my-4 px-lg-6 position-relative d-none d-lg-block">
                             <div className="dropup w-full">
-                                <button className="btn-light d-flex w-full py-3 ps-3 pe-4 align-items-center border-0 border-none shadow-none rounded-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button className="btn-light d-flex w-full py-3 ps-3 pe-4 align-items-center border-0 border-none shadow-none rounded-0 rounded-lg-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <span className="me-3">
                                         <img alt="Image Placeholder" src={user.picture_url} className="avatar avatar- rounded-circle" />
                                     </span>

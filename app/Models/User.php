@@ -32,6 +32,7 @@ class User extends Authenticatable
         'email',
         'password',
         'picture',
+        'role_id',
     ];
 
     /**
@@ -93,7 +94,19 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class);
     }
 
-    public function seller_roles(){
-        return $this->hasMany(Role::class, 'user_id', 'id');
+    public function staff_roles(){
+        return $this->hasMany(\App\Models\Role::class, 'user_id', 'id');
+    }
+
+    public function staffs(){
+        return $this->hasMany(self::class, 'parent_id', 'id');
+    }
+
+    public function getRoleNameAttribute(){
+        return $this->getRole->name ?? null;
+    }
+
+    public function employer(){
+        return $this->belongsTo(self::class, 'parent_id', 'id');
     }
 }

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             $table->string('country')->nullable();
             $table->string('type')->nullable();
-            $table->integer('role_id')->default(0)->nullable();
+            $table->integer('role_id')->default(null)->nullable();
             $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('users')->onDelete("cascade");
             $table->string('picture')->nullable();
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->mediumText('device_token_mobile')->nullable();
             $table->mediumText('device_token_desktop')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->integer('status')->default(0)->nullable()->comment('null and 0 is pending,1 = approved,-1 = suspended');
             $table->rememberToken();
             $table->timestamps();

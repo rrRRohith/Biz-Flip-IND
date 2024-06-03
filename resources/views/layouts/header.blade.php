@@ -21,11 +21,11 @@
                     <a class="nav-link p-2 fw-semibold" href="/careers">Careers</a>
                 </li>
                 @auth
-                    @if(auth()->user()->type == 'admin')
+                    @if(auth()->user()->type == 'admin' || auth()->user()->type == 'admin staff')
                     <li class="nav-item">
                         <a class="nav-link p-2 fw-semibold" href="/admin">Dashboard</a>
                     </li>
-                    @elseif(auth()->user()->type == 'seller')
+                    @elseif(auth()->user()->type == 'seller' || auth()->user()->type == 'seller staff')
                     <li class="nav-item">
                         <a class="nav-link p-2 fw-semibold" href="/seller">Dashboard</a>
                     </li>

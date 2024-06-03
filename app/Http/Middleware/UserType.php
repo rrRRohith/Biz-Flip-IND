@@ -19,9 +19,17 @@ class UserType{
         if(!auth()->check()){
             return redirect()->route('login');
         }
-        else if(auth()->user()->type != $type){
-            $currentType = auth()->user()->type;
-            abort(403, "You are logged in as {$currentType} and trying to access {$type} area.");
+
+        $currentType = auth()->user()->type;
+
+        switch($type){
+            case "admin" :
+                abort_if(!in_array($currentType, ['admin', 'admin staff']), 403, "You are logged in as {$currentType} and trying to access {$type} area.");
+            break;
+
+            case "seller" :
+                abort_if(!in_array($currentType, ['seller', 'seller staff']), 403, "You are logged in as {$currentType} and trying to access {$type} area.");
+            break;
         }
         return $next($request);
     }

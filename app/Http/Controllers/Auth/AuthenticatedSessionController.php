@@ -33,11 +33,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if(auth()->user()->type == 'admin')
+        if(auth()->user()->type == 'admin' || auth()->user()->type == 'admin staff')
         {
             return redirect()->intended(route('admin.index', absolute: false));
         }
-        else if(auth()->user()->type == 'seller'){
+        else if(auth()->user()->type == 'seller' || auth()->user()->type == 'seller staff'){
             return redirect()->intended(route('seller.index', absolute: false));
         }
 

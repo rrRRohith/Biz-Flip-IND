@@ -29,7 +29,7 @@
     </style>
 </head>
 
-<body class="font-sans antialiased bg-white">
+<body class="font-sans antialiased bg-white seller">
     @inertia
 </body>
 

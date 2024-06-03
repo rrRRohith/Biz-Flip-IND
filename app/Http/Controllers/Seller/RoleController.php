@@ -11,6 +11,7 @@ use App\Http\Resources\{RoleResource};
 
 class RoleController extends BaseController{
     public $user;
+    public $seller;
     /**
      * Create a new controller instance.
      *
@@ -21,6 +22,7 @@ class RoleController extends BaseController{
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
 			$this->user = \Auth::user();
+            $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
     }
@@ -30,8 +32,8 @@ class RoleController extends BaseController{
      * @param Request $request
      */
     public function index(Request $request){
-        return Inertia::render('Seller/Role/Index', [
-            'roles' => RoleResource::collection($this->user->seller_roles()->latest()->get()),
+        Inertia::render('Seller/Role/Index', [
+            'roles' => RoleResource::collection($this->seller->staff_roles()->latest()->get()),
         ]);
     }
 
@@ -51,12 +53,12 @@ class RoleController extends BaseController{
      */
     public function store(StoreRequest $request){
         try{
-            $role = $this->user->seller_roles()->create([
+            $role = $this->seller->staff_roles()->create([
                 'name' => $request->name,
                 'guard_name' => 'web',
             ]);
             $role->syncPermissions($request->permissions);
-            return to_route('seller.roles.index')->with('success', 'Created created successfully.');
+            return to_route('seller.roles.index')->with('success', 'Role created successfully.');
         }
         catch(\Exception $e){
             return $e->getMessage();
@@ -70,7 +72,7 @@ class RoleController extends BaseController{
      * @param Role $role
      */
     public function show(Request $request, Role $role){
-        $this->user->seller_roles()->findOrfail($role->id);
+        $this->seller->staff_roles()->findOrfail($role->id);
         return response()->json([
             'permissions' => $role->permissions()->get()->groupBy('section'),
         ]);
@@ -83,7 +85,7 @@ class RoleController extends BaseController{
      * @param Role $role
      */
     public function edit(Request $request, Role $role){
-        $this->user->seller_roles()->findOrfail($role->id);
+        $this->seller->staff_roles()->findOrfail($role->id);
         return Inertia::render('Seller/Role/Form', [
             'role' => new RoleResource($role),
             'permissions' => Permission::seller()->get()->groupBy('section'),
@@ -97,7 +99,8 @@ class RoleController extends BaseController{
      * @param Role $role
      */
     public function update(UpdateRequest $request, Role $role){
-        $this->user->seller_roles()->findOrfail($role->id);
+        abort_if($this->user->role_id == $role->id, 403);
+        $this->seller->staff_roles()->findOrfail($role->id);
         try{
             
             return to_route('seller.roles.index')->with('success', 'Role updated successfully.');
@@ -112,7 +115,8 @@ class RoleController extends BaseController{
      */
     public function destroy(Role $role)
     {
-        $this->user->seller_roles()->findOrfail($role->id);
+        abort_if($this->user->role_id == $role->id, 403);
+        $this->seller->staff_roles()->findOrfail($role->id);
         $role->delete();
         return to_route('seller.roles.index')
             ->with('success', "Role was deleted");

@@ -30,5 +30,7 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
         'only' => ['index', 'show', 'update', 'create', 'store']
     ]);
 
-    Route::resource('/roles', App\Http\Controllers\Seller\RoleController::class);
+    Route::resource('/staffs/roles', App\Http\Controllers\Seller\RoleController::class);
+
+    Route::resource('/staffs', App\Http\Controllers\Seller\StaffController::class);
 });
