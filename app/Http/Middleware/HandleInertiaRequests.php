@@ -60,6 +60,6 @@ class HandleInertiaRequests extends Middleware
             return "Ops there are some problems";
         }
 
-        return false;
+        return null;
     }
 }
