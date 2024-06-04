@@ -112,6 +112,17 @@ class VendorController extends Controller
             $seller->position           = $request->position;
             $seller->save();
 
+            $availableDay           = new SellerAvailability();
+            $availableDay->user_id	= $user->id;
+            $availableDay->mon	    = $request->days['mon'];
+            $availableDay->tue	    = $request->days['tue'];
+            $availableDay->wed	    = $request->days['wed'];
+            $availableDay->thu	    = $request->days['thu'];
+            $availableDay->fri	    = $request->days['fri'];
+            $availableDay->sat	    = $request->days['sat'];
+            $availableDay->sun      = $request->days['sun'];
+            $availableDay->save();
+
             return to_route('admin.sellers.index')->with('success', 'Seller was created.');
         } catch (Exception $e) {
             return $e->getMessage();
@@ -146,7 +157,6 @@ class VendorController extends Controller
         //
         $seller = Seller::with('user')->where('user_id', $id)->first();
 
-        dd($request->all());
         
         if ($request->remove_picture) {
             if ($seller->user->picture) {
@@ -226,33 +236,49 @@ class VendorController extends Controller
             }
             $seller->save();
             
-             SellerAvailability::where('user_id')->delete();
+             SellerAvailability::where('user_id',$user->id)->delete();
 
             $availableDay           = new SellerAvailability();
             $availableDay->user_id	= $user->id;
-            $availableDay->mon	    = $request->days['mon'];
-            $availableDay->tue	    = $request->days['tue'];
-            $availableDay->wed	    = $request->days['wed'];
-            $availableDay->thu	    = $request->days['thu'];
-            $availableDay->fri	    = $request->days['fri'];
-            $availableDay->sat	    = $request->days['sat'];
-            $availableDay->sun      = $request->days['sun'];
+            $availableDay->mon	    = $request->days['mon'] ?? null;
+            $availableDay->tue	    = $request->days['tue'] ?? null;
+            $availableDay->wed	    = $request->days['wed'] ?? null;
+            $availableDay->thu	    = $request->days['thu'] ?? null;
+            $availableDay->fri	    = $request->days['fri'] ?? null;
+            $availableDay->sat	    = $request->days['sat'] ?? null;
+            $availableDay->sun      = $request->days['sun'] ?? null;
             $availableDay->save();
 
 
             return to_route('admin.sellers.index')->with('success', 'Seller was updated.');
 
         } catch (Exception $e) {
-            return $e->getMessage();
+            return $e;
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Seller $vendor)
-    {
-        //
+    public function destroy($user_id)
+    {       
+        $user   = User::where('id', $user_id)->first() ?? abort(404);
+        $seller = Seller::with('user')->where('user_id', $user_id)->first();
+        SellerAvailability::where('user_id',$user_id)->delete();
+        
+        if ($user->picture) {
+            Storage::disk('images')->delete($user->picture);
+        }
+
+        if ($seller->logo) {
+            Storage::disk('images')->delete($seller->logo);
+        }
+        
+        $seller->delete();
+        $user->delete();
+
+        return to_route('admin.sellers.index')
+            ->with('success', "Slleer was deleted");
 
     }
 

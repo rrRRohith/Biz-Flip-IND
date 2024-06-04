@@ -22,7 +22,7 @@ class VendorResource extends JsonResource
         return [
             'id'           => $this->id,
         	'user_id'       => $this->user_id,	
-            'short_description'     => $this->short_description,	
+            'short_description' => $this->short_description,	
             'description'   => $this->description,	
             'logo'          => $this->logo,	
             'company_name'  => $this->company_name,	
@@ -50,6 +50,7 @@ class VendorResource extends JsonResource
             'city'          => $this->user->city,
             'province'      => $this->user->province,
             'country'       => $this->user->country,
+            'position'      => $this->position,
             'designation'   => $this->user->designation ?? null,
             'picture'       => $this->user->picture && !(str_starts_with($this->user->picture, 'http')) ?
                                 asset('images/'.$this->user->picture) : '/assets/admin/images/noimage.webp',
@@ -57,6 +58,7 @@ class VendorResource extends JsonResource
                                 asset('images/'.$this->logo) : '/assets/admin/images/noimage.webp',
             'created_at'    => (new Carbon($this->created_at))->format('Y-m-d'),
             'updated_at'    => (new Carbon($this->updated_at))->format('Y-m-d'),
+            'availableDays' => $this->availableDays,
           
         ];
     }

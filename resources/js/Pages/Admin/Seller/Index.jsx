@@ -12,7 +12,7 @@ export default function Index({ vendorsList, auth, success = null, error = null 
         }
         
       
-        router.delete(route("admin.sellers.destroy", vendor.id))
+        router.delete(route("admin.sellers.destroy", vendor.user_id))
       }
 
      

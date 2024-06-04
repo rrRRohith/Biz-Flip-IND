@@ -596,7 +596,7 @@ export default function Edit({ auth, seller }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
-                                                                        <Select onChange={(e) => { handleChange('business_type', e) }} defaultValue={{ value: data.business_type, label: data.business_type }} name="business_type" options={businessTypes}></Select>
+                                                                        <Select onChange={(value) => { handleChange('business_type', value) }} defaultValue={{ value: data.business_type, label: data.business_type }} name="business_type" options={businessTypes}></Select>
                                                                         <InputError message={errors.business_type} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>

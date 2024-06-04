@@ -13,34 +13,34 @@ import Form from 'react-bootstrap/Form';
 
 export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
-        'firstname': '',
-        'lastname': '',
-        'email': '',
-        'password': '',
-        'phone': '',
-        'address': '',
-        'postalcode': '',
-        'city': '',
-        'province': '',
-        'picture': '',
-        'short_description': '',
-        'description': '',
-        'logo': '',
-        'company_name': '',
-        'full_address': '',
-        'alt_email': '',
-        'alt_phone': '',
-        'lat': '',
-        'long': '',
-        'employee': '',
-        'website': '',
-        'designation': '',
-        'business_type': '',
-        'public_profile_on': '',
-        'company_email': '',
-        'company_phone': '',
-        'position': '',
-        'status': '1'
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        phone: '',
+        address: '',
+        postalcode: '',
+        city: '',
+        province: '',
+        picture: '',
+        short_description: '',
+        description: '',
+        logo: '',
+        company_name: '',
+        full_address: '',
+        alt_email: '',
+        alt_phone: '',
+        lat: '',
+        long: '',
+        employee: '',
+        website: '',
+        designation: '',
+        business_type: '',
+        public_profile_on: '',
+        company_email: '',
+        company_phone: '',
+        position: '',
+        status: '1'
     });
 
     const days = [
@@ -579,7 +579,7 @@ export default function Create({ auth }) {
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
                                                                         
-                                                                        <Select onChange={(e) => { handleSelect('business_type', e) }} name="business_type" options={businessTypes}></Select>
+                                                                        <Select onChange={(value) => { handleChange('business_type', value) }} name="business_type" options={businessTypes}></Select>
                                                                      
                                                                         <InputError message={errors.business_type} className="mt-2 col-12" />
                                                                     </div>
