@@ -32,7 +32,7 @@ class RoleController extends BaseController{
      * @param Request $request
      */
     public function index(Request $request){
-        Inertia::render('Seller/Role/Index', [
+        return Inertia::render('Seller/Role/Index', [
             'roles' => RoleResource::collection($this->seller->staff_roles()->latest()->get()),
         ]);
     }

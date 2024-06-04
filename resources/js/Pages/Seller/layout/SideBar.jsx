@@ -1,6 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { useLocation } from 'react-router-dom';
 import ProfileDropdown from '../Components/ProfileDropdown';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 const urlMatches = (currentUrl, pattern) => {
     const regex = new RegExp(`^${pattern.replace(/\*/g, '.*')}$`);
@@ -78,11 +79,14 @@ const SideBar = ({ user }) => {
                                     <i className="bi bi-person"></i> Profile
                                 </Link>
                             </li>
+                            <PermissionAllow permission="Settings">
                             <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/settings*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.settings.index')}>
                                     <i className="bi bi-gear"></i> Settings
                                 </Link>
                             </li>
+                            </PermissionAllow>
+                            
                             <li className="nav-item rounded-0 rounded-lg-3 mb-2">
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href="/logout">
                                     <i className="bi bi-power"></i> Logout

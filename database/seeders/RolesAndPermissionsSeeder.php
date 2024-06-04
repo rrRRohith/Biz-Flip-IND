@@ -49,8 +49,9 @@ class RolesAndPermissionsSeeder extends Seeder
        
 
         // Assign all permissions to admin
+        
         $adminRole->givePermissionTo(Permission::all());
-
+        $sellerRole->givePermissionTo(Permission::whereIn('type', ['Seller', "Common"])->get());
 
         $admin = User::updateOrCreate( ['email' => 'admin@bizflip.ca'],[
                             'firstname' => 'Admin',

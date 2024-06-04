@@ -22,7 +22,7 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
 
     Route::resource('/settings', App\Http\Controllers\Seller\SettingsController::class, [
         'only' => ['index', 'store']
-    ]);
+    ])->middleware("can:Settings");
 
     // Route::resource('profile', [App\Http\Controllers\Seller\ProfileController::class]);
 

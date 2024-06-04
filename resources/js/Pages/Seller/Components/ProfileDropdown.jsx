@@ -1,4 +1,6 @@
+import PermissionAllow from "@/Components/PermissionAllow";
 import { Link } from "@inertiajs/react";
+
 export default function ProfileDropdown({user}) {
     return (
         <div>
@@ -9,8 +11,10 @@ export default function ProfileDropdown({user}) {
             <div className="dropdown-divider"></div>
             <Link className="dropdown-item" href="/seller/profile">
                 <i className="bi bi-pencil me-3" />Profile </Link>
-            <Link className="dropdown-item" href="/seller/settings">
+            <PermissionAllow permission="Settings">
+                <Link className="dropdown-item" href="/seller/settings">
                 <i className="bi bi-gear me-3" />Settings </Link>
+            </PermissionAllow>
             <div className="dropdown-divider" />
             <Link className="dropdown-item" href="#">
                 <i className="bi bi-box-arrow-left me-3" />Logout </Link>
