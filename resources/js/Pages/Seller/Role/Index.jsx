@@ -53,10 +53,12 @@ export default function Index({ auth, roles }) {
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input onInput={(e) => search(e.target.value)} type="search" placeholder='Search by name' className='form-control' />
+                                                <input onInput={(e) => search(e.target.value)} type="search" placeholder='Search by name' className='text-overflow form-control' />
                                             </div>
                                             <div className="ms-auto">
-                                                <Link className="btn btn-primary" href={route('seller.roles.create')}><i className="bi bi-plus text-md"></i> New role</Link>
+                                                <Link className="btn btn-primary text-overflow" href={route('seller.roles.create')}><i className="bi bi-plus text-md"></i> 
+                                                <span className="d-none d-md-inline">New role</span>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -84,7 +86,7 @@ export default function Index({ auth, roles }) {
                                                                 </td>
 
                                                                 <td>
-                                                                    <div role='button' onClick={(e) => ShowPermissions(role)} class="text-primary text-decoration-none">{role.total_permissions} permissions</div>
+                                                                    <div role='button' onClick={(e) => ShowPermissions(role)} className="text-primary text-decoration-none">{role.total_permissions} permissions</div>
                                                                 </td>
 
                                                                 <td>

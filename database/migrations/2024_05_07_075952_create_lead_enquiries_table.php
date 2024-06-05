@@ -20,12 +20,15 @@ return new class extends Migration
             $table->string('message')->nullable();
             $table->string('ipaddess')->nullable();
             $table->bigInteger('ad_id')->unsigned()->nullable();
+            $table->bigInteger('seller_id')->unsigned()->nullable();
+            $table->bigInteger('attender_id')->unsigned()->nullable();
             $table->foreign('ad_id')->references('id')->on('ads')->onUpdate("SET NULL");
             $table->boolean('available_any_day')->default(0)->nullable();
             $table->date('available_day')->nullable();
             $table->string('available_any_time')->default(0)->nullable();
             $table->string('available_time')->nullable();
-            $table->string('lead_attended')->nullable();
+            $table->foreign('attender_id')->references('id')->on('users')->onUpdate("SET NULL");
+            $table->foreign('seller_id')->references('id')->on('users')->onUpdate("SET NULL");
             $table->integer('status')->comment('0=inactive,1=active');    
             $table->softDeletes();
             $table->timestamps();

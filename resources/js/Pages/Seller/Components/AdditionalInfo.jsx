@@ -6,7 +6,7 @@ export default function AdditionalInfo({ info, onNameChange, onValueChange, onDe
                     <div className="col">
                         <div><label>Name</label>
                             <input type="text" placeholder="Info name" className="form-control"
-                                value={info.name}
+                                value={info.info}
                                 onChange={(e) => onNameChange(info.id, e.target.value)} />
                         </div>
                     </div>

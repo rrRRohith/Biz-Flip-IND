@@ -2,7 +2,6 @@ import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/react';
 import Wrapper from './layout/Wrapper';
 import LeadsTable from './LeadsTable';
-import PropertiesTable from './PropertiesTable';
 
 export default function Dashboard({ auth }) {
     return (

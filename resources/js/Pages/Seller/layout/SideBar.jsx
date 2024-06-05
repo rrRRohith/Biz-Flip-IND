@@ -45,8 +45,8 @@ const SideBar = ({ user }) => {
                                     <i className="bi bi-speedometer"></i> Dashboard
                                 </Link>
                             </li>
-                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/properties*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.properties.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/ads*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.ads.index')}>
                                     <i className="bi bi-house"></i> Ads
                                 </Link>
                             </li>
@@ -96,7 +96,7 @@ const SideBar = ({ user }) => {
                         <div className="mb-auto" />
                         <div className="my-4 px-lg-6 position-relative d-none d-lg-block">
                             <div className="dropup w-full">
-                                <button className="btn-light d-flex w-full py-3 ps-3 pe-4 align-items-center border-0 border-none shadow-none rounded-0 rounded-lg-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button className="btn-light bg-gray-100 d-flex w-full py-3 ps-3 pe-4 align-items-center border-0 border-none shadow-none rounded-0 rounded-lg-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <span className="me-3">
                                         <img alt="Image Placeholder" src={user.picture_url} className="avatar avatar- rounded-circle" />
                                     </span>

@@ -109,4 +109,12 @@ class User extends Authenticatable
     public function employer(){
         return $this->belongsTo(self::class, 'parent_id', 'id');
     }
+
+    public function ads(){
+        return $this->hasMany(Ad::class, 'seller_id', 'id');
+    }
+
+    public function leads(){
+        return $this->hasMany(LeadEnquiry::class, 'seller_id', 'id');
+    }
 }

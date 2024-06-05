@@ -19,10 +19,12 @@ export default function Index({ auth, tickets }) {
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input type="search" placeholder='Search by subject' className='form-control' />
+                                                <input type="search" placeholder='Search by subject' className='text-overflow form-control' />
                                             </div>
                                             <div className="ms-auto">
-                                                <Link className="btn btn-primary" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i> Open ticket</Link>
+                                                <Link className="btn btn-primary text-overflow" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i> 
+                                                <span className="d-none d-md-inline">Open ticket</span>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>

@@ -29,10 +29,12 @@ export default function Index({ auth, staffs }) {
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input type="search" placeholder='Search by name, email' className='form-control' />
+                                                <input type="search" placeholder='Search by name, email' className='text-overflow form-control' />
                                             </div>
                                             <div className="ms-auto">
-                                                <Link className="btn btn-primary" href={route('seller.staffs.create')}><i className="bi bi-plus text-md"></i> New staff</Link>
+                                                <Link className="btn btn-primary text-overflow" href={route('seller.staffs.create')}><i className="bi bi-plus text-md"></i> 
+                                                <span className="d-none d-md-inline">New staff</span>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
