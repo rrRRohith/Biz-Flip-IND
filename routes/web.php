@@ -27,7 +27,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'support-tickets'   => TicketController::class,
         'property'          => TicketController::class,
         'sellers'           => VendorController::class,
-        'role-responsibilities'=> RoleController::class
+        'role-responsibilities'=> RoleController::class,
+        'staff'             => StaffController::class,
         
     ]);
 
@@ -44,9 +45,9 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::get('property-leads', 'EnquiryController@propery_leads_index')->name('propery_leads_index');
     Route::get('property-leads/{id}', 'EnquiryController@propery_lead_show')->name('propery_lead_show');
     Route::delete('property-leads/{id}', 'EnquiryController@propery_lead_delete')->name('propery_lead_delete');
-
+    
+    Route::post('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
     Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
-    Route::get('role-permissions', function () {return view('Admin.index');})->name('role-permissions');
 
 
 });

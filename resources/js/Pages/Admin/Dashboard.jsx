@@ -19,9 +19,9 @@ export default function Dashboard({ auth }) {
                     {/* <!-- Main content --> */}
                     <section className="content">
                         <div className="row">
-                            <div className="col-xxxl-6 col-12">
+                            <div className="col-xxxl-12 col-12">
                                 <div className="row">
-                                    <div className="col-md-6 col-12">
+                                    <div className="col-md-3 col-12">
                                         <div className="box box-body">
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div className="text-start">
@@ -36,7 +36,7 @@ export default function Dashboard({ auth }) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-6 col-12">
+                                    <div className="col-md-3 col-12">
                                         <div className="box box-body">
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div className="text-start">
@@ -50,7 +50,7 @@ export default function Dashboard({ auth }) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-6 col-12">
+                                    <div className="col-md-3 col-12">
                                         <div className="box box-body">
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div className="text-start">
@@ -64,7 +64,7 @@ export default function Dashboard({ auth }) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-6 col-12">
+                                    <div className="col-md-3 col-12">
                                         <div className="box box-body">
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div className="text-start">
@@ -80,7 +80,7 @@ export default function Dashboard({ auth }) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-xxxl-6 col-12">
+                            <div className="col-xxxl-12 col-12">
                                 <div className="box">
                                     <div className="box-body">
                                         <div className="d-flex justify-content-between">

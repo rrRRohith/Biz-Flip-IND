@@ -7,6 +7,7 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import DynamicSelect from '@/Components/DynamicSelect';
 import Select from 'react-select';
 import Form from 'react-bootstrap/Form';
 
@@ -35,21 +36,21 @@ export default function Edit({ auth, seller }) {
         employee    : seller.employee || '',
         website     : seller.website || '',
         designation : seller.designation || '',
-        public_profile_on: seller.public_profile_on || 0,
+        public_profile_on: seller.public_profile_on == 1  ? 1 : 0  || 0,
         company_email: seller.company_email || '',
         company_phone: seller.company_phone || '',
         position    : seller.position || '',
         business_type: '',
         status      : seller.status == 'active' ? 1 : (seller.status == 'suspended' ? -1 : 0) || 1,
+        days        : seller.availableDays || {},
          _method    : "PUT",
-         remove_image: false,
+         remove_picture: false,
+        remove_logo: false,
     });
     
     const [imagePreview, setImagePreview] = useState('');
     const [imagePreviewLogo, setImagePreviewLogo] = useState('');
 
-
-    console.log(seller)
     useEffect(() => {
         if (seller.picture) {
             setImagePreview(seller.picture);
@@ -81,15 +82,19 @@ export default function Edit({ auth, seller }) {
         sat: seller.availableDays.sat || false,
         sun: seller.availableDays.sun || false,
     });
+    
+
+  
 
     const handleCheckboxChange = (day) => {
-        setCheckedDays((prevCheckedDays) => ({
-            ...prevCheckedDays,
-            [day]: !prevCheckedDays[day]
-        }));
-
-        setData('days', checkedDays);
+        const updatedCheckedDays = {
+            ...checkedDays,
+            [day]: !checkedDays[day]
+        };
+        setCheckedDays(updatedCheckedDays);
+        setData('days', updatedCheckedDays);
     };
+
 
     const employee_options = [
         {
@@ -166,6 +171,8 @@ export default function Edit({ auth, seller }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        
         await post(route("admin.sellers.update",seller.user_id), {
             preserveScroll: true,
             onSuccess: () => {
@@ -359,7 +366,7 @@ export default function Edit({ auth, seller }) {
                                                         </div>
                                                         <div className="col-lg-3 d-flex align-items-center">
                                                             <div className="col-md-12">
-                                                                <div className="border  rounded-4 p-3  text-center">
+                                                                <div className="border  bg-bubbles-white rounded10 p-3  text-center">
                                                                     <h4 className="box-title text-center">Image</h4>
                                                                     <div className="product-img">
                                                                         {imagePreview ? (
@@ -594,9 +601,14 @@ export default function Edit({ auth, seller }) {
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
+                                                                <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
-                                                                        <Select onChange={(value) => { handleChange('business_type', value) }} defaultValue={{ value: data.business_type, label: data.business_type }} name="business_type" options={businessTypes}></Select>
+                                                                        <Select
+                                                                            onChange={(e) => { handleChange('business_type', e.value) }}
+                                                                            defaultValue={{ value: data.business_type, label: data.business_type }}
+                                                                            name="business_type"
+                                                                            options={businessTypes.map(type => ({ value: type.id, label: type.label }))}
+                                                                        />
                                                                         <InputError message={errors.business_type} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
@@ -610,6 +622,7 @@ export default function Edit({ auth, seller }) {
                                                                         />
                                                                         <InputError message={errors.position} className="mt-2 col-12" />
 
+                                                                        
                                                                     </div>
                                                                 </div>
 
@@ -621,7 +634,7 @@ export default function Edit({ auth, seller }) {
                                                         <div className="col-lg-3 ">
                                                             <div className="row">
                                                                 <div className="col-md-12 mb-3">
-                                                                    <div className="border rounded-4 p-3  text-center">
+                                                                    <div className="border bg-bubbles-white rounded10 p-3  text-center">
                                                                         <h4 className="box-title text-center">Logo</h4>
                                                                         <div className="product-img">
                                                                             {imagePreviewLogo ? (
@@ -691,6 +704,7 @@ export default function Edit({ auth, seller }) {
                                                                                 id="custom-switch"
                                                                                 name="public_profile_on"
                                                                                 checked={data.public_profile_on === 1}
+                                                                                onChange={(e) => handleChange('public_profile_on', e.target.checked ? 1 : 0)}
                                                                                 label="Public Profile Show"
 
                                                                             />

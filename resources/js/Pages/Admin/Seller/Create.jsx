@@ -8,6 +8,7 @@ import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import Select from 'react-select';
+import DynamicSelect from '@/Components/DynamicSelect';
 import Form from 'react-bootstrap/Form';
 
 
@@ -68,6 +69,8 @@ export default function Create({ auth }) {
             ...prevCheckedDays,
             [day]: !prevCheckedDays[day]
         }));
+
+        setData('days', checkedDays);
     };
 
 
@@ -140,16 +143,12 @@ export default function Create({ auth }) {
         setData(key, value);
     };
 
-    const handleSelect = (key, e) => {
-        setData(key, e.value);
-    };
-
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route("admin.sellers.store", {
-            days: checkedDays
-        }), {
+        // console.log(data);
+        await post(route("admin.sellers.store"), {
             preserveScroll: true,
             onSuccess: () => {
 
@@ -341,12 +340,12 @@ export default function Create({ auth }) {
                                                         </div>
                                                         <div className="col-lg-3 d-flex align-items-center">
                                                             <div className="col-md-12">
-                                                                <div className="border  rounded-4 p-3  text-center">
+                                                                <div className="border   p-3 bg-bubbles-white rounded10  text-center">
                                                                     <h4 className="box-title text-center">Image</h4>
                                                                     <div className="product-img">
                                                                         {imagePreview ? (
                                                                             <div className="mb-15 text-center position-relative">
-                                                                                <img src={imagePreview} alt="Selected" className="w-50 h-50 rounded-circle" />
+                                                                                <img src={imagePreview} alt="Selected" className="w-100 h-100 rounded-circle" />
                                                                                 <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
 
                                                                             </div>
@@ -571,16 +570,18 @@ export default function Create({ auth }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">No Employees</InputLabel>
-                                                                        <Select onChange={(e) => { handleSelect('employee', e) }} name="employee" options={employee_options}></Select>
+                                                                        <DynamicSelect onChange={(e) => { handleChange('employee', e) }} name="employee" options={employee_options}></DynamicSelect>
                                                                         <InputError message={errors.employee} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
-                                                                        
-                                                                        <Select onChange={(value) => { handleChange('business_type', value) }} name="business_type" options={businessTypes}></Select>
-                                                                     
+                                                                        <Select
+                                                                            onChange={(e) => { handleChange('business_type', e.value) }}
+                                                                            name="business_type"
+                                                                            options={businessTypes.map(type => ({ value: type.id, label: type.label }))}
+                                                                        />
                                                                         <InputError message={errors.business_type} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
@@ -604,7 +605,7 @@ export default function Create({ auth }) {
                                                         <div className="col-lg-3 ">
                                                             <div className="row">
                                                                 <div className="col-md-12 mb-3">
-                                                                    <div className="border rounded-4 p-3  text-center">
+                                                                    <div className="border  p-3 bg-bubbles-white rounded10  text-center">
                                                                         <h4 className="box-title text-center">Logo</h4>
                                                                         <div className="product-img">
                                                                             {imagePreviewLogo ? (
