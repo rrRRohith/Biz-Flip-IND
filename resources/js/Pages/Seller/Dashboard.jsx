@@ -102,8 +102,10 @@ export default function Dashboard({ auth }) {
                         </div>
                         <div className="text-xl font-bold mt-5">Latest leads</div>
                         <div>
-                            <div className="card">
-                                <LeadsTable></LeadsTable>
+                            <div className="card shadow-none border-0">
+                                <div className="alert alert-primary rounded-input">
+                                    Coming soon
+                                </div>
                             </div>
                         </div>
                     </div>
