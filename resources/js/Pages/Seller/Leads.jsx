@@ -1,11 +1,37 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
-import { Head } from '@inertiajs/react';
 import Wrapper from './layout/Wrapper';
 import LeadsTable from './LeadsTable';
 import Select from 'react-select';
-export default function Leads({ auth, leads }) {
+import { Head, Link, useForm } from "@inertiajs/react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Spinner from '@/Components/Spinner';
+
+export default function Leads({ auth, leads, ads }) {
+    const [loading, setLoading] = useState(false);
+
+    const [leadData, setLeadData] = useState(leads.data);
+
+    const { data, setData } = useForm({
+        ad: "",
+        ad_title: 'All ads',
+        q: "",
+    });
+
+    // useEffect(() => {
+    //     searchResult();
+    // }, [data]);
+
+    const searchResult = async () => {
+        setLoading(true);
+        const response = await axios.get(route("seller.leads.search", data));
+        setLeadData(response.data);
+        setLoading(false);
+    }
+
     return (
         <>
+            {loading && <Spinner />}
             <Head title="Leads" />
             <Wrapper user={auth.user}>
                 <main className="py-6">
@@ -17,14 +43,17 @@ export default function Leads({ auth, leads }) {
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input type="search" placeholder='Search by name, phone etc' className='text-overflow form-control' />
+                                                <input defaultValue={data.q} onChange={(e) => setData('q', e.target.value)} type="search" placeholder='Search by name, phone etc' className='text-overflow form-control' />
                                             </div>
-                                            <div className="me-auto">
-                                                <Select></Select>
+                                            <div className="">
+                                                <Select defaultValue={{ value: data.ad, label: data.ad_title }} onChange={(e) => setData('ad', e.value)} options={[{ label: "All ads", value: "" }, ...ads]}></Select>
+                                            </div>
+                                            <div className="ms-2">
+                                                <button onClick={(e) => searchResult()} type="button" class="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
-                                    <LeadsTable leads={leads.data}></LeadsTable>
+                                    <LeadsTable leads={leadData}></LeadsTable>
                                 </div>
                             </div>
                         </div>

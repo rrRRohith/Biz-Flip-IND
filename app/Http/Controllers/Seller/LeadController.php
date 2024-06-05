@@ -32,8 +32,13 @@ class LeadController extends BaseController{
      */
     public function index(Request $request){
         return Inertia::render('Seller/Leads', [
+            'ads' => $this->seller->ads()->selectRaw("title as label, id as value")->get()->toArray(),
             'leads' => LeadResource::collection($this->seller->leads()->latest()->get()),
         ]);
+    }
+
+    public function search(Request $request){
+        return response()->json(LeadResource::collection($this->seller->leads()->search($request)->latest()->get()));
     }
 
     /**

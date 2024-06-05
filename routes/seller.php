@@ -16,9 +16,11 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
         'except' => ['show']
     ]);
 
+    Route::get('/leads/search', 'App\Http\Controllers\Seller\LeadController@search')->name('leads.search');
     Route::resource('/leads', App\Http\Controllers\Seller\LeadController::class, [
         'only' => ['index', 'update', 'destroy']
     ]);
+    
 
     Route::resource('/profile', App\Http\Controllers\Seller\ProfileController::class, [
         'only' => ['index', 'store']
