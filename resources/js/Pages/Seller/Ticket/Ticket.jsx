@@ -37,11 +37,11 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                 <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
-                            {ticket.status == 'solved' ? (
+                            {ticket.status == 'solved' && (
                                 <div className="alert alert-warning rounded-input border-0">
                                     This ticket has been closed and is no longer active, if you need any further assitance please open another ticket and mention your ticket <strong>ID#{ticket.id}</strong>
                                 </div>
-                            ) : (<></>)}
+                            )}
                             <div className="d-flex align-items-center">
                                 <div className="text-xl font-bold">Support Ticket#{ticket.id}</div>
                                 <div className="ms-auto">
@@ -55,7 +55,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                             {ticket.sender_name.substring(0, 1)}
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                         <div className="small">{ticket.date_text}</div>
                                         <div className='message alert alert-primary rounded-input mb-3'>
                                             You opened ticket at with {ticket.priority}.
@@ -73,7 +73,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                                     {message.sender_name.substring(0, 1)}
                                                 </div>
                                             </div>
-                                            <div class="col">
+                                            <div className="col">
                                                 <div className={`${message.is_sender ? 'text-end' : 'text-start'} small`}>
                                                     {!message.is_sender ? message.sender_name : ''} {message.date_text}
                                                 </div>
@@ -97,7 +97,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                             </div>
                                         </div>
                                         <div className="col-12 text-end">
-                                            <button type="button" className="btn btn-neutral me-2">Cancel</button>
+                                            <Link href={route('seller.tickets.index')} role="button" className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Send message</button></div>
                                     </div>
                                 </form>

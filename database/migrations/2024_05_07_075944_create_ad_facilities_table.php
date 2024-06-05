@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('ad_id')->references('id')->on('ads')->onDelete("cascade");
             $table->bigInteger('facility_id')->unsigned()->nullable();
             $table->foreign('facility_id')->references('id')->on('facilities')->onDelete("cascade");
-            $table->string('distance');
+            $table->string('distance')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

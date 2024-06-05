@@ -37,6 +37,10 @@ class RoleController extends BaseController{
         ]);
     }
 
+    public function search(Request $request){
+        return response()->json(RoleResource::collection($this->seller->staff_roles()->search($request)->latest()->get()));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -102,7 +106,8 @@ class RoleController extends BaseController{
         abort_if($this->user->role_id == $role->id, 403);
         $this->seller->staff_roles()->findOrfail($role->id);
         try{
-            
+            $role->update($request->only('name'));
+            $role->syncPermissions($request->permissions);
             return to_route('seller.roles.index')->with('success', 'Role updated successfully.');
         }
         catch(\Exception $e){
@@ -113,12 +118,10 @@ class RoleController extends BaseController{
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
-    {
+    public function destroy(Role $role){
         abort_if($this->user->role_id == $role->id, 403);
         $this->seller->staff_roles()->findOrfail($role->id);
         $role->delete();
-        return to_route('seller.roles.index')
-            ->with('success', "Role was deleted");
+        return to_route('seller.roles.index')->with('success', "Role was deleted");
     }
 }

@@ -37,6 +37,10 @@ class TicketController extends BaseController{
         ]);
     }
 
+    public function search(Request $request){
+        return response()->json(TicketResource::collection($this->seller->tickets()->search($request)->latest()->get()));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

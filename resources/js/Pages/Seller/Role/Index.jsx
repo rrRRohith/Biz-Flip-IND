@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import Wrapper from '../layout/Wrapper';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
@@ -11,6 +11,24 @@ import ReactDOMServer from 'react-dom/server';
 import Spinner from '@/Components/Spinner';
 
 export default function Index({ auth, roles }) {
+
+    const [roleData, setroleData] = useState(roles.data);
+
+    const { data, setData } = useForm({
+        q: "",
+    });
+
+    // useEffect(() => {
+    //     searchResult();
+    // }, [data]);
+
+    const searchResult = async () => {
+        setLoading(true);
+        const response = await axios.get(route("seller.roles.search", data));
+        setroleData(response.data);
+        setLoading(false);
+    }
+
     const deleteRole = function (role) {
         if (!window.confirm("Are you sure you want to delete the role?")) {
             return;
@@ -19,11 +37,9 @@ export default function Index({ auth, roles }) {
     }
 
     const [show, setShow] = useState(false);
-    const [data, setData] = useState(null);
+    const [mdata, setmData] = useState(null);
     const [title, setTitle] = useState(null);
     const [loading, setLoading] = useState(false);
-
-    const [rolesList, setRoles] = useState(roles);
 
     const handleClose = () => setShow(false);
 
@@ -31,13 +47,13 @@ export default function Index({ auth, roles }) {
         setTitle(`Permissions of ${role.name}`);
         setLoading(true);
         const response = await axios.get(route("seller.roles.show", role.id));
-        setData(ReactDOMServer.renderToString(<Permissions permissions={response.data.permissions} />));
+        setmData(ReactDOMServer.renderToString(<Permissions permissions={response.data.permissions} />));
         setLoading(false);
         setShow(true);
     }
 
     const search = async (q) => {
-        
+
     }
 
     return (
@@ -53,10 +69,15 @@ export default function Index({ auth, roles }) {
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input onInput={(e) => search(e.target.value)} type="search" placeholder='Search by name' className='form-control' />
+                                                <input defaultValue={data.q} onChange={(e) => setData('q', e.target.value)} type="search" placeholder='Search by name' className='text-overflow form-control' />
+                                            </div>
+                                            <div className="ms-2">
+                                                <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
                                             <div className="ms-auto">
-                                                <Link className="btn btn-primary" href={route('seller.roles.create')}><i className="bi bi-plus text-md"></i> New role</Link>
+                                                <Link className="btn btn-primary text-overflow" href={route('seller.roles.create')}><i className="bi bi-plus text-md"></i>
+                                                    <span className="d-none d-md-inline">New role</span>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -72,9 +93,9 @@ export default function Index({ auth, roles }) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {rolesList.data.length ? (
+                                                {roleData.length ? (
                                                     <>
-                                                        {rolesList.data.map((role) => (
+                                                        {roleData.map((role) => (
                                                             <tr key={role.id}>
                                                                 <td>
                                                                     #{role.id}
@@ -84,7 +105,7 @@ export default function Index({ auth, roles }) {
                                                                 </td>
 
                                                                 <td>
-                                                                    <div role='button' onClick={(e) => ShowPermissions(role)} class="text-primary text-decoration-none">{role.total_permissions} permissions</div>
+                                                                    <div role='button' onClick={(e) => ShowPermissions(role)} className="text-primary text-decoration-none">{role.total_permissions} permissions</div>
                                                                 </td>
 
                                                                 <td>
@@ -99,7 +120,7 @@ export default function Index({ auth, roles }) {
                                                     </>
                                                 ) : (<>
                                                     <tr>
-                                                        <td className="text-center" colspan="100">
+                                                        <td className="text-center" colSpan="100">
                                                             No records found..
                                                         </td>
                                                     </tr>
@@ -113,7 +134,7 @@ export default function Index({ auth, roles }) {
                     </div>
                 </main>
                 {loading && <Spinner />}
-                <ModalPopup animation={false} centered show={show} handleClose={handleClose} data={data} title={title} />
+                <ModalPopup animation={false} centered show={show} handleClose={handleClose} data={mdata} title={title} />
             </Wrapper>
         </>
     );

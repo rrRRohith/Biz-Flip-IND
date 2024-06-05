@@ -7,12 +7,17 @@ use Inertia\Inertia;
 
 Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
     Route::get('/', function () {return Inertia::render('Seller/Dashboard');})->name('index');
-
-    Route::get('/properties', function () {return Inertia::render('Seller/Properties');})->name('properties.index');
-    Route::get('/properties/create', function () {return Inertia::render('Seller/PropertyForm');})->name('properties.create');
-    Route::get('/leads', function () {return Inertia::render('Seller/Leads');})->name('leads.index');
     
-    //Route::get('/settings', function () {return Inertia::render('Seller/Settings');})->name('settings.index');
+    Route::get('/ads/search', 'App\Http\Controllers\Seller\AdController@search')->name('ads.search');
+    Route::resource('/ads', App\Http\Controllers\Seller\AdController::class, [
+        'except' => ['show']
+    ]);
+
+    Route::get('/leads/search', 'App\Http\Controllers\Seller\LeadController@search')->name('leads.search');
+    Route::resource('/leads', App\Http\Controllers\Seller\LeadController::class, [
+        'only' => ['index', 'update', 'destroy']
+    ]);
+    
 
     Route::resource('/profile', App\Http\Controllers\Seller\ProfileController::class, [
         'only' => ['index', 'store']
@@ -23,14 +28,15 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     Route::resource('/settings', App\Http\Controllers\Seller\SettingsController::class, [
         'only' => ['index', 'store']
     ])->middleware("can:Settings");
-
-    // Route::resource('profile', [App\Http\Controllers\Seller\ProfileController::class]);
-
+    
+    Route::get('/tickets/search', 'App\Http\Controllers\Seller\TicketController@search')->name('tickets.search');
     Route::resource('/tickets', App\Http\Controllers\Seller\TicketController::class, [
         'only' => ['index', 'show', 'update', 'create', 'store']
     ]);
 
+    Route::get('/staffs/roles/search', 'App\Http\Controllers\Seller\RoleController@search')->name('roles.search');
     Route::resource('/staffs/roles', App\Http\Controllers\Seller\RoleController::class);
 
+    Route::get('/staffs/search', 'App\Http\Controllers\Seller\StaffController@search')->name('staffs.search');
     Route::resource('/staffs', App\Http\Controllers\Seller\StaffController::class);
 });

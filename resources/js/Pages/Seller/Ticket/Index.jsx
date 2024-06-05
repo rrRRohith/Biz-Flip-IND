@@ -1,12 +1,35 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/react';
 import Wrapper from '../layout/Wrapper';
-import { Link } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Spinner from '@/Components/Spinner';
+
 export default function Index({ auth, tickets }) {
+    const [loading, setLoading] = useState(false);
+
+    const [ticketData, setTicketData] = useState(tickets.data);
+
+    const { data, setData } = useForm({
+        q: "",
+    });
+
+    // useEffect(() => {
+    //     searchResult();
+    // }, [data]);
+
+    const searchResult = async () => {
+        setLoading(true);
+        const response = await axios.get(route("seller.tickets.search", data));
+        setTicketData(response.data);
+        setLoading(false);
+    }
     return (
         <>
+            {loading && <Spinner />}
             <Head title="Support tickets" />
             <Wrapper user={auth.user}>
 
@@ -19,10 +42,15 @@ export default function Index({ auth, tickets }) {
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input type="search" placeholder='Search by subject' className='form-control' />
+                                                <input defaultValue={data.q} onChange={(e) => setData('q', e.target.value)} type="search" placeholder='Search by subject' className='text-overflow form-control' />
+                                            </div>
+                                            <div className="ms-2">
+                                                <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
                                             <div className="ms-auto">
-                                                <Link className="btn btn-primary" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i> Open ticket</Link>
+                                                <Link className="btn btn-primary text-overflow" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i>
+                                                    <span className="d-none d-md-inline">Open ticket</span>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -39,9 +67,9 @@ export default function Index({ auth, tickets }) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {tickets.data.length ? (
+                                                {ticketData.length ? (
                                                     <>
-                                                        {tickets.data.map((ticket) => (
+                                                        {ticketData.map((ticket) => (
                                                             <>
                                                                 <tr>
                                                                     <td>
@@ -73,7 +101,7 @@ export default function Index({ auth, tickets }) {
                                                     </>
                                                 ) : (<>
                                                     <tr>
-                                                        <td className="text-center" colspan="100">
+                                                        <td className="text-center" colSpan="100">
                                                             No records found..
                                                         </td>
                                                     </tr>
