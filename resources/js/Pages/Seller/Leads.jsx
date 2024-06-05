@@ -49,7 +49,7 @@ export default function Leads({ auth, leads, ads }) {
                                                 <Select defaultValue={{ value: data.ad, label: data.ad_title }} onChange={(e) => setData('ad', e.value)} options={[{ label: "All ads", value: "" }, ...ads]}></Select>
                                             </div>
                                             <div className="ms-2">
-                                                <button onClick={(e) => searchResult()} type="button" class="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
+                                                <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
                                         </div>
                                     </div>

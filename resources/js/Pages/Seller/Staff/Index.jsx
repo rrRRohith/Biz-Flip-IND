@@ -1,12 +1,32 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import Wrapper from '../layout/Wrapper';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import ReactDOMServer from 'react-dom/server';
+import Spinner from '@/Components/Spinner';
 export default function Index({ auth, staffs }) {
+
+    const [loading, setLoading] = useState(false);
+
+    const [staffData, setstaffData] = useState(staffs.data);
+
+    const { data, setData } = useForm({
+        q: "",
+    });
+
+    // useEffect(() => {
+    //     searchResult();
+    // }, [data]);
+
+    const searchResult = async () => {
+        setLoading(true);
+        const response = await axios.get(route("seller.staffs.search", data));
+        setstaffData(response.data);
+        setLoading(false);
+    }
 
     const deleteStaff = function (staff) {
         if (!window.confirm("Are you sure you want to delete the staff?")) {
@@ -17,6 +37,7 @@ export default function Index({ auth, staffs }) {
 
     return (
         <>
+            {loading && <Spinner />}
             <Head title="Staffs" />
             <Wrapper user={auth.user}>
 
@@ -29,11 +50,14 @@ export default function Index({ auth, staffs }) {
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
                                             <div className="me-2">
-                                                <input type="search" placeholder='Search by name, email' className='text-overflow form-control' />
+                                                <input defaultValue={data.q} onChange={(e) => setData('q', e.target.value)} type="search" placeholder='Search by name, email etc' className='text-overflow form-control' />
+                                            </div>
+                                            <div className="ms-2">
+                                                <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
                                             <div className="ms-auto">
-                                                <Link className="btn btn-primary text-overflow" href={route('seller.staffs.create')}><i className="bi bi-plus text-md"></i> 
-                                                <span className="d-none d-md-inline">New staff</span>
+                                                <Link className="btn btn-primary text-overflow" href={route('seller.staffs.create')}><i className="bi bi-plus text-md"></i>
+                                                    <span className="d-none d-md-inline">New staff</span>
                                                 </Link>
                                             </div>
                                         </div>
@@ -52,9 +76,9 @@ export default function Index({ auth, staffs }) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {staffs.data.length ? (
+                                                {staffData.length ? (
                                                     <>
-                                                        {staffs.data.map((staff) => (
+                                                        {staffData.map((staff) => (
                                                             <tr key={staff.id}>
                                                                 <td>
                                                                     #{staff.id}
@@ -83,7 +107,7 @@ export default function Index({ auth, staffs }) {
                                                     </>
                                                 ) : (<>
                                                     <tr>
-                                                        <td className="text-center" colspan="100">
+                                                        <td className="text-center" colSpan="100">
                                                             No records found..
                                                         </td>
                                                     </tr>

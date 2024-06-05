@@ -54,7 +54,7 @@ export default function ({ ads, deleteAd }) {
                             </>
                         ) : (<>
                             <tr>
-                                <td className="text-center" colspan="100">
+                                <td className="text-center" colSpan="100">
                                     No records found..
                                 </td>
                             </tr>

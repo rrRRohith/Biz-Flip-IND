@@ -10,13 +10,13 @@ import Modal from 'react-bootstrap/Modal';
 
 export default function ({ leads }) {
     const [show, setShow] = useState(false);
-    const [data, setData] = useState(null);
+    const [mdata, setmData] = useState(null);
     const [title, setTitle] = useState("Lead details");
 
     const handleClose = () => setShow(false);
 
     const showLead = async (lead) => {
-        setData(lead);
+        setmData(lead);
         setShow(true);
     }
 
@@ -38,7 +38,7 @@ export default function ({ leads }) {
                     <Modal.Title>Lead Details</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Lead lead={data} attendLead={attendLead}/>
+                    <Lead lead={mdata} attendLead={attendLead}/>
                 </Modal.Body>
             </Modal>
             <div className="table-responsive">
@@ -98,7 +98,7 @@ export default function ({ leads }) {
                             </>
                         ) : (<>
                             <tr>
-                                <td className="text-center" colspan="100">
+                                <td className="text-center" colSpan="100">
                                     No records found..
                                 </td>
                             </tr>

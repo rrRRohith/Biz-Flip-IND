@@ -37,6 +37,10 @@ class RoleController extends BaseController{
         ]);
     }
 
+    public function search(Request $request){
+        return response()->json(RoleResource::collection($this->seller->staff_roles()->search($request)->latest()->get()));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -38,6 +38,10 @@ class StaffController extends BaseController{
         ]);
     }
 
+    public function search(Request $request){
+        return response()->json(StaffResource::collection($this->seller->staffs()->search($request)->whereNot('id', $this->user->id)->latest()->get()));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -113,12 +117,11 @@ class StaffController extends BaseController{
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $staff)
-    {
+    public function destroy(User $staff){
         abort_if($this->user->id == $staff->id, 403);
         $this->seller->staffs()->findOrfail($staff->id);
         $staff->delete();
-        return to_route('seller.staffs.index')
-            ->with('success', "Staff was deleted");
+        //Delete images if forceDeleted
+        return to_route('seller.staffs.index')->with('success', "Staff was deleted");
     }
 }

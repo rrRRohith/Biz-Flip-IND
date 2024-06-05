@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Http\Request;
 class Ad extends Model
 {
      use HasFactory, SoftDeletes;
@@ -69,5 +71,12 @@ class Ad extends Model
 
     public function leads(){
         return $this->hasMany(LeadEnquiry::class, 'ad_id', 'id');
+    }
+
+    public function scopeSearch($q, Request $request){
+        return $q->when($request->q, function($q) use($request){
+            return $q->where('title', 'LIKE', "%{$request->q}%")->orWhere('address', 'LIKE', "%{$request->q}%")
+            ->orWhere('city', 'LIKE', "%{$request->q}%");
+        });
     }
 }

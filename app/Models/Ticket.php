@@ -61,4 +61,10 @@ class Ticket extends Model{
     public function getDateTextAttribute(){
         return \Carbon\Carbon::parse($this->created_at)->format('h:i a, d M');
     }
+
+    public function scopeSearch($q, Request $request){
+        return $q->when($request->q, function($q) use($request){
+            return $q->where('subject', 'LIKE', "%{$request->q}%");
+        });
+    }
 }

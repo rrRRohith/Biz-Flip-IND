@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable
 {
@@ -116,5 +117,12 @@ class User extends Authenticatable
 
     public function leads(){
         return $this->hasMany(LeadEnquiry::class, 'seller_id', 'id');
+    }
+
+    public function scopeSearch($q, Request $request){
+        return $q->when($request->q, function($q) use($request){
+            return $q->where('firstname', 'LIKE', "%{$request->q}%")->orWhere('lastname', 'LIKE', "%{$request->q}%")
+            ->orWhere('email', 'LIKE', "%{$request->q}%");
+        });
     }
 }

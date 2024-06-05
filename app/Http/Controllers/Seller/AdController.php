@@ -41,6 +41,10 @@ class AdController extends BaseController{
         ]);
     }
 
+    public function search(Request $request){
+        return response()->json(AdResource::collection($this->seller->ads()->search($request)->latest()->get()));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -204,10 +208,10 @@ class AdController extends BaseController{
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ad $ad)
-    {
+    public function destroy(Ad $ad){
         $this->seller->ads()->findOrfail($ad->id);
         $ad->delete();
+        //Delete images if forceDeleted
         return to_route('seller.ads.index')->with('success', "Ad was deleted");
     }
 }
