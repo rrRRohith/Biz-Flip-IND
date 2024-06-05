@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Inertia\Inertia;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Http\Requests\ticket\{MessageRequest, TicketRequest};
+use App\Http\Resources\TicketResource;
+use App\Http\Resources\TicketMessageResource;
 
 class TicketController extends Controller
 {
@@ -13,6 +16,10 @@ class TicketController extends Controller
     public function index()
     {
         //
+        $tickets = Ticket::orderBy('created_at','ASC')->orderBy('status','ASC')->get();
+        return Inertia::render('Admin/Ticket/Index', [
+            'tickets' => TicketResource::collection($tickets),
+        ]);
     }
 
     /**
@@ -34,9 +41,15 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ticket $ticket)
+    public function show($id)
     {
         //
+        $tickets = Ticket::where('id',$id)->first();
+        $messages = $tickets->messages()->get();
+        return Inertia::render('Admin/Ticket/Show', [
+            'ticket' => new TicketResource($tickets),
+            'messages' => TicketMessageResource::collection($messages),
+        ]);
     }
 
     /**
@@ -50,9 +63,22 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(MessageRequest $request, $id)
     {
         //
+        $ticket = Ticket::whereStatus('open')->findOrfail($id);
+  
+        try{
+            $message = $ticket->messages()->create([
+                'message' => $request->input('message'),
+                'attachments' => $request->hasFile('attachments') ? $this->upload_files($request->file('attachments')) : null,
+                'user_id' => auth()->user()->id,
+            ]);
+            return redirect()->route('admin.support-tickets.show', ['support_ticket' => $ticket->id])->withSuccess('Message added successfully.');
+        }
+        catch(\Exception $e){
+			return $e->getMessage();
+        }
     }
 
     /**
@@ -62,4 +88,14 @@ class TicketController extends Controller
     {
         //
     }
+
+    public function close($id){
+        $ticket = Ticket::whereStatus('open')->findOrfail($id);
+        $ticket->status = 'solved';
+        $ticket->save();
+        return redirect()->route('admin.support-tickets.index',)->withSuccess('Message added successfully.');
+
+
+    }
+
 }

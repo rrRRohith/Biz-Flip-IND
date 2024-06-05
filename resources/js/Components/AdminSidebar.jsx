@@ -163,11 +163,19 @@ export default function AdminSidebar() {
                                                         </Link>
                                                     </li> 
                                                 </PermissionAllow>
-                                               
                                             </ul>
                                         )}
                                     </li>
 
+                                </PermissionAllow>
+                                
+                                <PermissionAllow permission={'Staff Management'}>
+                                    <li className="treeview">
+                                        <Link href={route('admin.staff.index')}>
+                                            <i className="bi bi-people" title="Staff Management"></i>
+                                            <span>Staff Management</span>
+                                        </Link>
+                                    </li>
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Support Tickets'}>
                                     <li className="treeview">

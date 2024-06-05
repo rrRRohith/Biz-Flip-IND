@@ -111,6 +111,11 @@ return $permissions = [
         "Type" => "Common"
     ],
     [
+        "Permissions" => "Support Tickets",
+        "Section" => "Sidebar",
+        "Type" => "Common"
+    ],
+    [
         "Permissions" => "Company Settings",
         "Section" => "Sidebar",
         "Type" => "Admin"
@@ -515,7 +520,31 @@ return $permissions = [
         "Section" => "Facilities",
         "Type" => "Common"
     ],
-
+    [
+        "Permissions" => "Staff Management",
+        "Section" => "Sidebar",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Staff Listing",
+        "Section" => "Staff",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Staff Create",
+        "Section" => "Staff",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Staff Edit",
+        "Section" => "Staff",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Staff Delete",
+        "Section" => "Staff",
+        "Type" => "Common"
+    ],
     
 ];
 ?>

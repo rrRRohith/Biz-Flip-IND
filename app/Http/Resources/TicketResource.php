@@ -22,6 +22,8 @@ class TicketResource extends JsonResource
             'priority' => $this->priority,
             'created_at' => $this->created_at,
             'date_text' => \Carbon\Carbon::parse($this->created_at)->format('h:i a, d M'),
+            'user'      => $this->user,
+            'messages'  => $this->messages,
         ];
     }
 }

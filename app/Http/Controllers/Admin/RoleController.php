@@ -25,7 +25,7 @@ class RoleController extends Controller
         //
         $roleList = Role::with(['permissions' => function($q){
                                 $q->where('type', '<>','seller');
-                            }])   
+                            }])->where('user_id',auth()->user()->id)->orWhereNull('user_id')
                             ->get();
         return Inertia::render('Admin/Role/Index',['roleList' => RoleResource::collection($roleList),'success' => session('success'),'error' => session('error')]);
 
@@ -50,6 +50,7 @@ class RoleController extends Controller
         //
         $role                = new Role();
         $role->name          = $request->name;	
+        $role->user_id       = auth()->user()->id;
         $role->guard_name    = 'web';
         try{
             $role->save();
@@ -103,6 +104,7 @@ class RoleController extends Controller
 
         $role = Role::where('id',$id)->first();
         $role->name          = $request->name;	
+        $role->user_id       = auth()->user()->id;
         $role->guard_name    = 'web';
 
         try{
