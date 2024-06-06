@@ -18,7 +18,7 @@ class CityController extends Controller
 {
     public function index()
         {
-            $cityList = City::query()->paginate(10);
+            $cityList = City::orderBy('name')->get();
            
             return Inertia::render('Admin/City/Index',['cityList' => CityResource::collection($cityList),'success' => session('success'),'error' => session('error')]);
     

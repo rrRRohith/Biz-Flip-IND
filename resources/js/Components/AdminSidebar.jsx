@@ -80,7 +80,7 @@ export default function AdminSidebar() {
                                             <ul className="treeview-menu">
                                                 <PermissionAllow permission={'Ads Listing'}>
                                                     <li>
-                                                        <Link href="">
+                                                        <Link href={route('admin.ads.index')}>
                                                             <i className="icon-Commit"></i>Ads Listing
                                                         </Link>
                                                     </li>
@@ -88,7 +88,7 @@ export default function AdminSidebar() {
                                                
                                                 <PermissionAllow permission={'Ads Peding Approvel'}>
                                                     <li>
-                                                        <Link href="">
+                                                        <Link href={route('admin.ads.approvel')}>
                                                             <i className="icon-Commit"></i>Peding Approvel
                                                         </Link>
                                                     </li>  

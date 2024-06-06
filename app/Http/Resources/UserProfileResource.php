@@ -17,10 +17,12 @@ class UserProfileResource extends JsonResource
     {
         return [
             'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'picture' => $this->picture_url,
+            'lastname'  => $this->lastname,
+            'email'     => $this->email,
+            'phone'     => $this->phone,
+            'picture'   => $this->picture_url && !(str_starts_with($this->picture_url, 'http')) ?
+                                asset('images/'.$this->picture_url) : '/assets/admin/images/noimage.webp',
+            
         ];
     }
 }

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { Dropdown } from '@mui/joy';
 
 export default function Index({ Leads, auth, success = null, error = null }) {
-     console.log(Leads)
+   
     const deletelead = (lead) => {
         if (!window.confirm("Are you sure you want to delete this Leads?")) {
           return;

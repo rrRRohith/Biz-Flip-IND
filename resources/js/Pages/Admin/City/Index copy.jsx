@@ -1,58 +1,52 @@
-import React, { useState,useEffect  } from 'react';
-import { Head, Link, router, usePage } from '@inertiajs/react';
+import React, { useState, useEffect } from 'react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
-import { Pagination } from '@mui/material';
+import ReactPaginate from 'react-paginate';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function Index({ cityList, auth, success = null, error = null }) {
-    const itemsPerPage = 10;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filteredCities, setFilteredCities] = useState([]);
- 
+    const { url } = usePage();
+    const [filterInput, setFilterInput] = useState('');
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 25;
+
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
         const name = searchParams.get('name') || '';
-        searchingQuery(name);
+        setFilterInput(name);
     }, []);
 
     const deleteCity = (city) => {
         if (!window.confirm("Are you sure you want to delete the City?")) {
-          return;
+            return;
         }
-        
-        router.delete(route("admin.city.destroy", city.id));
+        Inertia.delete(route("admin.city.destroy", city.id));
     };
 
-    const handlePageChange = (event, page) => {
-        setCurrentPage(page);
-        window.scrollTo(0, 0);
-
+    const handleFilterChange = (e) => {
+        setFilterInput(e.target.value);
     };
 
-    
-    const handleSearch = (e) => {
-        const value = e.target.value;
-        searchingQuery(value)
-     
-    };
-
-const searchingQuery = (value = null) => {
-    setSearchQuery(value);
-
-    const filtered = cityList.data.filter(city =>
-        city.name.toLowerCase().includes(value.toLowerCase())
+    const filteredCities = cityList.data.filter(city =>
+        city.name.toLowerCase().includes(filterInput.toLowerCase())
     );
-    setFilteredCities(filtered);
-    setCurrentPage(1); 
-    
-}
 
+    const pageCount = Math.ceil(filteredCities.length / itemsPerPage);
 
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+        // Scroll to top when pagination button is clicked
+        window.scrollTo(0, 0);
+    };
 
-    // Determine which list to display
-    const displayList = searchQuery.length > 0 ? filteredCities : cityList.data;
-    const startIdx = (currentPage - 1) * itemsPerPage;
-    const endIdx = currentPage * itemsPerPage;
+    const handleSearch = () => {
+        const searchParams = new URLSearchParams();
+        searchParams.append('name', filterInput);
+        Inertia.visit(`${url.pathname}?${searchParams.toString()}`);
+    };
+
+    const offset = currentPage * itemsPerPage;
+    const currentItems = filteredCities.slice(offset, offset + itemsPerPage);
 
     return (
         <Authenticated
@@ -62,11 +56,8 @@ const searchingQuery = (value = null) => {
             error={error}
         >
             <Head title="City List" />
-
-            {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">
                 <div className="container-full">
-                    {/* <!-- Content Header (Page header) --> */}
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
@@ -85,24 +76,20 @@ const searchingQuery = (value = null) => {
                             </div>
                         </div>
                     </div>
-
-                    {/* <!-- Search input --> */}
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search by name..."
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-                    </div>
-
-                    {/* <!-- Main content --> */}
                     <section className="content">
                         <div className="row">
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
+                                        <div className="d-flex mb-3 align-items-center">
+                                            <input
+                                                value={filterInput}
+                                                onChange={handleFilterChange}
+                                                placeholder="Search by name"
+                                                className="form-control me-2"
+                                            />
+                                            <button onClick={handleSearch} className="btn btn-primary btn-sm">Search</button>
+                                        </div>
                                         <div className="table-responsive rounded card-table">
                                             <table className="table border-no" id="example1">
                                                 <thead>
@@ -117,13 +104,13 @@ const searchingQuery = (value = null) => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {displayList.slice(startIdx, endIdx).map((city, index) => (
+                                                    {currentItems.map((city) => (
                                                         <tr key={city.id} className="hover-primary">
-                                                            <td>{index + startIdx + 1}</td>
+                                                            <td>{city.id}</td>
                                                             <td>
                                                                 <img
                                                                     src={city.image}
-                                                                    className='w-100 rounded-5 '
+                                                                    className='w-100 rounded-5'
                                                                     alt={`${city.image} icon`}
                                                                     onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                                 />
@@ -136,7 +123,7 @@ const searchingQuery = (value = null) => {
                                                                 <Link className='btn btn-transparent' href={route('admin.city.edit', city.id)}>
                                                                     <i className="bi bi-pencil"></i>
                                                                 </Link>
-                                                                <button onClick={(e) => deleteCity(city)} className="btn btn-transparent border-0">
+                                                                <button onClick={() => deleteCity(city)} className="btn btn-transparent border-0">
                                                                     <i className="bi bi-trash"></i>
                                                                 </button>
                                                             </td>
@@ -145,29 +132,26 @@ const searchingQuery = (value = null) => {
                                                 </tbody>
                                             </table>
                                         </div>
-
-                                        {/* <!-- Pagination --> */}
-                                            {displayList.length > itemsPerPage && (
-                                                <div className="pagination-container float-end py-5">
-                                                    <Pagination
-                                                        count={Math.ceil(displayList.length / itemsPerPage)}
-                                                        page={currentPage}
-                                                        onChange={handlePageChange}
-                                                    />
-                                                </div>
-                                            )}
+                                        <ReactPaginate
+                                            previousLabel={'previous'}
+                                            nextLabel={'next'}
+                                            breakLabel={'...'}
+                                            breakClassName={'break-me'}
+                                            pageCount={pageCount}
+                                            marginPagesDisplayed={2}
+                                            pageRangeDisplayed={5}
+                                            onPageChange={handlePageClick}
+                                            containerClassName={'pagination'}
+                                            subContainerClassName={'pages pagination'}
+                                            activeClassName={'active'}
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-                    {/* <!-- /.content --> */}
                 </div>
-               
             </div>
-            {/* <!-- /.content-wrapper --> */}
-
-           
         </Authenticated>
     );
 }

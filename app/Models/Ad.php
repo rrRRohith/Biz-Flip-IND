@@ -42,7 +42,7 @@ class Ad extends Model
 
     
     function seller(){
-        return $this->belongsTo(User::class, 'vendor_id', 'id');
+        return $this->belongsTo(User::class, 'seller_id', 'id');
     }
 
     public function additional_informations(){

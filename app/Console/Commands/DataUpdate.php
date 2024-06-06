@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -7,14 +6,16 @@ use Illuminate\Console\Command;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class PermissionUpdate extends Command
+use Illuminate\Support\Facades\Artisan;
+
+class DataUpdate extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:permission-update';
+    protected $signature = 'app:data-update';
 
     /**
      * The console command description.
@@ -48,5 +49,13 @@ class PermissionUpdate extends Command
           }
         }
 
+         // Call the seeder here
+         Artisan::call('db:seed', [
+            '--class' => 'ProvinceAndCitiesSeeder',
+        ]);
+
     }
+
+
+
 }

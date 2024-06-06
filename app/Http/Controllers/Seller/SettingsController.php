@@ -24,7 +24,7 @@ class SettingsController extends Controller{
         parent::__construct();
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
-			$this->user = \Auth::user();
+			$this->user = auth()->user();
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });

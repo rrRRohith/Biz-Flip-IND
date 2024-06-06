@@ -1,7 +1,13 @@
 import PermissionAllow from "@/Components/PermissionAllow";
 import { Link } from "@inertiajs/react";
+import { Inertia } from '@inertiajs/inertia';
 
 export default function ProfileDropdown({user}) {
+    
+    const handleClick = () => {
+        Inertia.post(route('logout'));
+    }
+
     return (
         <div>
             <div className="dropdown-header">
@@ -16,7 +22,7 @@ export default function ProfileDropdown({user}) {
                 <i className="bi bi-gear me-3" />Settings </Link>
             </PermissionAllow>
             <div className="dropdown-divider" />
-            <Link className="dropdown-item" href="#">
+            <Link className="dropdown-item" onClick={handleClick}>
                 <i className="bi bi-box-arrow-left me-3" />Logout </Link>
         </div>
     );

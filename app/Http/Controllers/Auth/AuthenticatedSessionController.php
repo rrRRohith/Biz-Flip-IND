@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
         $request->authenticate();
 
@@ -38,7 +38,9 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('admin.index', absolute: false));
         }
         else if(auth()->user()->type == 'seller' || auth()->user()->type == 'seller staff'){
-            return redirect()->intended(route('seller.index', absolute: false));
+            $redirect =  redirect()->intended(route('seller.index', absolute: false));
+            return Inertia::location($redirect);
+            // return redirect()->intended(route('seller.index', absolute: false));
         }
 
     }
@@ -54,7 +56,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return ;
+        return Inertia::location(route('login'));
+        // return ;
         // return redirect('/');
     }
 }

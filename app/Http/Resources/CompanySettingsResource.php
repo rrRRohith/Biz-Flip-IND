@@ -30,8 +30,8 @@ class CompanySettingsResource extends JsonResource
             'email_config_api_key'	=> $this->email_config_api_key,
             'email_config_api_method'=> $this->email_config_api_method,
             'id'                    => $this->id,
-            'created_at'            => (new Carbon($this->created_at))->format('Y-m-d'),
-            'updated_at'            => (new Carbon($this->updated_at))->format('Y-m-d'),
+            'created_at'            => (new Carbon($this->created_at))->format('h:i a, d M'),
+            'updated_at'            => (new Carbon($this->updated_at))->format('h:i a, d M'),
           
         ];
     }

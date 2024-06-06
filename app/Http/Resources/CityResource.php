@@ -23,10 +23,10 @@ class CityResource extends JsonResource
             'slug'          => $this->slug,
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'icon'          => $this->icon && !(str_starts_with($this->icon, 'http')) ?
-                                asset('images/'.$this->icon) : 'dummy.png',
-            'created_at'    => (new Carbon($this->created_at))->format('Y-m-d'),
-            'updated_at'    => (new Carbon($this->updated_at))->format('Y-m-d'),
+            'image'          => $this->image && !(str_starts_with($this->image, 'http')) ?
+                                asset('images/'.$this->image) : '/assets/admin/images/noimage.webp',
+            'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
+            'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
           
         ];
     }

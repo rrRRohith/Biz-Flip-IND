@@ -25,7 +25,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'company-settings'  => CompanySettingsController::class,
         'app-settings'      => AppSettingsController::class,
         'support-tickets'   => TicketController::class,
-        'property'          => TicketController::class,
+        'ads'               => AdsController::class,
         'sellers'           => VendorController::class,
         'role-responsibilities'=> RoleController::class,
         'staff'             => StaffController::class,
@@ -48,6 +48,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     
     Route::post('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
     Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
+    Route::get('ads/approvel', function () {return view('Admin.index');})->name('ads.approvel');
+    
 
 
 });
