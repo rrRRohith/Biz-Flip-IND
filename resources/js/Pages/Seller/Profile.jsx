@@ -15,11 +15,11 @@ export default function Profile({ user, queryParams = null, auth, success, error
         confirm_password: '',
     });
 
-    const [imagePreview, setImagePreview] = useState('');
+    const [imagePreview, setImagePreview] = useState();
 
     useEffect(() => {
         if (user.picture) {
-            setImagePreview(user.picture);
+            setImagePreview(user.picture_url);
         }
     }, [user.picture]);
 

@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('available_time')->nullable();
             $table->foreign('attender_id')->references('id')->on('users')->onUpdate("SET NULL");
             $table->foreign('seller_id')->references('id')->on('users')->onUpdate("SET NULL");
-            $table->integer('status')->comment('0=inactive,1=active');    
+            $table->integer('status')->default(0)->comment('0=inactive,1=active');    
             $table->softDeletes();
             $table->timestamps();
         });

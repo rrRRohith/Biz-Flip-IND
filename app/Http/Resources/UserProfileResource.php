@@ -20,6 +20,7 @@ class UserProfileResource extends JsonResource
             'lastname'  => $this->lastname,
             'email'     => $this->email,
             'phone'     => $this->phone,
+            'picture_url' => $this->picture_url,
             'picture'   => $this->picture_url && !(str_starts_with($this->picture_url, 'http')) ?
                                 asset('images/'.$this->picture_url) : '/assets/admin/images/noimage.webp',
             

@@ -1,8 +1,8 @@
 @extends('layouts.wrapper', ['wrapperClass' => 'bg-light'])
 @section('contents')
-@section('title', 'Agent')
+@section('title', "{$seller->name} | {$seller->seller->company_name}")
 <div>
-    
+
     <div class="container-fluid w-100 d-flex align-items-center"
         style="
       background-image: linear-gradient( #00000078, #00000024 ), url(https://bookly.indigitalapi.com/uploads/static/res/auth.webp);
@@ -18,16 +18,16 @@
                 <div class="text-overflow me-2">
                     <div class="d-flex align-items-center">
                         <div class="me-2">
-                            <img class="image-fit w-h-60 rounded-circle"
-                                src="https://res.cloudinary.com/rr6/image/upload/v1716213343/1042239_407_vaviwn.png"
+                            <img class="image-fit w-h-60 rounded-circle" src="{{ $seller->seller->logo_url }}"
                                 alt="" />
                         </div>
                         <div class="text-overflow">
                             <div class="fw-semibold text-overflow fs-4">
-                                Able Realty
+                                {{ $seller->seller->company_name }}
                             </div>
                             <div class="text-muted">
-                                <i class="bi bi-geo-alt-fill"></i> Toronto
+                                <i class="bi bi-geo-alt-fill"></i> {{ $seller->seller->address }},
+                                {{ $seller->seller->city }}
                             </div>
                         </div>
                         <div class="btn rounded-1 border-0 ms-auto btn-dark">
@@ -36,13 +36,10 @@
                     </div>
                 </div>
                 <div class='mt-4'>
-                    Welcome to Able Realty, where your real estate dreams become reality. Located in the heart of
-                    Toronto, we specialize in helping you buy, sell, and invest in properties throughout the Greater
-                    Toronto Area. Our team of experienced professionals is dedicated to providing personalized service
-                    and expert guidance to ensure a seamless and successful real estate experience.
+                    {{ $seller->seller->description }}
                 </div>
                 <div class='mt-3'>
-                    <a href="#"
+                    <a target="_blank" href="{{ $seller->seller->website }}"
                         class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none me-3'>Visit website
                         <i class="bi bi-box-arrow-up-right"></i></a>
                     <a href="#" class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
@@ -52,39 +49,28 @@
         </div>
         <div class="row">
             <div class="col-lg-8 mb-4 m-lg-0">
-                <div class='mb-4'>
-                    <div class="fw-semibold mb-3 fs-5">
-                        Listings of James McGill from Able Realty
+                @if ($seller->ads()->count())
+                    <div class='mb-4'>
+                        <div class="fw-semibold mb-3 fs-5">
+                            Listings of {{ $seller->name }} from {{ $seller->seller->company_name }}
+                        </div>
+                        <div class="row">
+                            @foreach ($seller->ads()->limit(12)->get() as $ad)
+                                @include('partials.propertyList')
+                            @endforeach
+                        </div>
                     </div>
-                    <div class="row">
-                        @include('partials.propertyList', [
-                            'image' => 'https://bizsold.com/uploads/listings/1682629403_14.jpeg',
-                        ])
-                        @include('partials.propertyList', [
-                            'image' => 'https://bizsold.com/uploads/listings/1714673766_18.jpeg',
-                        ])
-                        @include('partials.propertyList', [
-                            'image' => 'https://bizsold.com/uploads/listings/1646757622_3.jpeg',
-                        ])
-                        @include('partials.propertyList', [
-                            'image' => 'https://bizsold.com/uploads/listings/1715109582_30.jpeg',
-                        ])
-                    </div>
-                    <div class="mt-4 d-flex w-100">
-                        <div class="btn rounded-1 border-0 m-auto btn-dark">Load more listings <i
-                                class="bi bi-arrow-repeat"></i></div>
-                    </div>
-                </div>
+                @endif
                 <div class='mb-4'>
                     <div class="fw-semibold mb-3 fs-5">
                         Locate Able Realty
                     </div>
-                    <img src="https://res.cloudinary.com/rr6/image/upload/v1716213731/HILmr_jfipbk.png"
-                        class='rounded-3 w-100' alt="" />
+                    <iframe class="w-100 rounded-1 mh-400px"
+                        src= "https://maps.google.com/maps?q={{ $seller->seller->lat }},{{ $seller->seller->lng }}&hl=es;z=14&output=embed"></iframe>
                 </div>
             </div>
             <div class="col-lg-4">
-                @include('partials.contact')
+                @include('partials.contact', ['user' => $seller])
             </div>
             <div class="my-4"></div>
         </div>

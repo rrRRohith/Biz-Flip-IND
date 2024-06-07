@@ -18,9 +18,15 @@ class Seller extends Model
         'company_name',
         'short_description',
         'description',
-        'address',
+        'address', 
+        'city', 
+        'province', 
+        'postalcode', 
         'website',
-        'employee'
+        'employee',
+        'lat',
+        'lng',
+
     ];
 
     public function user(){

@@ -1,6 +1,6 @@
 @extends('layouts.wrapper', ['wrapperClass' => 'bg-light'])
 @section('contents')
-@section('title', 'Listing')
+@section('title', $ad->title)
 <div>
     @include('partials.gallery')
     <div class="container agent-container">
@@ -9,16 +9,15 @@
                 <div class="text-overflow me-2">
                     <div class="d-flex align-items-center">
                         <div class="me-2">
-                            <img class="image-fit w-h-60 rounded-circle"
-                                src="https://res.cloudinary.com/rr6/image/upload/v1716213343/1042239_407_vaviwn.png"
+                            <img class="image-fit w-h-60 rounded-circle" src="{{ $ad->seller->seller->logo_url }}"
                                 alt="" />
                         </div>
                         <div class="text-overflow">
                             <div class="fw-semibold text-overflow fs-4">
-                                Lakeview Haven, Lake Tahoe
+                                {{ $ad->title }}
                             </div>
                             <div class="text-muted">
-                                By Able Realty
+                                By {{ $ad->seller->seller->company_name }}
                             </div>
                         </div>
                         <div class="btn rounded-1 border-0 ms-auto btn-dark">
@@ -27,7 +26,7 @@
                     </div>
                 </div>
                 <div class='mt-3'>
-                    <a href="#"
+                    <a target="_blank." href="{{ $ad->seller->seller->website }}"
                         class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none me-3'>Visit website
                         <i class="bi bi-box-arrow-up-right"></i></a>
                     <a href="#" class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
@@ -40,9 +39,7 @@
                 <div class=''>
                     <p class='fw-semibold fs-5'>Description</p>
                     <div>
-                        Located around an hour away from Paris, between the Perche and the Iton valley, in a beautiful
-                        wooded park bordered by a charming stream, this country property immediately seduces with its
-                        bucolic and soothing environment.
+                        {{ $ad->description }}
                     </div>
                 </div>
                 <div class="mt-4">
@@ -51,124 +48,82 @@
                         <div class="col-md-6">
                             <div class="d-flex mb-2">
                                 <span class="label w-35 text-muted me-2">Property ID:</span>
-                                <div class="content fw-semibold">AVT1020</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex mb-2">
-                                <span class="label w-35 text-muted me-2">Bedrooms:</span>
-                                <div class="content fw-semibold">4</div>
+                                <div class="content fw-semibold">{{ $ad->unique_code }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex mb-2">
                                 <span class="label w-35 text-muted me-2">Price:</span>
-                                <div class="content fw-semibold">$250,00<span
-                                        class="caption-1 fw-4 text-variant-1">/month</span></div>
+                                <div class="content fw-semibold">${{ number_format($ad->price) }}</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="d-flex mb-2">
-                                <span class="label w-35 text-muted me-2">Bedrooms:</span>
-                                <div class="content fw-semibold">1</div>
-                            </div>
-                        </div>
+
                         <div class="col-md-6">
                             <div class="d-flex mb-2">
                                 <span class="label w-35 text-muted me-2">Property Size:</span>
-                                <div class="content fw-semibold">1200 SqFt</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex mb-2">
-                                <span class="label w-35 text-muted me-2">Bathsrooms:</span>
-                                <div class="content fw-semibold">1</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex mb-2">
-                                <span class="label w-35 text-muted me-2">Year built:</span>
-                                <div class="content fw-semibold">2023 - 12 - 11</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex mb-2">
-                                <span class="label w-35 text-muted me-2">Bathsrooms:</span>
-                                <div class="content fw-semibold">3</div>
+                                <div class="content fw-semibold">{{ $ad->space }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex mb-2">
                                 <span class="label w-35 text-muted me-2">Property Type:</span>
-                                <div class="content fw-semibold">House, Apartment</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex mb-2">
-                                <span class="label w-35 text-muted me-2">Garage:</span>
-                                <div class="content fw-semibold">1</div>
+                                <div class="content fw-semibold">{{ $ad->property_type }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex mb-2">
                                 <span class="label w-35 text-muted me-2">Property Status:</span>
-                                <div class="content fw-semibold">For Rent</div>
+                                <div class="content fw-semibold">{{ $ad->ad_purpose }}</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="d-flex mb-2">
-                                <span class="label w-35 text-muted me-2">Garage Size:</span>
-                                <div class="content fw-semibold">1200 SqFt</div>
+                        @foreach ($ad->additional_informations as $addInfo)
+                            <div class="col-md-6">
+                                <div class="d-flex mb-2">
+                                    <span class="label w-35 text-muted me-2">{{ $addInfo->info }}:</span>
+                                    <div class="content fw-semibold">{{ $addInfo->value }}</div>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="mt-4">
-                    <p class='fw-semibold fs-5'>Amenities And Features</p>
-                    <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i class="bi bi-fire"></i>
-                        Smoke alarm</div>
-                    <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i class="bi bi-snow"></i>
-                        Refrigerator</div>
-                    <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i class="bi bi-cloud"></i>
-                        Carbon monoxide alarm</div>
-                    <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i
-                            class="bi bi-prescription2"></i> First aid kit</div>
-                    <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i
-                            class="bi bi-camera-video"></i> Security cameras</div>
-                    <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i
-                            class="bi bi-cup-hot"></i> Coffee maker</div>
-                    <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i class="bi bi-tv"></i> TV
-                        with standard cable</div>
-                    <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i class="bi bi-cookie"></i>
-                        Microwave</div>
+                    <p class='fw-semibold fs-5'>Features</p>
+                    @foreach ($ad->features as $feature)
+                        <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm">{{ $feature->name }}
+                        </div>
+                    @endforeach
+                </div>
+                <div class="mt-4">
+                    <p class='fw-semibold fs-5'>Facilities</p>
+                    @foreach ($ad->facilities as $facility)
+                        <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm">{{ $facility->name }}
+                        </div>
+                    @endforeach
                 </div>
                 <div class='mt-4 mb-4'>
                     <div class="fw-semibold mb-3 fs-5">
                         Locate Lakeview Haven, Lake Tahoe
                     </div>
-                    <img src="https://res.cloudinary.com/rr6/image/upload/v1716213731/HILmr_jfipbk.png"
-                        class='rounded-3 w-100' alt="" />
+                    <iframe class="w-100 rounded-1 mh-400px"
+                        src= "https://maps.google.com/maps?q={{ $ad->lat }},{{ $ad->lng }}&hl=es;z=14&output=embed"></iframe>
                 </div>
                 <div class='mb-4'>
                     <div class="fw-semibold mb-3 fs-5">
                         Other listings by James McGill
                     </div>
                     <div class="row">
-                        @include('partials.propertyList', [
-                            'image' => 'https://bizsold.com/uploads/listings/1682629403_14.jpeg',
-                        ])
-                        @include('partials.propertyList', [
-                            'image' => 'https://bizsold.com/uploads/listings/1714673766_18.jpeg',
-                        ])
+                        @foreach ($ad->seller_ads()->limit(2)->get() as $sAd)
+                            @include('partials.propertyList', ['ad' => $sAd])
+                        @endforeach
                     </div>
                     <div class="mt-4 d-flex w-100">
-                        <a href="/agent" class="btn rounded-1 border-0 m-auto btn-dark">View all listings <i
+                        <a href="{{ route('agents.show', ['agent' => $ad->seller]) }}" class="btn rounded-1 border-0 m-auto btn-dark">View all listings <i
                                 class="bi bi-arrow-repeat"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                @include('partials.contact')
+                @include('partials.contact', ['user' => $ad->seller])
             </div>
             <div class="my-4"></div>
             <div class='mb-5'>
@@ -176,22 +131,13 @@
                     Similar listing
                 </div>
                 <div class="row">
-                    @include('partials.propertyGrid', [
-                        'image' => 'https://bizsold.com/uploads/listings/1682629403_14.jpeg',
-                    ])
-                    @include('partials.propertyGrid', [
-                        'image' => 'https://bizsold.com/uploads/listings/1714673766_18.jpeg',
-                    ])
-                    @include('partials.propertyGrid', [
-                        'image' => 'https://bizsold.com/uploads/listings/1646757622_3.jpeg',
-                    ])
-                    @include('partials.propertyGrid', [
-                        'image' => 'https://bizsold.com/uploads/listings/1715109582_30.jpeg',
-                    ])
+                    @foreach ($ad->similar_ads as $sAd)
+                        @include('partials.propertyGrid', ['ad' => $sAd])
+                    @endforeach
                 </div>
                 <div class="mt-4 d-flex w-100">
-                    <div class="btn rounded-1 border-0 m-auto btn-dark">View more listings <i
-                            class="bi bi-arrow-repeat"></i></div>
+                    <a href="{{ route('ads.index') }}" class="btn rounded-1 border-0 m-auto btn-dark">View all listings <i
+                        class="bi bi-arrow-repeat"></i></a>
                 </div>
             </div>
         </div>

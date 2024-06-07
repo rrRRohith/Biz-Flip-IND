@@ -47,7 +47,7 @@
                             </select>
                         </div>
                     </div>
-                    <a href="/search"
+                    <a href="{{ route('ads.index') }}"
                         class="w-h-50 btn btn-dark ms-auto rounded-circle btn-lg border-0 shadow-none d-flex align-items-center">
                     <i class="bi bi-search m-auto"></i>
                     </a>
@@ -117,7 +117,7 @@
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-lg fs-6 btn-light bg-white border-0 shadow-none rounded-1"
                     data-bs-dismiss="modal">Close</button>
-                <a href="/search" class="btn btn-lg btn-dark fs-6 shadow-none border-0 rounded-1">
+                <a href="{{ route('ads.index') }}" class="btn btn-lg btn-dark fs-6 shadow-none border-0 rounded-1">
                 Search <i class="bi bi-search m-auto"></i>
                 </a>
             </div>

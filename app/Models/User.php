@@ -71,6 +71,11 @@ class User extends Authenticatable
         return $this->type === 'seller';
     }
 
+    public function scopeSellers($q)
+    {
+        return $q->whereType('seller')->whereHas('seller');
+    }
+
     public function getPictureAttribute($picture){
         return $picture ? : 'default.png';
     }

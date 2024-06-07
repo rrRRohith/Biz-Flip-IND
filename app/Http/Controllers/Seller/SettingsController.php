@@ -34,7 +34,10 @@ class SettingsController extends Controller{
     }
 
     public function index(){
-        return Inertia::render('Seller/Settings',['seller' => new SellerSettingsResource($this->seller), 'success' => session('success'),'error' => session('error')]);
+        return Inertia::render('Seller/Settings',[
+            'seller' => new SellerSettingsResource($this->seller),
+            'province_options' => \App\Models\Province::selectRaw("name as value, name as label")->orderBy('name')->get()->toArray(),
+        ]);
     }
 
     public function store(SellerUpdateRequest $request){
