@@ -56,15 +56,15 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
 
 });
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', 'App\Http\Controllers\Controller@home')->name('index');
 
+Route::resource('/ads', App\Http\Controllers\AdController::class, [
+    'only' => ['index', 'update', 'show']
+])->parameters(['ads' => 'ad:slug']);
 
-Route::get('/search', function () {
-    return view('search');
-});
-
+Route::resource('/agents', App\Http\Controllers\AgentController::class, [
+    'only' => ['show', 'update']
+])/*->parameters(['ads' => 'ad:slug'])*/;
 
 Route::get('/agent', function () {
     return view('agent');
@@ -78,6 +78,7 @@ Route::get('/listing', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+Route::post('/contact', 'App\Http\Controllers\Controller@contact')->name('contact.store');
 
 Route::get('/auth', function () {
     return view('auth.index');

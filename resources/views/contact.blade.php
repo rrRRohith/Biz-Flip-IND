@@ -13,50 +13,56 @@
                     <div class="mb-4">
                         Feel free to connect with us through our online channels for updates, news, and more.
                     </div>
-                    <form action="">
+                    <form data-reset="true" data-callback="messageSent" class="ajax" action="" id="contactForm" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group label-top mb-4">
-                                    <label class="fw-semibold">Name</label>
-                                    <input name="name" type="text" placeholder='Enter your name'
+                                    <label class="fw-semibold">First name</label>
+                                    <input form="contactForm" name="firstname" type="text" placeholder='Enter your first name'
+                                        class="form-control border-1 border rounded-1 border-gray shadow-none" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-top mb-4">
+                                    <label class="fw-semibold">Last name</label>
+                                    <input form="contactForm" name="lastname" type="text" placeholder='Enter your last name'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group label-top mb-4">
                                     <label class="fw-semibold">Email</label>
-                                    <input name="email" type="email" placeholder='Enter your email address'
+                                    <input form="contactForm" name="email" type="email" placeholder='Enter your email address'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group label-top mb-4">
-                                    <label class="fw-semibold">Phone Numbers</label>
-                                    <input name="phone" type="text" placeholder='Enter your phone'
+                                    <label class="fw-semibold">Phone Number</label>
+                                    <input form="contactForm" name="phone" type="text" placeholder='Enter your phone'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group label-top mb-4">
                                     <label class="fw-semibold">Subject</label>
-                                    <input name="subject" type="text" placeholder='Enter subject'
+                                    <input form="contactForm" name="subject" type="text" placeholder='Enter subject'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group label-top mb-4">
                                     <label class="fw-semibold">Your message</label>
-                                    <textarea name="message" type="text" placeholder='Enter your message'
+                                    <textarea form="contactForm" name="message" type="text" placeholder='Enter your message'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex">
-                            <button type="submit"
-                                class="btn btn-dark shadow-none rounded-1 btn-lg fs-6 ms-auto fw-semibold">Send
-                                message <i class="bi bi-chat-left-dots-fill"></i></button>
+                            <button form="contactForm" data-default="Send message" type="submit"
+                                class="btn btn-dark shadow-none rounded-1 btn-lg continue-btn fs-6 ms-auto fw-semibold">Send
+                                message </button>
                         </div>
                     </form>
                 </div>
@@ -138,3 +144,12 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script>
+        function messageSent(response) {
+            $('#contactForm').html(`
+                <div class="alert alert-success">Thank you, we have received your message, we will get back to you soon.
+            `)
+        }
+    </script>
+@endpush

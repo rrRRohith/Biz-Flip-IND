@@ -27,6 +27,12 @@ class SellerUpdateRequest extends FormRequest
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
             'website' => ['sometimes', 'nullable', 'string'],
             'days' => 'sometimes|nullable|array',
+            'address' => 'required|max:256|string',
+            'city' => 'required|max:256|string',
+            'postalcode' => 'required|max:10|string',
+            'province' => 'required|exists:provinces,name',
+            'lat' => 'required|max:256|string',
+            'lng' => 'required|max:256|string',
         ];
     }
 }

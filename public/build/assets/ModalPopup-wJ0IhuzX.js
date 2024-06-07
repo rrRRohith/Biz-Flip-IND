@@ -1,0 +1,1 @@
+import{j as e}from"./app-BzHzbjUi.js";import{M as o}from"./Modal-NL7CEDYF.js";function x({show:n,handleClose:s,data:r,title:i,size:l=null,...t}){return e.jsxs(o,{show:n,onHide:s,size:l,...t,children:[e.jsx(o.Header,{closeButton:!0,children:e.jsx(o.Title,{children:i})}),e.jsx(o.Body,{children:r?e.jsx("div",{dangerouslySetInnerHTML:{__html:r}}):"Loading..."})]})}export{x as M};

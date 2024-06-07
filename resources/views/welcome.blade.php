@@ -11,11 +11,11 @@
     @include('home.search')
     </div>
     <div class="pb-5">
-        @include('home.places', ['title' => 'Business'])
-        @include('home.places', ['title' => 'Franchise'])
-        @include('home.categories')
+        @include('home.places', ['title' => 'Houses', 'ads' => $houses])
+        @include('home.places', ['title' => 'Franchises', 'ads' => $franchises])
+        @include('home.categories', ['categories' => $categories])
         @include('home.cities')
-        @include('home.brokers')
+        @include('home.brokers', ['sellers' => $sellers])
         @include('home.testimonials')
     </div>
   </div>

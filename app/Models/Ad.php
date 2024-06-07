@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Http\Request;
+
 class Ad extends Model
 {
      use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     protected $fillable = [
         'map_link',
@@ -69,6 +72,14 @@ class Ad extends Model
         return $this->hasMany(AdImage::class, 'ad_id', 'id');
     }
 
+    public function image(){
+        return $this->hasOne(AdImage::class, 'ad_id', 'id');
+    }
+
+    public function getImageUrlAttribute(){
+        return $this->image->image_url ?? asset('/default.png');
+    }
+
     public function leads(){
         return $this->hasMany(LeadEnquiry::class, 'ad_id', 'id');
     }
@@ -82,5 +93,13 @@ class Ad extends Model
 
     public function views(){
         return $this->hasMany(AdView::class, 'ad_id', 'id');
+    }
+
+    public function seller_ads(){
+        return $this->hasManyDeepFromRelations($this->seller(), (new User())->ads())->where('ads.id', "!=", $this->id);
+    }
+
+    public function getSimilarAdsAttribute(){
+        return $this->category ?  $this->category->ads()->limit(4)->where('ads.id', "!=", $this->id)->get() : collect([]);
     }
 }

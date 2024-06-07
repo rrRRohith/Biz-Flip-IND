@@ -49,7 +49,7 @@ const socials = [
     { id: 'linkedin', label: 'Linkedin' },
 ];
 
-export default function Settings({ seller, auth, success, error }) {
+export default function Settings({ seller, auth, success, error, province_options }) {
     const [checkedDays, setCheckedDays] = useState(seller.days);
     const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
 
@@ -67,6 +67,12 @@ export default function Settings({ seller, auth, success, error }) {
         twitter: seller.social_links.twitter,
         instagram: seller.social_links.instagram,
         linkedin: seller.social_links.linkedin,
+        address: seller ? seller.address : '',
+        city: seller ? seller.city : '',
+        postalcode: seller ? seller.postalcode : '',
+        province: seller ? seller.province : '',
+        lat: seller ? seller.lat : '',
+        lng: seller ? seller.lng : '',
     });
 
     const [imagePreview, setImagePreview] = useState('');
@@ -167,11 +173,6 @@ export default function Settings({ seller, auth, success, error }) {
                                             <InputError message={errors.description} />
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Address</label>
-                                            <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Where is your office located at?" className="form-control" />
-                                            <InputError message={errors.address} />
-                                        </div>
-                                        <div className="col-md-6">
                                             <label>No of employees</label>
                                             <Select defaultValue={{ value: data.employee, label: data.employee }} onChange={(e) => { handleSelect('employee', e) }} name="employee" options={employee_options}></Select>
                                             <InputError message={errors.employee} />
@@ -181,6 +182,53 @@ export default function Settings({ seller, auth, success, error }) {
                                                 <input value={data.website} onChange={(e) => { handleChange('website', e.target.value) }} type="text" placeholder="Your website url" className="form-control" />
                                             </div>
                                             <InputError message={errors.website} />
+                                        </div>
+                                    </div>
+                                    <div className="mb-5">
+                                        <h4>Address</h4>
+                                    </div>
+                                    <div className="row g-5 mb-5">
+                                        <div className="col-md-6">
+                                            <div><label>Address</label>
+                                                <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Address" className="form-control" />
+                                                <InputError message={errors.address} />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div><label>City</label>
+                                                <input value={data.city} onChange={(e) => { handleChange('city', e.target.value) }} type="text" placeholder="City" className="form-control" />
+                                                <InputError message={errors.city} />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div><label>Postcode</label>
+                                                <input value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
+                                                <InputError message={errors.postalcode} />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div><label>Province</label>
+                                                <Select defaultValue={{ value: data.province, label: data.province ? data.province : 'Select...' }} onChange={(e) => { handleChange('province', e.value) }} options={province_options}></Select>
+                                                <InputError message={errors.province} />
+                                            </div>
+                                        </div>
+                                        {/* <div className="col-md-12">
+                                            <div><label>Map link</label>
+                                                <input value={data.map_link} onChange={(e) => { handleChange('map_link', e.target.value) }} type="text" placeholder="Map link" className="form-control" />
+                                                <InputError message={errors.map_link} />
+                                            </div>
+                                        </div> */}
+                                        <div className="col-md-6">
+                                            <div><label>Latitude</label>
+                                                <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="text" placeholder="Latitude" className="form-control" />
+                                                <InputError message={errors.lat} />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div><label>Longitude</label>
+                                                <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="text" placeholder="Longitude" className="form-control" />
+                                                <InputError message={errors.lng} />
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="mb-5">

@@ -15,55 +15,16 @@
             <div id="category-filter" class="accordion-collapse collapse show">
                 <div class="accordion-body p-3">
                     <div>
+                        @foreach ($categories as $category)
                         <div class="form-group mb-1">
                             <div class="form-check form-check-lg">
                                 <input role="button"
-                                    class="form-check-input shadow-none border border-gray border-1" id="ca1"
+                                    class="form-check-input shadow-none border border-gray border-1" id="category__{{ $category->id }}"
                                     type="checkbox" />
-                                <label role="button" class="form-check-label mt-1" for="ca1">Business</label>
+                                <label role="button" class="form-check-label mt-1" for="category__{{ $category->id }}">{{ $category->name }}</label>
                             </div>
                         </div>
-                        <div class="form-group mb-1">
-                            <div class="form-check form-check-lg">
-                                <input role="button"
-                                    class="form-check-input shadow-none border border-gray border-1" id="ca1"
-                                    type="checkbox" />
-                                <label role="button" class="form-check-label mt-1" for="ca1">Franchise</label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-1">
-                            <div class="form-check form-check-lg">
-                                <input role="button"
-                                    class="form-check-input shadow-none border border-gray border-1" id="ca1"
-                                    type="checkbox" />
-                                <label role="button" class="form-check-label mt-1" for="ca1">Comercial</label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-1">
-                            <div class="form-check form-check-lg">
-                                <input role="button"
-                                    class="form-check-input shadow-none border border-gray border-1" id="ca1"
-                                    type="checkbox" />
-                                <label role="button" class="form-check-label mt-1"
-                                    for="ca1">Preconstruction</label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-1">
-                            <div class="form-check form-check-lg">
-                                <input role="button"
-                                    class="form-check-input shadow-none border border-gray border-1" id="ca1"
-                                    type="checkbox" />
-                                <label role="button" class="form-check-label mt-1" for="ca1">Offices</label>
-                            </div>
-                        </div>
-                        <div class="form-group mb-1">
-                            <div class="form-check form-check-lg">
-                                <input role="button"
-                                    class="form-check-input shadow-none border border-gray border-1" id="ca1"
-                                    type="checkbox" />
-                                <label role="button" class="form-check-label mt-1" for="ca1">Warehouse</label>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

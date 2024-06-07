@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('time_to_available')->nullable();
             $table->string('message')->nullable();
             $table->string('subject')->nullable();
-            $table->integer('status')->comment('0=inactive,1=active');    
+            $table->integer('status')->default(0)->comment('0=inactive,1=active');    
             $table->softDeletes();
             $table->timestamps();
         });

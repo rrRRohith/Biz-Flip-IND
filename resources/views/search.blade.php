@@ -53,42 +53,9 @@
                         <div class="tab-pane fade show active" id="grid" role="tabpanel"
                             aria-labelledby="home-tab">
                             <div class="row">
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1682629403_14.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1714673766_18.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1646757622_3.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1715109582_30.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1685366102_97.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1695136348_43.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1669233945_71.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1709263091_4.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1702578531_31.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1711146598_85.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1685393876_76.jpeg',
-                                ])
-                                @include('partials.propertyGrid3', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1709571710_86.jpeg',
-                                ])
+                                @foreach ($ads as $ad)
+                                    @include('partials.propertyGrid3')  
+                                @endforeach
                             </div>
                             <div class="mt-4 d-flex w-100">
                                 <div class="btn rounded-1 border-0 m-auto btn-dark">Load more listings <i
@@ -97,42 +64,9 @@
                         </div>
                         <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="row">
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1682629403_14.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1714673766_18.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1646757622_3.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1715109582_30.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1685366102_97.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1695136348_43.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1669233945_71.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1709263091_4.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1702578531_31.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1711146598_85.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1685393876_76.jpeg',
-                                ])
-                                @include('partials.propertyList', [
-                                    'image' => 'https://bizsold.com/uploads/listings/1709571710_86.jpeg',
-                                ])
+                                @foreach ($ads as $ad)
+                                    @include('partials.propertyList')  
+                                @endforeach
                             </div>
                             <div class="mt-4 d-flex w-100">
                                 <div class="btn rounded-1 border-0 m-auto btn-dark">Load more listings <i
@@ -162,7 +96,7 @@
                 <div class="modal-footer border-0">
                     <button type="button" class="btn btn-lg fs-6 btn-light bg-white border-0 shadow-none rounded-1"
                         data-bs-dismiss="modal">Close</button>
-                    <a href="/search" class="btn btn-lg btn-dark fs-6 shadow-none border-0 rounded-1">
+                    <a href="{{ route('ads.index') }}" class="btn btn-lg btn-dark fs-6 shadow-none border-0 rounded-1">
                         Search <i class="bi bi-search m-auto"></i>
                     </a>
                 </div>
