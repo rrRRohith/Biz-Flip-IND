@@ -30,8 +30,8 @@ class ContentPageResource extends JsonResource
             'status'         => $this->status == 1 ? 'Published' : 'Draft',
             'image'          => Banner::where('id',$this->banner_id)->pluck('title','id')->first(), 
             'banner_id'      => $this->banner_id,
-            'created_at'     => (new Carbon($this->created_at))->format('Y-m-d'),
-            'updated_at'     => (new Carbon($this->updated_at))->format('Y-m-d'),
+            'created_at'     => (new Carbon($this->created_at))->format('h:i a, d M'),
+            'updated_at'     => (new Carbon($this->updated_at))->format('h:i a, d M'),
         ];
     }
 }

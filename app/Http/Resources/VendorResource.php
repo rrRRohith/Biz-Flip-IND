@@ -56,8 +56,8 @@ class VendorResource extends JsonResource
                                 asset('images/'.$this->user->picture) : '/assets/admin/images/noimage.webp',
             'logo'          => $this->logo && !(str_starts_with($this->logo, 'http')) ?
                                 asset('images/'.$this->logo) : '/assets/admin/images/noimage.webp',
-            'created_at'    => (new Carbon($this->created_at))->format('Y-m-d'),
-            'updated_at'    => (new Carbon($this->updated_at))->format('Y-m-d'),
+            'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
+            'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
             'availableDays' => $this->availableDays,
           
         ];

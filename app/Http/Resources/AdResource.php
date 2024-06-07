@@ -52,9 +52,12 @@ class AdResource extends JsonResource
             'facilities_ids' => $this->facilities->pluck('id'),
             'features_ids' => $this->features->pluck('id'),
             'images' => $this->images->pluck('image')->toArray(),
+            'main_picture' => $this->images->pluck('image')->first() && !(str_starts_with($this->images->pluck('image')->first(), 'http')) ?
+                                 asset('images/'.$this->images->pluck('image')->first()) : '/assets/admin/images/noimage.webp',
             'seo_title' => $this->seo_title,
             'seo_keywords' => $this->seo_keywords,
             'seo_description' => $this->seo_description,
+            'seller' => $this->seller,
             'space' => $this->space,
             'total_leads' => $this->leads()->count(),
             'total_views' => $this->views()->count(),

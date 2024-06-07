@@ -29,8 +29,8 @@ class ContactEnquiryResource extends JsonResource
             'message'       => $this->message,	
             'subject'       => $this->subject,	
             'status'        => $this->status == 1 ? 'Attended' : 'Unattended',
-            'created_at'    => (new Carbon($this->created_at))->format('Y-m-d'),
-            'updated_at'    => (new Carbon($this->updated_at))->format('Y-m-d'),
+            'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
+            'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
           
         ];
     }

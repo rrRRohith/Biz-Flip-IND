@@ -34,6 +34,7 @@
         "react-bootstrap": "^2.10.2",
         "react-email-editor": "^1.7.10",
         "react-full-screen": "^1.1.1",
+        "react-paginate": "^8.2.0",
         "react-router-dom": "^6.23.1",
         "react-select": "^5.8.0",
         "react-slick": "^0.30.2",

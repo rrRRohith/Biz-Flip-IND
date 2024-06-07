@@ -95,3 +95,13 @@ img.ad-image {
     text-overflow: ellipsis;
     max-width: 100%;
 }
+
+
+.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+    background-color: #607D8B !important;
+    color: #fff;
+}
+.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root{
+    height: 35px !important;
+    max-width: 35px !important;
+}

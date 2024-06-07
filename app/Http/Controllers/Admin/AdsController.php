@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
-use App\Models\Property;
+use App\Models\{Ad, Category, Facility, Features, Province};
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Http\Requests\Ad\{AdRequest};
+use App\Http\Resources\{AdResource};
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
-class PropertyController extends Controller
+class AdsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,6 +17,11 @@ class PropertyController extends Controller
     public function index()
     {
         //
+        $ads = Ad::with('seller')->orderBy('updated_at','DESC')->get();
+       
+        return Inertia::render('Admin/Ads/Index', [
+                            'ads' => AdResource::collection($ads),
+                        ]);
     }
 
     /**
@@ -34,7 +43,7 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Property $property)
+    public function show(Ad $ads)
     {
         //
     }
@@ -42,7 +51,7 @@ class PropertyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Property $property)
+    public function edit(Ad $ads)
     {
         //
     }
@@ -50,7 +59,7 @@ class PropertyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, Ad $ads)
     {
         //
     }
@@ -58,7 +67,7 @@ class PropertyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Property $property)
+    public function destroy(Ad $ads)
     {
         //
     }

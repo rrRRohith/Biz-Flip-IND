@@ -26131,7 +26131,7 @@ Height property
     margin-left: 0; } }
 .content-wrapper {
   min-height: 100%;
-  background-color: #f3f2f7;
+  /* background-color: #f3f2f7; */
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
@@ -37901,4 +37901,8 @@ img.away, img.busy, img.offline, img.online {
 }
 .css-13cymwt-control{
   border-color: #86a4c3 !important;
+}
+
+.modal-90w{
+  max-width: 90% !important;
 }

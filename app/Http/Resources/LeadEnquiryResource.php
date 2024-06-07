@@ -33,8 +33,8 @@ class LeadEnquiryResource extends JsonResource
             'lead_attended'	 => $this->lead_attended,
             'property'       => $this->property,
             'status'        => $this->status == 1 ? 'Attended' : 'Unattended',
-            'created_at'    => (new Carbon($this->created_at))->format('Y-m-d'),
-            'updated_at'    => (new Carbon($this->updated_at))->format('Y-m-d'),
+            'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
+            'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
         ];
     }
 }
