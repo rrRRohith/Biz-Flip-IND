@@ -1,11 +1,14 @@
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import { Head } from '@inertiajs/react';
-import PropertiesSlider from '@/Components/PropertiesSlider';
+import PropertiesSlider from '@/Components/SlickSlider';
 import LeadsChart from '@/Components/LeadsChart';
 import CustomCircularProgress from '@/Components/CustomCircularProgress';
 
 
 export default function Dashboard({ auth }) {
+
+const images = [];
+
     return (
         <Authenticated
             user={auth.user}
@@ -103,7 +106,7 @@ export default function Dashboard({ auth }) {
                                         <h4 className="box-title">Favourite Items</h4>
                                     </div>
                                     <div className="box-body">
-                                        <PropertiesSlider />
+                                        <PropertiesSlider  images={images} />
                                     </div>
                                 </div>
                             </div>

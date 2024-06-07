@@ -8,6 +8,7 @@ use App\Http\Requests\Ad\{AdRequest};
 use App\Http\Resources\{AdResource};
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class AdsController extends Controller
 {
@@ -43,9 +44,11 @@ class AdsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ad $ads)
+    public function show(Ad $ads,$id)
     {
         //
+       $ad =  $ads->with('seller')->where('id',$id)->first();
+       return response()->json(new AdResource($ad));
     }
 
     /**
@@ -59,9 +62,19 @@ class AdsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ad $ads)
+    public function update(Request $request, Ad $ads, $id)
     {
         //
+        $ad =  $ads->with('seller')->where('id',$id)->first();
+        $ad->status = $request->status;
+       
+        try{
+            $ad->save();		
+            return to_route('admin.ads.index')->with('success', 'Ad was updated.');
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -70,5 +83,14 @@ class AdsController extends Controller
     public function destroy(Ad $ads)
     {
         //
+    }
+
+
+    public function pendingApprovel(){
+        $ads = Ad::with('seller')->orderBy('updated_at','DESC')->where('status',0)->get();
+      
+        return Inertia::render('Admin/Ads/PendingApprovel', [
+                            'ads' => AdResource::collection($ads),
+                        ]);
     }
 }

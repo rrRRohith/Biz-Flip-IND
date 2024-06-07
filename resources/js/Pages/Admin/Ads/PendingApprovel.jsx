@@ -11,7 +11,7 @@ import Badge from '@/Components/Badge';
 import { Dropdown } from '@mui/joy';
 
 
-export default function Index({ ads, auth, success = null, error = null }) {
+export default function PendingApprovel({ ads, auth, success = null, error = null }) {
  
     
     const [show, setShow] = useState(false);
@@ -33,7 +33,7 @@ export default function Index({ ads, auth, success = null, error = null }) {
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Ads</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Ads Pending Approvel</h2>}
             success={success}
             error={error}
         >
@@ -48,7 +48,7 @@ export default function Index({ ads, auth, success = null, error = null }) {
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Ads</h4>
+                                        <h4 className="page-title">Ads Pending Approvel</h4>
                                     </div>
                                 </div>
                             </div>
@@ -81,8 +81,7 @@ export default function Index({ ads, auth, success = null, error = null }) {
                                                             <th>Type</th>
                                                             <th>Purpose</th>
                                                             <th>Seller</th>
-                                                            <th>Status</th>
-                                                            <th>Last Modified</th>
+                                                            <th>Created Date</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -129,14 +128,11 @@ export default function Index({ ads, auth, success = null, error = null }) {
                                                                                 {ad.seller.firstname} {ad.seller.lastname}
                                                                             </td>
                                                                             <td>
-                                                                                {ad.date_text}
+                                                                                {window.formatDateTime(ad.created_at)}
                                                                             </td>
                                                                             <td>
-                                                                                <StatusBtn status={ad.status}></StatusBtn>
-                                                                            </td>
-                                                                            <td>
-                                                                                <span onClick={(e) => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
-                                                                                <i className='bi bi-pencil'></i>
+                                                                                <span onClick={(e) => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-pencil"></i></span>
+                                                                             
                                                                             </td>
                                                                         </tr>
                                                                     </React.Fragment>

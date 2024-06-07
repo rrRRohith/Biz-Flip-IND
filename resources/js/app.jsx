@@ -1,14 +1,22 @@
-// import './bootstrap';
-// import '../css/app.css';
 import { createRoot } from 'react-dom/client';
-import { createInertiaApp, router } from '@inertiajs/react';
+import { createInertiaApp, router } from '@inertiajs/react'; 
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import React, { useState, useEffect } from 'react';
 import Spinner from './Components/Spinner';
-import './app.css';  // Import the CSS file for styling the spinner
+import {getImageAsset, formatTime, capitalize, formatPrice, formatDate, truncateText, formatDateTime }  from '@/Components/Helpers';
 
+import './app.css'; // Import the CSS file for styling the spinner
 
 const appName = import.meta.env.VITE_APP_NAME || 'Bizflip';
+
+// Attach the functions to the global window object
+window.getImageAsset = getImageAsset;
+window.formatTime = formatTime;
+window.capitalize = capitalize;
+window.formatPrice = formatPrice;
+window.formatDate = formatDate;
+window.truncateText = truncateText;
+window.formatDateTime = formatDateTime;
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -23,12 +31,13 @@ createInertiaApp({
                 const handleStart = () => setLoading(true);
                 const handleFinish = () => setLoading(false);
 
+                // Use router.on() and router.off() to listen to start and finish events
                 router.on('start', handleStart);
                 router.on('finish', handleFinish);
 
                 return () => {
-                    router.off('start', handleStart);
-                    router.off('finish', handleFinish);
+                    router.off('start', handleStart); // Make sure router.off() is correctly defined
+                    router.off('finish', handleFinish); // Make sure router.off() is correctly defined
                 };
             }, []);
 
@@ -39,10 +48,8 @@ createInertiaApp({
                 </React.Fragment>
             );
         };
+
         root.render(<AppWrapper {...props} />);
-        //root.render(<App {...props} />);
     },
     progress: false,
 });
-
-

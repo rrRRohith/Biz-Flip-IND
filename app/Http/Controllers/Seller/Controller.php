@@ -26,7 +26,7 @@ class Controller extends BaseController{
         parent::__construct();
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
-			$this->user = \Auth::user();
+			$this->user = auth()->user();
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
@@ -37,12 +37,19 @@ class Controller extends BaseController{
      * @param Request $request
      */
     public function dashboard(Request $request){
+        $ads = $this->seller->ads()->count();
+        $leads = $this->seller->leads()->count();
+        $views = $this->seller->ad_views()->count();
+    
+        // Calculate view_lead_ratio safely
+        $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) ($views / $leads) : 1)) : 0;
+    
         return Inertia::render('Seller/Dashboard', [
             'data' => [
-                'ads' => $this->seller->ads()->count(),
-                'leads' => $leads = $this->seller->leads()->count(),
-                'views' => $views = $this->seller->ad_views()->count(),
-                'view_lead_ratio' => (int) (100/($views > 0 ? (int) ($views/$leads) : 0)),
+                'ads' => $ads,
+                'leads' => $leads,
+                'views' => $views,
+                'view_lead_ratio' => $view_lead_ratio,
             ],
             'leads' => LeadResource::collection($this->seller->leads()->latest()->limit(5)->get()),
         ]);

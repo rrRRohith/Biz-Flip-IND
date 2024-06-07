@@ -9,6 +9,8 @@ Route::get('/admin', function () {return Inertia::render('Admin/Dashboard');})->
 
 Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>'admin', 'as' => 'admin.','namespace' => 'App\Http\Controllers\Admin'], function(){
     Route::get('/', function () {return Inertia::render('Admin/Dashboard');})->name('index');
+    
+    Route::get('ads/pending-approvel', 'AdsController@pendingApprovel')->name('ads.pendingApprovel');
     Route::resources([
         'category'          => CategoryController::class,
         'features'          => FeaturesController::class,
@@ -48,7 +50,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     
     Route::post('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
     Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
-    Route::get('ads/approvel', function () {return view('Admin.index');})->name('ads.approvel');
+    
     
 
 

@@ -37906,3 +37906,8 @@ img.away, img.busy, img.offline, img.online {
 .modal-90w{
   max-width: 90% !important;
 }
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+  background: #3F4254;
+  color: #fff;
+}

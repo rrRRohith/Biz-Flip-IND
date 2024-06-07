@@ -25,13 +25,11 @@ class AdResource extends JsonResource
             'city' => $this->city,
             'price' => $this->price,
             'status' => $this->status,
+            'unique_code' => $this->unique_code,
             'date_text' => \Carbon\Carbon::parse($this->created_at)->format('h:i a, d M'),
             'description' => $this->description,
             'property_type' => $this->property_type,
             'ad_purpose' => $this->ad_purpose,
-            // category: '',
-            // facilities: [],
-            // features: [],
             'address' => $this->address,
             'city' => $this->city,
             'postalcode' => $this->postalcode,
@@ -61,6 +59,8 @@ class AdResource extends JsonResource
             'space' => $this->space,
             'total_leads' => $this->leads()->count(),
             'total_views' => $this->views()->count(),
+            'created_at'  => $this->created_at,
+            'updated_at'  => $this->update_at,
         ];
     }
 }
