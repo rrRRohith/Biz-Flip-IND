@@ -25,6 +25,10 @@ class TicketController extends BaseController{
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
+
+        $this->middleware("can:Support Ticket Listing")->only(['index', 'search', 'show']);
+        $this->middleware("can:Support Ticket Create")->only(['create', 'store']);
+        $this->middleware("can:Support Ticket Edit")->only(['update']);
     }
     /**
      * Display a listing of the resource.

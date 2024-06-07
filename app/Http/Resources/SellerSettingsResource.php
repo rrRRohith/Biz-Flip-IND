@@ -36,7 +36,8 @@ class SellerSettingsResource extends JsonResource
                 'fri' => (bool) ($this->availability->fri ?? false),
                 'sat' => (bool) ($this->availability->sat ?? false),
                 'sun'  => (bool) ($this->availability->sun ?? false),
-            ]
+            ],'social_settings' => $this->socials->pluck('status', 'site')->toArray(),
+            'social_links' => $this->socials->pluck('link', 'site')->toArray(),
         ];
     }
 }

@@ -57,6 +57,7 @@ class AdResource extends JsonResource
             'seo_description' => $this->seo_description,
             'space' => $this->space,
             'total_leads' => $this->leads()->count(),
+            'total_views' => $this->views()->count(),
         ];
     }
 }

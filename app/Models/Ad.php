@@ -79,4 +79,8 @@ class Ad extends Model
             ->orWhere('city', 'LIKE', "%{$request->q}%");
         });
     }
+
+    public function views(){
+        return $this->hasMany(AdView::class, 'ad_id', 'id');
+    }
 }

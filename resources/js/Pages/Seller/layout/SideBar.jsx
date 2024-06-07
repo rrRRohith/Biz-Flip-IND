@@ -45,16 +45,21 @@ const SideBar = ({ user }) => {
                                     <i className="bi bi-speedometer"></i> Dashboard
                                 </Link>
                             </li>
+                            <PermissionAllow permission="Ads Listing">
                             <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/ads*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.ads.index')}>
                                     <i className="bi bi-house"></i> Ads
                                 </Link>
                             </li>
+                            </PermissionAllow>
+                            <PermissionAllow permission="Ads Leads Listing">
                             <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/leads*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.leads.index')}>
                                     <i className="bi bi-house-check"></i> Leads
                                 </Link>
                             </li>
+                            </PermissionAllow>
+                            <PermissionAllow permission="Staff Listing">
                             <li className={`nav-item rounded-0 rounded-lg-3 mb-2`}>
                                 <a className={`nav-link text-md rounded-0 rounded-lg-3 ${urlMatches(path, '/seller/staffs*') ? 'bg-gray-100' : ''}`} href="#sidebar-staffs" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar-settings">
                                 <i className="bi bi-people"></i> Staff management </a>
@@ -63,17 +68,22 @@ const SideBar = ({ user }) => {
                                         <li className="nav-item">
                                             <Link href={route('seller.staffs.index')} className="nav-link">Staffs</Link>
                                         </li>
+                                        <PermissionAllow permission="Role and Responsibilities Listing">
                                         <li className="nav-item">
                                             <Link href={route('seller.roles.index')} className="nav-link">Roles</Link>
                                         </li>
+                                        </PermissionAllow>
                                     </ul>
                                 </div>
                             </li>
+                            </PermissionAllow>
+                            <PermissionAllow permission="Support Ticket Listing">
                             <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/tickets*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.tickets.index')}>
                                     <i className="bi bi-headset"></i> Support tickets
                                 </Link>
                             </li>
+                            </PermissionAllow>
                             <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.profile.index')}>
                                     <i className="bi bi-person"></i> Profile

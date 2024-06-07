@@ -13,10 +13,11 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class User extends Authenticatable
 {
-   
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles, HasPermissions;
        protected $dates = ['deleted_at'];
 
@@ -124,5 +125,13 @@ class User extends Authenticatable
             return $q->where('firstname', 'LIKE', "%{$request->q}%")->orWhere('lastname', 'LIKE', "%{$request->q}%")
             ->orWhere('email', 'LIKE', "%{$request->q}%");
         });
+    }
+
+    public function ad_views(){
+        return $this->hasManyDeepFromRelations($this->ads(), (new Ad())->views());
+    }
+
+    public function socials(){
+        return $this->hasMany(SocailLink::class);
     }
 }

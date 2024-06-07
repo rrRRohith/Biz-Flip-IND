@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import ModalPopup from '@/Components/ModalPopup';
 import Lead from './Lead';
 import Modal from 'react-bootstrap/Modal';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function ({ leads }) {
     const [show, setShow] = useState(false);
@@ -48,7 +49,9 @@ export default function ({ leads }) {
                             <th scope="col">Client</th>
                             <th scope="col">Ad</th>
                             <th scope="col">Date</th>
+                            <PermissionAllow permission="Ad Lead Show">
                             <th scope="col">Message</th>
+                            </PermissionAllow>
                             <th scope="col">Contact details</th>
                             <th scope="col">Status</th>
                             <th />
@@ -75,9 +78,11 @@ export default function ({ leads }) {
                                         <td>
                                             {lead.date_text}
                                         </td>
+                                        <PermissionAllow permission="Ad Lead Show">
                                         <td>
                                             <div onClick={(e) => showLead(lead)} role='button' className="text-primary text-decoration-underline">Read message</div>
                                         </td>
+                                        </PermissionAllow>
                                         <td>
                                             <div>
                                                 {lead.email}
@@ -90,8 +95,12 @@ export default function ({ leads }) {
                                             <LeadStatusBtn status={lead.status}></LeadStatusBtn>
                                         </td>
                                         <td>
+                                            <PermissionAllow permission="Ad Lead Show">
                                             <button onClick={(e) => showLead(lead)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
+                                            </PermissionAllow>
+                                            <PermissionAllow permission="Ad Lead Edit">
                                             <button onClick={(e) => deleteLead(lead)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                            </PermissionAllow>
                                         </td>
                                     </tr>
                                 ))}

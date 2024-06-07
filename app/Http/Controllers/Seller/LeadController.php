@@ -24,6 +24,10 @@ class LeadController extends BaseController{
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
+
+        $this->middleware("can:Ads Leads Listing")->only(['index', 'search']);
+        $this->middleware("can:Ad Lead Edit")->only(['update']);
+        $this->middleware("can:Ad Lead Edit")->only(['destroy']);
     }
     /**
      * Display a listing of the resource.

@@ -29,6 +29,11 @@ class AdController extends BaseController{
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
+
+        $this->middleware("can:Ads Listing")->only(['index', 'search']);
+        $this->middleware("can:Ad Create")->only(['create', 'store']);
+        $this->middleware("can:Ad Edit")->only(['edit', 'update']);
+        $this->middleware("can:Ad Delete")->only(['destroy']);
     }
     /**
      * Display a listing of the resource.

@@ -2,8 +2,9 @@ import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/react';
 import Wrapper from './layout/Wrapper';
 import LeadsTable from './LeadsTable';
+import PermissionAllow from '@/Components/PermissionAllow';
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth, data, leads }) {
     return (
         <>
             <Head title="Dashboard" />
@@ -16,8 +17,8 @@ export default function Dashboard({ auth }) {
                                     <div className="card-body">
                                         <div className="row">
                                             <div className="col">
-                                                <span className="h6 font-semibold text-muted text-sm d-block mb-2">Properties</span>
-                                                <span className="h3 font-bold mb-0">2</span>
+                                                <span className="h6 font-semibold text-muted text-sm d-block mb-2">Ads</span>
+                                                <span className="h3 font-bold mb-0">{data.ads}</span>
                                             </div>
                                             <div className="col-auto">
                                                 <div className="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
@@ -39,7 +40,7 @@ export default function Dashboard({ auth }) {
                                         <div className="row">
                                             <div className="col">
                                                 <span className="h6 font-semibold text-muted text-sm d-block mb-2">Leads</span>
-                                                <span className="h3 font-bold mb-0">215</span>
+                                                <span className="h3 font-bold mb-0">{data.leads}</span>
                                             </div>
                                             <div className="col-auto">
                                                 <div className="icon icon-shape bg-primary text-white text-lg rounded-circle">
@@ -61,7 +62,7 @@ export default function Dashboard({ auth }) {
                                         <div className="row">
                                             <div className="col">
                                                 <span className="h6 font-semibold text-muted text-sm d-block mb-2">View count</span>
-                                                <span className="h3 font-bold mb-0">2345</span>
+                                                <span className="h3 font-bold mb-0">{data.views}</span>
                                             </div>
                                             <div className="col-auto">
                                                 <div className="icon icon-shape bg-info text-white text-lg rounded-circle">
@@ -81,9 +82,9 @@ export default function Dashboard({ auth }) {
                                 <div className="card rounded-input">
                                     <div className="card-body">
                                         <div className="row">
-                                            <div className="col">
-                                                <span className="h6 font-semibold text-muted text-sm d-block mb-2">Views to lead ratio</span>
-                                                <span className="h3 font-bold mb-0">95%</span>
+                                            <div className="col text-overflow">
+                                                <span className="h6 font-semibold text-muted text-sm d-block mb-2 text-overflow">Views to lead ratio</span>
+                                                <span className="h3 font-bold mb-0">{data.view_lead_ratio}%</span>
                                             </div>
                                             <div className="col-auto">
                                                 <div className="icon icon-shape bg-warning text-white text-lg rounded-circle">
@@ -100,14 +101,14 @@ export default function Dashboard({ auth }) {
                                 </div>
                             </div>
                         </div>
+                        <PermissionAllow permission="Ads Leads Listing">
                         <div className="text-xl font-bold mt-5">Latest leads</div>
                         <div>
-                            <div className="card shadow-none border-0">
-                                <div className="alert alert-primary rounded-input">
-                                    Coming soon
-                                </div>
+                            <div className="card">
+                                <LeadsTable leads={leads.data}></LeadsTable>
                             </div>
                         </div>
+                        </PermissionAllow>
                     </div>
                 </main>
             </Wrapper>

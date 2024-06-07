@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
-    Route::get('/', function () {return Inertia::render('Seller/Dashboard');})->name('index');
     
+    Route::get('/', 'App\Http\Controllers\Seller\Controller@dashboard')->name('index');
     Route::get('/ads/search', 'App\Http\Controllers\Seller\AdController@search')->name('ads.search');
+    
     Route::resource('/ads', App\Http\Controllers\Seller\AdController::class, [
         'except' => ['show']
     ]);

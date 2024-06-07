@@ -28,6 +28,9 @@ class SettingsController extends Controller{
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
+
+        $this->middleware("can:Settings")->only(['index']);
+        $this->middleware("can:Settings")->only(['store']);
     }
 
     public function index(){
@@ -37,6 +40,8 @@ class SettingsController extends Controller{
     public function store(SellerUpdateRequest $request){
         try{		
             $this->seller->seller ? : $this->seller->seller()->create($request->validated());
+            
+            $this->seller->refresh();
             
             $seller = $this->seller->seller;
 
@@ -57,6 +62,14 @@ class SettingsController extends Controller{
             $availability = $this->seller->availability ? : $this->seller->availability()->create(['user_id' => $this->seller->id]);
             
             $availability->update($request->days);
+            $this->seller->socials()->delete();
+            foreach($request->socials as $social => $status){
+                $this->seller->socials()->create([
+                    'site' => $social,
+                    'link ' => ($request->{$social} ?? null),
+                    'status' => $status
+                ]);
+            }
 
             return to_route('seller.settings.index')->with('success', 'Settings updated successfully.');
         }

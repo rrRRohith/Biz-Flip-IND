@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ReactDOMServer from 'react-dom/server';
 import Spinner from '@/Components/Spinner';
+import PermissionAllow from '@/Components/PermissionAllow';
+
 export default function Index({ auth, staffs }) {
 
     const [loading, setLoading] = useState(false);
@@ -55,11 +57,13 @@ export default function Index({ auth, staffs }) {
                                             <div className="ms-2">
                                                 <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
-                                            <div className="ms-auto">
-                                                <Link className="btn btn-primary text-overflow" href={route('seller.staffs.create')}><i className="bi bi-plus text-md"></i>
-                                                    <span className="d-none d-md-inline">New staff</span>
-                                                </Link>
-                                            </div>
+                                            <PermissionAllow permission="Staff Create">
+                                                <div className="ms-auto">
+                                                    <Link className="btn btn-primary text-overflow" href={route('seller.staffs.create')}><i className="bi bi-plus text-md"></i>
+                                                        <span className="d-none d-md-inline">New staff</span>
+                                                    </Link>
+                                                </div>
+                                            </PermissionAllow>
                                         </div>
                                     </div>
                                     <div className="table-responsive">
@@ -99,8 +103,12 @@ export default function Index({ auth, staffs }) {
                                                                     {staff.date_text}
                                                                 </td>
                                                                 <td>
-                                                                    <Link href={route('seller.staffs.edit', staff.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
-                                                                    <button onClick={(e) => deleteStaff(staff.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                                    <PermissionAllow permission="Staff Edit">
+                                                                        <Link href={route('seller.staffs.edit', staff.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission="Staff Delete">
+                                                                        <button onClick={(e) => deleteStaff(staff.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                                    </PermissionAllow>
                                                                 </td>
                                                             </tr>
                                                         ))}

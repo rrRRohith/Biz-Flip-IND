@@ -9,6 +9,7 @@ import Permissions from './Permissions';
 import axios from 'axios';
 import ReactDOMServer from 'react-dom/server';
 import Spinner from '@/Components/Spinner';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Index({ auth, roles }) {
 
@@ -74,11 +75,13 @@ export default function Index({ auth, roles }) {
                                             <div className="ms-2">
                                                 <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
-                                            <div className="ms-auto">
-                                                <Link className="btn btn-primary text-overflow" href={route('seller.roles.create')}><i className="bi bi-plus text-md"></i>
-                                                    <span className="d-none d-md-inline">New role</span>
-                                                </Link>
-                                            </div>
+                                            <PermissionAllow permission="Role and Responsibilities Create">
+                                                <div className="ms-auto">
+                                                    <Link className="btn btn-primary text-overflow" href={route('seller.roles.create')}><i className="bi bi-plus text-md"></i>
+                                                        <span className="d-none d-md-inline">New role</span>
+                                                    </Link>
+                                                </div>
+                                            </PermissionAllow>
                                         </div>
                                     </div>
                                     <div className="table-responsive">
@@ -112,8 +115,12 @@ export default function Index({ auth, roles }) {
                                                                     {role.updated_text}
                                                                 </td>
                                                                 <td>
-                                                                    <Link href={route('seller.roles.edit', role.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
-                                                                    <button onClick={(e) => deleteRole(role.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                                    <PermissionAllow permission="Role and Responsibilities Edit">
+                                                                        <Link href={route('seller.roles.edit', role.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission="Role and Responsibilities Delete">
+                                                                        <button onClick={(e) => deleteRole(role.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                                    </PermissionAllow>
                                                                 </td>
                                                             </tr>
                                                         ))}

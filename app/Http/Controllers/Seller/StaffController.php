@@ -26,6 +26,11 @@ class StaffController extends BaseController{
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
+
+        $this->middleware("can:Staff Listing")->only(['index', 'search']);
+        $this->middleware("can:Staff Create")->only(['create', 'store']);
+        $this->middleware("can:Staff Edit")->only(['edit', 'update']);
+        $this->middleware("can:Staff Delete")->only(['destroy']);
     }
     /**
      * Display a listing of the resource.
@@ -63,6 +68,7 @@ class StaffController extends BaseController{
             
             if($request->has('password') && $request->password){
                 $staff->update([
+                    'type' => 'seller staff',
                     'password' => Hash::make($request->password),
                 ]);
             }

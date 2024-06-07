@@ -4,7 +4,7 @@ import Wrapper from '../layout/Wrapper';
 import Select from 'react-select';
 import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
-
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Ticket({ ticket, messages, auth, success, error }) {
 
@@ -85,6 +85,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                     </>
                                 ))}
                             </div>
+                            <PermissionAllow permission="Support Ticket Edit">
                             {ticket.status == 'open' ? (
                                 <form onSubmit={handleSubmit}>
                                     <div className="row g-5">
@@ -106,7 +107,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                     This ticket has been closed and is no longer active, if you need any further assitance please open another ticket and mention your ticket <strong>ID#{ticket.id}</strong>
                                 </div>
                             )}
-
+                            </PermissionAllow>
                         </div>
 
                     </div>

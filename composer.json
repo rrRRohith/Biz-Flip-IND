@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
         "spatie/laravel-permission": "^6.7",
+        "staudenmeir/eloquent-has-many-deep": "^1.20",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {

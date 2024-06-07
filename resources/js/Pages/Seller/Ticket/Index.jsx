@@ -7,6 +7,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '@/Components/Spinner';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Index({ auth, tickets }) {
     const [loading, setLoading] = useState(false);
@@ -47,11 +48,13 @@ export default function Index({ auth, tickets }) {
                                             <div className="ms-2">
                                                 <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
+                                            <PermissionAllow permission="Support Ticket Create">
                                             <div className="ms-auto">
                                                 <Link className="btn btn-primary text-overflow" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i>
                                                     <span className="d-none d-md-inline">Open ticket</span>
                                                 </Link>
                                             </div>
+                                            </PermissionAllow>
                                         </div>
                                     </div>
                                     <div className="table-responsive">

@@ -1,5 +1,7 @@
 import { Link } from "@inertiajs/react";
 import AdStatusBtn from "./Components/AdStatusBtn";
+import PermissionAllow from '@/Components/PermissionAllow';
+
 export default function ({ ads, deleteAd }) {
     return (
         <>
@@ -10,7 +12,7 @@ export default function ({ ads, deleteAd }) {
                             <th scope="col">Ad</th>
                             <th scope="col">Address</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Leads</th>
+                            <th scope="col">Leads|Views</th>
                             <th scope="col">Date listed</th>
                             <th scope="col">Status</th>
                             <th scope="col" />
@@ -28,16 +30,17 @@ export default function ({ ads, deleteAd }) {
                                             </div>
                                         </td>
                                         <td>
-                                        {ad.address}
-                                        <div className="small">
-                                            <small>{ad.city}</small>
-                                        </div>
+                                            {ad.address}
+                                            <div className="small">
+                                                <small>{ad.city}</small>
+                                            </div>
                                         </td>
                                         <td>
                                             $ {ad.price}
                                         </td>
                                         <td>
-                                            <Link className="text-decoration-none" href={route('seller.leads.index', {ad:ad.id})}>{ad.total_leads} leads</Link>
+                                            <div><Link className="text-decoration-none" href={route('seller.leads.index', { ad: ad.id })}>{ad.total_leads} leads</Link></div>
+                                            <div className="small">{ad.total_views} views</div>
                                         </td>
                                         <td>
                                             {ad.date_text}
@@ -46,8 +49,12 @@ export default function ({ ads, deleteAd }) {
                                             <AdStatusBtn status={ad.status}></AdStatusBtn>
                                         </td>
                                         <td>
-                                            <Link type="button" href={route('seller.ads.edit', ad.id)} className="btn btn-sm btn-square btn-neutral me-2"><i className="bi bi-pen"></i></Link>
-                                            <button onClick={(e) => deleteAd(ad.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                            <PermissionAllow permission="Ad Create">
+                                                <Link type="button" href={route('seller.ads.edit', ad.id)} className="btn btn-sm btn-square btn-neutral me-2"><i className="bi bi-pen"></i></Link>
+                                            </PermissionAllow>
+                                            <PermissionAllow permission="Ad Delete">
+                                                <button onClick={(e) => deleteAd(ad.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                            </PermissionAllow>
                                         </td>
                                     </tr>
                                 ))}

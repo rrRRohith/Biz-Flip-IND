@@ -42,8 +42,16 @@ const days = [
     { id: 'sun', label: 'Sunday' }
 ];
 
+const socials = [
+    { id: 'facebook', label: 'Facebook' },
+    { id: 'twitter', label: 'Twitter' },
+    { id: 'instagram', label: 'Instagram' },
+    { id: 'linkedin', label: 'Linkedin' },
+];
+
 export default function Settings({ seller, auth, success, error }) {
     const [checkedDays, setCheckedDays] = useState(seller.days);
+    const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
 
     const { data, setData, post, errors, reset } = useForm({
         logo: '',
@@ -55,7 +63,10 @@ export default function Settings({ seller, auth, success, error }) {
         short_description: seller.short_description,
         description: seller.description,
         website: seller.website,
-        //days: checkedDays
+        facebook: seller.social_links.facebook,
+        twitter: seller.social_links.twitter,
+        instagram: seller.social_links.instagram,
+        linkedin: seller.social_links.linkedin,
     });
 
     const [imagePreview, setImagePreview] = useState('');
@@ -85,7 +96,8 @@ export default function Settings({ seller, auth, success, error }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await post(route("seller.settings.store", {
-            days : checkedDays
+            days: checkedDays,
+            socials: checkedSocials,
         }), {
             preserveScroll: true,
             onSuccess: () => {
@@ -101,6 +113,13 @@ export default function Settings({ seller, auth, success, error }) {
         }));
         //setData('days', checkedDays);
     };
+
+    const handleSocialCheckboxChange = async (social) => {
+        await setCheckedSocials((prevCheckedSocials) => ({
+            ...prevCheckedSocials,
+            [social]: !prevCheckedSocials[social]
+        }));
+    }
     return (
         <>
             <Head title="Settings" />
@@ -204,6 +223,45 @@ export default function Settings({ seller, auth, success, error }) {
                                                 ))}
                                             </div>
                                         </div>
+                                    </div>
+                                    <div className="mb-5">
+                                        <h4>Social media</h4>
+                                    </div>
+                                    <div>
+                                        <table>
+                                            {socials.map((social) => (
+                                                <tr key={social.id}>
+                                                    <td>
+                                                        <div className="me-2">
+                                                            <div className="form-check form-check-lg">
+                                                                <input
+                                                                    role="button"
+                                                                    className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                                    type="checkbox"
+                                                                    id={`social_${social.id}`}
+                                                                    checked={checkedSocials[social.id]}
+                                                                    onChange={() => handleSocialCheckboxChange(social.id)}
+                                                                />
+                                                                <label role="button" className="mt-1" htmlFor={`social_${social.id}`}>
+                                                                    {social.label}
+
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <small>Set your {social.label} page link</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {checkedSocials[social.id] && (
+                                                            <div>
+                                                                <input value={data[social.id]} onChange={(e) => { handleChange(social.id, e.target.value) }} type="text" placeholder={`${social.label} page`} className="form-control" />
+                                                            </div>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </table>
                                     </div>
                                     <div className="row g-5">
 

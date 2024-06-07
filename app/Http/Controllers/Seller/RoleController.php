@@ -25,6 +25,11 @@ class RoleController extends BaseController{
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
+
+        $this->middleware("can:Role and Responsibilities Listing")->only(['index', 'search', 'show']);
+        $this->middleware("can:Role and Responsibilities Create")->only(['create', 'store']);
+        $this->middleware("can:Role and Responsibilities Edit")->only(['edit', 'update']);
+        $this->middleware("can:Role and Responsibilities Delete")->only(['destroy']);
     }
     /**
      * Display a listing of the resource.

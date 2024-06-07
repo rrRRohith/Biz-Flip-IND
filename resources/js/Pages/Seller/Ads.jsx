@@ -5,6 +5,7 @@ import { Head, Link, useForm, router } from "@inertiajs/react";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '@/Components/Spinner';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Ads({ auth, ads }) {
     const [loading, setLoading] = useState(false);
@@ -52,11 +53,13 @@ export default function Ads({ auth, ads }) {
                                             <div className="ms-2">
                                                 <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
+                                            <PermissionAllow permission="Ad Create">
                                             <div className="ms-auto">
                                                 <Link className="btn btn-primary text-overflow" href={route('seller.ads.create')}><i className="bi bi-plus text-md"></i>
                                                     <span className="d-none d-md-inline">New ad</span>
                                                 </Link>
                                             </div>
+                                            </PermissionAllow>
                                         </div>
                                     </div>
                                     <AdsTable deleteAd={deleteAd} ads={adData}></AdsTable>
