@@ -57,7 +57,7 @@ export default function AdminSidebar() {
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Sellers Pending Approvel'}>
                                                     <li>
-                                                        <Link  href={route('admin.sellers.index')}>
+                                                        <Link  href={route('admin.sellers.pendingApprovel')}>
                                                             <i className="icon-Commit"></i> Pending Approvel
                                                         </Link>
                                                     </li>

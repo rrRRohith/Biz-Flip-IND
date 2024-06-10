@@ -6,7 +6,8 @@ class DynamicSelect extends Component {
         super(props);
         this.state = {
             selectedOption: props.defaultValue ? { value: props.defaultValue, label: String(props.defaultValue) } : null,
-            options: props.options || []
+            options: props.options || [],
+            isClearable : props.isClearable
         };
     }
 
@@ -23,12 +24,12 @@ class DynamicSelect extends Component {
     }
 
     render() {
-        const { selectedOption, options } = this.state;
+        const { selectedOption, options,isClearable } = this.state;
         const { nameval } = this.props;
 
         return (
             <CreatableSelect
-                isClearable
+                isClearable={isClearable}
                 options={options}
                 onChange={this.handleChange}
                 name={nameval}

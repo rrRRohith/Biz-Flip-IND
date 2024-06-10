@@ -24,8 +24,7 @@ export default function index({ app_settings ,queryParams = null, auth, success 
         remove_image    : false,
         remove_image2   : false,
     });
-   
-  
+
     const handleSubmit = (e) => {
         e.preventDefault();
     

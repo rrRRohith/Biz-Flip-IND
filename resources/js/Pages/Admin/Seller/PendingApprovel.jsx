@@ -2,7 +2,9 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 
-export default function Index({ vendorsList, auth, success = null, error = null }) {
+import { Dropdown } from '@mui/joy';
+
+export default function Index({ sellers, auth, success = null, error = null }) {
      
     const deleteVendor = (vendor) => {
         if (!window.confirm("Are you sure you want to delete the Seller?")) {
@@ -19,11 +21,11 @@ export default function Index({ vendorsList, auth, success = null, error = null 
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Sellers List</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Sellers  Pending Approvel</h2>}
             success = {success}
             error   = {error}
         >
-            <Head title="Sellers List" />
+            <Head title="Sellers  Pending Approvel" />
 
             {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">
@@ -34,7 +36,7 @@ export default function Index({ vendorsList, auth, success = null, error = null 
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Sellers List</h4>
+                                        <h4 className="page-title">Sellers  Pending Approvel</h4>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +71,7 @@ export default function Index({ vendorsList, auth, success = null, error = null 
                                                 </thead>
                                                 <tbody>
 
-                                                {vendorsList.data.map((vendor) => (
+                                                {sellers.data.map((vendor) => (
                                                     <React.Fragment key={vendor.id}>
                                                    {console.log(vendor)}
                                                     <tr key={vendor.id} className="hover-primary">

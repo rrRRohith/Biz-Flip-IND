@@ -15,11 +15,10 @@ class CompanySettingsController extends Controller
     public function index()
     {
         //
-        $company_settings = CompanySettings::first();
-       
-        return Inertia::render('Admin/CompanySettings/Index',['company_settings' => new CompanySettingsResource($company_settings),'success' => session('success'),'error' => session('error')]);
-
-        
+        $company_settings = CompanySettings::with('social_settings')->first();
+    
+        return Inertia::render('Admin/CompanySettings/Index',
+                        ['company_settings' => new CompanySettingsResource($company_settings)]);
     }
 
     /**

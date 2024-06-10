@@ -13,6 +13,7 @@ export default function Edit({ country_item ,queryParams = null, auth}) {
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         name: country_item.name || '',
+        code: country_item.code || '',
         status: country_item.status = 'published' ? 1 : 0 || 1,
         position: country_item.position || '', _method: "PUT",
         remove_image: false,
@@ -93,7 +94,7 @@ export default function Edit({ country_item ,queryParams = null, auth}) {
                                                 <div className="row">
                                                     <div className="col-lg-9">
                                                         <div className="row">
-                                                            <div className="col-md-12 mb-3">
+                                                            <div className="col-md-6 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
                                                                     <TextInput
@@ -106,6 +107,21 @@ export default function Edit({ country_item ,queryParams = null, auth}) {
                                                                         autoComplete="off"
                                                                     />
                                                                     <InputError message={errors.name} className="mt-2 col-12" />
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-6 mb-3">
+                                                                <div className="form-group">
+                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Code</InputLabel>
+                                                                    <TextInput
+                                                                        id="country-code"
+                                                                        type="text"
+                                                                        name="code"
+                                                                        className="form-control"
+                                                                        value={data.code}
+                                                                        onChange={(e) => handleChange("code", e.target.value)}
+                                                                        autoComplete="off"
+                                                                    />
+                                                                    <InputError message={errors.code} className="mt-2 col-12" />
                                                                 </div>
                                                             </div>
                                                             <div className="col-md-12 mb-3">

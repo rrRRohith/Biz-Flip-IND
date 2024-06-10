@@ -61,6 +61,7 @@ export default function Index({ provinceList, auth, success = null, error = null
                                                         <th>#</th>
                                                         <th>Image</th>
                                                         <th>Name</th>
+                                                        <th>Code</th>
                                                         <th>Country</th>
                                                         <th>Position</th>
                                                         <th>Status</th>
@@ -84,6 +85,7 @@ export default function Index({ provinceList, auth, success = null, error = null
                                                         />
                                                         </td>
                                                         <td>{province.name}</td>
+                                                        <td>{province.code}</td>
                                                         <td>{province.country_name}</td>
                                                         
                                                         <td>{province.position}</td>

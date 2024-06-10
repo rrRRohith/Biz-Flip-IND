@@ -108,7 +108,7 @@ export default function Index({ contactMsgList, auth, success = null, error = nu
                                                         <th>Email</th>
                                                         <th>Mobile</th>
                                                         <th>Subject</th>
-                                                        <th>Status</th>
+                                                        {/* <th>Status</th> */}
                                                         <th>Created At</th>
                                                         <th></th>
                                                     </tr>
@@ -123,7 +123,7 @@ export default function Index({ contactMsgList, auth, success = null, error = nu
                                                         <td>{inquiry.email}</td>
                                                         <td>{inquiry.phone}</td>
                                                         <td>{inquiry.subject}</td>
-                                                        <td>{inquiry.status}</td>
+                                                        {/* <td>{inquiry.status}</td> */}
                                                         <td>{inquiry.created_at}</td>
                                                         <td>
                                                             <button onClick={(e) => handleShow(inquiry)} className="btn btn-transparent border-0">
@@ -150,7 +150,7 @@ export default function Index({ contactMsgList, auth, success = null, error = nu
             </div>
             {/* <!-- /.content-wrapper --> */}
 
-            <ModalPopup show={show} handleClose={handleClose} data={data}  title="Inquiry Details" />
+            <ModalPopup show={show} handleClose={handleClose} data={data}  title="Contact Inquiry Details" />
 
         </Authenticated>
 

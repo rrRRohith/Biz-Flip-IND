@@ -1305,10 +1305,6 @@ Theme Primary Color
 /*---text---*/
 .theme-primary .text-primary {
   color: #4c95dd !important; }
-.theme-primary a.text-primary:hover, .theme-primary a.text-primary:focus {
-  color: #4c95dd !important; }
-.theme-primary .hover-primary:hover, .theme-primary .hover-primary:focus {
-  color: #4c95dd !important; }
 .theme-primary .text-info {
   color: #634fd2 !important; }
 .theme-primary a.text-info:hover, .theme-primary a.text-info:focus {

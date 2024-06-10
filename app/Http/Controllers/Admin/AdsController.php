@@ -88,7 +88,6 @@ class AdsController extends Controller
 
     public function pendingApprovel(){
         $ads = Ad::with('seller')->orderBy('updated_at','DESC')->where('status',0)->get();
-      
         return Inertia::render('Admin/Ads/PendingApprovel', [
                             'ads' => AdResource::collection($ads),
                         ]);

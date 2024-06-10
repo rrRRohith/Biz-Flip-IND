@@ -10,4 +10,12 @@ class CompanySettings extends Model
 {
     use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    public function social_settings(){
+      
+            return  $this->belongsTo(SocailLink::class);
+        
+    }
+
+  
 }

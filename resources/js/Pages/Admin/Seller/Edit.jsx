@@ -12,7 +12,9 @@ import Select from 'react-select';
 import Form from 'react-bootstrap/Form';
 
 
-export default function Edit({ auth, seller }) {
+export default function Edit({ auth, seller,cities, provinces }) {
+
+
     const { data, setData, post, errors, reset } = useForm({
         firstname   : seller.firstname || '',
         lastname    : seller.lastname || '',
@@ -74,13 +76,13 @@ export default function Edit({ auth, seller }) {
     ];
 
     const [checkedDays, setCheckedDays] = useState({
-        mon: seller.availableDays.mon || false,
-        tue: seller.availableDays.tue || false,
-        wed: seller.availableDays.wed || false,
-        thu: seller.availableDays.thu || false,
-        fri: seller.availableDays.fri || false,
-        sat: seller.availableDays.sat || false,
-        sun: seller.availableDays.sun || false,
+        mon: seller.availableDays  ?  seller.availableDays.mon || false : false,
+        tue:  seller.availableDays ?  seller.availableDays.tue || false : false,
+        wed:  seller.availableDays ?  seller.availableDays.wed || false : false,
+        thu:  seller.availableDays ?  seller.availableDays.thu || false : false,
+        fri:  seller.availableDays ?  seller.availableDays.fri || false : false,
+        sat:  seller.availableDays ?  seller.availableDays.sat || false : false,
+        sun:  seller.availableDays ?  seller.availableDays.sun || false : false,
     });
     
 
@@ -334,15 +336,14 @@ export default function Edit({ auth, seller }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">City</InputLabel>
-                                                                        <TextInput
-                                                                            id="city"
-                                                                            type="text"
-                                                                            name="city"
-                                                                            className="form-control"
+                                                                        <DynamicSelect
+                                                                            onChange={(value) => handleChange("city", value)}
                                                                             value={data.city}
-                                                                            onChange={(e) => handleChange("city", e.target.value)}
-                                                                            autoComplete="off"
+                                                                            options={cities}
+                                                                            name="city"
+                                                                            defaultValue={data.city}
                                                                         />
+
                                                                         <InputError message={errors.city} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
@@ -350,14 +351,12 @@ export default function Edit({ auth, seller }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Province</InputLabel>
-                                                                        <TextInput
-                                                                            id="province"
-                                                                            type="text"
-                                                                            name="province"
-                                                                            className="form-control"
+                                                                        <DynamicSelect
+                                                                            onChange={(value) => handleChange("province", value)}
                                                                             value={data.province}
-                                                                            onChange={(e) => handleChange("province", e.target.value)}
-                                                                            autoComplete="off"
+                                                                            options={provinces}
+                                                                            name="province"
+                                                                            defaultValue={data.province}
                                                                         />
                                                                         <InputError message={errors.province} className="mt-2 col-12" />
                                                                     </div>
@@ -476,7 +475,7 @@ export default function Edit({ auth, seller }) {
                                                                             type="text"
                                                                             name="full_address"
                                                                             className="form-control"
-                                                                            value={data.address}
+                                                                            value={data.full_address}
                                                                             onChange={(e) => handleChange("full_address", e.target.value)}
                                                                             autoComplete="off"
                                                                         />

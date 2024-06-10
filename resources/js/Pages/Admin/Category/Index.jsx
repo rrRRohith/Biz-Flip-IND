@@ -86,7 +86,7 @@ export default function Index({ categoryList, auth }) {
                                                         <td>{category.name}</td>
                                                         <td>{category.position}</td>
                                                         <td>{category.status}</td>
-                                                        <td>{category.updated_at}</td>
+                                                        <td>{window.formatDateTime(category.updated_at)}</td>
                                                         <td>
                                                             <PermissionAllow permission={'Category Edit'}>
                                                                 <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>

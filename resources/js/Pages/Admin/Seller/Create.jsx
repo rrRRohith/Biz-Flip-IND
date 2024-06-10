@@ -12,7 +12,7 @@ import DynamicSelect from '@/Components/DynamicSelect';
 import Form from 'react-bootstrap/Form';
 
 
-export default function Create({ auth }) {
+export default function Create({ auth, cities, provinces }) {
     const { data, setData, post, errors, reset } = useForm({
         firstname: '',
         lastname: '',
@@ -308,14 +308,13 @@ export default function Create({ auth }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">City</InputLabel>
-                                                                        <TextInput
-                                                                            id="city"
-                                                                            type="text"
-                                                                            name="city"
-                                                                            className="form-control"
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">City</InputLabel>
+                                                                        <DynamicSelect
+                                                                            onChange={(value) => handleChange("city", value)}
                                                                             value={data.city}
-                                                                            onChange={(e) => handleChange("city", e.target.value)}
-                                                                            autoComplete="off"
+                                                                            options={cities}
+                                                                            name="city"
+                                                                            defaultValue={data.city}
                                                                         />
                                                                         <InputError message={errors.city} className="mt-2 col-12" />
                                                                     </div>
@@ -324,14 +323,12 @@ export default function Create({ auth }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Province</InputLabel>
-                                                                        <TextInput
-                                                                            id="province"
-                                                                            type="text"
-                                                                            name="province"
-                                                                            className="form-control"
+                                                                        <DynamicSelect
+                                                                            onChange={(value) => handleChange("province", value)}
                                                                             value={data.province}
-                                                                            onChange={(e) => handleChange("province", e.target.value)}
-                                                                            autoComplete="off"
+                                                                            options={provinces}
+                                                                            name="province"
+                                                                            defaultValue={data.province}
                                                                         />
                                                                         <InputError message={errors.province} className="mt-2 col-12" />
                                                                     </div>

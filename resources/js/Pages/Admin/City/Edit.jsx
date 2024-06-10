@@ -10,24 +10,32 @@ import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import DynamicSelect from '@/Components/DynamicSelect';
 
 export default function Edit({ city_item ,queryParams = null, auth,countries }) {
-   
+   console.log(city_item)
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         name: city_item.name || '',
-        status: city_item.status = 'published' ? 1 : 0 || 1,
-        position: city_item.position || '', _method: "PUT",
+        status: city_item.status == 'published' ? 1 : 0 || 1,
+        position: city_item.position || '',
+        _method: "PUT",
         remove_image: false,
-        country : city_item.country_id
+        country : city_item.country,
+        province : city_item.province
     });
    
     const [imagePreview, setImagePreview] = useState('');
 
+  
     useEffect(() => {
         // Set the initial image preview if an image exists
         if (city_item.image) {
             setImagePreview(city_item.image);
         }
-    }, [city_item.image]);
+
+        // Fetch provinces if a country is already selected
+        if (city_item.country) {
+            fetchProvinces(city_item.country_id);
+        }
+    }, [city_item.image, city_item.country]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -51,6 +59,7 @@ export default function Edit({ city_item ,queryParams = null, auth,countries }) 
       
             post(route("admin.city.update", city_item.id));
           };
+          
 
           const [provinces, setProvinces] = useState([]);
           const fetchProvinces = async (countryId) => {
@@ -138,6 +147,7 @@ export default function Edit({ city_item ,queryParams = null, auth,countries }) 
                                                                     <DynamicSelect
                                                                            options={countries}
                                                                            onChange={(value) => handleChange("country", value)}
+                                                                           defaultValue={data.country}
                                                                         value={data.country}
                                                                     />
                                                                     <InputError message={errors.country} className="mt-2 col-12" />
@@ -149,6 +159,7 @@ export default function Edit({ city_item ,queryParams = null, auth,countries }) 
                                                                     <DynamicSelect
                                                                            options={provinces}
                                                                            onChange={(value) => handleChange("province", value)}
+                                                                           defaultValue={data.province}
                                                                         value={data.province}
                                                                     />
                                                                     <InputError message={errors.province} className="mt-2 col-12" />

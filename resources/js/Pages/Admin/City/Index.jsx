@@ -4,7 +4,7 @@ import Authenticated from '@/Layouts/AdminAuthenticated';
 import { Pagination } from '@mui/material';
 
 export default function Index({ cityList, auth, success = null, error = null }) {
-    const itemsPerPage = 10;
+    const itemsPerPage = 50;
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredCities, setFilteredCities] = useState([]);

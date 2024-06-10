@@ -15,6 +15,7 @@ export default function Create({ auth,countries }) {
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         name: '',
+         code: '',
         status: '1', // Default status to '1' (Published)
         position: '',
         country : '',
@@ -100,6 +101,21 @@ export default function Create({ auth,countries }) {
                                                             </div>
                                                             <div className="col-md-6 mb-3">
                                                                 <div className="form-group">
+                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Code</InputLabel>
+                                                                    <TextInput
+                                                                        id="province-code"
+                                                                        type="text"
+                                                                        name="code"
+                                                                        className="form-control"
+                                                                        value={data.code}
+                                                                        onChange={(e) => handleChange("code", e.target.value)}
+                                                                        autoComplete="off"
+                                                                    />
+                                                                    <InputError message={errors.code} className="mt-2 col-12" />
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-6 mb-3">
+                                                                <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Country</InputLabel>
                                                                     <DynamicSelect
                                                                            options={countries}
@@ -110,7 +126,7 @@ export default function Create({ auth,countries }) {
                                                                 </div>
                                                             </div>
                                                             
-                                                            <div className="col-md-12 mb-3">
+                                                            <div className="col-md-6 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
                                                                     <SelectOption

@@ -52,6 +52,7 @@ class StaffController extends BaseController
             if($request->has('password') && $request->password){
                 $staff->update([
                     'password' => Hash::make($request->password),
+                    'type' => 'admin-staff'
                 ]);
             }
 
@@ -76,6 +77,9 @@ class StaffController extends BaseController
         $this->seller->staffs()->findOrfail($staff->id);
         try{
             $staff->update($request->only('firstname', 'lastname', 'email', 'phone', 'role_id'));
+            $staff->update([
+                'type' => 'admin-staff'
+            ]);
             $staff->syncRoles($request->role_id);
             
             if($request->has('password') && $request->password){

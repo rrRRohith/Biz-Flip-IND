@@ -13,6 +13,7 @@ export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         name: '',
+        code: '',
         status: '1', // Default status to '1' (Published)
         position: '',
     });
@@ -80,7 +81,7 @@ export default function Create({ auth }) {
                                                 <div className="row">
                                                     <div className="col-lg-9">
                                                         <div className="row">
-                                                            <div className="col-md-12 mb-3">
+                                                            <div className="col-md-6 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
                                                                     <TextInput
@@ -95,6 +96,22 @@ export default function Create({ auth }) {
                                                                     <InputError message={errors.name} className="mt-2 col-12" />
                                                                 </div>
                                                             </div>
+                                                            <div className="col-md-6 mb-3">
+                                                                <div className="form-group">
+                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Code</InputLabel>
+                                                                    <TextInput
+                                                                        id="country-code"
+                                                                        type="text"
+                                                                        name="code"
+                                                                        className="form-control"
+                                                                        value={data.code}
+                                                                        onChange={(e) => handleChange("code", e.target.value)}
+                                                                        autoComplete="off"
+                                                                    />
+                                                                    <InputError message={errors.code} className="mt-2 col-12" />
+                                                                </div>
+                                                            </div>
+                                                            
                                                             <div className="col-md-12 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>

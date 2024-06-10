@@ -26342,7 +26342,7 @@ Height property
     padding: 10px !important;
     text-align: center;
     line-height: 20px;
-    font-size: 1.714rem;
+    font-size: 1.2rem;
     margin: 0 5px;
     border-radius: 10px;
     -webkit-box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0);
@@ -26624,7 +26624,7 @@ Height property
       padding: 10px;
       
       display: block;
-      font-size: 1.714rem;
+      font-size: 1.2rem;
       height: 45px;
       text-align: center;
       width: 45px;
@@ -37791,7 +37791,8 @@ img.away, img.busy, img.offline, img.online {
 
 .form-group input {
   font: inherit !important;
-  padding: 10px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
   transition: outline-color 500ms !important;
 }
 

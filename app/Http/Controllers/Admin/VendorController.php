@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Seller;
 use Illuminate\Http\Request;
-use App\Http\Resources\VendorResource;
+use App\Http\Resources\{VendorResource,SellerResource};
 use App\Http\Requests\Seller\SellerStoreRequest;
 use App\Http\Requests\Seller\SellerUpdateRequest;
-use App\Models\User;
+use App\Models\{User,City,Seller,SellerAvailability,Province};
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use PHPUnit\Metadata\Uses;
-use App\Models\SellerAvailability;
 
 class VendorController extends Controller
 {
@@ -37,7 +35,7 @@ class VendorController extends Controller
     {
         $vendorsList = Seller::with('user')->get();
 
-        return Inertia::render('Admin/Seller/Index', ['vendorsList' => VendorResource::collection($vendorsList), 'success' => session('success'), 'error' => session('error')]);
+        return Inertia::render('Admin/Seller/Index', ['vendorsList' => VendorResource::collection($vendorsList)]);
     }
 
     /**
@@ -46,7 +44,14 @@ class VendorController extends Controller
     public function create()
     {
         //
-        return Inertia::render('Admin/Seller/Create');
+
+        $cities = City::where('status', 1)->orderBy('position')->pluck('name')->map(function ($city) {
+            return ['value' => $city, 'label' => $city];
+        })->toArray();
+        $provinces = Province::where('status', 1)->orderBy('position')->pluck('name')->map(function ($province) {
+            return ['value' => $province, 'label' => $province];
+        })->toArray();
+        return Inertia::render('Admin/Seller/Create', ['cities' => $cities,'provinces' => $provinces]);
     }
 
     /**
@@ -145,8 +150,17 @@ class VendorController extends Controller
     {
         //
         $vendor = Seller::with('user')->where('user_id', $id)->first();
+
+        $cities = City::where('status', 1)->orderBy('position')->pluck('name')->map(function ($city) {
+            return ['value' => $city, 'label' => $city];
+        })->toArray();
+        $provinces = Province::where('status', 1)->orderBy('position')->pluck('name')->map(function ($province) {
+            return ['value' => $province, 'label' => $province];
+        })->toArray();
+    
+
        
-        return Inertia::render('Admin/Seller/Edit', ['seller' => new VendorResource($vendor)]);
+        return Inertia::render('Admin/Seller/Edit', ['seller' => new VendorResource($vendor),'cities' => $cities,'provinces' => $provinces]);
     }
 
     /**
@@ -305,5 +319,14 @@ class VendorController extends Controller
                 return $this->unique_code();
         }
         return $pin_gen;
+    }
+
+
+    function pendingApprovel(){
+        $seller = User::with('seller')->where('type','seller')->orderBy('updated_at','DESC')->where('status',0)->get();
+       
+        return Inertia::render('Admin/Seller/PendingApprovel', [
+                            'sellers' => SellerResource::collection($seller),
+                        ]);
     }
 }

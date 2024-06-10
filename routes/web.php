@@ -8,9 +8,10 @@ use Inertia\Inertia;
 Route::get('/admin', function () {return Inertia::render('Admin/Dashboard');})->middleware(['auth', 'verified'])->name('admin');
 
 Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>'admin', 'as' => 'admin.','namespace' => 'App\Http\Controllers\Admin'], function(){
-    Route::get('/', function () {return Inertia::render('Admin/Dashboard');})->name('index');
-    
+ 
+    Route::get('/', 'Controller@Dashboard')->name('index');
     Route::get('ads/pending-approvel', 'AdsController@pendingApprovel')->name('ads.pendingApprovel');
+    Route::get('sellers/pending-approvel', 'VendorController@pendingApprovel')->name('sellers.pendingApprovel');
     Route::resources([
         'category'          => CategoryController::class,
         'features'          => FeaturesController::class,
@@ -50,7 +51,6 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     
     Route::post('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
     Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
-    
     
 
 

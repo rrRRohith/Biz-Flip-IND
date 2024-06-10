@@ -5,10 +5,10 @@ import Authenticated from '@/Layouts/AdminAuthenticated';
 import ModalPopup from '@/Components/ModalPopup';
 import axios from 'axios';
 
-import { Dropdown } from '@mui/joy';
 
 export default function Index({ Leads, auth, success = null, error = null }) {
    
+
     const deletelead = (lead) => {
         if (!window.confirm("Are you sure you want to delete this Leads?")) {
           return;
@@ -66,11 +66,9 @@ export default function Index({ Leads, auth, success = null, error = null }) {
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Leads</h2>}
-            success = {success}
-            error   = {error}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Ad Leads Listing</h2>}
         >
-            <Head title="Leads List" />
+            <Head title="Ad Leads Listing" />
 
             {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">
@@ -81,7 +79,7 @@ export default function Index({ Leads, auth, success = null, error = null }) {
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Leads</h4>
+                                        <h4 className="page-title">Ad Leads Listing</h4>
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +118,8 @@ export default function Index({ Leads, auth, success = null, error = null }) {
                                                 
                                                     <tr key={lead.id} className="hover-primary">
                                                         <td>{lead.id}</td>
-                                                        <td>{lead.property.title}</td>
-                                                        <td>{lead.property.seller.firstname} {lead.property.seller.lastname}</td>
+                                                        <td>{lead.ad.title}</td>
+                                                        <td>{lead.ad.seller.firstname} {lead.ad.seller.lastname}</td>
                                                         <td>{lead.firstname} {lead.lastname}</td>
                                                         <td>{lead.email}</td>
                                                         <td>{lead.phone}</td>

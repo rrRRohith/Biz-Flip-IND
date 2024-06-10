@@ -1,33 +1,34 @@
+
 import React, { useState } from 'react';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
-import StatusBtn from '@/Components/StatusBtn';
 import ModalPopup from '@/Components/ModalPopup';
-import AdView from '@/Pages/Admin/Ads/AdView'
+import AdView from '@/Pages/Admin/Ads/AdView';
+import StatusBtn from '@/Components/StatusBtn';
 import axios from 'axios';
 import Badge from '@/Components/Badge';
 
-import { Dropdown } from '@mui/joy';
+const PendingApprovel = ({ ads, auth, success = null, error = null }) => {
 
-
-export default function PendingApprovel({ ads, auth, success = null, error = null }) {
- 
-    
     const [show, setShow] = useState(false);
     const [data, setData] = useState(null);
 
     const handleClose = () => setShow(false);
-    const handleShow = async (ads) => {
+    const handleShow = async (ad) => {
         try {
-            const response = await axios.get(route("admin.ads.show", ads.id));
-            console.log(response.data)
-            const responseData = (response.data);
+            const response = await axios.get(route("admin.ads.show", ad.id));
+            const responseData = response.data;
             setData(responseData);
             setShow(true);
         } catch (error) {
             console.error('Error fetching data', error);
         }
+    };
+
+    const handleSubmit = () => {
+        setShow(false); // Close the modal after submission
+        // Additional logic after form submission
     };
 
     return (
@@ -37,7 +38,7 @@ export default function PendingApprovel({ ads, auth, success = null, error = nul
             success={success}
             error={error}
         >
-            <Head title="Ads List" />
+            <Head title="Ads Pending Approvel List" />
 
             {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">
@@ -81,72 +82,58 @@ export default function PendingApprovel({ ads, auth, success = null, error = nul
                                                             <th>Type</th>
                                                             <th>Purpose</th>
                                                             <th>Seller</th>
-                                                            <th>Created Date</th>
+                                                            <th>Status</th>
+                                                            <th>Last Modified</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                           
                                                         {ads.data.length ? (
-                                                            <>  
-                                                             {ads.data.map((ad) => (
-                                                                    <React.Fragment key={ad.id}>
-                                                                        <tr>
-                                                                            <td>
-                                                                               <Badge value={`#${ad.unique_code}`} bg="bg-dark" color='text-white'/>
-                                                                            </td>
-                                                                            <td>
-                                                                            <img
-                                                                                src={ad.main_picture}
-                                                                                className='w-50 rounded-5 '
-                                                                                alt={`Image`}
-                                                                                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                            />
-                                                                            </td>
-                                                                            <td>
-                                                                                {ad.title}
-                                                                            </td>
-                                                                            <td>
-                                                                                {ad.address}
-                                                                                <div className="small">
-                                                                                    <small>{ad.city}</small>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                            {window.formatPrice(ad.price)}
-                                                                            </td>
-                                                                            <td>
-                                                                                <Link className="text-decoration-none" href={route('admin.propery_leads_index', { ad: ad.id })}>{ad.total_leads} leads</Link>
-                                                                            </td>
-                                                                            <td>
-                                                                            {ad.property_type}
-                                                                            </td>
-                                                                            <td>
-                                                                            {ad.ad_purpose}
-                                                                            </td>
-                                                                            <td>
-                                                                                {ad.seller.firstname} {ad.seller.lastname}
-                                                                            </td>
-                                                                            <td>
-                                                                                {window.formatDateTime(ad.created_at)}
-                                                                            </td>
-                                                                            <td>
-                                                                                <span onClick={(e) => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-pencil"></i></span>
-                                                                             
-                                                                            </td>
-                                                                        </tr>
-                                                                    </React.Fragment>
-                                                                ))}
-                                                            </>
-                                                        ) : (<>
+                                                            ads.data.map((ad) => (
+                                                                <tr key={ad.id}>
+                                                                    <td>
+                                                                        <Badge value={`#${ad.unique_code}`} bg="bg-dark" color='text-white' />
+                                                                    </td>
+                                                                    <td>
+                                                                        <img
+                                                                            src={ad.main_picture}
+                                                                            className='w-50 rounded-5 '
+                                                                            alt={`Image`}
+                                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                                                        />
+                                                                    </td>
+                                                                    <td>{ad.title}</td>
+                                                                    <td>
+                                                                        {ad.address}
+                                                                        <div className="small">
+                                                                            <small>{ad.city}</small>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{window.formatPrice(ad.price)}</td>
+                                                                    <td>
+                                                                        <Link className="text-decoration-none" href={route('admin.propery_leads_index', { ad: ad.id })}>
+                                                                            {ad.total_leads} leads
+                                                                        </Link>
+                                                                    </td>
+                                                                    <td>{ad.property_type}</td>
+                                                                    <td>{ad.ad_purpose}</td>
+                                                                    <td>{ad.seller.firstname} {ad.seller.lastname}</td>
+                                                                    <td>{ad.date_text}</td>
+                                                                    <td>
+                                                                        <StatusBtn status={ad.status}></StatusBtn>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span onClick={() => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                                    </td>
+                                                                </tr>
+                                                            ))
+                                                        ) : (
                                                             <tr>
                                                                 <td className="text-center" colSpan="100">
                                                                     No records found..
                                                                 </td>
                                                             </tr>
-                                                        </>)}
-
-
+                                                        )}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -157,17 +144,24 @@ export default function PendingApprovel({ ads, auth, success = null, error = nul
                         </div>
                     </section>
                     {/* <!-- /.content --> */}
-
                 </div>
             </div>
             {/* <!-- /.content-wrapper --> */}
 
-            
-
-            <ModalPopup show={show} handleClose={handleClose}  data={data}  size="lg"  title="Ad Details" >
-                {data ? <AdView data={data} /> : 'Failed fetching data...'}
+            {/* Display modal for ad details */}
+            <ModalPopup show={show} handleClose={handleClose} size="lg" title="Ad Details">
+                {data ? (
+                    <AdView
+                        collection={data}
+                        handleClose={handleClose}
+                        onSubmit={handleSubmit} // Pass handleSubmit function to AdView
+                    />
+                ) : (
+                    'Failed fetching data...'
+                )}
             </ModalPopup>
         </Authenticated>
+    );
+};
 
-    )
-}
+export default PendingApprovel;

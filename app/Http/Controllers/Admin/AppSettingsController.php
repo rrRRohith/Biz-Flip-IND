@@ -32,7 +32,9 @@ class AppSettingsController extends Controller
     {
         //
         $app_settings = AppSettings::first();
-        
+        if(!$app_settings){
+            $app_settings = new AppSettings();
+        }
         if ($request->splash_screen) {
             if ($app_settings->splash_screen) {
                 Storage::disk('images')->delete($app_settings->splash_screen);
