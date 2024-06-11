@@ -25,8 +25,6 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'testimonial'       => TestimonialController::class,
         'content-page'      => ContentPageController::class,
         'navigation-menu'   => NavigationMenuController::class,
-        'company-settings'  => CompanySettingsController::class,
-        'app-settings'      => AppSettingsController::class,
         'support-tickets'   => TicketController::class,
         'ads'               => AdsController::class,
         'sellers'           => VendorController::class,
@@ -50,9 +48,16 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::delete('property-leads/{id}', 'EnquiryController@propery_lead_delete')->name('propery_lead_delete');
     
     Route::post('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
-    Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
     
-
+    Route::get('app-settings', 'AppSettingsController@index')->name('app-settings.index');
+    Route::post('app-settings/{id}', 'AppSettingsController@index')->name('app-settings.update');
+    
+    Route::get('company-settings', 'CompanySettingsController@index')->name('company-settings.index');
+    
+    Route::post('company-settings/email-config', 'CompanySettingsController@EmailConfig')->name('company-settings.email-config');
+    Route::post('company-settings/social-links', 'CompanySettingsController@SocialLinks')->name('company-settings.social-link');
+    Route::post('company-settings/seo', 'CompanySettingsController@Seo')->name('company-settings.seo');
+  
 
 });
 

@@ -120,7 +120,7 @@ export default function Edit({ page_item, auth, imageList }) {
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Image</InputLabel>
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Page Top Image</InputLabel>
                                                                         <DynamicSelect
                                                                             onChange={(value) => handleChange("image", value)}
                                                                             value={data.image}

@@ -12,10 +12,6 @@ class CompanySettings extends Model
     protected $dates = ['deleted_at'];
 
     public function social_settings(){
-      
-            return  $this->belongsTo(SocailLink::class);
-        
+            return  $this->belongsTo(SocailLink::class); 
     }
-
-  
 }

@@ -105,3 +105,34 @@ img.ad-image {
     height: 35px !important;
     max-width: 35px !important;
 }
+
+
+
+
+
+.tree-node {
+    margin-bottom: 10px;
+    background-color: #ebbdbd;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+.tree-node .tree-node{
+    background-color: #757575;
+}
+  
+  button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #ff5e5e;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ff3e3e;
+  }
+  

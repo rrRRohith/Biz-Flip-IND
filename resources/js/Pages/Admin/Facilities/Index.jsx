@@ -91,12 +91,12 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                         <td>{facility.status}</td>
                                                         <td>{facility.updated_at}</td>
                                                         <td>
-                                                        <PermissionAllow permission={''}>
+                                                        <PermissionAllow permission={'Facility Edit'}>
                                                             <Link className='btn btn-transparent' href={route('admin.facilities.edit', facility.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
                                                         </PermissionAllow>
-                                                        <PermissionAllow permission={''}>
+                                                        <PermissionAllow permission={'Facility Delete'}>
                                                             <button onClick={(e) => deleteFacility(facility)} className="btn btn-transparent border-0">
                                                                 <i className="bi bi-trash"></i>
                                                             </button>

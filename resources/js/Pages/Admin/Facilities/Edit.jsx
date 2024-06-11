@@ -92,6 +92,7 @@ export default function Create({ facility_item, queryParams = null, auth }) {
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
+                              
                                         <PermissionAllow permission={'Facility Edit'} message={true}>
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-body">
