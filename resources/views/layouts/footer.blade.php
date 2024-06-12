@@ -98,12 +98,15 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="input-group mb-0">
-                    <input type="text" class="form-control shadow-none rounded-1 border-gray" placeholder="Your email address" />
-                    <div class="input-group-append">
-                        <button class="btn btn-dark rounded-1 border-bottom-2 shadow-none btn-lg fs-6" type="button">Subscribe <i class="bi bi-envelope-plus"></i></button>
+                <form method="POST" action="{{ route('subscribe.store') }}" id="subscribeForm" data-reset="true" class="ajax">
+                    @csrf
+                    <div class="input-group mb-0">
+                        <input name="email_id" form="subscribeForm" type="text" class="form-control shadow-none rounded-1 border-gray" placeholder="Your email address" />
+                        <div class="input-group-append">
+                            <button data-default="Subscribe" form="subscribeForm" class="btn btn-dark rounded-1 continue-btn border-bottom-2 shadow-none btn-lg fs-6">Subscribe</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

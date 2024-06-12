@@ -79,6 +79,7 @@ Route::get('/contact', function () {
     return view('contact');
 });
 Route::post('/contact', 'App\Http\Controllers\Controller@contact')->name('contact.store');
+Route::post('/subscribe', 'App\Http\Controllers\Controller@subscribe')->name('subscribe.store');
 
 Route::get('/auth', function () {
     return view('auth.index');
@@ -112,6 +113,8 @@ require __DIR__.'/seller.php';
 //     return view('auth.login');
 // });
 
-Route::get('/{slug}', function () {
-    return view('page');
-});
+Route::get('/{page:slug}', 'App\Http\Controllers\Controller@page')->name('page');
+
+// Route::get('/{slug}', function () {
+//     return view('page');
+// });

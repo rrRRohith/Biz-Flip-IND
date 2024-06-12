@@ -30,7 +30,10 @@ class AgentController extends BaseController{
      */
     public function show(Request $request, User $agent){
         User::sellers()->findOrfail($agent->id);
-        return view('agent')->withSeller($agent);
+        return view('agent', [
+            'search_categories' => Category::all(),
+            'search_purposeOptions' => ['Rental','Lease','Sale'],
+        ])->withSeller($agent);
     }
 
     public function update(LeadRequest $request, User $agent){

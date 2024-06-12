@@ -253,7 +253,7 @@ const toastAPIError = function (message, html = null) {
         html: html,
         position: 'bottom',
         showConfirmButton: false,
-        timer: 60000,
+        timer: 6000,
         timerProgressBar: false,
         showCloseButton: true,
         customClass: {
@@ -316,4 +316,60 @@ $(document).on('click', '.share', function () {
             text: $(this).data('text'),
             url: $(this).data('url'),
         });
+});
+
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
+
+const onInput = (parent, e) => {
+    const slides = parent.querySelectorAll('input');
+    const min = parseFloat(slides[0].min);
+    const max = parseFloat(slides[0].max);
+
+    let slide1 = parseFloat(slides[0].value);
+    let slide2 = parseFloat(slides[1].value);
+
+    const percentageMin = (slide1 / (max - min)) * 100;
+    const percentageMax = (slide2 / (max - min)) * 100;
+
+    // parent.style.setProperty('--range-slider-value-low', percentageMin);
+    // parent.style.setProperty('--range-slider-value-high', percentageMax);
+
+    if (slide1 > slide2) {
+        const tmp = slide2;
+        slide2 = slide1;
+        slide1 = tmp;
+
+        if (e?.currentTarget === slides[0]) {
+            slides[0].insertAdjacentElement('beforebegin', slides[1]);
+        } else {
+            slides[1].insertAdjacentElement('afterend', slides[0]);
+        }
+    }
+
+    // parent.querySelector('.range-slider__display').setAttribute('data-low', slide1);
+    // parent.querySelector('.range-slider__display').setAttribute('data-high', slide2);
+}
+
+addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('.range-slider')
+        .forEach(range => range.querySelectorAll('input')
+            .forEach((input) => {
+                if (input.type === 'range') {
+                    input.oninput = (e) => onInput(range, e);
+                    onInput(range);
+                }
+            }))
+});
+
+$(document).on('click', async function (event) {
+    if (!$(event.target).closest('.dropdown').length) {
+        $('.dropdown-menu').removeClass('show');
+    }
 });

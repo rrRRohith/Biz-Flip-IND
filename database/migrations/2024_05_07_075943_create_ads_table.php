@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
             $table->string('ad_purpose')->nullable();
-            $table->string('price')->nullable();
+            $table->bigInteger('price')->nullable();
             $table->boolean('has_negotiable')->default(0)->nullable();
             $table->boolean('has_commission')->default(0)->nullable();
             $table->string('commission')->comment('commosion in percentage')->nullable();
