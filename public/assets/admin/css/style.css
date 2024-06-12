@@ -37804,7 +37804,7 @@ img.away, img.busy, img.offline, img.online {
   transition: transform 500ms, scale 500ms !important;
   z-index: 9 !important;
   padding-inline: 5px !important;
-  border-radius:50% !important;
+  border-radius:5px !important;
   transform: translate(5px, -14px) scale(0.8) !important;
    background-color:#FFF !important;
   

@@ -31,6 +31,7 @@
         "bootstrap": "^5.3.3",
         "nprogress": "^0.2.0",
         "react-apexcharts": "^1.4.1",
+        "react-beautiful-dnd": "^13.1.1",
         "react-bootstrap": "^2.10.2",
         "react-circular-progressbar": "^2.1.0",
         "react-email-editor": "^1.7.10",
@@ -44,6 +45,7 @@
         "react-spinners": "^0.13.8",
         "react-super-responsive-table": "^5.2.3",
         "react-toastify": "^10.0.5",
-        "slick-carousel": "^1.8.1"
+        "slick-carousel": "^1.8.1",
+        "sortablejs": "^1.15.2"
     }
 }

@@ -5,7 +5,6 @@ import InputError from "@/Components/InputError";
 import TextInput from "@/Components/TextInput";
 import InputLabel from "@/Components/InputLabel";
 import DynamicSelect from "@/Components/DynamicSelect";
-import SortableComponent from "@/Components/SortableComponent";
 
 const Create = ({ auth }) => {
     const { data, setData, post, errors, reset } = useForm({
@@ -111,7 +110,129 @@ const Create = ({ auth }) => {
                     </div>
 
                     <section className="content">
-                    <SortableComponent />
+                        {data.menuItems.map((menuItem, parentIndex) => (
+                            <div key={parentIndex} className="mb-4">
+                                <div className="tree-node row">
+                                    <div className="col-lg-3 mb-3">
+                                        <div className="form-group">
+                                            <InputLabel
+                                                htmlFor={`title-${parentIndex}`}
+                                                className="fw-700 fs-16 form-label form-group__label"
+                                            >
+                                                Title
+                                            </InputLabel>
+                                            <TextInput
+                                                id={`title-${parentIndex}`}
+                                                className="form-control"
+                                                value={menuItem.title}
+                                                onChange={(e) =>
+                                                    handleChange(
+                                                        parentIndex,
+                                                        "title",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                            <InputError error={errors.title} />
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-3 mb-3">
+                                        <div className="form-group">
+                                            <InputLabel
+                                                htmlFor={`landingpageUrl-${parentIndex}`}
+                                                className="fw-700 fs-16 form-label form-group__label"
+                                            >
+                                                Link Type
+                                            </InputLabel>
+                                            <DynamicSelect
+                                                id={`landingpageUrl-${parentIndex}`}
+                                                className="form-control"
+                                                value={menuItem.landingpageUrl}
+                                                options={[
+                                                    { value: "page-link", label: "Page Link" },
+                                                    { value: "custom-link", label: "Custom Link" },
+                                                ]}
+                                                onChange={(value) =>
+                                                    handleChange(
+                                                        parentIndex,
+                                                        "landingpageUrl",
+                                                        value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                    {menuItem.landingpageUrl === "custom-link" && (
+                                        <div className="col-lg-3 mb-3">
+                                            <div className="form-group">
+                                                <InputLabel
+                                                    htmlFor={`custom_link-${parentIndex}`}
+                                                    className="fw-700 fs-16 form-label form-group__label"
+                                                >
+                                                    Custom Link
+                                                </InputLabel>
+                                                <TextInput
+                                                    id={`custom_link-${parentIndex}`}
+                                                    className="form-control"
+                                                    value={menuItem.custom_link}
+                                                    onChange={(e) =>
+                                                        handleChange(
+                                                            parentIndex,
+                                                            "custom_link",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                                <InputError error={errors.custom_link} />
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div className="col-lg-3 mb-3">
+                                        <div className="mt-1">
+                                            <button
+                                                type="button"
+                                                className="btn btn-sm btn-danger"
+                                                onClick={() => handleRemovePart(parentIndex)}
+                                            >
+                                                Remove
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="btn btn-sm btn-primary"
+                                                onClick={() => handleAddChild(parentIndex)}
+                                            >
+                                                Add Child
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {menuItem.children.map((child, childIndex) => (
+                                        <div key={childIndex} className="mb-4 ml-5">
+                                            <TreeNode
+                                                node={child}
+                                                parentIndex={parentIndex}
+                                                childIndex={childIndex}
+                                                onRemoveParent={() =>
+                                                    handleRemoveChild(parentIndex, childIndex)
+                                                }
+                                                onAddChild={() => handleAddChild(parentIndex)}
+                                                onChange={handleChange}
+                                                errors={errors} // Pass errors to TreeNode
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                        <div className="mt-1">
+                            <button
+                                type="button"
+                                className="btn btn-sm btn-dark"
+                                onClick={handleAddPart}
+                            >
+                                Add Part
+                            </button>
+                        </div>
                         <div className="mt-3">
                             <button type="submit" className="btn btn-primary">
                                 Save Menu
