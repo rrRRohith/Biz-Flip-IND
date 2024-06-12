@@ -68,7 +68,7 @@ export default function AdminHeader({ user, header, onSidebarToggle,  handle, is
                                             className="waves-effect waves-light nav-link full-screen"
                                             onClick={isFullScreen ? handle.exit : handle.enter}
                                             title={isFullScreen ? "Exit Full Screen" : "Full Screen"} >
-                                            <i className="icon-Expand-arrows"><span className="path1"></span><span className="path2"></span></i>
+                                            <i className="bi bi-arrows-fullscreen"></i>
                                         </span>
                                     </a>
                                     
@@ -78,7 +78,7 @@ export default function AdminHeader({ user, header, onSidebarToggle,  handle, is
                                     <span className="label label-primary">5</span>
                                     <a href="#" className="waves-effect waves-light dropdown-toggle "
                                         data-bs-toggle="dropdown" title="Notifications">
-                                        <i className="icon-Notifications"><span className="path1"></span><span className="path2"></span></i>
+                                        <span className="bi bi bi-bell"></span>
                                     </a>
                                     <ul className="dropdown-menu animated bounceIn">
 
@@ -123,7 +123,7 @@ export default function AdminHeader({ user, header, onSidebarToggle,  handle, is
                                     <span className="label label-primary">5</span>
                                     <a href="#" className="dropdown-toggle " data-bs-toggle="dropdown"
                                         title="Messages">
-                                        <i className="icon-Incoming-mail"><span className="path1"></span><span className="path2"></span></i>
+                                        <span className="bi bi-envelope"></span>
                                     </a>
                                     <ul className="dropdown-menu animated bounceIn">
 

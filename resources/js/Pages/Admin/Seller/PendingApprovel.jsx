@@ -1,31 +1,31 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
-import PermissionAllow from '@/Components/PermissionAllow';
 
 import { Dropdown } from '@mui/joy';
 
-export default function Index({ labelList, auth, success = null, error = null }) {
+export default function Index({ sellers, auth, success = null, error = null }) {
      
-    const deleteLabel = (label) => {
-        if (!window.confirm("Are you sure you want to delete the Feature label?")) {
+    const deleteVendor = (vendor) => {
+        if (!window.confirm("Are you sure you want to delete the Seller?")) {
           return;
         }
         
       
-        router.delete(route("admin.feature-label.destroy", label.id))
+        router.delete(route("admin.sellers.destroy", vendor.user_id))
       }
 
+     
       
 
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Feature Label</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Sellers  Pending Approvel</h2>}
             success = {success}
             error   = {error}
         >
-            <Head title="Feature Label List" />
+            <Head title="Sellers  Pending Approvel" />
 
             {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">
@@ -36,22 +36,18 @@ export default function Index({ labelList, auth, success = null, error = null })
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Feature Label</h4>
+                                        <h4 className="page-title">Sellers  Pending Approvel</h4>
                                     </div>
                                 </div>
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <PermissionAllow permission={'Feature Label Create'}>
-                                    <Link className='btn btn-danger btn-sm text-end' href={route('admin.feature-label.create')}><i className='bi bi-plus'></i> Create</Link>
-                                    </PermissionAllow>
+                                    <Link className='btn btn-danger btn-sm text-end' href={route('admin.sellers.create')}><i className='bi bi-plus'></i> Create</Link>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-
-                    
 
                     {/* <!-- Main content --> */}
                     <section className="content">
@@ -60,14 +56,14 @@ export default function Index({ labelList, auth, success = null, error = null })
                                 <div className="box">
                                     <div className="box-body">
                                         <div className="table-responsive rounded card-table">
-                                            <PermissionAllow permission={'Feature Label Listing'} message={true}>
                                             <table className="table border-no" id="example1">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
+                                                        <th>Image</th>
                                                         <th>Name</th>
-                                                        <th>Color</th>
-                                                        <th>Priority</th>
+                                                        <th>Company Name</th>
+                                                        <th>Designation</th>
                                                         <th>Status</th>
                                                         <th>Last Modified</th>
                                                         <th></th>
@@ -75,33 +71,39 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                 </thead>
                                                 <tbody>
 
-                                                {labelList.data.map((label) => (
-                                                
-                                                    <tr key={label.id} className="hover-primary">
-                                                        <td>{label.id}</td>
-                                                        <td>{label.name}</td>
-                                                        <td><div style={{ backgroundColor: label.color,width:"20px",height:"20px" }}></div></td>
-                                                        <td>{label.priority}</td>
-                                                        <td>{label.status}</td>
-                                                        <td>{label.updated_at}</td>
+                                                {sellers.data.map((vendor) => (
+                                                    <React.Fragment key={vendor.id}>
+                                                   {console.log(vendor)}
+                                                    <tr key={vendor.id} className="hover-primary">
+                                                        <td>{vendor.id}</td>
+                                                        
                                                         <td>
-                                                        <PermissionAllow permission={'Feature Label Edit'}>
-                                                            <Link className='btn btn-transparent' href={route('admin.feature-label.edit', label.id)}>
+                                                        <img
+                                                            src={vendor.picture}
+                                                            className='w-30 rounded-circle '
+                                                            alt={`${vendor.picture} icon`}
+                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                                        />
+                                                        </td>
+                                                        <td>{vendor.firstname} {vendor.lastname}</td>
+                                                        <td>{vendor.company_name}</td>
+                                                        <td>{vendor.designation}</td>
+                                                        <td>{vendor.status}</td>
+                                                        <td>{vendor.updated_at}</td>
+                                                        <td>
+                                                            <Link className='btn btn-transparent' href={route('admin.sellers.edit', vendor.user_id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
-                                                        </PermissionAllow>
-                                                            <PermissionAllow permission={'Feature Label Delete'}>
-                                                            <button onClick={(e) => deleteLabel(label)} className="btn btn-transparent border-0">
+                                                            <button onClick={(e) => deleteVendor(vendor)} className="btn btn-transparent border-0">
                                                                 <i className="bi bi-trash"></i>
                                                             </button>
-                                                            </PermissionAllow>
                                                         </td>
                                                     </tr>
+                                                    </React.Fragment>
                                                 ))}
 
                                                 </tbody>
                                             </table>
-                                            </PermissionAllow>
                                         </div>
                                     </div>
                                 </div>

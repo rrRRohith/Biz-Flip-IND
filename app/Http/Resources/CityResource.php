@@ -21,9 +21,13 @@ class CityResource extends JsonResource
             'id'            => $this->id,
             'name'          => $this->name,
             'slug'          => $this->slug,
+            'province_id'   => $this->province_id,
+            'province'      => $this->province->name  ?? null,
+            'country'       => $this->province->country->name ?? null,
+            'country_id'       => $this->province->country->id ?? null,
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'image'          => $this->image && !(str_starts_with($this->image, 'http')) ?
+            'image'         => $this->image && !(str_starts_with($this->image, 'http')) ?
                                 asset('images/'.$this->image) : '/assets/admin/images/noimage.webp',
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),

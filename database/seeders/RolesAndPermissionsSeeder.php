@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Seller;
 
 
 
@@ -71,6 +72,10 @@ class RolesAndPermissionsSeeder extends Seeder
                 'role_id'    => 2,
                 'password'  => Hash::make('12345678'),
                 'email'     => 'seller@bizflip.ca',
+            ]);
+
+            $sellers_table = Seller::updateOrCreate( ['user_id' => $seller->id],[
+                'user_id' => $seller->id,
             ]);
 
 

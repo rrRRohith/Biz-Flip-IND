@@ -1,7 +1,13 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
+import PropTypes from 'prop-types';
 
-const LeadsChart = () => {
+export default function LeadsChart({ title = '', category = [], data = [] }) {
+
+    // Ensure category and data are arrays if they are passed as JSON strings
+    const parsedCategory = typeof category === 'string' ? JSON.parse(category) : category;
+    const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
+
     const options = {
         chart: {
             height: 350,
@@ -18,20 +24,20 @@ const LeadsChart = () => {
             curve: 'smooth'
         },
         xaxis: {
-            categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+            categories: parsedCategory
         },
         tooltip: {
             y: {
                 formatter: function (val) {
-                    return "$" + val + " thousands";
+                    return val;
                 }
             }
         }
     };
 
     const series = [{
-        name: 'Revenue',
-        data: [31, 50, 28, 70, 45, 90, 140]
+        name: title,
+        data: parsedData
     }];
 
     return (
@@ -44,6 +50,16 @@ const LeadsChart = () => {
             />
         </div>
     );
-};
+}
 
-export default LeadsChart;
+LeadsChart.propTypes = {
+    title: PropTypes.string,
+    category: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array
+    ]),
+    data: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array
+    ])
+};

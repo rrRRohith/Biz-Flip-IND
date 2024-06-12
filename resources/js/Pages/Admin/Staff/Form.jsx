@@ -15,8 +15,6 @@ import DynamicSelect from '@/Components/DynamicSelect';
 export default function Form({ staff, permissions, auth, success, error, roles }) {
 
 
-    console.log(roles)
-
     const { data, setData, post, errors, reset } = useForm({
         firstname: staff ? staff.firstname : null,
         lastname: staff ? staff.lastname : null,

@@ -24,7 +24,6 @@ class UpdateContentPageRequest extends FormRequest
         return [
             'title'     => ['required', 'max:255'],
             'image'     => ['required'],
-            'pageContent' => ['required'],
             'seo_title'   => ['nullable'],
             'seo_keywords'   => ['nullable'],
             'seo_description'   => ['nullable'],

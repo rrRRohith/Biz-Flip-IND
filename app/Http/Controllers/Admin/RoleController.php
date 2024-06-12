@@ -81,7 +81,7 @@ class RoleController extends Controller
         //
    
         $role = Role::with('permissions')->where('id',$id)->first() ?? abort(404);
-        if($role->name == 'admin'){
+        if($role->name != 'seller'){
             $permissions = Permission::admin()->get();
         }
         else{

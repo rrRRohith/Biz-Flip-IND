@@ -47,6 +47,7 @@ class CountryController extends Controller
         }
         $new        = new Country();
         $new->name  = $request->name;
+        $new->code  = $request->code;
         $new->slug  = Str::slug($request->name);
         $new->image  = $imagePath ?? null;
       
@@ -116,7 +117,7 @@ class CountryController extends Controller
 
         $country->name  = $request->name;
         $country->slug  = Str::slug($request->name);
-      
+        $country->code  = $request->code;
         $country->position=$request->position;
         $country->status= $request->status;
         $country->save();

@@ -8,9 +8,10 @@ use Inertia\Inertia;
 Route::get('/admin', function () {return Inertia::render('Admin/Dashboard');})->middleware(['auth', 'verified'])->name('admin');
 
 Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>'admin', 'as' => 'admin.','namespace' => 'App\Http\Controllers\Admin'], function(){
-    Route::get('/', function () {return Inertia::render('Admin/Dashboard');})->name('index');
-    
+ 
+    Route::get('/', 'Controller@Dashboard')->name('index');
     Route::get('ads/pending-approvel', 'AdsController@pendingApprovel')->name('ads.pendingApprovel');
+    Route::get('sellers/pending-approvel', 'VendorController@pendingApprovel')->name('sellers.pendingApprovel');
     Route::resources([
         'category'          => CategoryController::class,
         'features'          => FeaturesController::class,
@@ -24,8 +25,6 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'testimonial'       => TestimonialController::class,
         'content-page'      => ContentPageController::class,
         'navigation-menu'   => NavigationMenuController::class,
-        'company-settings'  => CompanySettingsController::class,
-        'app-settings'      => AppSettingsController::class,
         'support-tickets'   => TicketController::class,
         'ads'               => AdsController::class,
         'sellers'           => VendorController::class,
@@ -49,10 +48,16 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::delete('property-leads/{id}', 'EnquiryController@propery_lead_delete')->name('propery_lead_delete');
     
     Route::post('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
-    Route::get('seller-approvel', function () {return view('Admin.index');})->name('seller-approvel');
     
+    Route::get('app-settings', 'AppSettingsController@index')->name('app-settings.index');
+    Route::post('app-settings/{id}', 'AppSettingsController@index')->name('app-settings.update');
     
-
+    Route::get('company-settings', 'CompanySettingsController@index')->name('company-settings.index');
+    
+    Route::post('company-settings/email-config', 'CompanySettingsController@EmailConfig')->name('company-settings.email-config');
+    Route::post('company-settings/social-links', 'CompanySettingsController@SocialLinks')->name('company-settings.social-link');
+    Route::post('company-settings/seo', 'CompanySettingsController@Seo')->name('company-settings.seo');
+  
 
 });
 

@@ -21,8 +21,7 @@ export default function Index({ countryList, auth, success = null, error = null 
         <Authenticated
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Country</h2>}
-            success = {success}
-            error   = {error}
+           
         >
             <Head title="Country List" />
 
@@ -61,6 +60,7 @@ export default function Index({ countryList, auth, success = null, error = null 
                                                         <th>#</th>
                                                         <th>Image</th>
                                                         <th>Name</th>
+                                                        <th>Code</th>
                                                         <th>Position</th>
                                                         <th>Status</th>
                                                         <th>Last Modified</th>
@@ -83,6 +83,7 @@ export default function Index({ countryList, auth, success = null, error = null 
                                                         />
                                                         </td>
                                                         <td>{country.name}</td>
+                                                        <td>{country.code}</td>
                                                         <td>{country.position}</td>
                                                         <td>{country.status}</td>
                                                         <td>{country.updated_at}</td>

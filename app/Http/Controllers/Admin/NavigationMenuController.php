@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\NavigationMenu;
 use Illuminate\Http\Request;
+use App\Http\Resources\NavigationMenuResource;
+use Exception;
+use Inertia\Inertia;
 
 class NavigationMenuController extends Controller
 {
@@ -13,6 +16,9 @@ class NavigationMenuController extends Controller
     public function index()
     {
         //
+      
+        $List = NavigationMenu::query()->paginate(10);
+        return Inertia::render('Admin/NavigationMenu/Index',['MenuList' => NavigationMenuResource::collection($List)]);
     }
 
     /**
@@ -21,6 +27,7 @@ class NavigationMenuController extends Controller
     public function create()
     {
         //
+        return Inertia::render('Admin/NavigationMenu/Create');
     }
 
     /**

@@ -23,6 +23,7 @@ class StoreCountryRequest extends FormRequest
     {
         return [
             "name" => ['required', 'max:255'],
+            "code"  => ['required'],
             'image' => ['nullable', 'image'],
             "position" => ['integer'],
             'status' => ['required', Rule::in(['0', '1'])]

@@ -31,7 +31,7 @@ class AppSettingsResource extends JsonResource
             'messagingSenderId'	    => $this->messagingSenderId ?? '',
             'appId'	                => $this->appId ?? '',
             'measurementId'	        => $this->measurementId ?? '',
-            'id'                    => $this->id ?? '',
+            'id'                    => $this->id ?? '1',
             'created_at'            => (new Carbon($this->created_at ?? ''))->format('h:i a, d M'),
             'updated_at'            => (new Carbon($this->updated_at ?? ''))->format('h:i a, d M'),
         ];

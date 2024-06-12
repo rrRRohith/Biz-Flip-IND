@@ -9,4 +9,9 @@ class City extends Model
 {
     use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    function province(){
+        return  $this->belongsTo(Province::class);
+    }
+    
 }

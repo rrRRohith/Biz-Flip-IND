@@ -29,7 +29,7 @@ class StoreStaffRequest extends FormRequest
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'numeric', 'digits:10'],
-            'role_id' => 'sometimes|nullable|exists:roles,id',
+            'role_id' => 'required|exists:roles,id',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(\App\Models\User::class)->ignore($this->user->id ?? null)],
         ];
     }

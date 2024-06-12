@@ -35,6 +35,7 @@ class User extends Authenticatable
         'password',
         'picture',
         'role_id',
+        'type'
     ];
 
     /**
@@ -138,5 +139,10 @@ class User extends Authenticatable
 
     public function socials(){
         return $this->hasMany(SocailLink::class);
+    }
+
+    public function leadEnquiries()
+    {
+        return $this->hasMany(LeadEnquiry::class, 'seller_id');
     }
 }

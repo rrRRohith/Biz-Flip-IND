@@ -21,7 +21,7 @@ class EnquiryController extends Controller
     public function contact_index()
     {
         $contactMsgList = ContactEnquiry::query()->paginate(100);
-        return Inertia::render('Admin/ContactEnquiry/Index',['contactMsgList' => ContactEnquiryResource::collection($contactMsgList),'success' => session('success'),'error' => session('error')]);
+        return Inertia::render('Admin/ContactEnquiry/Index',['contactMsgList' => ContactEnquiryResource::collection($contactMsgList),]);
     }
 
     /**
@@ -64,10 +64,12 @@ class EnquiryController extends Controller
             ->with('success', "inquiry was deleted");
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public function propery_leads_index(){
-        $Leads = LeadEnquiry::with('property','property.seller')->get();
+        $Leads = LeadEnquiry::with('ad','ad.seller')->get();
     
-        return Inertia::render('Admin/LeadEnquiry/Index',['Leads' => LeadEnquiryResource::collection($Leads),'success' => session('success'),'error' => session('error')]);
+        return Inertia::render('Admin/LeadEnquiry/Index',['Leads' => LeadEnquiryResource::collection($Leads)]);
     }
 
     public function propery_lead_show($id){

@@ -2,8 +2,6 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 
-import { Dropdown } from '@mui/joy';
-
 export default function Index({ vendorsList, auth, success = null, error = null }) {
      
     const deleteVendor = (vendor) => {

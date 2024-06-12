@@ -25,7 +25,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
             success={success}
             error={error}
         >
-            <Head title="page List" />
+            <Head title="Content Page List" />
 
             {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">

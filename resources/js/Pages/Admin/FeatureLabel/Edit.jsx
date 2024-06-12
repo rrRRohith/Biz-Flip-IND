@@ -71,9 +71,9 @@ export default function Create({ label_item ,queryParams = null, auth}) {
                                         <form onSubmit={handleSubmit}>
                                             <div className="form-body">
                                                 <div className="row">
-                                                    <div className="col-lg-6">
+                                                <div className="col-lg-9">
                                                         <div className="row">
-                                                            <div className="col-md-12 mb-3">
+                                                            <div className="col-md-6 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
                                                                     <TextInput
@@ -88,7 +88,7 @@ export default function Create({ label_item ,queryParams = null, auth}) {
                                                                     <InputError message={errors.name} className="mt-2 col-12" />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-md-12 mb-3">
+                                                            <div className="col-md-6 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Color</InputLabel>
                                                                     <TextInput
@@ -103,7 +103,7 @@ export default function Create({ label_item ,queryParams = null, auth}) {
                                                                     <InputError message={errors.color} className="mt-2 col-12" />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-md-12 mb-3">
+                                                            <div className="col-md-6 mb-3">
                                                                 <div className="form-group">
                                                                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Priority</InputLabel>
                                                                     <SelectOption
