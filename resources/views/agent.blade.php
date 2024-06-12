@@ -1,7 +1,7 @@
 @extends('layouts.wrapper', ['wrapperClass' => 'bg-light'])
 @section('contents')
 @section('title', "{$seller->name} | {$seller->seller->company_name}")
-<div>
+<div id="app">
 
     <div class="container-fluid w-100 d-flex align-items-center"
         style="
@@ -77,3 +77,12 @@
     </div>
 </div>
 @endsection
+@include('search.scripts', [
+    'categories' => $search_categories,
+    'purposeOptions' => $search_purposeOptions,
+    'provinces' => [],
+    'cities' => [],
+    'request' => request(),
+])
+@push('scripts')
+@endpush

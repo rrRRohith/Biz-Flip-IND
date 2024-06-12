@@ -1,7 +1,7 @@
 @extends('layouts.wrapper', ['wrapperClass' => 'bg-light'])
 @section('contents')
 @section('title', "Businesses for Sale and Franchise Opportunities")
-<div>
+<div id="app">
     <div class="container-fluid w-100 d-flex align-items-center" style="
       background-image: linear-gradient( #00000078, #00000024 ), url(https://bookly.indigitalapi.com/uploads/static/res/auth.webp);
       background-position: center center;
@@ -20,3 +20,12 @@
     </div>
   </div>
 @endsection
+@include('search.scripts', [
+    'categories' => $search_categories,
+    'purposeOptions' => $search_purposeOptions,
+    'provinces' => [],
+    'cities' => [],
+    'request' => request(),
+])
+@push('scripts')
+@endpush

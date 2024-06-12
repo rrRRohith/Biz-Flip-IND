@@ -102,4 +102,17 @@ class Ad extends Model
     public function getSimilarAdsAttribute(){
         return $this->category ?  $this->category->ads()->limit(4)->where('ads.id', "!=", $this->id)->get() : collect([]);
     }
+
+    public function scopeSearchListings($q, Request $request){
+        return $q->when($request->province, fn($q) => $q->whereIn('province', (array) $request->province))
+        ->when($request->city, fn($q) => $q->whereIn('city', (array) $request->city))
+        ->when($request->purpose, fn($q) => $q->whereIn('ad_purpose', (array) $request->purpose))
+        //->when($request->price, fn($q) => $q->where('price', '<=', $request->price))
+        ->when($request->priceStart && $request->priceEnd, function($q) use($request){
+            $priceMin = min($request->priceStart, $request->priceEnd);
+            $priceMax = max($request->priceStart, $request->priceEnd);
+
+            return $q->where('price', '<=', $priceMax)->where('price', '>=', $priceMin);
+        })->when($request->category, fn($q) => $q->whereHas('categories', fn($q) => $q->whereIn('categories.id', (array) $request->category)));
+    }
 }

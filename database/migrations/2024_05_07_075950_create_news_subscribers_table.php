@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->mediumText('categories')->comment('use comma multiple type allowed')->nullable();
-            $table->integer('status')->comment('0=inactive,1=active');
+            $table->integer('status')->default(1)->comment('0=inactive,1=active');
             $table->softDeletes();
             $table->timestamps();
         });

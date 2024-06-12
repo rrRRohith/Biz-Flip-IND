@@ -172,14 +172,14 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
 
     return (
         <>
-            <Head title="Create ad" />
+            <Head title={ad ? 'Edit add' : 'Create new ad'} />
             <Wrapper user={auth.user}>
 
                 <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="d-flex align-items-center">
-                                <div className="text-xl font-bold">Create new ad</div>
+                                <div className="text-xl font-bold">{ad ? 'Edit add' : 'Create new ad'}</div>
                                 <div className="ms-auto">
                                     <Link href={route('seller.ads.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
                                 </div>
