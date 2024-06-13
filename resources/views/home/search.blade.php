@@ -23,15 +23,16 @@
                             <div class="fw-light text-muted">Categories</div>
                             <div>
                                 <div class="dropdown">
-                                    <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedCategories }}
                                     </div>
                                     <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         @foreach ($search_categories as $category)
-                                            <div class="form-group mb-1">
-                                                <div class="form-check form-check-lg">
-                                                    <input key="category__{{ $category->id }}"
+                                            <div class="form-group mb-1 py-0 dropdown-item rounded-1">
+                                                <div class="form-check p-0">
+                                                    <input hidden key="category__{{ $category->id }}"
                                                         v-model="sharedState.categories.category__{{ $category->id }}"
                                                         name="category[]" role="button"
                                                         class="category__{{ $category->id }} form-check-input shadow-none border border-gray border-1"
@@ -55,15 +56,16 @@
                             <div class="fw-light text-muted">Purpose</div>
                             <div>
                                 <div class="dropdown">
-                                    <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedPurposes }}
                                     </div>
                                     <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         @foreach ($search_purposeOptions as $key => $purpose)
-                                            <div class="form-group mb-1">
-                                                <div class="form-check form-check-lg">
-                                                    <input key="purpose__{{ $key }}"
+                                            <div :class="['form-group', 'mb-1', 'py-0', 'dropdown-item', 'rounded-1']">
+                                                <div class="form-check p-0">
+                                                    <input hidden key="purpose__{{ $key }}"
                                                         v-model="sharedState.purposes.purpose__{{ $key }}"
                                                         name="purpose[]" role="button"
                                                         class="purpose__{{ $key }} form-check-input shadow-none border border-gray border-1"
@@ -87,8 +89,8 @@
                             <div class="fw-light text-muted">Price</div>
                             <div>
                                 <div class="dropdown w-100">
-                                    <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button" class="priceRange" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
+                                    <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button"
+                                        class="priceRange" data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedPriceRange }}
                                     </div>
                                     <ul class="dropdown-menu border-0 w-100 rounded-1 mt-3 shadow-sm p-2 priceDropDown"

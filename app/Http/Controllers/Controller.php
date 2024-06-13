@@ -28,6 +28,9 @@ class Controller extends BaseController{
             'sellers' => \App\Models\User::sellers()->limit(6)->get(),
             'search_categories' => \App\Models\Category::all(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],
+            'testimonials' => \App\Models\Testimonial::latest()->limit(10)->get()->chunk(2)->map(function ($group) {
+                return collect($group);
+            }),
         ]);
     }
 

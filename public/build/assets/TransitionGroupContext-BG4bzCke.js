@@ -1,1 +1,0 @@
-import{_ as e}from"./setPrototypeOf-DgZC2w_0.js";import{R as r}from"./app-BzHzbjUi.js";function c(t,o){t.prototype=Object.create(o.prototype),t.prototype.constructor=t,e(t,o)}const i=r.createContext(null);export{i as T,c as _};

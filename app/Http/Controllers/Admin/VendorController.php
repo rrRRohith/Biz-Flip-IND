@@ -108,7 +108,7 @@ class VendorController extends Controller
             $seller->alt_phone          = $request->alt_phone;
             $seller->map_code           = $request->map_code;
             $seller->lat                = $request->lat;
-            $seller->long               = $request->long;
+            $seller->lng               = $request->lng;
             $seller->employee           = $request->employee;
             $seller->website            = $request->website;
             $seller->feature_label_id   = null;
@@ -119,13 +119,13 @@ class VendorController extends Controller
 
             $availableDay           = new SellerAvailability();
             $availableDay->user_id	= $user->id;
-            $availableDay->mon	    = $request->days['mon'];
-            $availableDay->tue	    = $request->days['tue'];
-            $availableDay->wed	    = $request->days['wed'];
-            $availableDay->thu	    = $request->days['thu'];
-            $availableDay->fri	    = $request->days['fri'];
-            $availableDay->sat	    = $request->days['sat'];
-            $availableDay->sun      = $request->days['sun'];
+            $availableDay->mon	    = $request->days['mon'] ?? 0;
+            $availableDay->tue	    = $request->days['tue'] ?? 0;
+            $availableDay->wed	    = $request->days['wed'] ?? 0;
+            $availableDay->thu	    = $request->days['thu'] ?? 0;
+            $availableDay->fri	    = $request->days['fri'] ?? 0;
+            $availableDay->sat	    = $request->days['sat'] ?? 0;
+            $availableDay->sun      = $request->days['sun'] ?? 0;
             $availableDay->save();
 
             return to_route('admin.sellers.index')->with('success', 'Seller was created.');
@@ -231,7 +231,7 @@ class VendorController extends Controller
             $seller->alt_phone          = $request->alt_phone;
             $seller->map_code           = $request->map_code;
             $seller->lat                = $request->lat;
-            $seller->long               = $request->long;
+            $seller->lng               = $request->lng;
             $seller->employee           = $request->employee;
             $seller->website            = $request->website;
             $seller->feature_label_id   = null;
