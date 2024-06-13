@@ -441,7 +441,7 @@ export default function Create({ auth, cities, provinces }) {
                                                                 </div>
                                                                 <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Full Address</InputLabel>
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Company Address</InputLabel>
                                                                         <TextInput
                                                                             id="full_address"
                                                                             type="text"
@@ -671,8 +671,8 @@ export default function Create({ auth, cities, provinces }) {
                                                                                 type="switch"
                                                                                 id="custom-switch"
                                                                                 name="public_profile_on"
-                                                                                label="Public Profile Show"
-
+                                                                                label="Show Public Profile"
+                                                                                onChange={(e) => handleChange('public_profile_on', e.target.checked ? 1 : 0)}
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -684,31 +684,21 @@ export default function Create({ auth, cities, provinces }) {
                                                     <div className="col-md-12">
                                                         <div className="form-group px-10">
                                                             <label className="fw-700 fs-16 form-label">Status</label>
-                                                            <div className="radio-list">
-                                                                <RadioButtonLabel
-                                                                    name="status"
-                                                                    onChange={(value) => handleChange("status", value)}
-                                                                    value="1"
-                                                                    checked={data.status === "1"}
-                                                                    label="Published"
-                                                                />
-                                                                <RadioButtonLabel
-                                                                    name="status"
-                                                                    onChange={(value) => handleChange("status", value)}
-                                                                    value="0"
-                                                                    checked={data.status === "0"}
-                                                                    label="Draft"
-                                                                />
-                                                                <InputError message={errors.status} className="mt-2 col-12" />
-
-                                                            </div>
+                                                            <Form.Check
+                                                                type="switch"
+                                                                id="custom-switch"
+                                                                name="status"
+                                                                label="Active"
+                                                                onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+                                                            />
+                                                            
                                                         </div>
                                                     </div>
 
                                                 </div>
 
-                                                <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                <div className="form-actions mt-10 col-lg-12 text-center">
+                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </div>
                                         </form>

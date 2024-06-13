@@ -21,13 +21,12 @@ class CategoryResource extends JsonResource
             'id'            => $this->id,
             'name'          => $this->name,
             'slug'          => $this->slug,
+            'description'   => $this->description,
             'position'      => $this->position,
-            'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'icon'          => $this->icon && !(str_starts_with($this->icon, 'http')) ?
-                                asset('images/'.$this->icon) : '/assets/admin/images/noimage.webp',
+            'status'        => $this->status,
+            'icon'          => $this->icon  ? asset('images/'.$this->icon) : '/assets/admin/images/noimage.webp',
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
-          
         ];
     }
 }

@@ -192,10 +192,10 @@ export default function Edit({ province_item ,queryParams = null, auth,countries
                                                                         ) : (
                                                                             <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
                                                                         )}
-                                                                        <div className="btn mb-20">
+                                                                        <div className="mb-20">
                                                                         <button
                                                                                 type="button"
-                                                                                className="btn btn-primary"
+                                                                                className="btn btn-sm btn-neutral"
                                                                                 onClick={() => document.getElementById('project_image_path').click()}
                                                                             >
                                                                                 Choose Image
@@ -218,7 +218,7 @@ export default function Edit({ province_item ,queryParams = null, auth,countries
                                                 </div>
                                             </div>
                                             <div className="form-actions mt-10">
-                                                <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
                                             </div>
                                         </form>
                                     </div>

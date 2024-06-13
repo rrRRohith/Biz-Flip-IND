@@ -129,12 +129,14 @@ const SortableComponent = () => {
           )}
         </Droppable>
       </DragDropContext>
-      <button className="add-button" onClick={handleAddItem}>
+      <button className="btn btn-dark" onClick={handleAddItem}>
         Add Item
       </button>
-      <button className="submit-button" onClick={handleSubmit}>
-        Submit
-      </button>
+      <div className='col-lg-12 text-center'>
+        <button className="btn btn-info" onClick={handleSubmit}>
+          Submit
+        </button>
+      </div>
     </div>
   );
 };

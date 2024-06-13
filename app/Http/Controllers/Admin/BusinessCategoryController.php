@@ -12,7 +12,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class BusinessCategoryController extends Controller
 {
 
     function __construct()
@@ -157,18 +157,4 @@ class CategoryController extends Controller
         return to_route('admin.category.index')
             ->with('success', "Category \"$name\" was deleted");
     }
-
-    public function positionUpdate(Request $request){
-       
-        foreach($request->orderedIdsArray ?? [] as $position => $id){
-            $category = Category::where('id',$id)->first();
-            if($category){
-                $category->position = $position+1;
-                $category->save();
-            }
-        }
-        return to_route('admin.category.index')->with('success', "Position Updated ");
-    }
-
-
 }

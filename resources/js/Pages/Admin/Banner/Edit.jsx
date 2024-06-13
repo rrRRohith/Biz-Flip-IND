@@ -288,7 +288,7 @@ export default function Edit({ banner, queryParams = null, auth, countries }) {
                                                     </div>
                                                 </div>
                                                 <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                    <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </form>
                                         </PermissionAllow>

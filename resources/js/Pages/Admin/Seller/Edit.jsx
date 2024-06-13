@@ -741,7 +741,7 @@ export default function Edit({ auth, seller,cities, provinces }) {
                                                 </div>
 
                                                 <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                    <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </div>
                                         </form>

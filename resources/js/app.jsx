@@ -3,20 +3,21 @@ import { createInertiaApp, router } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import React, { useState, useEffect } from 'react';
 import Spinner from './Components/Spinner';
-import {getImageAsset, formatTime, capitalize, formatPrice, formatDate, truncateText, formatDateTime }  from '@/Components/Helpers';
+import {getImageAsset, formatTime, capitalize, formatPrice, formatDate, truncateText, formatDateTime, statusIcon }  from '@/Components/Helpers';
 
 import './app.css'; // Import the CSS file for styling the spinner
 
 const appName = import.meta.env.VITE_APP_NAME || 'Bizflip';
 
 // Attach the functions to the global window object
-window.getImageAsset = getImageAsset;
-window.formatTime = formatTime;
-window.capitalize = capitalize;
-window.formatPrice = formatPrice;
-window.formatDate = formatDate;
-window.truncateText = truncateText;
-window.formatDateTime = formatDateTime;
+window.getImageAsset    = getImageAsset;
+window.formatTime       = formatTime;
+window.capitalize       = capitalize;
+window.formatPrice      = formatPrice;
+window.formatDate       = formatDate;
+window.truncateText     = truncateText;
+window.formatDateTime   = formatDateTime;
+window.statusIcon       = statusIcon;
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

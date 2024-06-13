@@ -107,7 +107,7 @@ export default function Create({ auth, success, error }) {
                                         </div>
                                         <div className="col-12 text-end">
                                             <Link href={route('seller.tickets.index')} className="btn btn-neutral me-2">Cancel</Link>
-                                            <button type="submit" className="btn btn-primary">Open new ticket</button></div>
+                                            <button type="submit" className="btn btn-sm btn-neutral">Open new ticket</button></div>
                                     </div>
                                 </form>
                             </div>

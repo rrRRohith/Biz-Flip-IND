@@ -162,7 +162,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
                                                                                 </div>
                                                                                 <div className="col-md-6 mb-3 text-center">
                                                                                     <div className="form-actions mt-10">
-                                                                                        <button type="submit" className="btn btn-primary">
+                                                                                        <button type="submit" className="btn btn-sm btn-neutral">
                                                                                             <i className="bi bi-check"></i> Update Data
                                                                                         </button>
                                                                                     </div>
@@ -194,7 +194,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
                                                                         ))}
                                                                         <div className="col-md-12 mb-3 text-center">
                                                                             <div className="form-actions mt-10">
-                                                                                <button type="submit" className="btn btn-primary">
+                                                                                <button type="submit" className="btn btn-sm btn-neutral">
                                                                                     <i className="bi bi-check"></i> Update Data
                                                                                 </button>
                                                                             </div>
@@ -259,7 +259,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
 
                                                                             <div className="col-md-6 mb-3 text-center">
                                                                                 <div className="form-actions mt-10">
-                                                                                    <button type="submit" className="btn btn-primary">
+                                                                                    <button type="submit" className="btn btn-sm btn-neutral">
                                                                                         <i className="bi bi-check"></i> Update Data
                                                                                     </button>
                                                                                 </div>

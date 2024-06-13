@@ -12,6 +12,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::get('/', 'Controller@Dashboard')->name('index');
     Route::get('ads/pending-approvel', 'AdsController@pendingApprovel')->name('ads.pendingApprovel');
     Route::get('sellers/pending-approvel', 'VendorController@pendingApprovel')->name('sellers.pendingApprovel');
+    Route::post('category/position-update', 'CategoryController@positionUpdate')->name('category.position-update');
+    
     Route::resources([
         'category'          => CategoryController::class,
         'features'          => FeaturesController::class,
@@ -30,6 +32,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'sellers'           => VendorController::class,
         'role-responsibilities'=> RoleController::class,
         'staff'             => StaffController::class,
+        'business-category' => BusinessCategoryController::class,
         
     ]);
 

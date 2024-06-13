@@ -30,12 +30,19 @@ export default function AdminSidebar() {
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Categories'}>
                                     <li className="">
-                                        <Link href={route('admin.category.index')} title="Categories">
+                                        <Link href={route('admin.business-category.index')} title="Business Categories">
                                             <i className="bi bi-bookmark-star"></i>
-                                            <span>Categories</span>
+                                            <span>Business Categories</span>
                                         </Link>
                                     </li>
-
+                                </PermissionAllow>
+                                <PermissionAllow permission={'Categories'}>
+                                    <li className="">
+                                        <Link href={route('admin.category.index')} title="Categories">
+                                            <i className="bi bi-bookmark-star"></i>
+                                            <span>Ad Categories</span>
+                                        </Link>
+                                    </li>
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Sellers'}>
                                     <li className={`treeview ${openDropdown === 'seller' ? 'active' : ''}`}>

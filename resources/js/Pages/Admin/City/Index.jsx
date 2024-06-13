@@ -36,16 +36,16 @@ export default function Index({ cityList, auth, success = null, error = null }) 
      
     };
 
-const searchingQuery = (value = null) => {
-    setSearchQuery(value);
+    const searchingQuery = (value = null) => {
+        setSearchQuery(value);
 
-    const filtered = cityList.data.filter(city =>
-        city.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredCities(filtered);
-    setCurrentPage(1); 
-    
-}
+        const filtered = cityList.data.filter(city =>
+            city.name.toLowerCase().includes(value.toLowerCase())
+        );
+        setFilteredCities(filtered);
+        setCurrentPage(1); 
+        
+    }
 
 
 

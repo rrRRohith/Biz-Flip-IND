@@ -23,7 +23,7 @@ class FeaturesResource extends JsonResource
             'slug'          => $this->slug,
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'icon'          => $this->icon && !(str_starts_with($this->icon, 'http')) ?
+            'icon'          => $this->icon  ?
                                 asset('images/'.$this->icon) : '/assets/admin/images/noimage.webp',
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
