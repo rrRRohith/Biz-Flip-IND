@@ -118,8 +118,8 @@ export default function Index({ Leads, auth, success = null, error = null }) {
                                                 
                                                     <tr key={lead.id} className="hover-primary">
                                                         <td>{lead.id}</td>
-                                                        <td>{lead.ad.title}</td>
-                                                        <td>{lead.ad.seller.firstname} {lead.ad.seller.lastname}</td>
+                                                        <td>{lead.ad != null ? lead.ad.title : 'Unknown ad'}</td>
+                                                        <td>{lead.seller.firstname} {lead.seller.lastname}</td>
                                                         <td>{lead.firstname} {lead.lastname}</td>
                                                         <td>{lead.email}</td>
                                                         <td>{lead.phone}</td>

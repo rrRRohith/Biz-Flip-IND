@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-
 const initialItems = [
   { id: 'item-1', linkText: '', linkType: 'page_link', customLink: '' },
-  { id: 'item-2', linkText: '', linkType: 'page_link', customLink: '' },
+  { id: 'item-2', linkText: '', linkType: 'custom_link', customLink: 'https://www.example.com' },
   { id: 'item-3', linkText: '', linkType: 'page_link', customLink: '' },
 ];
 
 const SortableComponent = () => {
   const [items, setItems] = useState(initialItems);
+  const [data, setData] = useState([]); // State to hold submitted data
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
@@ -43,6 +43,13 @@ const SortableComponent = () => {
     const updatedItems = [...items];
     updatedItems[index] = updatedItem;
     setItems(updatedItems);
+  };
+
+  const handleSubmit = () => {
+    // Here you can submit the items to your backend or wherever needed
+    // For now, let's just set the data state with the current items
+    setData(items);
+    console.log("Submitted data:", items);
   };
 
   return (
@@ -124,6 +131,9 @@ const SortableComponent = () => {
       </DragDropContext>
       <button className="add-button" onClick={handleAddItem}>
         Add Item
+      </button>
+      <button className="submit-button" onClick={handleSubmit}>
+        Submit
       </button>
     </div>
   );
