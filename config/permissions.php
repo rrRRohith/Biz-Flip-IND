@@ -141,6 +141,11 @@ return $permissions = [
         "Type" => "Admin"
     ],
     [
+        "Permissions" => "Seller Show",
+        "Section" => "Sellers",
+        "Type" => "Admin"
+    ],
+    [
         "Permissions" => "Seller Create",
         "Section" => "Sellers",
         "Type" => "Admin"

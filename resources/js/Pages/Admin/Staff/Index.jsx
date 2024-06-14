@@ -34,7 +34,7 @@ export default function Index({ auth, staffs }) {
                                 </div>
                                 <div className='col-lg-6'>
                                     <div className="text-end">
-                                        <Link className='btn btn-danger btn-sm text-end' href={route('admin.staff.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.staff.create')}><i className='bi bi-plus'></i> Create</Link>
                                     </div>
                                 </div>
                             </div>

@@ -52,7 +52,7 @@ class SellerResource extends JsonResource
             'country'       => $this->country,
             'position'      => $this->seller->position,
             'designation'   => $this->designation ?? null,
-            'picture'       => $this->picture && !(str_starts_with($this->picture, 'http')) ?
+            'picture'       => $this->picture  ?
                                 asset('images/'.$this->picture) : '/assets/admin/images/noimage.webp',
             'logo'          => $this->seller->logo && !(str_starts_with($this->seller->logo, 'http')) ?
                                 asset('images/'.$this->seller->logo) : '/assets/admin/images/noimage.webp',

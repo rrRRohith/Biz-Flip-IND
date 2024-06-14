@@ -417,7 +417,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                         </div>
                                         <div className="col-12 text-end">
                                             <Link href={route('seller.ads.index')} className="btn btn-neutral me-2">Cancel</Link>
-                                            <button type="submit" className="btn btn-primary">Save changes</button>
+                                            <button type="submit" className="btn btn-sm btn-neutral">Save changes</button>
                                         </div>
                                     </div>
                                 </form>

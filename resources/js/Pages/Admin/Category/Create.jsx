@@ -9,6 +9,7 @@ import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import PermissionAllow from "@/Components/PermissionAllow";
+import Form from 'react-bootstrap/Form';
 
 export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
@@ -16,6 +17,7 @@ export default function Create({ auth }) {
         category_name: '',
         status: '1', // Default status to '1' (Published)
         position: '',
+        description : '',
     });
 
     const handleSubmit = (e) => {
@@ -46,7 +48,7 @@ export default function Create({ auth }) {
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Category/Create</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Ad Category/Create</h2>}
         >
             <Head title="Category Create" />
             <div className="content-wrapper me-4">
@@ -55,13 +57,13 @@ export default function Create({ auth }) {
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Create Category</h4>
+                                    <h4 className="page-title"> Create Ad Category</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
                                                 <PermissionAllow permission={'Categories Listing'}>
-                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.category.index')}>Category</Link></li>
+                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.category.index')}>Ad Categories</Link></li>
                                                 </PermissionAllow>
                                                 <li className="breadcrumb-item active" aria-current="page">Create</li>
                                             </ol>
@@ -86,7 +88,7 @@ export default function Create({ auth }) {
                                                             <div className="row">
                                                                 <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Title</InputLabel>
                                                                         <TextInput
                                                                             id="category-name"
                                                                             type="text"
@@ -101,6 +103,12 @@ export default function Create({ auth }) {
                                                                 </div>
                                                                 <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
+                                                                        <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
                                                                         <SelectOption
                                                                             onChange={(value) => handleChange("position", value)}
@@ -113,26 +121,19 @@ export default function Create({ auth }) {
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">
-                                                                    <div className="form-group">
-                                                                        <label className="fw-700 fs-16 form-label">Status</label>
-                                                                        <div className="radio-list">
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="1"
-                                                                                checked={data.status === "1"}
-                                                                                label="Published"
-                                                                            />
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="0"
-                                                                                checked={data.status === "0"}
-                                                                                label="Draft"
-                                                                            />
-                                                                            <InputError message={errors.status} className="mt-2 col-12" />
+                                                                    <div className="form-group p-3 ">
+                                                                        <label className="fw-700  form-label">Status</label>
+                                                                        <Form.Check
+                                                                            type="switch"
+                                                                            id="custom-switch"
+                                                                            name="status"
+                                                                            label="Publish"
+                                                                            role="button"
+                                                                            onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
 
-                                                                        </div>
+                                                                        />
+                                                                        <InputError message={errors.status} className="mt-2 col-12" />
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -140,7 +141,7 @@ export default function Create({ auth }) {
                                                         <div className="col-lg-3">
                                                             <div className="row">
                                                                 <div className="col-md-12">
-                                                                    <div className="border rounded-4 p-3  text-center">
+                                                                    <div className="border bg-bubbles-white rounded-4 p-3  text-center">
                                                                         <h4 className="box-title text-center">Icon/Image</h4>
                                                                         <div className="product-img">
                                                                             {imagePreview ? (
@@ -152,10 +153,10 @@ export default function Create({ auth }) {
                                                                             ) : (
                                                                                 <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
                                                                             )}
-                                                                            <div className="btn mb-20">
+                                                                            <div className="mb-20">
                                                                                 <button
                                                                                     type="button"
-                                                                                    className="btn btn-primary"
+                                                                                    className="btn btn-sm btn-neutral"
                                                                                     onClick={() => document.getElementById('project_image_path').click()}
                                                                                 >
                                                                                     Choose Image
@@ -177,8 +178,8 @@ export default function Create({ auth }) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                <div className="form-actions mt-10 col-lg-12 text-center">
+                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </form>
                                         </PermissionAllow>

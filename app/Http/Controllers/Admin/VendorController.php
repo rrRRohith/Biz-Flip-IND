@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\FeatureLabel;
 use PHPUnit\Metadata\Uses;
 
 class VendorController extends Controller
@@ -33,9 +34,16 @@ class VendorController extends Controller
      */
     public function index()
     {
-        $vendorsList = Seller::with('user')->get();
+        $vendorsList            = User::where('type','seller')->with('seller')->where('status',1)->get();
+        $pendingVendorsList     = User::where('type','seller')->with('seller')->where('status',0)->get();
+        $suspendedVendorsList   = User::where('type','seller')->with('seller')->where('status',-1)->get();
 
-        return Inertia::render('Admin/Seller/Index', ['vendorsList' => VendorResource::collection($vendorsList)]);
+        return Inertia::render('Admin/Seller/Index', 
+                    [
+                    'vendorsList' => VendorResource::collection($vendorsList),
+                    'pendingVendorsList' => VendorResource::collection($pendingVendorsList),
+                    'suspendedVendorsList' => VendorResource::collection($suspendedVendorsList)
+                    ]);
     }
 
     /**
@@ -46,12 +54,18 @@ class VendorController extends Controller
         //
 
         $cities = City::where('status', 1)->orderBy('position')->pluck('name')->map(function ($city) {
-            return ['value' => $city, 'label' => $city];
-        })->toArray();
+                            return ['value' => $city, 'label' => $city];
+                        })->toArray();
         $provinces = Province::where('status', 1)->orderBy('position')->pluck('name')->map(function ($province) {
-            return ['value' => $province, 'label' => $province];
-        })->toArray();
-        return Inertia::render('Admin/Seller/Create', ['cities' => $cities,'provinces' => $provinces]);
+                                    return ['value' => $province, 'label' => $province];
+                                })->toArray();
+                                
+        $featureLabel = FeatureLabel::where('status', 1)->select('name', 'id')->get()
+                                ->map(function ($feature) {
+                                    return ['value' => $feature->id, 'label' => $feature->name];
+                                })->toArray();
+
+        return Inertia::render('Admin/Seller/Create', ['cities' => $cities,'provinces' => $provinces,'featureLabel'=> $featureLabel]);
     }
 
     /**
@@ -108,10 +122,10 @@ class VendorController extends Controller
             $seller->alt_phone          = $request->alt_phone;
             $seller->map_code           = $request->map_code;
             $seller->lat                = $request->lat;
-            $seller->lng               = $request->lng;
+            $seller->lng                = $request->lng;
             $seller->employee           = $request->employee;
             $seller->website            = $request->website;
-            $seller->feature_label_id   = null;
+            $seller->feature_label_id   = $request->featureLabel ?? null;
             $seller->business_type      = $request->business_type;
             $seller->has_public_view    = $request->has('public_profile_on') && $request->public_profile_on ? 1 : 0;
             $seller->position           = $request->position;
@@ -138,9 +152,11 @@ class VendorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Seller $vendor)
+    public function show($id)
     {
         //
+        $vendor = User::with('seller')->where('id', $id)->first() ?? abort(404);
+        return response()->json(new VendorResource($vendor));
     }
 
     /**
@@ -149,7 +165,7 @@ class VendorController extends Controller
     public function edit($id)
     {
         //
-        $vendor = Seller::with('user')->where('user_id', $id)->first();
+        $vendor = User::with('seller')->where('id', $id)->first() ?? abort(404);
 
         $cities = City::where('status', 1)->orderBy('position')->pluck('name')->map(function ($city) {
             return ['value' => $city, 'label' => $city];
@@ -158,9 +174,13 @@ class VendorController extends Controller
             return ['value' => $province, 'label' => $province];
         })->toArray();
     
+        $featureLabel = FeatureLabel::where('status', 1)->select('name', 'id')->get()
+        ->map(function ($feature) {
+            return ['value' => $feature->id, 'label' => $feature->name];
+        })->toArray();
 
        
-        return Inertia::render('Admin/Seller/Edit', ['seller' => new VendorResource($vendor),'cities' => $cities,'provinces' => $provinces]);
+        return Inertia::render('Admin/Seller/Edit', ['seller' => new VendorResource($vendor),'cities' => $cities,'provinces' => $provinces,'featureLabel' => $featureLabel]);
     }
 
     /**
@@ -169,13 +189,17 @@ class VendorController extends Controller
     public function update(SellerUpdateRequest $request, $id)
     {
         //
-        $seller = Seller::with('user')->where('user_id', $id)->first();
+        $user   = User::where('id', $id)->first() ?? abort(404);
+        $seller = Seller::with('user')->where('user_id', $user->id)->first();
 
+        if(!$seller){
+            $seller = new Seller();
+        }
         
         if ($request->remove_picture) {
-            if ($seller->user->picture) {
-                Storage::disk('images')->delete($seller->user->picture);
-                $seller->user->picture = null;
+            if ($user->picture) {
+                Storage::disk('images')->delete($user->picture);
+                $user->picture = null;
             }
         }
         if ($request->remove_logo) {
@@ -185,13 +209,9 @@ class VendorController extends Controller
             }
         }
         
-       
-
-
-    
 
         try {
-            $user               = User::where('id', $id)->first();
+           
             $user->firstname    = $request->firstname;
             $user->lastname     = $request->lastname;
             $user->email        = $request->email;
@@ -231,10 +251,10 @@ class VendorController extends Controller
             $seller->alt_phone          = $request->alt_phone;
             $seller->map_code           = $request->map_code;
             $seller->lat                = $request->lat;
-            $seller->lng               = $request->lng;
+            $seller->lng                = $request->lng;
             $seller->employee           = $request->employee;
             $seller->website            = $request->website;
-            $seller->feature_label_id   = null;
+            $seller->feature_label_id   = $request->featureLabel ?? null;
             $seller->business_type      = $request->business_type;
             $seller->has_public_view    =  $request->has('public_profile_on') && $request->public_profile_on ? 1 : 0;
             $seller->position           = $request->position;
@@ -268,6 +288,19 @@ class VendorController extends Controller
 
         } catch (Exception $e) {
             return $e;
+        }
+    }
+
+
+    public function statusUpdate(Request $request,$user_id){
+        $user   = User::where('id', $user_id)->first() ?? abort(404);
+        $user->status = $request->status;
+        try{
+            $user->save();		
+            return to_route('admin.sellers.index')->with('success', 'Status was updated.');
+        }
+        catch(Exception $e){
+            return $e->getMessage();
         }
     }
 

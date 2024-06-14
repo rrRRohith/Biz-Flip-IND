@@ -46,6 +46,7 @@
         "react-super-responsive-table": "^5.2.3",
         "react-toastify": "^10.0.5",
         "slick-carousel": "^1.8.1",
-        "sortablejs": "^1.15.2"
+        "sortablejs": "^1.15.2",
+        "uuid": "^10.0.0"
     }
 }

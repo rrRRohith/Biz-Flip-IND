@@ -218,10 +218,10 @@ export default function Create({ testimonial_item, queryParams = null, auth }) {
                                                                                     onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                                                 />
                                                                             )}
-                                                                            <div className="btn mb-20">
+                                                                            <div className="mb-20">
                                                                                 <button
                                                                                     type="button"
-                                                                                    className="btn btn-primary"
+                                                                                    className="btn btn-sm btn-neutral"
                                                                                     onClick={() => document.getElementById('project_image_path').click()}
                                                                                 >
                                                                                     Choose Image
@@ -244,7 +244,7 @@ export default function Create({ testimonial_item, queryParams = null, auth }) {
                                                     </div>
                                                 </div>
                                                 <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-primary"> <i className="bi bi-check"></i> Save Data</button>
+                                                    <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </form>
                                         </PermissionAllow>

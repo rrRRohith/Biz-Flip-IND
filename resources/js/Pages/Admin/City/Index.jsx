@@ -1,4 +1,4 @@
-import React, { useState,useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import { Pagination } from '@mui/material';
@@ -8,7 +8,7 @@ export default function Index({ cityList, auth, success = null, error = null }) 
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredCities, setFilteredCities] = useState([]);
- 
+
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
         const name = searchParams.get('name') || '';
@@ -17,9 +17,9 @@ export default function Index({ cityList, auth, success = null, error = null }) 
 
     const deleteCity = (city) => {
         if (!window.confirm("Are you sure you want to delete the City?")) {
-          return;
+            return;
         }
-        
+
         router.delete(route("admin.city.destroy", city.id));
     };
 
@@ -29,23 +29,23 @@ export default function Index({ cityList, auth, success = null, error = null }) 
 
     };
 
-    
+
     const handleSearch = (e) => {
         const value = e.target.value;
         searchingQuery(value)
-     
+
     };
 
-const searchingQuery = (value = null) => {
-    setSearchQuery(value);
+    const searchingQuery = (value = null) => {
+        setSearchQuery(value);
 
-    const filtered = cityList.data.filter(city =>
-        city.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredCities(filtered);
-    setCurrentPage(1); 
-    
-}
+        const filtered = cityList.data.filter(city =>
+            city.name.toLowerCase().includes(value.toLowerCase())
+        );
+        setFilteredCities(filtered);
+        setCurrentPage(1);
+
+    }
 
 
 
@@ -70,15 +70,24 @@ const searchingQuery = (value = null) => {
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
-                                <div className="d-flex align-items-center">
-                                    <div className="me-auto">
-                                        <h4 className="page-title">City</h4>
+                                <div className="d-flex flex-column">
+                                    <h4 className="page-title">Cities</h4>
+                                    <div className="d-inline-block align-items-center mt-2">
+                                        <nav>
+                                            <ol className="breadcrumb">
+                                                <li className="breadcrumb-item">
+                                                    <Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link>
+                                                </li>
+                                                <li className="breadcrumb-item active" aria-current="page">Cities</li>
+                                            </ol>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
+
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <Link className='btn btn-danger btn-sm text-end' href={route('admin.city.create')}>
+                                    <Link className='btn btn-info text-end' href={route('admin.city.create')}>
                                         <i className='bi bi-plus'></i> Create
                                     </Link>
                                 </div>
@@ -147,15 +156,15 @@ const searchingQuery = (value = null) => {
                                         </div>
 
                                         {/* <!-- Pagination --> */}
-                                            {displayList.length > itemsPerPage && (
-                                                <div className="pagination-container float-end py-5">
-                                                    <Pagination
-                                                        count={Math.ceil(displayList.length / itemsPerPage)}
-                                                        page={currentPage}
-                                                        onChange={handlePageChange}
-                                                    />
-                                                </div>
-                                            )}
+                                        {displayList.length > itemsPerPage && (
+                                            <div className="pagination-container float-end py-5">
+                                                <Pagination
+                                                    count={Math.ceil(displayList.length / itemsPerPage)}
+                                                    page={currentPage}
+                                                    onChange={handlePageChange}
+                                                />
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -163,11 +172,11 @@ const searchingQuery = (value = null) => {
                     </section>
                     {/* <!-- /.content --> */}
                 </div>
-               
+
             </div>
             {/* <!-- /.content-wrapper --> */}
 
-           
+
         </Authenticated>
     );
 }

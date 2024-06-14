@@ -256,7 +256,7 @@ const Create = ({ auth }) => {
                             </button>
                         </div>
                         <div className="mt-3">
-                            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+                            <button type="submit" className="btn btn-sm btn-neutral" onClick={handleSubmit}>
                                 Save Menu
                             </button>
                         </div>

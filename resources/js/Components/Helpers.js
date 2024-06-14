@@ -36,3 +36,26 @@ export function formatTime(time, options = { hour: '2-digit', minute: '2-digit' 
 export function capitalize(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
+
+export function statusIcon(status = 0) {
+    var Icn = '';
+    var title = '';
+    if(status == 1){
+        Icn = `bi-check fs-2 text-success`;
+        title = "Active";
+    }
+    else if(status == 0){
+        Icn = `bi-eye-slash fs-20 text-info`;
+        title = "Inactive";
+    }
+    else if(status == -1){
+        Icn = `bi-ban fs-20 text-danger`;
+        title = "Suspended";
+    }
+    else{
+        Icn = `bi-hourglass-split fs-2 text-warning`;
+        title = "Pending";
+    }
+
+    return `<span role="button" class="bi `+Icn+`" title='`+ title +`'></span>`;
+}

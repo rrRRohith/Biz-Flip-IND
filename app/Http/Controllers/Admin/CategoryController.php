@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categoryList = Category::query()->paginate(10);
+        $categoryList = Category::orderBy('position')->get();
        
         return Inertia::render('Admin/Category/Index',['categoryList' => CategoryResource::collection($categoryList)]);
 
@@ -61,6 +61,7 @@ class CategoryController extends Controller
         $new        = new Category();
         $new->name  = $request->category_name;
         $new->slug  = Str::slug($request->category_name);
+        $new->description =  $request->description;
         $new->icon  = $imagePath ?? null;
         $new->parent= null;
         $new->position=$request->position;
@@ -105,9 +106,9 @@ class CategoryController extends Controller
 
       
 
-        $category = Category::where('id',$id)->first() ?? abort(404);
-        $data = $request->validated();
-        $image = $data['image'] ?? null;
+        $category   = Category::where('id',$id)->first() ?? abort(404);
+        $data       = $request->validated();
+        $image      = $data['image'] ?? null;
 
 
         // Handle image removal
@@ -122,17 +123,17 @@ class CategoryController extends Controller
             if ($category->icon) {
                 Storage::disk('images')->delete($category->icon);
             }
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('categories', $imageName, 'images');
-            $category->icon  = $imagePath;
+            $imageName          = Str::random(20) . '.' . $image->getClientOriginalExtension();
+            $imagePath          = $image->storeAs('categories', $imageName, 'images');
+            $category->icon     = $imagePath;
         }
 
-        $category->name  = $request->category_name;
-        $category->slug  = Str::slug($request->category_name);
-      
-        $category->parent= null;
-        $category->position=$request->position;
-        $category->status= $request->status;
+        $category->name         = $request->category_name;
+        $category->slug         = Str::slug($request->category_name);
+        $category->description  = $request->description;
+        $category->parent       = null;
+        $category->position     = $request->position;
+        $category->status       = $request->status;
         $category->save();
 
         return to_route('admin.category.index')
@@ -156,4 +157,18 @@ class CategoryController extends Controller
         return to_route('admin.category.index')
             ->with('success', "Category \"$name\" was deleted");
     }
+
+    public function positionUpdate(Request $request){
+       
+        foreach($request->orderedIdsArray ?? [] as $position => $id){
+            $category = Category::where('id',$id)->first();
+            if($category){
+                $category->position = $position+1;
+                $category->save();
+            }
+        }
+        return to_route('admin.category.index')->with('success', "Position Updated ");
+    }
+
+
 }

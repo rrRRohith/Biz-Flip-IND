@@ -27,7 +27,7 @@ class CityResource extends JsonResource
             'country_id'       => $this->province->country->id ?? null,
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'image'         => $this->image && !(str_starts_with($this->image, 'http')) ?
+            'image'         => $this->image  ?
                                 asset('images/'.$this->image) : '/assets/admin/images/noimage.webp',
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
