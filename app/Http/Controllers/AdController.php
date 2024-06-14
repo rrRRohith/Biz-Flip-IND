@@ -32,6 +32,7 @@ class AdController extends BaseController{
             'ads' => $ads,
             'categories' => Category::all(),
             'provinces' => Province::all(),
+            // 'cities' => City::selectRaw('name as city')->get()->pluck('city'),
             'cities' => Ad::selectRaw("DISTINCT city as city")->pluck('city'),
             'request' => $request,
             'purposeOptions' => ['Rental','Lease','Sale'],

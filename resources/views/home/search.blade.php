@@ -133,10 +133,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body border-0">
+                <form id="searchForm" action="{{ route('ads.index') }}">
                 <div>
                     <div class="form-group mb-4 label-top">
                         <label for="search">Search</label>
-                        <input type="text" name="search" id="password" placeholder="What are you looking for?"
+                        <input type="text" v-model="sharedState.q" name="q" name="search" id="password" placeholder="What are you looking for?"
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
                     </div>
                     <div class="form-group mb-4 label-top">
@@ -164,13 +165,14 @@
                         </select>
                     </div>
                 </div>
+                </form>
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-lg fs-6 btn-light bg-white border-0 shadow-none rounded-1"
                     data-bs-dismiss="modal">Close</button>
-                <a href="{{ route('ads.index') }}" class="btn btn-lg btn-dark fs-6 shadow-none border-0 rounded-1">
+                <button form="searchForm" class="btn btn-lg btn-dark fs-6 shadow-none border-0 rounded-1">
                     Search <i class="bi bi-search m-auto"></i>
-                </a>
+                </button>
             </div>
         </div>
     </div>

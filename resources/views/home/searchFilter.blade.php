@@ -97,9 +97,12 @@
                 </h2>
                 <div id="province-filter" class="accordion-collapse collapse">
                     <div class="accordion-body">
+                        <div class="form-group mb-2">
+                            <input v-model="searchProvince" type="text" placeholder="Search provinces" class="not-filter form-control border-1 border rounded-1 border-gray shadow-none">
+                        </div>
                         <div class="filterContainer c-scroll ps-2">
                             @forelse ($provinces as $province)
-                                <div class="form-group mb-1">
+                                <div  v-show="showProvince('{{ $province->name }}')" class="form-group mb-1">
                                     <div class="form-check form-check-lg">
                                         <input key="province__{{ $province->id }}"
                                             v-model="sharedState.provinces.province__{{ $province->id }}"
@@ -129,9 +132,12 @@
                 </h2>
                 <div id="city-filter" class="accordion-collapse collapse">
                     <div class="accordion-body">
+                        <div class="form-group mb-2">
+                            <input v-model="searchCity" type="text" placeholder="Search city" class="not-filter form-control border-1 border rounded-1 border-gray shadow-none">
+                        </div>
                         <div class="filterContainer c-scroll ps-2">
                             @forelse ($cities as $key => $city)
-                                <div class="form-group mb-1">
+                                <div  v-show='showCity("{{ $city }}")' class="form-group mb-1">
                                     <div class="form-check form-check-lg">
                                         <input key="city__{{ $key }}"
                                             v-model="sharedState.cities.city__{{ $key }}" name="city[]"
