@@ -11,10 +11,12 @@
       min-height: 50vh;">
         @include('home.search')
     </div>
-    <div :class="['mt-5 container-fluid', { 'container': sharedState.listingType != 'map' }]">
-        @include('search.listing')
+    <div class="listingContainer" style="display: none">
+        <div :class="['mt-5 container-fluid', { 'container': sharedState.listingType != 'map' }]">
+            @include('search.listing')
+        </div>
     </div>
-    <div style="display: none" class="spinner w-100 h-100 position-fixed z-100 top-0 start-0">
+    <div class="spinner w-100 h-100 position-fixed z-100 top-0 start-0">
         <div class="w-100 h-100 d-flex align-items-center">
             <div class="spinner-grow text-light m-auto" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -38,9 +40,14 @@
     src="https://cdn.jsdelivr.net/gh/googlemaps/v3-utility-library@07f15d84/markerclustererplus/src/markerclusterer.js">
 </script>
 <script>
+    $(document).ready( async function() { 
+        $('.listingContainer').show();
+        await sleep(500);
+        $('.spinner').hide();
+     });
     const resultContainer = $('.resultContainer');
     let mapURL = ("/ads/map?{!! request()->getQueryString() !!}");
-    $(document).on('change', '.sideFilters input', async (e) => {
+    $(document).on('change', '.sideFilters input:not(.not-filter)', async (e) => {
         await pushFilter();
         loadResult();
     });
@@ -73,6 +80,7 @@
         $('[name="listingType"]').val($(this).data('value'));
         pushFilter();
     });
+    
     $('.search-ads').on('click', async () => {
         $('div#filterModal').modal('hide');
         await pushFilter();

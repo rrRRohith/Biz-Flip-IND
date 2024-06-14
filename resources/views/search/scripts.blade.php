@@ -17,64 +17,78 @@
     }
 @endphp
 @push('scripts')
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script>
-    function selectLabels(obj1, obj2, defaultLabel) {
-        let selectedLabels = [];
-        Object.keys(obj1).forEach(key => {
-            if (obj1[key] && obj2[key]) {
-                selectedLabels.push(obj2[key]);
-            }
-        });
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        function selectLabels(obj1, obj2, defaultLabel) {
+            let selectedLabels = [];
+            Object.keys(obj1).forEach(key => {
+                if (obj1[key] && obj2[key]) {
+                    selectedLabels.push(obj2[key]);
+                }
+            });
 
-        return selectedLabels.length ? selectedLabels.join(', ') : defaultLabel;
-    }
-    const {
-        createApp,
-        ref,
-        reactive,
-        computed
-    } = Vue
-    const store = reactive({
-        q: '{{ $request->q }}',
-        listingType: '{{ $request->listingType }}',
-        priceStart: '{{ $request->priceStart }}',
-        priceEnd: '{{ $request->priceEnd }}',
-        categories: @json($filteredCategories),
-        purposes: @json($filteredPurposes),
-        cities: @json($filteredCities),
-        provinces: @json($filteredProvinces),
-        categoryLabels: @json($filteredCategoriesNames),
-        purposeLabels: @json($filteredPurposesNames),
-    });
-    const selectedCategories = computed(() => {
-        return selectLabels(store.categories, store.categoryLabels, "Select category");
-    });
-    const selectedPurposes = computed(() => {
-        return selectLabels(store.purposes, store.purposeLabels, "Select purpose");
-    });
-    const selectedPriceRange = computed(() => {
-        if(!store.priceStart && !store.priceEnd){
-            return "Add price";
+            return selectedLabels.length ? selectedLabels.join(', ') : defaultLabel;
         }
+        const {
+            createApp,
+            ref,
+            reactive,
+            computed
+        } = Vue
+        let priceStart = {{ $request->priceStart ?? 9999 }};
+        let priceEnd = {{ $request->priceEnd ??  9999999 }};
+        const store = reactive({
+            q: '{{ $request->q }}',
+            listingType: '{{ $request->listingType }}',
+            priceStart: priceStart,
+            priceEnd: priceEnd,
+            categories: @json($filteredCategories),
+            purposes: @json($filteredPurposes),
+            cities: @json($filteredCities),
+            provinces: @json($filteredProvinces),
+            categoryLabels: @json($filteredCategoriesNames),
+            purposeLabels: @json($filteredPurposesNames),
+        });
+        const selectedCategories = computed(() => {
+            return selectLabels(store.categories, store.categoryLabels, "Select category");
+        });
+        const selectedPurposes = computed(() => {
+            return selectLabels(store.purposes, store.purposeLabels, "Select purpose");
+        });
+        const selectedPriceRange = computed(() => {
+            if (!store.priceStart && !store.priceEnd) {
+                return "Add price";
+            }
 
-        let priceMin = Math.min(store.priceStart, store.priceEnd);
-        let priceMax = Math.max(store.priceStart, store.priceEnd);
+            let priceMin = Math.min(store.priceStart, store.priceEnd);
+            let priceMax = Math.max(store.priceStart, store.priceEnd);
 
-        return formatter.format(priceMin)+' - '+formatter.format(priceMax);
-    });
-    createApp({
-        setup() {
+            return formatter.format(priceMin) + ' - ' + formatter.format(priceMax);
+        });
+        const searchProvince = ref('');
+        const searchCity = ref('');
+        const showProvince = (name) => {
+            return name.toLowerCase().includes(searchProvince.value.toLowerCase());
+        };
+        const showCity = (name) => {
+            return name.toLowerCase().includes(searchCity.value.toLowerCase());
+        };
+        createApp({
+            setup() {
 
-        },
-        data() {
-            return {
-                sharedState: store,
-                selectedCategories,
-                selectedPurposes,
-                selectedPriceRange,
-            };
-        },
-    }).mount('#app')
-</script>
+            },
+            data() {
+                return {
+                    sharedState: store,
+                    selectedCategories,
+                    selectedPurposes,
+                    selectedPriceRange,
+                    showProvince,
+                    searchProvince,
+                    showCity,
+                    searchCity,
+                };
+            },
+        }).mount('#app')
+    </script>
 @endpush
