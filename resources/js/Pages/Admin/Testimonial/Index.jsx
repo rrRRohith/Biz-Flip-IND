@@ -43,7 +43,7 @@ export default function Index({ testimonialList, auth, success = null, error = n
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Testimonial Create'}>
-                                        <Link className='btn btn-danger btn-sm text-end' href={route('admin.testimonial.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.testimonial.create')}><i className='bi bi-plus'></i> Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>

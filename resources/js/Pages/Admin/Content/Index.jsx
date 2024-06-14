@@ -43,7 +43,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Content Page Create'}>
-                                        <Link className='btn btn-danger btn-sm text-end' href={route('admin.content-page.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.content-page.create')}><i className='bi bi-plus'></i> Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-    
+
 import React, { useState, useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from '@/Layouts/AdminAuthenticated';
@@ -12,44 +12,46 @@ import Select from 'react-select';
 import Form from 'react-bootstrap/Form';
 
 
-export default function Edit({ auth, seller,cities, provinces }) {
+export default function Edit({ auth, seller, cities, provinces, featureLabel }) {
 
 
     const { data, setData, post, errors, reset } = useForm({
-        firstname   : seller.firstname || '',
-        lastname    : seller.lastname || '',
-        email       : seller.email || '',
-        phone       : seller.phone || '',
-        address     : seller.address || '',
-        postalcode  : seller.postalcode || '',
-        password    : '',
-        city        : seller.city || '',
-        province    : seller.province || '',
-        picture     : '',
-        short_description   : seller.short_description || '',
-        description : seller.description || '',
-        logo        : '',
+        firstname: seller.firstname || '',
+        lastname: seller.lastname || '',
+        email: seller.email || '',
+        phone: seller.phone || '',
+        address: seller.address || '',
+        postalcode: seller.postalcode || '',
+        password: '',
+        city: seller.city || '',
+        province: seller.province || '',
+        featureLabel: seller.feature_label_id || '',
+        featureLabelName : seller.featureLabelName || '',
+        picture: '',
+        short_description: seller.short_description || '',
+        description: seller.description || '',
+        logo: '',
         company_name: seller.company_name || '',
         full_address: seller.full_address || '',
-        alt_emails  : seller.alt_emails || '',
-        alt_phone   : seller.alt_phone || '',
-        lat         : seller.lat || '',
-        long        : seller.long || '',
-        employee    : seller.employee || '',
-        website     : seller.website || '',
-        designation : seller.designation || '',
-        public_profile_on: seller.public_profile_on == 1  ? 1 : 0  || 0,
+        alt_emails: seller.alt_emails || '',
+        alt_phone: seller.alt_phone || '',
+        lat: seller.lat || '',
+        long: seller.long || '',
+        employee: seller.employee || '',
+        website: seller.website || '',
+        designation: seller.designation || '',
+        public_profile_on: seller.public_profile_on == 1 ? 1 : 0 || 0,
         company_email: seller.company_email || '',
         company_phone: seller.company_phone || '',
-        position    : seller.position || '',
+        position: seller.position || '',
         business_type: '',
-        status      : seller.status == 'active' ? 1 : (seller.status == 'suspended' ? -1 : 0) || 1,
-        days        : seller.availableDays || {},
-         _method    : "PUT",
-         remove_picture: false,
+        status: seller.status == 'active' ? 1 : (seller.status == 'suspended' ? -1 : 0) || 1,
+        days: seller.availableDays || {},
+        _method: "PUT",
+        remove_picture: false,
         remove_logo: false,
     });
-    
+
     const [imagePreview, setImagePreview] = useState('');
     const [imagePreviewLogo, setImagePreviewLogo] = useState('');
 
@@ -76,17 +78,17 @@ export default function Edit({ auth, seller,cities, provinces }) {
     ];
 
     const [checkedDays, setCheckedDays] = useState({
-        mon: seller.availableDays  ?  seller.availableDays.mon || false : false,
-        tue:  seller.availableDays ?  seller.availableDays.tue || false : false,
-        wed:  seller.availableDays ?  seller.availableDays.wed || false : false,
-        thu:  seller.availableDays ?  seller.availableDays.thu || false : false,
-        fri:  seller.availableDays ?  seller.availableDays.fri || false : false,
-        sat:  seller.availableDays ?  seller.availableDays.sat || false : false,
-        sun:  seller.availableDays ?  seller.availableDays.sun || false : false,
+        mon: seller.availableDays ? seller.availableDays.mon || false : false,
+        tue: seller.availableDays ? seller.availableDays.tue || false : false,
+        wed: seller.availableDays ? seller.availableDays.wed || false : false,
+        thu: seller.availableDays ? seller.availableDays.thu || false : false,
+        fri: seller.availableDays ? seller.availableDays.fri || false : false,
+        sat: seller.availableDays ? seller.availableDays.sat || false : false,
+        sun: seller.availableDays ? seller.availableDays.sun || false : false,
     });
-    
 
-  
+
+
 
     const handleCheckboxChange = (day) => {
         const updatedCheckedDays = {
@@ -125,7 +127,7 @@ export default function Edit({ auth, seller,cities, provinces }) {
         }
     ];
 
-    
+
     const businessTypes = [
         { id: 'Agency', label: 'Agency' },
         { id: 'Mortgage Brokerage', label: 'Mortgage Brokerage' },
@@ -145,11 +147,11 @@ export default function Edit({ auth, seller,cities, provinces }) {
     const handleRemoveImage = () => {
         setData('picture', '');
         setImagePreview('');
-        
+
         setData('remove_picture', true);
     };
 
-    
+
 
     const handleImageChangeLogo = (e) => {
         const file = e.target.files[0];
@@ -162,7 +164,7 @@ export default function Edit({ auth, seller,cities, provinces }) {
     const handleRemoveImageLogo = () => {
         setData('logo', '');
         setImagePreviewLogo('');
-        
+
         setData('remove_logo', true);
     };
 
@@ -174,8 +176,8 @@ export default function Edit({ auth, seller,cities, provinces }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        
-        await post(route("admin.sellers.update",seller.user_id), {
+
+        await post(route("admin.sellers.update", seller.user_id), {
             preserveScroll: true,
             onSuccess: () => {
 
@@ -595,12 +597,12 @@ export default function Edit({ auth, seller,cities, provinces }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">No Employees</InputLabel>
-                                                                        <Select onChange={(e) => { handleChange('employee', e) }} defaultValue={{ value: data.employee, label: data.employee }}  name="employee" options={employee_options}></Select>
+                                                                        <Select onChange={(e) => { handleChange('employee', e) }} defaultValue={{ value: data.employee, label: data.employee }} name="employee" options={employee_options}></Select>
                                                                         <InputError message={errors.employee} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
-                                                                <div className="form-group">
+                                                                    <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
                                                                         <Select
                                                                             onChange={(e) => { handleChange('business_type', e.value) }}
@@ -613,15 +615,14 @@ export default function Edit({ auth, seller,cities, provinces }) {
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
-                                                                        <SelectOption
-                                                                            onChange={(value) => handleChange("position", value)}
-                                                                            value={data.position}
-                                                                            defaultValue={data.position}
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Feature Label</InputLabel>
+                                                                        <DynamicSelect
+                                                                            onChange={(value) => handleChange("featureLabel", value)}
+                                                                            value={data.featureLabel}
+                                                                            options={featureLabel}
+                                                                            name="featureLabel"
+                                                                            defaultValue={data.featureLabelName}
                                                                         />
-                                                                        <InputError message={errors.position} className="mt-2 col-12" />
-
-                                                                        
                                                                     </div>
                                                                 </div>
 
@@ -718,19 +719,15 @@ export default function Edit({ auth, seller,cities, provinces }) {
                                                         <div className="form-group px-10">
                                                             <label className="fw-700 fs-16 form-label">Status</label>
                                                             <div className="radio-list">
-                                                                <RadioButtonLabel
+
+                                                                <Form.Check
+                                                                    type="switch"
+                                                                    id="custom-switch-status"
                                                                     name="status"
-                                                                    onChange={(value) => handleChange("status", value)}
-                                                                    value="1"
+                                                                    label="Active"
                                                                     checked={data.status === 1}
-                                                                    label="Published"
-                                                                />
-                                                                <RadioButtonLabel
-                                                                    name="status"
-                                                                    onChange={(value) => handleChange("status", value)}
-                                                                    value="0"
-                                                                    checked={data.status === 0}
-                                                                    label="Draft"
+                                                                    role="button"
+                                                                    onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
                                                                 />
                                                                 <InputError message={errors.status} className="mt-2 col-12" />
 
@@ -740,8 +737,8 @@ export default function Edit({ auth, seller,cities, provinces }) {
 
                                                 </div>
 
-                                                <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
+                                                <div className="form-actions mt-10 col-lg-12 text-center">
+                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </div>
                                         </form>

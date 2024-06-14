@@ -7,7 +7,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
 
 export default function Index({ categoryList, auth }) {
-    const itemsPerPage = 2;
+    const itemsPerPage = 20;
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const [categories, setCategories] = useState(categoryList.data);

@@ -42,13 +42,18 @@ export function statusIcon(status = 0) {
     var title = '';
     if(status == 1){
         Icn = `bi-check fs-2 text-success`;
+        title = "Active";
     }
     else if(status == 0){
-        Icn = `bi-eye-slash fs-20 text-danger`;
+        Icn = `bi-eye-slash fs-20 text-info`;
         title = "Inactive";
     }
+    else if(status == -1){
+        Icn = `bi-ban fs-20 text-danger`;
+        title = "Suspended";
+    }
     else{
-        Icn = `hourglass-split fs-2 text-danger`;
+        Icn = `bi-hourglass-split fs-2 text-warning`;
         title = "Pending";
     }
 

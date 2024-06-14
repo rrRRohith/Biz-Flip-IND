@@ -8,7 +8,7 @@ import ToastNotification from '@/Components/ToastNotification';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
-export default function AdminAuthenticated({ user, header, children}) {
+export default function AdminAuthenticated({ user, children}) {
 
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
@@ -29,7 +29,7 @@ export default function AdminAuthenticated({ user, header, children}) {
         <FullScreen handle={handle} onChange={handleFullScreenChange} className='bg-gray-100'>
             
         <div className={`hold-transition bg-gray-100 light-skin sidebar-mini theme-primary fixed ${isSidebarCollapsed ?  'sidebar-collapse' : '' }`}>
-            <AdminHeader user={user} header={header} onSidebarToggle={handleSidebarToggle}  handle={handle} isFullScreen={isFullScreen} />
+            <AdminHeader user={user}  onSidebarToggle={handleSidebarToggle}  handle={handle} isFullScreen={isFullScreen} />
             <AdminSidebar isCollapsed={isSidebarCollapsed} />
             <main className='bg-gray-100'>{children}</main>
            

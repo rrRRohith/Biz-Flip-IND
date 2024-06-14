@@ -37,7 +37,7 @@ export default function Index({ roleList, auth, success = null, error = null }) 
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <Link className='btn btn-danger btn-sm text-end' href={route('admin.role-responsibilities.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    <Link className='btn btn-info text-end' href={route('admin.role-responsibilities.create')}><i className='bi bi-plus'></i> Create</Link>
                                 </div>
                             </div>
                         </div>

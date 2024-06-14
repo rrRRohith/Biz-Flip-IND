@@ -45,34 +45,12 @@ export default function AdminSidebar() {
                                     </li>
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Sellers'}>
-                                    <li className={`treeview ${openDropdown === 'seller' ? 'active' : ''}`}>
-                                        <a href="#" onClick={() => handleToggle('seller')}>
-                                            <i className="bi bi-person-check" title="Seller"></i>
+                                    <li className="">
+                                        <Link href={route('admin.sellers.index')} title="Categories">
+                                            <i className="bi bi-person-check"></i>
                                             <span>Sellers</span>
-                                            <span className="pull-right-container">
-                                                <i className={`fa ${openDropdown === 'seller' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
-                                            </span>
-                                        </a>
-                                        {openDropdown === 'seller' && (
-                                            <ul className="treeview-menu">
-                                                <PermissionAllow permission={'Sellers Listing'}>
-                                                   <li>
-                                                        <Link href={route('admin.sellers.index')}>
-                                                            <i className="icon-Commit"></i>Sellers Listing
-                                                        </Link>
-                                                    </li> 
-                                                </PermissionAllow>
-                                                <PermissionAllow permission={'Sellers Pending Approvel'}>
-                                                    <li>
-                                                        <Link  href={route('admin.sellers.pendingApprovel')}>
-                                                            <i className="icon-Commit"></i> Pending Approvel
-                                                        </Link>
-                                                    </li>
-                                                </PermissionAllow>
-                                            </ul>
-                                        )}
+                                        </Link>
                                     </li>
-
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Ads'}>
                                     <li className={`treeview ${openDropdown === 'properties' ? 'active' : ''}`}>

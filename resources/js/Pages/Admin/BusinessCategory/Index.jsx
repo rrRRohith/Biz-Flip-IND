@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
-
-import { Dropdown } from '@mui/joy';
+import { Pagination } from '@mui/material';
 
 export default function Index({ categoryList, auth }) {
+
+    const itemsPerPage = 20;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [categories, setCategories] = useState(categoryList.data);
 
     const deleteCategory = (category) => {
         if (!window.confirm("Are you sure you want to delete the category?")) {
@@ -13,15 +17,46 @@ export default function Index({ categoryList, auth }) {
         }
 
 
-        router.delete(route("admin.category.destroy", category.id))
+        router.delete(route("admin.business-category.destroy", category.id))
     }
+
+
+    const handlePageChange = (event, page) => {
+        setCurrentPage(page);
+        window.scrollTo(0, 0);
+    };
+
+
+    const handleSearch = (e) => {
+        const value = e.target.value;
+
+        searchingQuery(value)
+
+    };
+
+    const searchingQuery = (value = null) => {
+        setSearchQuery(value);
+        console.log(searchQuery)
+        const filtered = categoryList.data.filter(category =>
+            category.name.toLowerCase().includes(value.toLowerCase())
+        );
+        setCategories(filtered);
+        setCurrentPage(1);
+
+    }
+
+
+    const displayList = searchQuery.length > 0 ? categories : categoryList.data;
+    const startIdx = (currentPage - 1) * itemsPerPage;
+    const endIdx = currentPage * itemsPerPage;
+    const paginatedList = displayList.slice(startIdx, endIdx);
 
 
 
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Ad Categories</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Business Categories</h2>}
         >
             <Head title="Category List" />
 
@@ -31,30 +66,41 @@ export default function Index({ categoryList, auth }) {
                     {/* <!-- Content Header (Page header) --> */}
                     <div className="content-header">
                         <div className='row'>
-                        <div className='col-lg-6'>
+                            <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title">Ad Categories</h4>
+                                    <h4 className="page-title">Business Categories</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
-                                        <ol className="breadcrumb">
+                                            <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
-                                                <li className="breadcrumb-item active" aria-current="page">Ad Categories</li>
+                                                <li className="breadcrumb-item active" aria-current="page">Business Categories</li>
                                             </ol>
                                         </nav>
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Category Create'}>
-                                        <Link className='btn btn-info text-end' href={route('admin.category.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.business-category.create')}><i className='bi bi-plus'></i> Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>
                         </div>
 
                     </div>
+                    {/* <!-- Search input --> */}
+                    <div className="mb-3 col-lg-4">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Search by Business Category name..."
+                            value={searchQuery}
+                            onChange={handleSearch}
+                        />
+                    </div>
+
                     {/* <!-- Main content --> */}
                     <section className="content">
                         <div className="row">
@@ -66,37 +112,29 @@ export default function Index({ categoryList, auth }) {
                                                 <table className="table border-no" id="example1">
                                                     <thead>
                                                         <tr>
-                                                            <th>Position</th>
-                                                            <th>Title</th>
-                                                            <th>Description</th>
-                                                            <th>Status</th>
-                                                            <th>Last Modified</th>
+                                                            <th>#</th>
+                                                            <th  className='text-center'>Name</th>
+                                                            <th  className='text-center'>Status</th>
+                                                            <th  className='text-center'>Last Modified</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
-                                                        {categoryList.data.map((category, index) => (
-
+                                                    {displayList.slice(startIdx, endIdx).map((category, index) => (
                                                             <tr key={category.id} className="hover-primary">
 
-                                                                <td><i className='bi bi-arrows-move me-3 fw-bold'></i> {index + 1}</td>
+                                                                <td>{index + 1}</td>
 
-                                                                <td>
-                                                                    <img
-                                                                        src={category.icon}
-                                                                        className='w-40 me-20 rounded-5 '
-                                                                        alt={`${category.icon} icon`}
-                                                                        onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                    />
+                                                                <td  className='text-center'>
                                                                     {category.name}
                                                                 </td>
-                                                                <td></td>
-                                                                <td>{category.status}</td>
-                                                                <td>{window.formatDateTime(category.updated_at)}</td>
+                                                                <td className='text-center'>
+                                                                    <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
+                                                                </td>
+                                                                <td  className='text-center'>{window.formatDateTime(category.updated_at)}</td>
                                                                 <td align='right'>
                                                                     <PermissionAllow permission={'Category Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
+                                                                        <Link className='btn btn-transparent' href={route('admin.business-category.edit', category.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
@@ -112,6 +150,16 @@ export default function Index({ categoryList, auth }) {
                                                     </tbody>
                                                 </table>
                                             </div>
+                                               {/* <!-- Pagination --> */}
+                                               {displayList.length > itemsPerPage && (
+                                                <div className="pagination-container float-end py-5">
+                                                    <Pagination
+                                                        count={Math.ceil(displayList.length / itemsPerPage)}
+                                                        page={currentPage}
+                                                        onChange={handlePageChange}
+                                                    />
+                                                </div>
+                                            )}
                                         </PermissionAllow>
                                     </div>
                                 </div>

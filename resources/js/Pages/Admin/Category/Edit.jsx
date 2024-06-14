@@ -9,13 +9,14 @@ import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import PermissionAllow from "@/Components/PermissionAllow";
+import Form from 'react-bootstrap/Form';
 
 export default function Create({ category_item, queryParams = null, auth }) {
-
+console.log(category_item)
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         category_name: category_item.name || '',
-        status: category_item.status = 'published' ? 1 : 0 || 1,
+        status: category_item.status == 1  ? 1 : 0  || 0,
         position: category_item.position || '', _method: "PUT",
         remove_image: false,
         description: category_item.description || '',
@@ -135,26 +136,20 @@ export default function Create({ category_item, queryParams = null, auth }) {
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">
-                                                                    <div className="form-group">
-                                                                        <label className="fw-700 fs-16 form-label">Status</label>
-                                                                        <div className="radio-list">
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="1"
-                                                                                checked={data.status === 1}
-                                                                                label="Published"
-                                                                            />
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="0"
-                                                                                checked={data.status === 0}
-                                                                                label="Draft"
-                                                                            />
-                                                                            <InputError message={errors.status} className="mt-2 col-12" />
+                                                                    <div className="form-group ps-3 ">
+                                                                        <label className="fw-700  form-label">Status</label>
+                                                                        <Form.Check
+                                                                            type="switch"
+                                                                            id="custom-switch"
+                                                                            name="status"
+                                                                            label="Publish"
+                                                                            role="button"
+                                                                            checked={data.status === 1}
+                                                                            onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
 
-                                                                        </div>
+                                                                        />
+                                                                        <InputError message={errors.status} className="mt-2 col-12" />
+
                                                                     </div>
                                                                 </div>
                                                             </div>

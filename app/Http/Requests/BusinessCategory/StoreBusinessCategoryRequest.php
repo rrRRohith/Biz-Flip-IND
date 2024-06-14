@@ -1,11 +1,11 @@
 <?php
-namespace App\Http\Requests\ContentPage;
+namespace App\Http\Requests\BusinessCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreContentPageRequest extends FormRequest
-{
+class StoreBusinessCategoryRequest extends FormRequest
+{ 
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -22,11 +22,8 @@ class StoreContentPageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'     => ['required', 'max:255'],
-            'pageContent' => ['required'],
-            'seo_title'   => ['nullable'],
-            'seo_keywords'   => ['nullable'],
-            'seo_description'   => ['nullable'],
+            "category_name" => ['required', 'max:255'],
+          
             'status' => ['required', Rule::in(['0', '1'])]
         ];
     }

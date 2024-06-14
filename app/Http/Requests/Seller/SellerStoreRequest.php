@@ -26,12 +26,6 @@ class SellerStoreRequest extends FormRequest
             'postalcode'    => ['required'],
             'city'          => ['required'],
             'province'      => ['required'],
-            'company_name'  => ['required'],
-            'full_address'  => ['required'],
-            'designation'   => ['required'],
-            'company_email' => ['required','email'],
-            'company_phone' => ['required','max:10'],
-            'position'      => ['required'],
 
         ];
     }

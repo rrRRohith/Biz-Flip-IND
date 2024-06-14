@@ -7,7 +7,6 @@ import SlickSlider from '@/Components/SlickSlider';
 import TabView from '@/Components/TabView';
 import StatusBtn from '@/Components/StatusBtn';
 import DynamicSelect from '@/Components/DynamicSelect';
-import ModalPopup from '@/Components/ModalPopup'; // Import ModalPopup component
 
 const AdView = ({ collection, handleClose, onSubmit }) => {
     

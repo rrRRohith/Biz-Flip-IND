@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Models\BusinessCategory;
 use Illuminate\Http\Request;
-use App\Http\Requests\Category\StoreCategoryRequest;
-use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Http\Resources\CategoryResource;
+use App\Http\Requests\BusinessCategory\StoreBusinessCategoryRequest;
+use App\Http\Requests\BusinessCategory\UpdateBusinessCategoryRequest;
+use App\Http\Resources\BusinessCategoryResource;
 use Exception;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -29,9 +29,9 @@ class BusinessCategoryController extends Controller
      */
     public function index()
     {
-        $categoryList = Category::orderBy('position')->get();
+        $categoryList = BusinessCategory::orderBy('name','ASC')->get();
        
-        return Inertia::render('Admin/Category/Index',['categoryList' => CategoryResource::collection($categoryList)]);
+        return Inertia::render('Admin/BusinessCategory/Index',['categoryList' => BusinessCategoryResource::collection($categoryList)]);
 
     }
 
@@ -40,13 +40,13 @@ class BusinessCategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Category/Create');
+        return Inertia::render('Admin/BusinessCategory/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreBusinessCategoryRequest $request)
     {
         //
         
@@ -58,17 +58,16 @@ class BusinessCategoryController extends Controller
             $imagePath = $image->storeAs('categories', $imageName, 'images');
          
         }
-        $new        = new Category();
+        $new        = new BusinessCategory();
         $new->name  = $request->category_name;
         $new->slug  = Str::slug($request->category_name);
-        $new->description =  $request->description;
         $new->icon  = $imagePath ?? null;
         $new->parent= null;
         $new->position=$request->position;
         $new->status= $request->status;
         try{
             $new->save();			
-            return to_route('admin.category.index')->with('success', 'Category was created.');
+            return to_route('admin.business-category.index')->with('success', 'Category was created.');
         }
         catch(Exception $e){
             return $e->getMessage();
@@ -79,7 +78,7 @@ class BusinessCategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(BusinessCategory $category)
     {
         //
     }
@@ -91,22 +90,22 @@ class BusinessCategoryController extends Controller
     {
         //
         
-        $category = Category::where('id',$id)->first();
+        $category = BusinessCategory::where('id',$id)->first();
       
-        return Inertia::render('Admin/Category/Edit',['category_item' => new CategoryResource($category),'success' => session('success'),'error' => session('error')]);
+        return Inertia::render('Admin/BusinessCategory/Edit',['category_item' => new BusinessCategoryResource($category),'success' => session('success'),'error' => session('error')]);
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request,$id)
+    public function update(UpdateBusinessCategoryRequest $request,$id)
     {
         //
 
       
 
-        $category   = Category::where('id',$id)->first() ?? abort(404);
+        $category   = BusinessCategory::where('id',$id)->first() ?? abort(404);
         $data       = $request->validated();
         $image      = $data['image'] ?? null;
 
@@ -130,14 +129,13 @@ class BusinessCategoryController extends Controller
 
         $category->name         = $request->category_name;
         $category->slug         = Str::slug($request->category_name);
-        $category->description  = $request->description;
         $category->parent       = null;
         $category->position     = $request->position;
         $category->status       = $request->status;
         $category->save();
 
-        return to_route('admin.category.index')
-            ->with('success', "Category \"$category->name\" was updated");
+        return to_route('admin.business-category.index')
+            ->with('success', "BusinessCategory \"$category->name\" was updated");
 
     }
 
@@ -147,14 +145,14 @@ class BusinessCategoryController extends Controller
     public function destroy($id)
     {
    
-        $category = Category::where('id',$id)->first() ?? abort(404);
+        $category = BusinessCategory::where('id',$id)->first() ?? abort(404);
         $name = $category->name;
         $category->delete();
         if ($category->icon) {
             Storage::disk('images')->delete($category->icon);
            
         }
-        return to_route('admin.category.index')
-            ->with('success', "Category \"$name\" was deleted");
+        return to_route('admin.business-category.index')
+            ->with('success', "BusinessCategory \"$name\" was deleted");
     }
 }

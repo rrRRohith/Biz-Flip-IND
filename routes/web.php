@@ -11,7 +11,9 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
  
     Route::get('/', 'Controller@Dashboard')->name('index');
     Route::get('ads/pending-approvel', 'AdsController@pendingApprovel')->name('ads.pendingApprovel');
-    Route::get('sellers/pending-approvel', 'VendorController@pendingApprovel')->name('sellers.pendingApprovel');
+    Route::get('sellers/pending/approvel', 'VendorController@pendingApprovel')->name('sellers.pendingApprovel');
+    Route::post('sellers/status/update/{id}', 'VendorController@statusUpdate')->name('sellers.status-update');
+    
     Route::post('category/position-update', 'CategoryController@positionUpdate')->name('category.position-update');
     
     Route::resources([

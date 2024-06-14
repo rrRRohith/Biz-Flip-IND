@@ -23,7 +23,7 @@ export default function Create({ auth }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log('Data to be submitted:', data);
-        post(route('admin.category.store'))
+        post(route('admin.business-category.store'))
     };
 
     const [imagePreview, setImagePreview] = useState('');
@@ -48,7 +48,7 @@ export default function Create({ auth }) {
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Ad Category/Create</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Business Category/Create</h2>}
         >
             <Head title="Category Create" />
             <div className="content-wrapper me-4">
@@ -57,13 +57,13 @@ export default function Create({ auth }) {
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Create Ad Category</h4>
+                                    <h4 className="page-title"> Create Business Category</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
                                                 <PermissionAllow permission={'Categories Listing'}>
-                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.category.index')}>Ad Categories</Link></li>
+                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.business-category.index')}>Business Categories</Link></li>
                                                 </PermissionAllow>
                                                 <li className="breadcrumb-item active" aria-current="page">Create</li>
                                             </ol>
@@ -84,7 +84,7 @@ export default function Create({ auth }) {
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-body">
                                                     <div className="row">
-                                                        <div className="col-lg-9">
+                                                        <div className="col-lg-6">
                                                             <div className="row">
                                                                 <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
@@ -101,27 +101,12 @@ export default function Create({ auth }) {
                                                                         <InputError message={errors.category_name} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
-                                                                        <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
-                                                                        <SelectOption
-                                                                            onChange={(value) => handleChange("position", value)}
-                                                                            value={data.position}
-                                                                        />
-                                                                        <InputError message={errors.position} className="mt-2 col-12" />
-
-                                                                    </div>
-                                                                </div>
+                                                               
+                                                                
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">
-                                                                    <div className="form-group p-3 ">
+                                                                    <div className="form-group ps-3 ">
                                                                         <label className="fw-700  form-label">Status</label>
                                                                         <Form.Check
                                                                             type="switch"
@@ -138,47 +123,10 @@ export default function Create({ auth }) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-3">
-                                                            <div className="row">
-                                                                <div className="col-md-12">
-                                                                    <div className="border bg-bubbles-white rounded-4 p-3  text-center">
-                                                                        <h4 className="box-title text-center">Icon/Image</h4>
-                                                                        <div className="product-img">
-                                                                            {imagePreview ? (
-                                                                                <div className="mb-15 text-center position-relative">
-                                                                                    <img src={imagePreview} alt="Selected" className="w-100 rounded-5" />
-                                                                                    <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
-
-                                                                                </div>
-                                                                            ) : (
-                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
-                                                                            )}
-                                                                            <div className="mb-20">
-                                                                                <button
-                                                                                    type="button"
-                                                                                    className="btn btn-sm btn-neutral"
-                                                                                    onClick={() => document.getElementById('project_image_path').click()}
-                                                                                >
-                                                                                    Choose Image
-                                                                                </button>
-                                                                                <TextInput
-                                                                                    id="project_image_path"
-                                                                                    type="file"
-                                                                                    name="image"
-                                                                                    className="d-none mt-1 block w-full upload"
-                                                                                    onChange={handleImageChange}
-                                                                                />
-
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    
                                                     </div>
                                                 </div>
-                                                <div className="form-actions mt-10 col-lg-12 text-center">
+                                                <div className="form-actions mt-10 col-lg-6 text-center">
                                                     <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </form>
