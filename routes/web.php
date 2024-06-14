@@ -63,9 +63,12 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
 
 Route::get('/', 'App\Http\Controllers\Controller@home')->name('index');
 
+Route::get('/ads/map', 'App\Http\Controllers\AdController@map')->name('ads.map');
 Route::resource('/ads', App\Http\Controllers\AdController::class, [
     'only' => ['index', 'update', 'show']
 ])->parameters(['ads' => 'ad:slug']);
+
+
 
 Route::resource('/agents', App\Http\Controllers\AgentController::class, [
     'only' => ['show', 'update']

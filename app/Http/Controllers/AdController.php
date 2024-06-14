@@ -27,7 +27,7 @@ class AdController extends BaseController{
      * @param Request $request
      */
     public function index(Request $request){
-        $ads = Ad::search($request)->searchListings($request)->paginate(24);
+        $ads = Ad::search($request)->searchListings($request)->paginate(3)->appends(request()->query());
         $data = [
             'ads' => $ads,
             'categories' => Category::all(),
@@ -40,8 +40,20 @@ class AdController extends BaseController{
         ];
         return $request->ajax() ? response()->json([
             'success' => true,
-            'html' => view('search.results', $data)->render(),
+            'total_ads' => $ads->total(),
+            'html' => [
+                'header' => view('search.header', $data)->render(),
+                'list' => view('search.list', $data)->render(),
+                'grid' => view('search.grid', $data)->render(),
+            ],
         ]) : view('search.index', $data);
+    }
+
+    public function map(Request $request){
+        return response()->json([
+            'success' => true,
+            'data' => \App\Http\Resources\MapAdResource::collection(Ad::search($request)->searchListings($request)->get())
+        ]);
     }
 
     /**

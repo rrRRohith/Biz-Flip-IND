@@ -37,6 +37,7 @@
     } = Vue
     const store = reactive({
         q: '{{ $request->q }}',
+        listingType: '{{ $request->listingType }}',
         priceStart: '{{ $request->priceStart }}',
         priceEnd: '{{ $request->priceEnd }}',
         categories: @json($filteredCategories),

@@ -1,5 +1,5 @@
 <form action="{{ route('ads.index') }}" id="sideFilter">
-    <input type="hidden" name="listingType" value="grid">
+    <input type="hidden" name="listingType" v-model="sharedState.listingType">
     <div>
         <div class="form-group mb-4 label-top">
             <label for="search">Search</label>

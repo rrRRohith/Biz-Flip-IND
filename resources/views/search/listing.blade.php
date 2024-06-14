@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-3 d-none d-lg-block search-card">
+    <div :class="['d-none d-lg-block search-card', {'col-xl-2 col-lg-2' : sharedState.listingType == 'map'}, {'col-lg-3' : sharedState.listingType != 'map'}]">
         <div class="card mb-5 border-0 rounded-3 bg-white shadow-sm contact-card search-card">
             <div class="card-body sideFilters">
                 <p class="fw-semibold fs-5">Search</p>
@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-9">
+    <div :class="[{'col-xl-10 col-lg-10' : sharedState.listingType == 'map'}, {'col-lg-9' : sharedState.listingType != 'map'}]">
         <div class="results resultContainer">
             @include('search.results')
         </div>

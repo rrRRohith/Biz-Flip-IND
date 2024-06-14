@@ -77,7 +77,7 @@ class Ad extends Model
     }
 
     public function getImageUrlAttribute(){
-        return $this->image->image_url ?? asset('/default.png');
+        return $this->image->image_url ?? asset('/assets/admin/images/noimage.webp');
     }
 
     public function leads(){

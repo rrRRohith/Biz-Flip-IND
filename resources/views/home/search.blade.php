@@ -30,7 +30,7 @@
                                     <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         @foreach ($search_categories as $category)
-                                            <div class="form-group mb-1 py-0 dropdown-item rounded-1">
+                                        <div :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1', {'fw-semibold text-primary' : sharedState.categories.category__{{ $category->id }}}]">
                                                 <div class="form-check p-0">
                                                     <input hidden key="category__{{ $category->id }}"
                                                         v-model="sharedState.categories.category__{{ $category->id }}"
@@ -38,18 +38,13 @@
                                                         class="category__{{ $category->id }} form-check-input shadow-none border border-gray border-1"
                                                         id="category__{{ $category->id }}_top"
                                                         value="{{ $category->id }}" type="checkbox" />
-                                                    <label role="button" class="form-check-label mt-1 text-overflow"
+                                                    <label role="button" class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
                                                         for="category__{{ $category->id }}_top">{{ $category->name }}</label>
                                                 </div>
                                             </div>
                                         @endforeach
                                     </ul>
                                 </div>
-                                {{-- <select name=""
-                                    class="border-0 fw-semibold text-muted shadow-none p-0 w-auto border-none form-control p-none"
-                                    id="">
-                                    <option value="">All categories</option>
-                                </select> --}}
                             </div>
                         </div>
                         <div class="me-3 col">
@@ -63,7 +58,7 @@
                                     <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         @foreach ($search_purposeOptions as $key => $purpose)
-                                            <div :class="['form-group', 'mb-1', 'py-0', 'dropdown-item', 'rounded-1']">
+                                            <div :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1', {'fw-semibold text-primary' : sharedState.purposes.purpose__{{ $key }}}]">
                                                 <div class="form-check p-0">
                                                     <input hidden key="purpose__{{ $key }}"
                                                         v-model="sharedState.purposes.purpose__{{ $key }}"
@@ -71,18 +66,13 @@
                                                         class="purpose__{{ $key }} form-check-input shadow-none border border-gray border-1"
                                                         id="purpose__{{ $key }}_top"
                                                         value="{{ $purpose }}" type="checkbox" />
-                                                    <label role="button" class="form-check-label mt-1 text-overflow"
+                                                    <label role="button" class="form-check-label mt-1 d-block w-100 px-3 py-1 text-overflow"
                                                         for="purpose__{{ $key }}_top">{{ $purpose }}</label>
                                                 </div>
                                             </div>
                                         @endforeach
                                     </ul>
                                 </div>
-                                {{-- <select name=""
-                                    class="border-0 fw-semibold text-muted shadow-none p-0 w-auto border-none form-control p-none"
-                                    id="">
-                                    <option value="">Any</option>
-                                </select> --}}
                             </div>
                         </div>
                         <div class="me-3 col">
@@ -105,11 +95,6 @@
                                         </div>
                                     </ul>
                                 </div>
-                                {{-- <select name=""
-                                    class="border-0 fw-semibold text-muted shadow-none p-0 w-auto border-none form-control p-none"
-                                    id="">
-                                    <option value="">Add price</option>
-                                </select> --}}
                             </div>
                         </div>
                         <button type="submit"
