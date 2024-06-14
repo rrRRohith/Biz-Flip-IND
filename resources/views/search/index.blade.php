@@ -32,14 +32,14 @@
 ])
 @push('scripts')
 <script
-    src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCcZbvsRNYhhWOy9NThRecY83At9FedlDY">
+    src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key={{ env('MAP_API_KEY') }}">
 </script>
 <script
     src="https://cdn.jsdelivr.net/gh/googlemaps/v3-utility-library@07f15d84/markerclustererplus/src/markerclusterer.js">
 </script>
 <script>
     const resultContainer = $('.resultContainer');
-    let mapURL = ("/ads/map?{{ request()->getQueryString() }}");
+    let mapURL = ("/ads/map?{!! request()->getQueryString() !!}");
     $(document).on('change', '.sideFilters input', async (e) => {
         await pushFilter();
         loadResult();
