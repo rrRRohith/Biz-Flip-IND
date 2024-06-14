@@ -1779,13 +1779,14 @@ Theme Primary Color
 .theme-primary .nav-tabs-custom.tab-warning > .nav-tabs > li a.active {
   border-top-color: #cc9100; }
 .theme-primary .nav-tabs .nav-link.active {
-  border-bottom-color: #4c95dd;
-  background-color: #4c95dd;
-  color: #ffffff; }
+  border-bottom-color: #ffffff;
+  background-color: #ffffff;
+  color:  #4c95dd;
+}
   .theme-primary .nav-tabs .nav-link.active:hover, .theme-primary .nav-tabs .nav-link.active:focus {
-    border-bottom-color: #4c95dd;
-    background-color: #4c95dd;
-    color: #ffffff; }
+    border-bottom-color: #ffffff;
+    background-color: #ffffff;
+    color:  #4c95dd; }
 .theme-primary .nav-tabs .nav-item.open .nav-link {
   border-bottom-color: #4c95dd;
   background-color: #4c95dd; }

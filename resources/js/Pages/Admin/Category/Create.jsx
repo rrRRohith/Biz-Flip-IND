@@ -15,8 +15,7 @@ export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         category_name: '',
-        status: '1', // Default status to '1' (Published)
-        position: '',
+        status: '1', 
         description : '',
     });
 
@@ -107,17 +106,7 @@ export default function Create({ auth }) {
                                                                         <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
-                                                                        <SelectOption
-                                                                            onChange={(value) => handleChange("position", value)}
-                                                                            value={data.position}
-                                                                        />
-                                                                        <InputError message={errors.position} className="mt-2 col-12" />
-
-                                                                    </div>
-                                                                </div>
+                                                                
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">

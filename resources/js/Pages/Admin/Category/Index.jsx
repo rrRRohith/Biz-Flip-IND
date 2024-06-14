@@ -20,7 +20,6 @@ export default function Index({ categoryList, auth }) {
         if (!window.confirm("Are you sure you want to delete the category?")) {
             return;
         }
-
         router.delete(route("admin.category.destroy", category.id));
     };
 
@@ -28,8 +27,6 @@ export default function Index({ categoryList, auth }) {
         setCurrentPage(page);
         window.scrollTo(0, 0);
     };
-
-
 
     const displayList = searchQuery.length > 0 ? categories : categoryList.data;
     const startIdx = (currentPage - 1) * itemsPerPage;
@@ -58,25 +55,6 @@ export default function Index({ categoryList, auth }) {
 
         post(route('admin.category.position-update'));
     };
-
-    const handleSearch = (e) => {
-        const value = e.target.value;
-       
-        searchingQuery(value)
-     
-    };
-
-    const searchingQuery = (value = null) => {
-        setSearchQuery(value);
-        console.log(searchQuery)
-        const filtered = categoryList.data.filter(category =>
-            category.name.toLowerCase().includes(value.toLowerCase())
-        );
-        setCategories(filtered);
-        setCurrentPage(1); 
-        
-    }
-
 
 
     return (
@@ -115,16 +93,7 @@ export default function Index({ categoryList, auth }) {
                         </div>
                     </div>
 
-                    {/* <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search by Category name..."
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-                    </div> */}
-
+                   
                     <section className="content">
                         <div className="row">
                             <div className="col-12">
@@ -138,9 +107,8 @@ export default function Index({ categoryList, auth }) {
                                                             <table className="table border-no" id="example1" {...provided.droppableProps} ref={provided.innerRef}>
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Position</th>
+                                                                        <th></th>
                                                                         <th>Name</th>
-                                                                        <th className='text-center'>Description</th>
                                                                         <th className='text-center'>Status</th>
                                                                         <th className='text-center'>Last Modified</th>
                                                                         <th></th>
@@ -156,7 +124,7 @@ export default function Index({ categoryList, auth }) {
                                                                                     {...provided.dragHandleProps}
                                                                                     className={` ${snapshot.isDragging ? 'dragging' : ''}`}
                                                                                 >
-                                                                                    <td><i className='bi bi-arrows-move me-3 fw-bold'></i> {category.position}</td>
+                                                                                    <td><i className='bi bi-arrows-move me-3 fw-bold'></i></td>
                                                                                     <td>
                                                                                         <img
                                                                                             src={category.icon}
@@ -166,7 +134,6 @@ export default function Index({ categoryList, auth }) {
                                                                                         />
                                                                                         {category.name}
                                                                                     </td>
-                                                                                    <td className='text-center'>{window.truncateText(category.description || '')}</td>
                                                                                     <td className='text-center'>
                                                                                         <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
                                                                                     </td>

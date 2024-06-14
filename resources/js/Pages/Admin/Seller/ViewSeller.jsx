@@ -66,11 +66,11 @@ const ViewSeller = ({ collection, handleClose, onSubmit }) => {
     return (
 
         <div className='col-lg-12'>
-            <div className='row card border-0'>
+            <div className='row  border-0'>
 
-                <div className='col-lg-10 mx-auto'>
-                    <div className=' card-body p-4'>
-                        <h6>Contact Person Details</h6>
+                <div className='col-lg-12 mx-auto'>
+                    <div className=' p-4'>
+                        <h4 className='fw-bold'><u>Contact Person Details</u></h4>
                         <table className='border-0 '>
                             <tbody>
                                 <tr>
@@ -118,7 +118,7 @@ const ViewSeller = ({ collection, handleClose, onSubmit }) => {
                             </tbody>
                         </table>
                         <div className=' p-4'>
-                            <h4 className='fw-bold'>Company Details</h4>
+                            <h4 className='fw-bold'><u>Company Details</u></h4>
                             <table className='border-0 '>
                                 <tbody>
                                     <tr>

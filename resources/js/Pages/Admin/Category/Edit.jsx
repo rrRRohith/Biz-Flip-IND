@@ -17,7 +17,7 @@ console.log(category_item)
         image: '',
         category_name: category_item.name || '',
         status: category_item.status == 1  ? 1 : 0  || 0,
-        position: category_item.position || '', _method: "PUT",
+         _method: "PUT",
         remove_image: false,
         description: category_item.description || '',
     });
@@ -121,18 +121,7 @@ console.log(category_item)
                                                                         <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}>{data.description}</textarea>
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
-                                                                        <SelectOption
-                                                                            onChange={(value) => handleChange("position", value)}
-                                                                            value={data.position}
-                                                                            defaultValue={data.position}
-                                                                        />
-                                                                        <InputError message={errors.position} className="mt-2 col-12" />
-
-                                                                    </div>
-                                                                </div>
+                                                              
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">

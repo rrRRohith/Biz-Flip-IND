@@ -7,17 +7,20 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ModalPopup from '@/Components/ModalPopup';
 import ViewSeller from '@/Pages/Admin/Seller/ViewSeller';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import axios from 'axios';
 
 export default function Index({ vendorsList, pendingVendorsList, suspendedVendorsList, auth }) {
     const itemsPerPage = 20;
-
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredVendors, setFilteredVendors] = useState(vendorsList.data);
     const [filteredPendingVendors, setFilteredPendingVendors] = useState(pendingVendorsList.data);
     const [filteredSuspendedVendors, setFilteredSuspendedVendors] = useState(suspendedVendorsList.data);
     const [key, setKey] = useState('ApprovedSellers');
+    const [show, setShow] = useState(false);
+    const [data, setData] = useState(null);
 
     const deleteVendor = (vendor) => {
         if (!window.confirm("Are you sure you want to delete the Seller?")) {
@@ -79,9 +82,6 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     const startIdx = (currentPage - 1) * itemsPerPage;
     const endIdx = currentPage * itemsPerPage;
 
-    const [show, setShow] = useState(false);
-    const [data, setData] = useState(null);
-
     const handleClose = () => setShow(false);
     const handleShow = async (vendor) => {
         try {
@@ -102,7 +102,6 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     return (
         <Authenticated user={auth.user}>
             <Head title="Sellers List" />
-
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
@@ -127,18 +126,9 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                         id="uncontrolled-tab-example"
                         activeKey={key}
                         onSelect={(k) => setKey(k)}
-                        className="mb-3"
+                        className=""
                     >
                         <Tab eventKey="ApprovedSellers" title="Approved Sellers">
-                            <div className="mb-3 col-lg-4">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Search by name..."
-                                    value={searchQuery}
-                                    onChange={handleSearch}
-                                />
-                            </div>
                             <VendorTable
                                 displayList={displayList}
                                 startIdx={startIdx}
@@ -148,18 +138,22 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 currentPage={currentPage}
                                 itemsPerPage={itemsPerPage}
                                 handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
                             />
                         </Tab>
-                        <Tab eventKey="PendingApproval" title={`Pending Approval (${pendingVendorsList.data.length})`}>
-                            <div className="mb-3 col-lg-4">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Search by name..."
-                                    value={searchQuery}
-                                    onChange={handleSearch}
-                                />
-                            </div>
+                        {/* <Tab eventKey="PendingApproval" title={`Pending Approval (${pendingVendorsList.data.length})`}> */}
+                        <Tab eventKey="PendingApproval" title={
+                            <>
+                                <span>Pending Approval</span> 
+                                {pendingVendorsList.data.length > 0 && (
+                                    <span className="pending-approval-count">
+                                        {pendingVendorsList.data.length}
+                                    </span>
+                                )}
+                            </>
+                        }>
+
                             <VendorTable
                                 displayList={displayList}
                                 startIdx={startIdx}
@@ -169,18 +163,11 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 currentPage={currentPage}
                                 itemsPerPage={itemsPerPage}
                                 handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
                             />
                         </Tab>
                         <Tab eventKey="SuspendedSellers" title="Suspended Sellers">
-                            <div className="mb-3 col-lg-4">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Search by name..."
-                                    value={searchQuery}
-                                    onChange={handleSearch}
-                                />
-                            </div>
                             <VendorTable
                                 displayList={displayList}
                                 startIdx={startIdx}
@@ -190,12 +177,14 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 currentPage={currentPage}
                                 itemsPerPage={itemsPerPage}
                                 handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
                             />
                         </Tab>
                     </Tabs>
                 </div>
             </div>
-            <ModalPopup show={show} handleClose={handleClose} size="lg" title="Seller Details">
+            <ModalPopup show={show} handleClose={handleClose} size="md" title="Seller Details">
                 {data ? (
                     <ViewSeller
                         collection={data}
@@ -210,49 +199,58 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     );
 }
 
-const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageChange, currentPage, itemsPerPage, handleShow }) => (
-    <section className="content">
+const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch }) => (
+    <section className="content2">
         <div className="row">
             <div className="col-12">
                 <div className="box">
                     <div className="box-body">
                         <PermissionAllow permission={'Categories Listing'} message="true">
+                            <div className="mb-3 col-lg-4">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Search by name..."
+                                    value={searchQuery}
+                                    onChange={handleSearch}
+                                />
+                            </div>
                             <div className="table-responsive rounded card-table">
-                                <table className="table border-no" id="example1">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Mobile Number</th>
-                                            <th>Company Name</th>
-                                            <th>Designation</th>
-                                            <th  className='text-center'>Status</th>
-                                            <th>Last Modified</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <Table className="table border-no" id="example1">
+                                    <Thead>
+                                        <Tr>
+                                            <Th>#</Th>
+                                            <Th>Name</Th>
+                                            <Th>Email</Th>
+                                            <Th>Mobile Number</Th>
+                                            <Th>Company Name</Th>
+                                            <Th>Designation</Th>
+                                            <Th className='text-center'>Status</Th>
+                                            <Th>Last Modified</Th>
+                                            <Th className="text-end"></Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
                                         {displayList.slice(startIdx, endIdx).map((vendor) => (
-                                            <tr key={vendor.id} className="hover-primary">
-                                                <td>{vendor.id}</td>
-                                                <td>
+                                            <Tr key={vendor.id} className="hover-primary">
+                                                <Td valign="middle">{vendor.id}</Td>
+                                                <Td valign="middle">
                                                     <img
                                                         src={vendor.picture}
                                                         className='w-30 h-30 me-3 rounded-circle'
                                                         alt={`${vendor.picture} icon`}
                                                         onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                     /> <span>{vendor.full_name}</span>
-                                                </td>
-                                                <td>{vendor.email}</td>
-                                                <td>{vendor.phone}</td>
-                                                <td>{vendor.company_name}</td>
-                                                <td>{vendor.designation}</td>
-                                                <td className='text-center'>
+                                                </Td>
+                                                <Td valign="middle">{vendor.email}</Td>
+                                                <Td valign="middle">{vendor.phone}</Td>
+                                                <Td valign="middle">{vendor.company_name}</Td>
+                                                <Td valign="middle">{vendor.designation}</Td>
+                                                <Td className='text-center'>
                                                     <div dangerouslySetInnerHTML={{ __html: window.statusIcon(vendor.status) }} />
-                                                </td>
-                                                <td>{vendor.updated_at}</td>
-                                                <td>
+                                                </Td>
+                                                <Td valign="middle">{window.formatDateTime(vendor.updated_at)}</Td>
+                                                <Td className="text-end">
                                                     <PermissionAllow permission={'Seller Show'}>
                                                         <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
                                                     </PermissionAllow>
@@ -266,11 +264,11 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                                             <i className="bi bi-trash"></i>
                                                         </button>
                                                     </PermissionAllow>
-                                                </td>
-                                            </tr>
+                                                </Td>
+                                            </Tr>
                                         ))}
-                                    </tbody>
-                                </table>
+                                    </Tbody>
+                                </Table>
                             </div>
                             {displayList.length > itemsPerPage && (
                                 <div className="pagination-container float-end py-5">
