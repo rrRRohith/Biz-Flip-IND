@@ -30,7 +30,13 @@
                                     <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         @foreach ($search_categories as $category)
-                                        <div :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1', {'fw-semibold text-primary' : sharedState.categories.category__{{ $category->id }}}]">
+                                            <div
+                                                :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
+                                                    {
+                                                        'fw-semibold text-primary': sharedState.categories
+                                                            .category__{{ $category->id }}
+                                                    }
+                                                ]">
                                                 <div class="form-check p-0">
                                                     <input hidden key="category__{{ $category->id }}"
                                                         v-model="sharedState.categories.category__{{ $category->id }}"
@@ -38,7 +44,8 @@
                                                         class="category__{{ $category->id }} form-check-input shadow-none border border-gray border-1"
                                                         id="category__{{ $category->id }}_top"
                                                         value="{{ $category->id }}" type="checkbox" />
-                                                    <label role="button" class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
+                                                    <label role="button"
+                                                        class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
                                                         for="category__{{ $category->id }}_top">{{ $category->name }}</label>
                                                 </div>
                                             </div>
@@ -58,7 +65,13 @@
                                     <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         @foreach ($search_purposeOptions as $key => $purpose)
-                                            <div :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1', {'fw-semibold text-primary' : sharedState.purposes.purpose__{{ $key }}}]">
+                                            <div
+                                                :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
+                                                    {
+                                                        'fw-semibold text-primary': sharedState.purposes
+                                                            .purpose__{{ $key }}
+                                                    }
+                                                ]">
                                                 <div class="form-check p-0">
                                                     <input hidden key="purpose__{{ $key }}"
                                                         v-model="sharedState.purposes.purpose__{{ $key }}"
@@ -66,7 +79,8 @@
                                                         class="purpose__{{ $key }} form-check-input shadow-none border border-gray border-1"
                                                         id="purpose__{{ $key }}_top"
                                                         value="{{ $purpose }}" type="checkbox" />
-                                                    <label role="button" class="form-check-label mt-1 d-block w-100 px-3 py-1 text-overflow"
+                                                    <label role="button"
+                                                        class="form-check-label mt-1 d-block w-100 px-3 py-1 text-overflow"
                                                         for="purpose__{{ $key }}_top">{{ $purpose }}</label>
                                                 </div>
                                             </div>
@@ -134,37 +148,105 @@
             </div>
             <div class="modal-body border-0">
                 <form id="searchForm" action="{{ route('ads.index') }}">
-                <div>
-                    <div class="form-group mb-4 label-top">
-                        <label for="search">Search</label>
-                        <input type="text" v-model="sharedState.q" name="q" name="search" id="password" placeholder="What are you looking for?"
-                            class="form-control border-1 border rounded-1 border-gray shadow-none" />
+                    <div>
+                        <div class="form-group mb-4 label-top">
+                            <label for="search">Search</label>
+                            <input type="text" v-model="sharedState.q" name="q" name="search"
+                                id="password" placeholder="What are you looking for?"
+                                class="form-control border-1 border rounded-1 border-gray shadow-none" />
+                        </div>
+                        <div
+                            class="form-group mb-4 border-bottom-2 bg-white border-1 border rounded-1 pt-0 border-gray shadow-none p-2">
+                            <label for="search" class="text-primary small mb-1"><small>Categories</small></label>
+                            <div class="dropdown">
+                                <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    @{{ selectedCategories }}
+                                </div>
+                                <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
+                                    aria-labelledby="dropdownMenuButton1">
+                                    @foreach ($search_categories as $category)
+                                        <div
+                                            :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
+                                                {
+                                                    'fw-semibold text-primary': sharedState.categories
+                                                        .category__{{ $category->id }}
+                                                }
+                                            ]">
+                                            <div class="form-check p-0">
+                                                <input hidden key="category__{{ $category->id }}"
+                                                    v-model="sharedState.categories.category__{{ $category->id }}"
+                                                    name="category[]" role="button"
+                                                    class="category__{{ $category->id }} form-check-input shadow-none border border-gray border-1"
+                                                    id="category__{{ $category->id }}_top"
+                                                    value="{{ $category->id }}" type="checkbox" />
+                                                <label role="button"
+                                                    class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
+                                                    for="category__{{ $category->id }}_top">{{ $category->name }}</label>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <div
+                            class="form-group mb-4 border-bottom-2 bg-white border-1 border rounded-1 pt-0 border-gray shadow-none p-2">
+                            <label for="search" class="text-primary small mb-1"><small>Purpose</small></label>
+                            <div class="dropdown">
+                                <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    @{{ selectedPurposes }}
+                                </div>
+                                <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
+                                    aria-labelledby="dropdownMenuButton1">
+                                    @foreach ($search_purposeOptions as $key => $purpose)
+                                        <div
+                                            :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
+                                                {
+                                                    'fw-semibold text-primary': sharedState.purposes
+                                                        .purpose__{{ $key }}
+                                                }
+                                            ]">
+                                            <div class="form-check p-0">
+                                                <input hidden key="purpose__{{ $key }}"
+                                                    v-model="sharedState.purposes.purpose__{{ $key }}"
+                                                    name="purpose[]" role="button"
+                                                    class="purpose__{{ $key }} form-check-input shadow-none border border-gray border-1"
+                                                    id="purpose__{{ $key }}_top"
+                                                    value="{{ $purpose }}" type="checkbox" />
+                                                <label role="button"
+                                                    class="form-check-label mt-1 d-block w-100 px-3 py-1 text-overflow"
+                                                    for="purpose__{{ $key }}_top">{{ $purpose }}</label>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <div
+                            class="form-group mb-4 border-bottom-2 bg-white border-1 border rounded-1 pt-0 border-gray shadow-none p-2">
+                            <label for="search" class="text-primary small mb-1"><small>Price</small></label>
+                            <div>
+                                <div class="dropdown w-100">
+                                    <div class="text-overflow mxw-160" data-bs-auto-close="false" type="button"
+                                        class="priceRange" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @{{ selectedPriceRange }}
+                                    </div>
+                                    <ul class="dropdown-menu border-0 w-100 rounded-1 mt-3 shadow-sm p-2 priceDropDown"
+                                        aria-labelledby="dropdownMenuButton1">
+                                        <div class="range-slider">
+                                            <input v-model="sharedState.priceStart" type="range" min="9999"
+                                                max="9999999" step="1" name="priceStart"
+                                                class="range-slider__input" />
+                                            <input v-model="sharedState.priceEnd" type="range" min="9999"
+                                                max="9999999" step="1" name="priceEnd"
+                                                class="range-slider__input" />
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group mb-4 label-top">
-                        <label for="search">Categories</label>
-                        <select name=""
-                            class="form-control border-1 border rounded-1 border-gray shadow-none form-select"
-                            id="">
-                            <option value="">All categories</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-4 label-top">
-                        <label for="search">Industry</label>
-                        <select name=""
-                            class="form-control border-1 border rounded-1 border-gray shadow-none form-select"
-                            id="">
-                            <option value="">All industries</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-4 label-top">
-                        <label for="search">Price</label>
-                        <select name=""
-                            class="form-control border-1 border rounded-1 border-gray shadow-none form-select"
-                            id="">
-                            <option value="">Add price</option>
-                        </select>
-                    </div>
-                </div>
                 </form>
             </div>
             <div class="modal-footer border-0">
