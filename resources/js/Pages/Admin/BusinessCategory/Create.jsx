@@ -13,17 +13,17 @@ import Form from 'react-bootstrap/Form';
 
 export default function Create({ auth }) {
     const { adCategoryList } = usePage().props;
-   
+
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         category_name: '',
         status: '1', // Default status to '1' (Published)
         position: '',
-        description : '',
+        description: '',
         adCategories: [],
     });
 
-    
+
     const handleCheckboxChange = (categoryId) => {
         let updatedCategory;
         if (data.adCategories.includes(categoryId)) {
@@ -100,73 +100,116 @@ export default function Create({ auth }) {
                                                     <div className="row">
                                                         <div className="col-lg-8">
                                                             <div className="row">
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Title</InputLabel>
-                                                                        <TextInput
-                                                                            id="category-name"
-                                                                            type="text"
-                                                                            name="category_name"
-                                                                            className="form-control"
-                                                                            value={data.category_name}
-                                                                            onChange={(e) => handleChange("category_name", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.category_name} className="mt-2 col-12" />
+                                                                <div className="col-lg-7">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12 mb-3">
+                                                                            <div className="form-group">
+                                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">Title</InputLabel>
+                                                                                <TextInput
+                                                                                    id="category-name"
+                                                                                    type="text"
+                                                                                    name="category_name"
+                                                                                    className="form-control"
+                                                                                    value={data.category_name}
+                                                                                    onChange={(e) => handleChange("category_name", e.target.value)}
+                                                                                    autoComplete="off"
+                                                                                />
+                                                                                <InputError message={errors.category_name} className="mt-2 col-12" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="col-md-12 mb-3">
+                                                                            <div className="form-group">
+                                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
+                                                                                <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="col-md-6">
+                                                                            <div className="form-group ps-3 ">
+                                                                                <label className="fw-700  form-label">Status</label>
+                                                                                <Form.Check
+                                                                                    type="switch"
+                                                                                    id="custom-switch"
+                                                                                    name="status"
+                                                                                    label="Publish"
+                                                                                    role="button"
+                                                                                    onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+
+                                                                                />
+                                                                                <InputError message={errors.status} className="mt-2 col-12" />
+
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
-                                                                        <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group ps-3 ">
-                                                                        <label className="fw-700  form-label">Status</label>
-                                                                        <Form.Check
-                                                                            type="switch"
-                                                                            id="custom-switch"
-                                                                            name="status"
-                                                                            label="Publish"
-                                                                            role="button"
-                                                                            onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+                                                                <div className="col-lg-5">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <div className="border bg-bubbles-white rounded-4 p-3  text-center">
+                                                                                <h4 className="box-title text-center">Icon/Image</h4>
+                                                                                <div className="product-img">
+                                                                                    {imagePreview ? (
+                                                                                        <div className="mb-15 text-center position-relative">
+                                                                                            <img src={imagePreview} alt="Selected" className="w-50 rounded-5" />
+                                                                                            <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
 
-                                                                        />
-                                                                        <InputError message={errors.status} className="mt-2 col-12" />
+                                                                                        </div>
+                                                                                    ) : (
+                                                                                        <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 w-50 text-center" />
+                                                                                    )}
+                                                                                    <div className="mb-20">
+                                                                                        <button
+                                                                                            type="button"
+                                                                                            className="btn btn-sm btn-neutral"
+                                                                                            onClick={() => document.getElementById('project_image_path').click()}
+                                                                                        >
+                                                                                            Choose Image
+                                                                                        </button>
+                                                                                        <TextInput
+                                                                                            id="project_image_path"
+                                                                                            type="file"
+                                                                                            name="image"
+                                                                                            className="d-none mt-1 block w-full upload"
+                                                                                            onChange={handleImageChange}
+                                                                                        />
 
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                         </div>
                                                         <div className="col-lg-4">
                                                             <div className="h-100 border p-3">
                                                                 <h6 className="fw-bold mb-3">Select Availabe to Ad Categories</h6>
                                                                 <div className="p-3">
-                                                                
+
                                                                     {adCategoryList.data.map((category, index) => (
-                                                                        
-                                                                    <div className="form-group">
-                                                                        <Form.Check
-                                                                            key={index}
-                                                                            type="switch"
-                                                                            id={`custom-switch-${index}`}
-                                                                            name="adCategory"
-                                                                            value={category.id}
-                                                                            label={category.name}
-                                                                            role="button"
-                                                                            onChange={(e) => handleCheckboxChange(category.id)}
-                                                                        />
+
+                                                                        <div className="form-group">
+                                                                            <Form.Check
+                                                                                key={index}
+                                                                                type="switch"
+                                                                                id={`custom-switch-${index}`}
+                                                                                name="adCategory"
+                                                                                value={category.id}
+                                                                                label={category.name}
+                                                                                role="button"
+                                                                                onChange={(e) => handleCheckboxChange(category.id)}
+                                                                            />
                                                                         </div>
                                                                     ))}
                                                                 </div>
                                                             </div>
 
                                                         </div>
-                                                    
+
                                                     </div>
                                                 </div>
-                                                <div className="form-actions mt-10 col-lg-6 text-center">
+                                                <div className="form-actions mt-10 col-lg-6 text-left">
                                                     <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </form>

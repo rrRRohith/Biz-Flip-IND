@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
 
-const initialItems = [
-  { id: 'item-1', linkText: '', linkType: 'page_link', customLink: '' },
-  { id: 'item-2', linkText: '', linkType: 'custom_link', customLink: 'https://www.example.com' },
-  { id: 'item-3', linkText: '', linkType: 'page_link', customLink: '' },
-];
 
-const SortableComponent = () => {
+const SortableComponent = ({ initialItems }) => {
   const [items, setItems] = useState(initialItems);
-  const [data, setData] = useState([]); // State to hold submitted data
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
@@ -46,9 +42,7 @@ const SortableComponent = () => {
   };
 
   const handleSubmit = () => {
-    // Here you can submit the items to your backend or wherever needed
-    // For now, let's just set the data state with the current items
-    setData(items);
+    // Submit the items to your backend or process as needed
     console.log("Submitted data:", items);
   };
 
@@ -56,7 +50,7 @@ const SortableComponent = () => {
     <div className="sortable-container">
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
+          {(provided) => (
             <ul
               className="sortable-list"
               ref={provided.innerRef}
@@ -64,61 +58,74 @@ const SortableComponent = () => {
             >
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot) => (
+                  {(provided) => (
                     <li
                       className="sortable-item"
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <div className="item-content">
-                        <input
-                          className="item-input"
-                          type="text"
-                          placeholder="Enter link text"
-                          value={item.linkText}
-                          onChange={(e) =>
-                            handleChangeItem(index, {
-                              ...item,
-                              linkText: e.target.value,
-                            })
-                          }
-                        />
-                        <select
-                          className="item-select"
-                          value={item.linkType}
-                          onChange={(e) =>
-                            handleChangeItem(index, {
-                              ...item,
-                              linkType: e.target.value,
-                              customLink:
-                                e.target.value === 'page_link' ? '' : item.customLink,
-                            })
-                          }
-                        >
-                          <option value="page_link">Page Link</option>
-                          <option value="custom_link">Custom Link</option>
-                        </select>
-                        {item.linkType === 'custom_link' && (
-                          <input
-                            className="item-input"
-                            type="text"
-                            placeholder="Enter custom link"
-                            value={item.customLink}
-                            onChange={(e) =>
-                              handleChangeItem(index, {
-                                ...item,
-                                customLink: e.target.value,
-                              })
-                            }
-                          />
-                        )}
-                        <button
-                          className="remove-button"
-                          onClick={() => handleDeleteItem(index)}
-                        >
-                          Remove
-                        </button>
+                      <div className="row">
+                        <div className='col-lg-3'>
+                          <div className="form-group">
+                            <InputLabel className="fw-700 fs-16 form-label form-group__label">Title</InputLabel>
+                            <TextInput
+                              type="text"
+                              name="apiKey"
+                              className="form-control"
+                              value={item.linkText}
+                              onChange={(e) => handleChangeItem(index, { ...item, linkText: e.target.value, })}
+                              autoComplete="off"
+                            />
+                          </div>
+                        </div>
+                        <div className='col-lg-3'>
+                          <div className="form-group">
+                            <InputLabel className="fw-700 fs-16 form-label form-group__label">Custom link</InputLabel>
+                            <select
+                              className="form-control"
+                              value={item.linkType}
+                              onChange={(e) =>
+                                handleChangeItem(index, {
+                                  ...item,
+                                  linkType: e.target.value,
+                                  customLink:
+                                    e.target.value === 'page_link' ? '' : item.customLink,
+                                })
+                              }
+                            >
+                              <option value="page_link">Page Link</option>
+                              <option value="custom_link">Custom Link</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className='col-lg-3'>
+                          {item.linkType === 'custom_link' && (
+                            <>
+                              <div className="form-group">
+                                <InputLabel className="fw-700 fs-16 form-label form-group__label">Custom link</InputLabel>
+                                <TextInput
+                                  type="text"
+                                  name="apiKey"
+                                  className="form-control"
+                                  value={item.customLink}
+                                  onChange={(e) => handleChangeItem(index, { ...item, customLink: e.target.value, })}
+                                  autoComplete="off" />
+                              </div>
+                            </>
+                          )}
+                        </div>
+                        <div className='col-lg-3 text-end'>
+                          <span
+                            className="remove-button"
+                            onClick={() => handleDeleteItem(index)}
+                          >
+                            <i className='bi bi-x btn-danger btn-sm btn'></i>
+                          </span>
+                        </div>
+
+
+
                       </div>
                     </li>
                   )}

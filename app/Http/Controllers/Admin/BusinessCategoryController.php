@@ -114,7 +114,7 @@ class BusinessCategoryController extends Controller
         //
         $category   = BusinessCategory::where('id',$id)->first() ?? abort(404);
         $data       = $request->validated();
-        $image      = $data['image'] ?? null;
+        $image      =  $request->image ?? null;
 
 
         // Handle image removal

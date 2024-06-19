@@ -11,17 +11,17 @@ import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import PermissionAllow from "@/Components/PermissionAllow";
 import Form from 'react-bootstrap/Form';
 
-export default function Edit({ category_item, queryParams = null, auth,adCategoryList }) {
+export default function Edit({ category_item, queryParams = null, auth, adCategoryList }) {
 
     const initialCategoryItms = category_item.selected_items || [];
 
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         category_name: category_item.name || '',
-        status: category_item.status == 1  ? 1 : 0  || 0,
+        status: category_item.status == 1 ? 1 : 0 || 0,
         position: category_item.position || '',
         _method: "PUT",
-        description : '',
+        description: '',
         remove_image: false,
         adCategories: initialCategoryItms || [],
     });
@@ -115,76 +115,119 @@ export default function Edit({ category_item, queryParams = null, auth,adCategor
                                                     <div className="row">
                                                         <div className="col-lg-8">
                                                             <div className="row">
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
-                                                                        <TextInput
-                                                                            id="category-name"
-                                                                            type="text"
-                                                                            name="category_name"
-                                                                            className="form-control"
-                                                                            value={data.category_name}
-                                                                            onChange={(e) => handleChange("category_name", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.category_name} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                              
-                                                            </div>
-                                                            <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
-                                                                        <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            <div className="row">
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group ps-3 ">
-                                                                        <label className="fw-700  form-label">Status</label>
-                                                                        <Form.Check
-                                                                            type="switch"
-                                                                            id="custom-switch"
-                                                                            name="status"
-                                                                            label="Publish"
-                                                                            role="button"
-                                                                            checked={data.status === 1}
-                                                                            onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+                                                                <div className="col-lg-7">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12 mb-3">
+                                                                            <div className="form-group">
+                                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
+                                                                                <TextInput
+                                                                                    id="category-name"
+                                                                                    type="text"
+                                                                                    name="category_name"
+                                                                                    className="form-control"
+                                                                                    value={data.category_name}
+                                                                                    onChange={(e) => handleChange("category_name", e.target.value)}
+                                                                                    autoComplete="off"
+                                                                                />
+                                                                                <InputError message={errors.category_name} className="mt-2 col-12" />
+                                                                            </div>
+                                                                        </div>
 
-                                                                        />
-                                                                        <InputError message={errors.status} className="mt-2 col-12" />
+                                                                        <div className="col-md-12 mb-3">
+                                                                            <div className="form-group">
+                                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
+                                                                                <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="row">
+                                                                            <div className="col-md-6">
+                                                                                <div className="form-group ps-3 ">
+                                                                                    <label className="fw-700  form-label">Status</label>
+                                                                                    <Form.Check
+                                                                                        type="switch"
+                                                                                        id="custom-switch"
+                                                                                        name="status"
+                                                                                        label="Publish"
+                                                                                        role="button"
+                                                                                        checked={data.status === 1}
+                                                                                        onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+
+                                                                                    />
+                                                                                    <InputError message={errors.status} className="mt-2 col-12" />
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
 
                                                                     </div>
                                                                 </div>
+                                                                <div className="col-lg-5">
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <div className="border rounded-4 p-3  bg-bubbles-white text-center">
+                                                                                <h4 className="box-title text-center">Icon/Image</h4>
+                                                                                <div className="product-img">
+                                                                                    {imagePreview ? (
+                                                                                        <div className="mb-15 text-center position-relative">
+                                                                                            <img src={imagePreview} alt="Selected" className="w-50 rounded-5" />
+                                                                                            <i className="bi bi-x-lg fw-bold position-absolute text-danger top-0" role="button" onClick={handleRemoveImage}></i>
+
+                                                                                        </div>
+                                                                                    ) : (
+                                                                                        <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 w-50 text-center" />
+                                                                                    )}
+                                                                                    <div className="mb-20">
+                                                                                        <button
+                                                                                            type="button"
+                                                                                            className="btn btn-sm btn-neutral"
+                                                                                            onClick={() => document.getElementById('project_image_path').click()}
+                                                                                        >
+                                                                                            Choose Image
+                                                                                        </button>
+                                                                                        <TextInput
+                                                                                            id="project_image_path"
+                                                                                            type="file"
+                                                                                            name="image"
+                                                                                            className="d-none mt-1 block w-full upload"
+                                                                                            onChange={handleImageChange}
+                                                                                        />
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
-                                                        
                                                         <div className="col-lg-4">
                                                             <div className="h-100 border p-3">
                                                                 <h6 className="fw-bold mb-3">Select Availabe to Ad Categories</h6>
                                                                 <div className="p-3">
-                                                                
+
                                                                     {adCategoryList.data.map((category, index) => (
-                                                                        
-                                                                    <div className="form-group">
-                                                                        <Form.Check
-                                                                            key={index}
-                                                                            type="switch"
-                                                                            id={`custom-switch-${index}`}
-                                                                            name="adCategory"
-                                                                            label={category.name}
-                                                                            value={category.id}
-                                                                            checked={data.adCategories.includes(category.id)}
-                                                                            role="button"
-                                                                            onChange={(e) => handleCheckboxChange(category.id)}
-                                                                        />
+
+                                                                        <div className="form-group">
+                                                                            <Form.Check
+                                                                                key={index}
+                                                                                type="switch"
+                                                                                id={`custom-switch-${index}`}
+                                                                                name="adCategory"
+                                                                                label={category.name}
+                                                                                value={category.id}
+                                                                                checked={data.adCategories.includes(category.id)}
+                                                                                role="button"
+                                                                                onChange={(e) => handleCheckboxChange(category.id)}
+                                                                            />
                                                                         </div>
                                                                     ))}
                                                                 </div>
                                                             </div>
 
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div className="form-actions mt-10 col-lg-6 text-center">

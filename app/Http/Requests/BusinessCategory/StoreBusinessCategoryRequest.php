@@ -23,7 +23,6 @@ class StoreBusinessCategoryRequest extends FormRequest
     {
         return [
             "category_name" => ['required', 'max:255'],
-          
             'status' => ['required', Rule::in(['0', '1'])]
         ];
     }

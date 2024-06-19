@@ -143,37 +143,9 @@ img.ad-image {
     display: flex;
     align-items: center;
   }
+
   
-  .item-input {
-    flex: 1;
-    margin-right: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .item-select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .remove-button {
-    background-color: #ff0000;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .remove-button:hover {
-    color: #000000;
-  }
-  
+
   .add-button {
     background-color: #007bff;
     color: #fff;

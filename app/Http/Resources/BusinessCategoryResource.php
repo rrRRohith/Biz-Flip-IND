@@ -22,6 +22,7 @@ class BusinessCategoryResource extends JsonResource
             'name'          => $this->name,
             'slug'          => $this->slug,
             'description'   => $this->description,
+            'icon'          => $this->icon  ? asset('images/'.$this->icon) : '/assets/admin/images/noimage.webp',
             'status'        => $this->status,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
