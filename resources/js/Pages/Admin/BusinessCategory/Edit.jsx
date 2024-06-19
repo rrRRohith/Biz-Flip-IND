@@ -11,15 +11,31 @@ import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import PermissionAllow from "@/Components/PermissionAllow";
 import Form from 'react-bootstrap/Form';
 
-export default function Create({ category_item, queryParams = null, auth }) {
-console.log(category_item)
+export default function Edit({ category_item, queryParams = null, auth,adCategoryList }) {
+
+    const initialCategoryItms = category_item.selected_items || [];
+
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         category_name: category_item.name || '',
         status: category_item.status == 1  ? 1 : 0  || 0,
-        position: category_item.position || '', _method: "PUT",
-        remove_image: false
+        position: category_item.position || '',
+        _method: "PUT",
+        description : '',
+        remove_image: false,
+        adCategories: initialCategoryItms || [],
     });
+
+    const handleCheckboxChange = (categoryId) => {
+        let updatedCategory;
+        if (data.adCategories.includes(categoryId)) {
+            updatedCategory = data.adCategories.filter(id => id !== categoryId);
+        } else {
+            updatedCategory = [...data.adCategories, categoryId];
+        }
+        setData('adCategories', updatedCategory);
+    };
+
 
     const [imagePreview, setImagePreview] = useState('');
 
@@ -97,7 +113,7 @@ console.log(category_item)
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-body">
                                                     <div className="row">
-                                                        <div className="col-lg-6">
+                                                        <div className="col-lg-8">
                                                             <div className="row">
                                                                 <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
@@ -116,6 +132,12 @@ console.log(category_item)
                                                                 </div>
                                                               
                                                             </div>
+                                                            <div className="col-md-12 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
+                                                                        <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
+                                                                    </div>
+                                                                </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">
                                                                     <div className="form-group ps-3 ">
@@ -135,6 +157,32 @@ console.log(category_item)
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        
+                                                        <div className="col-lg-4">
+                                                            <div className="h-100 border p-3">
+                                                                <h6 className="fw-bold mb-3">Select Availabe to Ad Categories</h6>
+                                                                <div className="p-3">
+                                                                
+                                                                    {adCategoryList.data.map((category, index) => (
+                                                                        
+                                                                    <div className="form-group">
+                                                                        <Form.Check
+                                                                            key={index}
+                                                                            type="switch"
+                                                                            id={`custom-switch-${index}`}
+                                                                            name="adCategory"
+                                                                            label={category.name}
+                                                                            value={category.id}
+                                                                            checked={data.adCategories.includes(category.id)}
+                                                                            role="button"
+                                                                            onChange={(e) => handleCheckboxChange(category.id)}
+                                                                        />
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                         
                                                     </div>

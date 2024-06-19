@@ -17,4 +17,8 @@ class Category extends Model
     public function getIconUrlAttribute(){
         return asset('images/'.$this->icon);
     }
+
+    public function selectedItms(){
+        return $this->hasMany(CategoriesItem::class, 'ad_category_id', 'id');
+    }
 }

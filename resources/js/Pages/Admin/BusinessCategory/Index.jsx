@@ -90,16 +90,7 @@ export default function Index({ categoryList, auth }) {
                         </div>
 
                     </div>
-                    {/* <!-- Search input --> */}
-                    <div className="mb-3 col-lg-4">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search by Business Category name..."
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-                    </div>
+                   
 
                     {/* <!-- Main content --> */}
                     <section className="content">
@@ -108,6 +99,16 @@ export default function Index({ categoryList, auth }) {
                                 <div className="box">
                                     <div className="box-body">
                                         <PermissionAllow permission={'Categories Listing'} message="true">
+                                             {/* <!-- Search input --> */}
+                                            <div className="mb-3 col-lg-4">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="Search by Business Category name..."
+                                                    value={searchQuery}
+                                                    onChange={handleSearch}
+                                                />
+                                            </div>
                                             <div className="table-responsive rounded card-table">
                                                 <table className="table border-no" id="example1">
                                                     <thead>

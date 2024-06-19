@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Models\{Category,BusinessCategory,CategoriesItem};
+use App\Http\Resources\BusinessCategoryResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
@@ -40,7 +41,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Category/Create');
+        $BusinesscategoryList = BusinessCategory::orderBy('name','ASC')->where('status','1')->get();
+        return Inertia::render('Admin/Category/Create',['BusinesscategoryList' => BusinessCategoryResource::collection($BusinesscategoryList)]);
     }
 
     /**
@@ -67,7 +69,14 @@ class CategoryController extends Controller
         $new->position=$request->position;
         $new->status= $request->status;
         try{
-            $new->save();			
+            $new->save();	
+
+            foreach($request->businessCategories ?? [] as $CitmId){
+                $catItm                     = new CategoriesItem();
+                $catItm->ad_category_id     = $new->id;
+                $catItm->business_category_id = $CitmId;	
+                $catItm->save();	
+            }		
             return to_route('admin.category.index')->with('success', 'Category was created.');
         }
         catch(Exception $e){
@@ -92,8 +101,9 @@ class CategoryController extends Controller
         //
         
         $category = Category::where('id',$id)->first();
-      
-        return Inertia::render('Admin/Category/Edit',['category_item' => new CategoryResource($category),'success' => session('success'),'error' => session('error')]);
+        $BusinesscategoryList = BusinessCategory::orderBy('name','ASC')->where('status','1')->get();
+
+        return Inertia::render('Admin/Category/Edit',['category_item' => new CategoryResource($category),'BusinesscategoryList' => BusinessCategoryResource::collection($BusinesscategoryList)]);
 
     }
 
@@ -135,6 +145,15 @@ class CategoryController extends Controller
         $category->position     = $request->position;
         $category->status       = $request->status;
         $category->save();
+
+        CategoriesItem::where('ad_category_id',$category->id)->delete();
+        
+        foreach($request->businessCategories ?? [] as $CitmId){
+            $catItm                         = new CategoriesItem();
+            $catItm->ad_category_id         = $category->id;
+            $catItm->business_category_id   = $CitmId;	
+            $catItm->save();	
+        }
 
         return to_route('admin.category.index')
             ->with('success', "Category \"$category->name\" was updated");

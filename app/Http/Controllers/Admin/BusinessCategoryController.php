@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\BusinessCategory;
+use App\Models\{BusinessCategory,CategoriesItem,Category};
 use Illuminate\Http\Request;
 use App\Http\Requests\BusinessCategory\StoreBusinessCategoryRequest;
 use App\Http\Requests\BusinessCategory\UpdateBusinessCategoryRequest;
@@ -11,6 +11,7 @@ use Exception;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Http\Resources\CategoryResource;
 
 class BusinessCategoryController extends Controller
 {
@@ -40,7 +41,9 @@ class BusinessCategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/BusinessCategory/Create');
+        $adCategoryList = Category::orderBy('position')->where('status','1')->get();
+      
+        return Inertia::render('Admin/BusinessCategory/Create',['adCategoryList' => CategoryResource::collection($adCategoryList)]);
     }
 
     /**
@@ -49,7 +52,7 @@ class BusinessCategoryController extends Controller
     public function store(StoreBusinessCategoryRequest $request)
     {
         //
-        
+
         /** @var $image \Illuminate\Http\UploadedFile */
         $image =$request->image ?? null;
    
@@ -63,10 +66,17 @@ class BusinessCategoryController extends Controller
         $new->slug  = Str::slug($request->category_name);
         $new->icon  = $imagePath ?? null;
         $new->parent= null;
+        $new->description  = $request->description;
         $new->position=$request->position;
         $new->status= $request->status;
         try{
-            $new->save();			
+            $new->save();	
+            foreach($request->adCategories ?? [] as $CitmId){
+                $catItm                     = new CategoriesItem();
+                $catItm->ad_category_id     = $CitmId;	
+                $catItm->business_category_id = $new->id;
+                $catItm->save();	
+            }
             return to_route('admin.business-category.index')->with('success', 'Category was created.');
         }
         catch(Exception $e){
@@ -89,10 +99,10 @@ class BusinessCategoryController extends Controller
     public function edit($id)
     {
         //
-        
         $category = BusinessCategory::where('id',$id)->first();
-      
-        return Inertia::render('Admin/BusinessCategory/Edit',['category_item' => new BusinessCategoryResource($category),'success' => session('success'),'error' => session('error')]);
+        $adCategoryList = Category::orderBy('position')->where('status','1')->get();
+
+        return Inertia::render('Admin/BusinessCategory/Edit',['category_item' => new BusinessCategoryResource($category),'adCategoryList' => CategoryResource::collection($adCategoryList)]);
 
     }
 
@@ -102,9 +112,6 @@ class BusinessCategoryController extends Controller
     public function update(UpdateBusinessCategoryRequest $request,$id)
     {
         //
-
-      
-
         $category   = BusinessCategory::where('id',$id)->first() ?? abort(404);
         $data       = $request->validated();
         $image      = $data['image'] ?? null;
@@ -129,10 +136,20 @@ class BusinessCategoryController extends Controller
 
         $category->name         = $request->category_name;
         $category->slug         = Str::slug($request->category_name);
+        $category->description  = $request->description;
         $category->parent       = null;
         $category->position     = $request->position;
         $category->status       = $request->status;
         $category->save();
+
+        CategoriesItem::where('business_category_id',$category->id)->delete();
+        foreach($request->adCategories ?? [] as $CitmId){
+          
+            $catItm                         = new CategoriesItem();
+            $catItm->ad_category_id         = $CitmId;	
+            $catItm->business_category_id   = $category->id;
+            $catItm->save();	
+        }
 
         return to_route('admin.business-category.index')
             ->with('success', "BusinessCategory \"$category->name\" was updated");

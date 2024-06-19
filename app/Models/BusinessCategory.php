@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessCategory extends Model
 {
     use HasFactory;
+
+    public function selectedItms(){
+        return $this->hasMany(CategoriesItem::class, 'business_category_id', 'id');
+    }
 }

@@ -21,9 +21,11 @@ class BusinessCategoryResource extends JsonResource
             'id'            => $this->id,
             'name'          => $this->name,
             'slug'          => $this->slug,
+            'description'   => $this->description,
             'status'        => $this->status,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
+            'selected_items' => $this->selectedItms->pluck('ad_category_id')
         ];
     }
 }

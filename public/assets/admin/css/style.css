@@ -19599,7 +19599,7 @@ Width property
 .max-w-0 {
   max-width: 0px !important; }
 
-.w-10 {
+.wd-10 {
   width: 10px !important; }
 
 .min-w-10 {
@@ -19635,7 +19635,7 @@ Width property
 .max-w-40 {
   max-width: 40px !important; }
 
-.w-50 {
+.wd-50 {
   width: 50px !important; }
 
 .min-w-50 {
@@ -19680,7 +19680,7 @@ Width property
 .max-w-90 {
   max-width: 90px !important; }
 
-.w-100 {
+.wd-100 {
   width: 100px !important; }
 
 .min-w-100 {
@@ -22518,7 +22518,7 @@ Height property
 .max-h-0 {
   max-height: 0px !important; }
 
-.h-10 {
+.hi-10 {
   height: 10px !important; }
 
 .min-h-10 {
@@ -22563,7 +22563,7 @@ Height property
 .max-h-40 {
   max-height: 40px !important; }
 
-.h-50 {
+.hi-50 {
   height: 50px !important; }
 
 .min-h-50 {
@@ -22608,7 +22608,7 @@ Height property
 .max-h-90 {
   max-height: 90px !important; }
 
-.h-100 {
+.hi-100 {
   height: 100px !important; }
 
 .min-h-100 {
