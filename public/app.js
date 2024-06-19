@@ -368,8 +368,8 @@ addEventListener('DOMContentLoaded', (event) => {
             }))
 });
 
-$(document).on('click', async function (event) {
-    if (!$(event.target).closest('.dropdown').length) {
-        $('.dropdown-menu').removeClass('show');
-    }
-});
+// $(document).on('click', async function (event) {
+//     if (!$(event.target).closest('.dropdown').length) {
+//         $('.dropdown-menu').removeClass('show');
+//     }
+// });

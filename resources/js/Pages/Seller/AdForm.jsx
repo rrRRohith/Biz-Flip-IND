@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/Authenticated';
 import Wrapper from './layout/Wrapper';
 import { Head, Link, useForm } from "@inertiajs/react";
 import AdditionalInfo from './Components/AdditionalInfo';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 import InputError from '@/Components/InputError';
 import { ToastContainer, toast } from 'react-toastify';
@@ -38,9 +38,10 @@ const purpose_options = [
 ];
 
 
-export default function PropertyForm({ ad, auth, categories_options, facilities_options, features_options, province_options }) {
-    const [additionalInfo, setAdditionalInfo] = useState(ad ? ad.additional_info : []);
+export default function PropertyForm({ ad, auth, categories_options, facilities_options, features_options, province_options, business_categories_options }) {
 
+    const [additionalInfo, setAdditionalInfo] = useState(ad ? ad.additional_info : []);
+    const [ad_categories, setAdcategories] = useState([]);
     const { data, setData, post, errors, reset } = useForm({
         _method: ad ? "PUT" : 'POST',
         title: ad ? ad.title : '',
@@ -50,6 +51,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
         property_type: ad ? ad.property_type : '',
         ad_purpose: ad ? ad.ad_purpose : '',
         category: ad ? ad.category.id : '',
+        business_category: ad ? ad.business_category.id : '',
         facilities: ad ? ad.facilities_ids : [],
         features: ad ? ad.features_ids : [],
         address: ad ? ad.address : '',
@@ -170,6 +172,12 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
         }));
     }
 
+    const changeAdCategories = (value) => {
+        const category = business_categories_options.find(item => item.value === value);
+        setAdcategories(category.ad_category_collection);
+        handleChange('category', null);
+    }
+
     return (
         <>
             <Head title={ad ? 'Edit add' : 'Create new ad'} />
@@ -252,7 +260,12 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                         </div>
                                         <div className="col-md-6">
                                             <label>Category</label>
-                                            <Select defaultValue={{ value: data.category, label: ad ? ad.category.label : 'Select...' }} onChange={(e) => { handleChange('category', e.value) }} options={categories_options}></Select>
+                                            <Select defaultValue={{ value: data.business_category, label: ad ? ad.business_category.label : 'Select...' }} onChange={(e) => { handleChange('business_category', e.value), changeAdCategories(e.value) }} options={business_categories_options}></Select>
+                                            <InputError message={errors.business_category} />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label>Category</label>
+                                            <Select defaultValue={{ value: data.category, label: ad ? ad.category.label : 'Select...' }} onChange={(e) => { handleChange('category', e.value) }} options={ad_categories}></Select>
                                             <InputError message={errors.category} />
                                         </div>
                                         <div className="col-md-6">
@@ -417,7 +430,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                         </div>
                                         <div className="col-12 text-end">
                                             <Link href={route('seller.ads.index')} className="btn btn-neutral me-2">Cancel</Link>
-                                            <button type="submit" className="btn btn-sm btn-neutral">Save changes</button>
+                                            <button type="submit" className="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </form>

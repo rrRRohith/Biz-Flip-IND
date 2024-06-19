@@ -19,14 +19,15 @@ class Controller extends BaseController{
     }
 
     public function home(){
-        $houses = \App\Models\Category::whereSlug('house')->first();
+        $houses = \App\Models\Category::whereSlug('houses')->first();
         $franchises = \App\Models\Category::whereSlug('franchise')->first();
         return view('welcome', [
-            'categories' => \App\Models\Category::limit(6)->get(),
+            'categories' => \App\Models\BusinessCategory::limit(6)->get(),
             'houses' => $houses ? $houses->ads()->limit(4)->get() : collect([]),
             'franchises' => $franchises ? $franchises->ads()->limit(4)->get() : collect([]),
             'sellers' => \App\Models\User::sellers()->limit(6)->get(),
-            'search_categories' => \App\Models\Category::all(),
+            'ad_categories' => \App\Models\Category::all(),
+            'business_categories'  => \App\Models\BusinessCategory::all(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],
             'testimonials' => \App\Models\Testimonial::latest()->limit(10)->get()->chunk(2)->map(function ($group) {
                 return collect($group);

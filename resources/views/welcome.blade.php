@@ -21,7 +21,8 @@
   </div>
 @endsection
 @include('search.scripts', [
-    'categories' => $search_categories,
+    'categories' => $ad_categories,
+    'business_categories' => $business_categories,
     'purposeOptions' => $search_purposeOptions,
     'provinces' => [],
     'cities' => [],

@@ -315,7 +315,7 @@ export default function Settings({ seller, auth, success, error, province_option
 
                                         <div className="col-12 text-end">
                                             <button type="button" className="btn btn-neutral me-2">Cancel</button>
-                                            <button type="submit" className="btn btn-sm btn-neutral">Save changes</button></div>
+                                            <button type="submit" className="btn btn-primary">Save changes</button></div>
                                     </div>
                                 </form>
                             </div>

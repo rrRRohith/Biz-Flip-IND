@@ -27,6 +27,7 @@
 @endsection
 @include('search.scripts', [
     'categories' => $categories,
+    'business_categories' => $business_categories,
     'purposeOptions' => $purposeOptions,
     'provinces' => $provinces,
     'cities' => $cities,

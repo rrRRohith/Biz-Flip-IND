@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Models\{Ad, Category, Facility, Features, Province};
+use App\Models\{Ad, Category, Facility, Features, Province, BusinessCategory};
 use App\Http\Requests\Ad\{AdRequest};
 use Inertia\Inertia;
 use App\Http\Resources\{AdResource};
@@ -56,6 +56,7 @@ class AdController extends BaseController{
     public function create(){
         return Inertia::render('Seller/AdForm', [
             'categories_options' => Category::selectRaw("id as value, name as label")->get()->toArray(),
+            'business_categories_options' => BusinessCategory::selectRaw("id as value, name as label, business_categories.*")->get()->toArray(),
             'facilities_options' => Facility::selectRaw("id as value, name as label")->get()->toArray(),
             'features_options' => Features::selectRaw("id as value, name as label")->get()->toArray(),
             'province_options' => Province::selectRaw("name as value, name as label")->orderBy('name')->get()->toArray(),
@@ -114,6 +115,7 @@ class AdController extends BaseController{
             }
 
             $ad->categories()->sync($request->category);
+            $ad->business_categories()->sync($request->business_category);
             $ad->features()->sync($request->features);
             $ad->facilities()->sync($request->facilities);
 
@@ -135,6 +137,7 @@ class AdController extends BaseController{
         $this->seller->ads()->findOrfail($ad->id);
         return Inertia::render('Seller/AdForm', [
             'ad' => new AdResource($ad),
+            'business_categories_options' => BusinessCategory::selectRaw("id as value, name as label, business_categories.*")->get()->toArray(),
             'categories_options' => Category::selectRaw("id as value, name as label")->get()->toArray(),
             'facilities_options' => Facility::selectRaw("id as value, name as label")->get()->toArray(),
             'features_options' => Features::selectRaw("id as value, name as label")->get()->toArray(),
@@ -178,6 +181,7 @@ class AdController extends BaseController{
             ]);
 
             $ad->categories()->sync($request->category);
+            $ad->business_categories()->sync($request->business_category);
             $ad->features()->sync($request->features);
             $ad->facilities()->sync($request->facilities);
 

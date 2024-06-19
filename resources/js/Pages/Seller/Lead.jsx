@@ -80,7 +80,7 @@ export default function ({ lead, attendLead }) {
                 <PermissionAllow permission="Ad Lead Edit">
                 <div className="row g-5">
                     <div className="col-12 text-end">
-                        <button onClick={(e) => attendLead(lead)} type="submit" className="btn btn-sm btn-neutral">Mark as attended</button>
+                        <button onClick={(e) => attendLead(lead)} type="submit" className="btn btn-primary">Mark as attended</button>
                     </div>
                 </div>
                 </PermissionAllow>

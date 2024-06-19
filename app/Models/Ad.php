@@ -55,9 +55,17 @@ class Ad extends Model
     public function categories(){
         return $this->belongsToMany(Category::class, 'ad_categories', 'ad_id', 'category_id')->using(AdCategory::class);
     }
+
+    public function business_categories(){
+        return $this->belongsToMany(BusinessCategory::class, 'ad_business_categories', 'ad_id', 'category_id')->using(AdBusinessCategory::class);
+    }
     
     public function getCategoryAttribute(){
         return $this->categories()->first();
+    }
+
+    public function getBusinessCategoryAttribute(){
+        return $this->business_categories()->first();
     }
 
     public function features(){
@@ -113,6 +121,7 @@ class Ad extends Model
             $priceMax = max($request->priceStart, $request->priceEnd);
 
             return $q->where('price', '<=', $priceMax)->where('price', '>=', $priceMin);
-        })->when($request->category, fn($q) => $q->whereHas('categories', fn($q) => $q->whereIn('categories.id', (array) $request->category)));
+        })->when($request->category, fn($q) => $q->whereHas('categories', fn($q) => $q->whereIn('categories.id', (array) $request->category)))
+        ->when($request->bcategory, fn($q) => $q->whereHas('business_categories', fn($q) => $q->whereIn('business_categories.id', (array) $request->bcategory)));
     }
 }

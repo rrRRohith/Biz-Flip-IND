@@ -29,6 +29,7 @@ class AdRequest extends FormRequest
             'ad_purpose' => 'required|string',
             'property_type' => 'required|string',
             'category' => 'required|exists:categories,id',
+            'business_category' => 'required|exists:business_categories,id',
             // 'features' => 'required|array',
             // 'features.*' => 'exists:features,id',
             // 'facilities' => 'required|array',

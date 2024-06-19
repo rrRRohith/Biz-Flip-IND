@@ -36,7 +36,8 @@ class AdController extends BaseController{
             'cities' => Ad::selectRaw("DISTINCT city as city")->pluck('city'),
             'request' => $request,
             'purposeOptions' => ['Rental','Lease','Sale'],
-            'search_categories' => Category::all(),
+            'ad_categories' => Category::all(),
+            'business_categories'  => $cat = \App\Models\BusinessCategory::all(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],
         ];
         return $request->ajax() ? response()->json([

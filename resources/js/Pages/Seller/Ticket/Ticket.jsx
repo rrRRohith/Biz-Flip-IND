@@ -99,7 +99,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                         </div>
                                         <div className="col-12 text-end">
                                             <Link href={route('seller.tickets.index')} role="button" className="btn btn-neutral me-2">Cancel</Link>
-                                            <button type="submit" className="btn btn-sm btn-neutral">Send message</button></div>
+                                            <button type="submit" className="btn btn-primary">Send message</button></div>
                                     </div>
                                 </form>
                             ) : (

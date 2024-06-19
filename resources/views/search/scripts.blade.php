@@ -35,19 +35,22 @@
             reactive,
             computed
         } = Vue
-        let priceStart = {{ $request->priceStart ?? 9999 }};
-        let priceEnd = {{ $request->priceEnd ??  9999999 }};
+        let priceStart = '{{ $request->priceStart ?? 9999 }}';
+        let priceEnd = '{{ $request->priceEnd ??  9999999 }}';
+        let bcategory = '{{ $request->bcategory ?? $business_categories->first()->id ?? ''}}';
         const store = reactive({
             q: '{{ $request->q }}',
             listingType: '{{ $request->listingType }}',
             priceStart: priceStart,
             priceEnd: priceEnd,
             categories: @json($filteredCategories),
+            bcategory: bcategory,
             purposes: @json($filteredPurposes),
             cities: @json($filteredCities),
             provinces: @json($filteredProvinces),
             categoryLabels: @json($filteredCategoriesNames),
             purposeLabels: @json($filteredPurposesNames),
+            business_categories : @json($business_categories),
         });
         const selectedCategories = computed(() => {
             return selectLabels(store.categories, store.categoryLabels, "Select category");
@@ -65,6 +68,16 @@
 
             return formatter.format(priceMin) + ' - ' + formatter.format(priceMax);
         });
+
+        const adCategories = computed(() => {
+            const category = store.business_categories.find(item => item.id == store.bcategory);
+            return category.ad_category_collection;
+        });
+
+        const selectedBcategory = computed(() => {
+            const category = store.business_categories.find(item => item.id == store.bcategory);
+            return category.name;
+        });
         const searchProvince = ref('');
         const searchCity = ref('');
         const showProvince = (name) => {
@@ -75,7 +88,7 @@
         };
         createApp({
             setup() {
-
+                
             },
             data() {
                 return {
@@ -87,6 +100,8 @@
                     searchProvince,
                     showCity,
                     searchCity,
+                    adCategories,
+                    selectedBcategory
                 };
             },
         }).mount('#app')
