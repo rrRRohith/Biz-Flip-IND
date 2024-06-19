@@ -35,7 +35,7 @@ export default function Index({ categoryList, auth }) {
 
     const [items, setItems] = useState(paginatedList);
 
-    const handleDragEnd = (result) => {
+    const handleDragEnd = async (result) =>  {
         if (!result.destination) return;
 
         const reorderedItems = Array.from(items);
@@ -52,8 +52,7 @@ export default function Index({ categoryList, auth }) {
 
         const orderedIdsArray = updatedItems.map(item => item.id);
         setData('orderedIds', orderedIdsArray);
-
-        post(route('admin.category.position-update'));
+          post(route('admin.category.position-update'));
     };
 
 
