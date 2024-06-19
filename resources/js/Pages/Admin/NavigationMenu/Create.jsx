@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from "@/Layouts/AdminAuthenticated";
 import SortableComponent from "@/Components/SortableComponent";
+import InputLabel from "@/Components/InputLabel";
 
 const initialItems = [
   { id: 'item-1', linkText: '', linkType: 'page_link', customLink: '' },
 ];
 
-const Create = ({ auth }) => {
+const Create = ({ auth, landingPage }) => { 
+  
   const { data, setData, post } = useForm({
     title: '',
     items: initialItems
   });
+
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
@@ -49,9 +52,7 @@ const Create = ({ auth }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Submit the form data including the sortable items
-    // post(route('your.route.name')); // Replace with your route
-    console.log(data)
+    post(route('admin.navigation-menu.store'));
   };
 
   return (
@@ -100,7 +101,7 @@ const Create = ({ auth }) => {
                   <div className="box-body">
                     <form onSubmit={handleSubmit}>
                       <div className="form-group">
-                        <label htmlFor="title">Title</label>
+                        <InputLabel htmlFor="title" className="fw-700 fs-16 form-label form-group__label">Menu Title</InputLabel>
                         <input
                           type="text"
                           id="title"
@@ -115,9 +116,10 @@ const Create = ({ auth }) => {
                         onAddItem={handleAddItem}
                         onDeleteItem={handleDeleteItem}
                         onChangeItem={handleChangeItem}
+                        landingPage={landingPage}
                       />
-                      <div className="col-lg-12 text-center">
-                        <button className="btn btn-info" type="submit">
+                      <div className="col-lg-12 text-left">
+                        <button className="btn btn-success" type="submit">
                           Submit
                         </button>
                       </div>
