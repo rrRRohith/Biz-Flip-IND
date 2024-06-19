@@ -20,7 +20,7 @@ class ContentPageController extends Controller
      */
     public function index()
     {
-        $pageList = Page::query()->paginate(10);
+        $pageList = Page::get();
        
         return Inertia::render('Admin/Content/Index',['pageList' => ContentPageResource::collection($pageList),'success' => session('success'),'error' => session('error')]);
 

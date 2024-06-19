@@ -15,8 +15,6 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
         router.delete(route("admin.navigation-menu.destroy", menu.id))
       }
 
-      
-
     return (
         <Authenticated
             user={auth.user}
@@ -57,11 +55,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Code</th>
-                                                        <th>Country</th>
-                                                        <th>Position</th>
-                                                        <th>Status</th>
+                                                        <th>Title</th>
                                                         <th>Last Modified</th>
                                                         <th></th>
                                                     </tr>
@@ -72,14 +66,8 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                 
                                                     <tr key={menu.id} className="hover-primary">
                                                         <td>{menu.id}</td>
-                                                        
-                                                        <td>{menu.name}</td>
-                                                        <td>{menu.code}</td>
-                                                        <td>{menu.country_name}</td>
-                                                        
-                                                        <td>{menu.position}</td>
-                                                        <td>{menu.status}</td>
-                                                        <td>{menu.updated_at}</td>
+                                                        <td>{menu.title}</td>
+                                                        <td>{window.formatDateTime(menu.updated_at)}</td>
                                                         <td>
                                                             <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
                                                                 <i className="bi bi-pencil"></i>

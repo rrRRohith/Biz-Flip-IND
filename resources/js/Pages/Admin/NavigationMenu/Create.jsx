@@ -1,13 +1,60 @@
-import React from "react";
-import { Head, Link } from "@inertiajs/react";
+import React, { useState } from "react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from "@/Layouts/AdminAuthenticated";
 import SortableComponent from "@/Components/SortableComponent";
+import InputLabel from "@/Components/InputLabel";
 
 const initialItems = [
   { id: 'item-1', linkText: '', linkType: 'page_link', customLink: '' },
 ];
 
-const Create = ({ auth }) => {
+const Create = ({ auth, landingPage }) => { 
+  
+  const { data, setData, post } = useForm({
+    title: '',
+    items: initialItems
+  });
+
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const draggedItem = data.items[result.source.index];
+    const updatedItems = [...data.items];
+    updatedItems.splice(result.source.index, 1);
+    updatedItems.splice(result.destination.index, 0, draggedItem);
+
+    setData('items', updatedItems);
+  };
+
+  const handleAddItem = () => {
+    const newItem = {
+      id: `item-${data.items.length + 1}`,
+      linkText: '',
+      linkType: 'page_link',
+      customLink: '',
+    };
+    setData('items', [...data.items, newItem]);
+  };
+
+  const handleDeleteItem = (index) => {
+    const updatedItems = data.items.filter((item, i) => i !== index);
+    setData('items', updatedItems);
+  };
+
+  const handleChangeItem = (index, updatedItem) => {
+    const updatedItems = [...data.items];
+    updatedItems[index] = updatedItem;
+    setData('items', updatedItems);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    post(route('admin.navigation-menu.store'));
+  };
+
   return (
     <Authenticated
       user={auth.user}
@@ -47,9 +94,40 @@ const Create = ({ auth }) => {
               <div className="col-lg-6"></div>
             </div>
           </div>
-
           <section className="content">
-            <SortableComponent initialItems={initialItems} />
+            <div className="row">
+              <div className="col-12">
+                <div className="box">
+                  <div className="box-body">
+                    <form onSubmit={handleSubmit}>
+                      <div className="form-group">
+                        <InputLabel htmlFor="title" className="fw-700 fs-16 form-label form-group__label">Menu Title</InputLabel>
+                        <input
+                          type="text"
+                          id="title"
+                          className="form-control"
+                          value={data.title}
+                          onChange={(e) => setData('title', e.target.value)}
+                        />
+                      </div>
+                      <SortableComponent
+                        items={data.items}
+                        onDragEnd={handleDragEnd}
+                        onAddItem={handleAddItem}
+                        onDeleteItem={handleDeleteItem}
+                        onChangeItem={handleChangeItem}
+                        landingPage={landingPage}
+                      />
+                      <div className="col-lg-12 text-left">
+                        <button className="btn btn-success" type="submit">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </div>
