@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('logo')->nullable();
             $table->string('company_name')->nullable();
+            $table->mediumText('slug')->nullable();
             $table->mediumText('address')->nullable();
             $table->string('postalcode')->nullable();
             $table->string('city')->nullable();

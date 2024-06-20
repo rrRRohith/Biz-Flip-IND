@@ -9,4 +9,8 @@ class NavigationMenu extends Model
 {
      use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    public function childs(){
+        return $this->hasMany(self::class, 'parent_id', 'id');
+    }
 }

@@ -175,7 +175,8 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
     const changeAdCategories = (value) => {
         const category = business_categories_options.find(item => item.value === value);
         setAdcategories(category.ad_category_collection);
-        handleChange('category', null);
+        // handleChange('business_category', value);
+        // handleChange('category', null);
     }
 
     return (

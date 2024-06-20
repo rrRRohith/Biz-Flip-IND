@@ -8,7 +8,7 @@
                         <div class="card-body">
                             <div class="text-center py-2">
                                 <div class="mb-2">
-                                    <img
+                                    <img width="44"
                                         src="{{ $category->icon_url }}" />
                                 </div>
                                 <div class="text-overflow fw-semibold">

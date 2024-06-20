@@ -131,6 +131,10 @@ class VendorController extends Controller
             $seller->position           = $request->position;
             $seller->save();
 
+            $seller->update([
+                'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
+            ]);
+
             $availableDay           = new SellerAvailability();
             $availableDay->user_id	= $user->id;
             $availableDay->mon	    = $request->days['mon'] ?? 0;
@@ -269,6 +273,10 @@ class VendorController extends Controller
                 $seller->logo   = $imagePath ?? null;
             }
             $seller->save();
+
+            $seller->update([
+                'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
+            ]);
             
              SellerAvailability::where('user_id',$user->id)->delete();
 

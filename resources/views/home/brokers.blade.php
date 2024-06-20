@@ -10,7 +10,7 @@
         <div class="row">
             @foreach ($sellers as $seller)
                 <div class="col-xl-2 col-lg-3 col-md-4 mb-3 col-6">
-                    <a href="{{ route('agents.show', ['agent' => $seller]) }}" class="text-decoration-none text-dark">
+                    <a href="{{ route('agents.show', ['agent' => $seller->seller]) }}" class="text-decoration-none text-dark">
                         <div class="place position-relative rounded-3" role="button">
                             <div class="">
                                 <img class="w-100 rounded-3 place-image border-radius-bottom-0"

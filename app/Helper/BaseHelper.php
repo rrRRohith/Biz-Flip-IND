@@ -35,3 +35,7 @@ function _deleteImage($path = '',$existing = '') {
         @unlink($path.'/'.$existing);
      }
  }
+
+function menu(string $slug){
+     return \App\Models\NavigationMenu::whereSlug($slug)->whereNull('parent_id')->first();
+}

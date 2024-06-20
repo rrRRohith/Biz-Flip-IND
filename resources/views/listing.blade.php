@@ -9,7 +9,7 @@
                 <div class="text-overflow me-2">
                     <div class="d-flex align-items-center">
                         <div class="me-2">
-                            <img class="image-fit w-h-60 rounded-circle" src="{{ $ad->seller->seller->logo_url }}"
+                            <img class="image-fit w-h-60 rounded-circle" src="{{ $ad->seller->is_agent ? $ad->seller->seller->logo_url : $ad->seller->picture_url }}"
                                 alt="" />
                         </div>
                         <div class="text-overflow">
@@ -17,7 +17,7 @@
                                 {{ $ad->title }}
                             </div>
                             <div class="text-muted">
-                                By {{ $ad->seller->seller->company_name }}
+                                By {{ $ad->seller->is_agent ? $ad->seller->seller->company_name : $ad->seller->name }}
                             </div>
                         </div>
                         <div class="btn rounded-1 border-0 ms-auto btn-dark">
@@ -26,9 +26,11 @@
                     </div>
                 </div>
                 <div class='mt-3'>
+                    @if($ad->seller->is_agent)
                     <a target="_blank." href="{{ $ad->seller->seller->website }}"
                         class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none me-3'>Visit website
                         <i class="bi bi-box-arrow-up-right"></i></a>
+                    @endif
                     <a href="#" class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
                         Share <i class="bi bi-share"></i></a>
                 </div>
@@ -107,6 +109,7 @@
                     <iframe class="w-100 rounded-1 mh-400px"
                         src= "https://maps.google.com/maps?q={{ $ad->lat }},{{ $ad->lng }}&hl=es;z=14&output=embed"></iframe>
                 </div>
+                @if($ad->seller_ads()->count() && $ad->seller->is_agent)
                 <div class='mb-4'>
                     <div class="fw-semibold mb-3 fs-5">
                         Other listings by James McGill
@@ -117,15 +120,17 @@
                         @endforeach
                     </div>
                     <div class="mt-4 d-flex w-100">
-                        <a href="{{ route('agents.show', ['agent' => $ad->seller]) }}" class="btn rounded-1 border-0 m-auto btn-dark">View all listings <i
+                        <a href="{{ route('agents.show', ['agent' => $ad->seller->seller]) }}" class="btn rounded-1 border-0 m-auto btn-dark">View all listings <i
                                 class="bi bi-arrow-repeat"></i></a>
                     </div>
                 </div>
+                @endif
             </div>
             <div class="col-lg-4">
                 @include('partials.contact', ['user' => $ad->seller])
             </div>
             <div class="my-4"></div>
+            @if($ad->similar_ads->count())
             <div class='mb-5'>
                 <div class="fw-semibold mb-3 fs-5">
                     Similar listing
@@ -140,6 +145,7 @@
                         class="bi bi-arrow-repeat"></i></a>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

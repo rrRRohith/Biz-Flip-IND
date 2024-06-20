@@ -25,7 +25,7 @@ class Controller extends BaseController{
             'categories' => \App\Models\BusinessCategory::limit(6)->get(),
             'houses' => $houses ? $houses->ads()->limit(4)->get() : collect([]),
             'franchises' => $franchises ? $franchises->ads()->limit(4)->get() : collect([]),
-            'sellers' => \App\Models\User::sellers()->limit(6)->get(),
+            'sellers' => \App\Models\User::sellers()->whereStatus('1')->limit(6)->get(),
             'ad_categories' => \App\Models\Category::all(),
             'business_categories'  => \App\Models\BusinessCategory::all(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],

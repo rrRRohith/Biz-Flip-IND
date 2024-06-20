@@ -27,7 +27,7 @@ class AdController extends BaseController{
      * @param Request $request
      */
     public function index(Request $request){
-        $ads = Ad::search($request)->searchListings($request)->paginate(3)->appends(request()->query());
+        $ads = Ad::search($request)->searchListings($request)->paginate(24)->appends(request()->query());
         $data = [
             'ads' => $ads,
             'categories' => Category::all(),

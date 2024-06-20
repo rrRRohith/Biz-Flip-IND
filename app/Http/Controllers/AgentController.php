@@ -28,13 +28,13 @@ class AgentController extends BaseController{
      * @param Request $request
      * @param Ad $ad
      */
-    public function show(Request $request, User $agent){
-        User::sellers()->findOrfail($agent->id);
+    public function show(Request $request, \App\Models\Seller $agent){
+        $user = User::sellers()->findOrfail($agent->user_id);
         return view('agent', [
             'ad_categories' => Category::all(),
             'business_categories'  => \App\Models\BusinessCategory::all(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],
-        ])->withSeller($agent);
+        ])->withSeller($user);
     }
 
     public function update(LeadRequest $request, User $agent){

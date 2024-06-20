@@ -75,9 +75,12 @@ Route::resource('/ads', App\Http\Controllers\AdController::class, [
 
 
 
-Route::resource('/agents', App\Http\Controllers\AgentController::class, [
-    'only' => ['show', 'update']
-])/*->parameters(['ads' => 'ad:slug'])*/;
+// Route::resource('/agents', App\Http\Controllers\AgentController::class, [
+//     'only' => ['show', 'update']
+// ])->parameters(['agents' => 'seller:slug']);
+
+Route::get('/agents/{agent:slug}', 'App\Http\Controllers\AgentController@show')->name('agents.show');
+Route::post('/agents/{agent:slug}', 'App\Http\Controllers\AgentController@update')->name('agents.update');
 
 Route::get('/agent', function () {
     return view('agent');
@@ -98,9 +101,12 @@ Route::get('/auth', function () {
     return view('auth.index');
 });
 
-Route::get('/auth/customer', function () {
-    return view('auth.customer');
+Route::get('/auth/seller', function () {
+    return view('auth.seller');
 });
+
+Route::post('/auth/seller', 'App\Http\Controllers\Auth\RegisteredUserController@seller');
+Route::post('/auth/agent', 'App\Http\Controllers\Auth\RegisteredUserController@agent');
 
 Route::get('/auth/agent', function () {
     return view('auth.agent');

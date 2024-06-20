@@ -8,18 +8,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link p-2 fw-semibold" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link p-2 fw-semibold" href="/about-us">About us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link p-2 fw-semibold" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link p-2 fw-semibold" href="/careers">Careers</a>
-                </li>
+                @include('layouts.menu.top.index')
                 @auth
                     @if(auth()->user()->type == 'admin' || auth()->user()->type == 'admin staff')
                     <li class="nav-item">

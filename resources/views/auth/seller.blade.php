@@ -64,60 +64,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
-                                <div class="fs-5 fw-sembold mb-2">Your business information</div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group label-top mb-4">
-                                            <label class="fw-semibold">Business name</label>
-                                            <input form="authForm" name="company_name" type="text"
-                                                placeholder='Enter your business name'
-                                                class="form-control border-1 border rounded-1 border-gray shadow-none" />
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group label-top mb-4">
-                                            <label class="fw-semibold">Description</label>
-                                            <textarea form="authForm" name="description" type="text"
-                                                placeholder='Tell us about your business'
-                                                class="form-control border-1 border rounded-1 border-gray shadow-none"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group label-top mb-4">
-                                            <label class="fw-semibold">Address</label>
-                                            <input form="authForm" name="address" type="text"
-                                                placeholder='Enter your address'
-                                                class="form-control border-1 border rounded-1 border-gray shadow-none" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group label-top mb-4">
-                                            <label class="fw-semibold">City</label>
-                                            <input form="authForm" name="city" type="text"
-                                                placeholder='Enter your city'
-                                                class="form-control border-1 border rounded-1 border-gray shadow-none" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group label-top mb-4">
-                                            <label class="fw-semibold">Postalcode</label>
-                                            <input form="authForm" name="postalcode" type="text"
-                                                placeholder='Enter your postalcode'
-                                                class="form-control border-1 border rounded-1 border-gray shadow-none" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group label-top mb-4">
-                                            <label class="fw-semibold">Province</label>
-                                            <input form="authForm" name="province" type="text"
-                                                placeholder='Enter your province'
-                                                class="form-control border-1 border rounded-1 border-gray shadow-none" />
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-group  mb-4">
                                     <div class="form-check form-check-lg">
                                         <input form="authForm" role="button"
@@ -142,11 +88,10 @@
                                         alt="handshake--v2" />
                                     <div class="mt-4 fs-4">Awesome!</div>
                                 </div>
-                                <div class="mb-1">We received your request to become a verified agent on
+                                <div class="mb-1">We received your request to become a verified seller on
                                     {{ env('APP_NAME') }}. We are minutes away from verifying your information and
                                     granting approval.</div>
                                 <div class="fw-semibold">Thanks for choosing {{ env('APP_NAME') }}</div>
-
                                 <div class="text-center mt-4">
                                     <a href="/" class="btn rounded-1 border-0 m-auto btn-dark px-5">Go home</a>
                                 </div>
@@ -176,7 +121,7 @@
 @push('scripts')
 <script>
     function registered(response) {
-        $('form').remove();
+        $('.hide').remove();
         $('.registered').show();
     }
 </script>

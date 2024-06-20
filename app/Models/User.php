@@ -21,7 +21,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles, HasPermissions;
        protected $dates = ['deleted_at'];
 
-    protected $appends = ['picture_url'];
+    protected $appends = ['picture_url', 'is_agent'];
     /**
      * The attributes that are mass assignable.
      *
@@ -35,7 +35,8 @@ class User extends Authenticatable
         'password',
         'picture',
         'role_id',
-        'type'
+        'type',
+        'unique_code',
     ];
 
     /**
@@ -144,5 +145,9 @@ class User extends Authenticatable
     public function leadEnquiries()
     {
         return $this->hasMany(LeadEnquiry::class, 'seller_id');
+    }
+
+    public function getIsAgentAttribute() : bool{
+        return (bool) ($this->employer()->exists() ? $this->employer->seller()->exists() :  $this->seller()->exists());
     }
 }

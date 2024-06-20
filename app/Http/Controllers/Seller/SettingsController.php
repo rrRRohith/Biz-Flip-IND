@@ -49,6 +49,9 @@ class SettingsController extends Controller{
             $seller = $this->seller->seller;
 
             $seller->update($request->validated());
+            $seller->update([
+                'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
+            ]);
 
             if ($request->has('logo') && $request->logo) {
                 if ($seller->logo && $seller->logo != 'default') {

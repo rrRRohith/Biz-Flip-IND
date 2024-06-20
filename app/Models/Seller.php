@@ -26,6 +26,7 @@ class Seller extends Model
         'employee',
         'lat',
         'lng',
+        'slug',
 
     ];
 

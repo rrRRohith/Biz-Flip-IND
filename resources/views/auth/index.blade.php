@@ -11,13 +11,13 @@
                     <div class="fs-3 fw-semibold mb-4">Sign up</div>
                 </div>
                 <div>
-                    <a href="/auth/customer" class='text-decoration-none text-dark'>
+                    <a href="{{ url('/auth/seller') }}" class='text-decoration-none text-dark'>
                     <div class="card border-0 rounded-4 shadow-sm mb-4">
                         <div class="card-body px-xl-5 p-4 py-4 px-md-4">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <div class="fs-3 fw-semibold">For everyone</div>
-                                    <div class="text-muted">Find unique places nearby</div>
+                                    <div class="fs-3 fw-semibold">For owners</div>
+                                    <div class="text-muted">Sell your business directly</div>
                                 </div>
                                 <div class="fs-3 ms-auto">
                                     <i class="bi bi-arrow-right"></i>
@@ -26,13 +26,13 @@
                         </div>
                     </div>
                     </a>
-                    <a href="/auth/agent" class='text-decoration-none text-dark'>
+                    <a href="{{ url('/auth/agent') }}" class='text-decoration-none text-dark'>
                     <div class="card border-0 rounded-4 shadow-sm bg-dark text-white">
                         <div class="card-body px-xl-5 p-4 py-4 px-md-4">
                             <div class="d-flex align-items-center">
                                 <div>
                                     <div class="fs-3 fw-semibold">For agents</div>
-                                    <div class="text-light">List your place and get leads</div>
+                                    <div class="text-light">List business and get leads</div>
                                 </div>
                                 <div class="fs-3 ms-auto">
                                     <i class="bi bi-arrow-right"></i>

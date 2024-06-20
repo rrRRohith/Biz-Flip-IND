@@ -14,9 +14,9 @@ export default function Guest({ children }) {
                                 <div className="col-lg-5 col-md-5 col-12">
                                     <div className="bg-white rounded10 shadow-lg">
                                         <div className="content-top-agile p-20 pb-0 text-center">
-                                                <Link href="/" className='d-block mb-2'>
+                                                <a href="/" className='d-block mb-2'>
                                                     <ApplicationLogo className="" />
-                                                </Link>
+                                                </a>
                                                 <p className="mb-0">Sign in to continue to BizFlip.</p>
                                         </div>
                                         <div className="p-40">

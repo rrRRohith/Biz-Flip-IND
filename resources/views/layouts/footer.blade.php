@@ -43,45 +43,13 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3 mb-md-3">
-                <div>
-                    <div class="fw-semibold fs-5 mb-3">
-                        Business Exchange
-                    </div>
-                    <div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Contact</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Advertise With Us</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Testimonials</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Terms & Conditions</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Privacy Policy</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Careers</a></div>
-                    </div>
-                </div>
+                @include('layouts.menu.bottom.index', ['menu' => 'business-exchange'])
             </div>
             <div class="col-md-3 mb-3 mb-md-3">
-                <div>
-                    <div class="fw-semibold fs-5 mb-3">
-                        Advertise With Us
-                    </div>
-                    <div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Sell A Business</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Sell A Franchise</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Sell A Commercial Property</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Sell Business Services</a></div>
-                    </div>
-                </div>
+                @include('layouts.menu.bottom.index', ['menu' => 'advertise-with-us'])
             </div>
             <div class="col-md-3 mb-3 mb-md-3">
-                <div>
-                    <div class="fw-semibold fs-5 mb-3">
-                        Resources
-                    </div>
-                    <div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Videos</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>FAQ</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Entrepreneur’s Toolbox</a></div>
-                        <div class="mb-2"><a href="#" class='text-decoration-none text-muted'>Free Magazine Subscription</a></div>
-                    </div>
-                </div>
+                @include('layouts.menu.bottom.index', ['menu' => 'resources'])
             </div>
         </div>
     </div>
