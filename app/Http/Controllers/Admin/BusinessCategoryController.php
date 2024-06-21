@@ -30,7 +30,7 @@ class BusinessCategoryController extends Controller
      */
     public function index()
     {
-        $categoryList = BusinessCategory::orderBy('name','ASC')->get();
+        $categoryList = BusinessCategory::orderBy('position')->get();
        
         return Inertia::render('Admin/BusinessCategory/Index',['categoryList' => BusinessCategoryResource::collection($categoryList)]);
 
@@ -172,4 +172,20 @@ class BusinessCategoryController extends Controller
         return to_route('admin.business-category.index')
             ->with('success', "BusinessCategory \"$name\" was deleted");
     }
+
+    public function positionUpdate(Request $request){
+       
+        foreach($request->orderedIds ?? [] as $position => $id){
+            $category = BusinessCategory::where('id',$id)->first();
+            if($category){
+                $category->position = $position+1;
+                $category->save();
+            }
+        }
+        return response()->json('Position Updated');
+
+        // return to_route('admin.business-category.index')->with('success', "Position Updated ");
+    }
+
 }
+

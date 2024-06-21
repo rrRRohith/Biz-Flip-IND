@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
-import InputError from '@/Components/InputError';
 import { v4 as uuidv4 } from 'uuid';
 
-const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDeleteItem, onChangeItem, landingPage, formErrors }) => {
+const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDeleteItem, onChangeItem, landingPage }) => {
   const [errors, setErrors] = useState({});
 
   const findItemById = (items, id) => {
@@ -60,16 +59,15 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
   const renderTree = (items) => {
     return items.map((item, index) => (
       <Draggable key={item.id} draggableId={item.id} index={index}>
-         {/* ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps} */}
         {(provided) => (
           <li
             className="sortable-item"
-           
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
           >
             <div className='add-child-btn'>
-              <span className="bi bi-plus" title='add a child item' onClick={() => handleAddChildItem(item.id)}></span>
+              <span className="bi bi-plus" onClick={() => handleAddChildItem(item.id)}></span>
             </div>
             <div className="col-lg-12">
               <div className="row">
@@ -77,7 +75,7 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
                   <div className="form-group">
                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
                     <TextInput
-                      className="form-control" required
+                      className="form-control"
                       type="text"
                       value={item.linkText}
                       onChange={(e) => {
@@ -91,10 +89,8 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
                         }));
                       }}
                     />
-                    
-                   
                     {errors[item.id] && errors[item.id].linkText && (
-                      <InputError message={errors[item.id].linkText} className="mt-2 col-12" />
+                      <div className="text-danger">{errors[item.id].linkText}</div>
                     )}
                   </div>
                 </div>
@@ -103,7 +99,7 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
                     <InputLabel className="fw-700 fs-16 form-label form-group__label">Link Type</InputLabel>
                     <select
                       className="form-control py-10"
-                      value={item.linkType} required
+                      value={item.linkType}
                       onChange={(e) => {
                         onChangeItem(item.id, { ...item, linkType: e.target.value, customLink: e.target.value === 'page_link' ? '' : item.customLink });
                         setErrors((prevErrors) => ({
@@ -123,11 +119,9 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
                       </optgroup>
                       <option className='fw-bold' value="custom_link">Custom Link</option>
                     </select>
-                    
                     {errors[item.id] && errors[item.id].linkType && (
-                      <InputError message={errors[item.id].linkType} className="mt-2 col-12" />
+                      <div className="text-danger">{errors[item.id].linkType}</div>
                     )}
-                  
                   </div>
                 </div>
                 {item.linkType === 'custom_link' && (
@@ -149,7 +143,7 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
                   </div>
                 )}
                 <div className="remove-child-btn">
-                  <span title="Delete this item"
+                  <span
                     className="bi bi-x my-10"
                     onClick={() => onDeleteItem(item.id)}
                   >
@@ -172,12 +166,11 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
     <div className="sortable-container">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
-        {/* ref={provided.innerRef}
-        {...provided.droppableProps} */}
           {(provided) => (
             <ul
               className="sortable-list tree"
-            
+              ref={provided.innerRef}
+              {...provided.droppableProps}
             >
               {renderTree(items)}
               {provided.placeholder}
@@ -185,8 +178,9 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
           )}
         </Droppable>
       </DragDropContext>
-      <span role='button' class="bi bi-plus-circle"  onClick={onAddItem} style={{position: 'absolute',left: '60px'}}>Add Item</span>
-     
+      <button className="btn btn-dark btn-sm" type="button" onClick={onAddItem}>
+        Add Item
+      </button>
     </div>
   );
 };

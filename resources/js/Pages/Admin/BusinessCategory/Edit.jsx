@@ -113,9 +113,9 @@ export default function Edit({ category_item, queryParams = null, auth, adCatego
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-body">
                                                     <div className="row">
-                                                        <div className="col-lg-8">
+                                                        <div className="col-lg-12">
                                                             <div className="row">
-                                                                <div className="col-lg-7">
+                                                                <div className="col-lg-9">
                                                                     <div className="row">
                                                                         <div className="col-md-12 mb-3">
                                                                             <div className="form-group">
@@ -139,10 +139,38 @@ export default function Edit({ category_item, queryParams = null, auth, adCatego
                                                                                 <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)} defaultValue={data.description}></textarea>
                                                                             </div>
                                                                         </div>
+                                                                        <div className="col-lg-12">
+                                                                            <div className="h-100 border p-3">
+                                                                                <h6 className="fw-bold mb-3">Select Availabe to Ad Categories</h6>
+                                                                                <div className="col-lg-12 p-3">
+                                                                                    <div className="row">
+                                                                                        {adCategoryList.data.map((category, index) => (
+                                                                                            <div className="col-lg-3">
+                                                                                                <div className="form-group">
+                                                                                                    <Form.Check
+                                                                                                        key={index}
+                                                                                                        type="switch"
+                                                                                                        id={`custom-switch-${index}`}
+                                                                                                        name="adCategory"
+                                                                                                        label={category.name}
+                                                                                                        value={category.id}
+                                                                                                        checked={data.adCategories.includes(category.id)}
+                                                                                                        role="button"
+                                                                                                        onChange={(e) => handleCheckboxChange(category.id)}
+                                                                                                    />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        ))}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
                                                                         <div className="row">
                                                                             <div className="col-md-6">
                                                                                 <div className="form-group ps-3 ">
                                                                                     <label className="fw-700  form-label">Status</label>
+
                                                                                     <Form.Check
                                                                                         type="switch"
                                                                                         id="custom-switch"
@@ -161,10 +189,10 @@ export default function Edit({ category_item, queryParams = null, auth, adCatego
 
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-lg-5">
+                                                                <div className="col-lg-3">
                                                                     <div className="row">
                                                                         <div className="col-md-12">
-                                                                            <div className="border rounded-4 p-3  bg-bubbles-white text-center">
+                                                                            <div className="border rounded-4 p-3  bg-gray-100 text-center">
                                                                                 <h4 className="box-title text-center">Icon/Image</h4>
                                                                                 <div className="product-img">
                                                                                     {imagePreview ? (
@@ -202,31 +230,7 @@ export default function Edit({ category_item, queryParams = null, auth, adCatego
 
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-4">
-                                                            <div className="h-100 border p-3">
-                                                                <h6 className="fw-bold mb-3">Select Availabe to Ad Categories</h6>
-                                                                <div className="p-3">
 
-                                                                    {adCategoryList.data.map((category, index) => (
-
-                                                                        <div className="form-group">
-                                                                            <Form.Check
-                                                                                key={index}
-                                                                                type="switch"
-                                                                                id={`custom-switch-${index}`}
-                                                                                name="adCategory"
-                                                                                label={category.name}
-                                                                                value={category.id}
-                                                                                checked={data.adCategories.includes(category.id)}
-                                                                                role="button"
-                                                                                onChange={(e) => handleCheckboxChange(category.id)}
-                                                                            />
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
 
                                                     </div>
                                                 </div>

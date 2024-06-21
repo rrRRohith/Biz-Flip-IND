@@ -37,9 +37,7 @@ export default function ToastNotification() {
             newestOnTop={true}
             closeOnClick
             rtl={false}
-            pauseOnFocusLoss
             draggable={false}
-            pauseOnHover
         />
     );
 }

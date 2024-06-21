@@ -30,7 +30,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categoryList = Category::orderBy('position')->get();
+        $categoryList = Category::orderBy('name','ASC')->get();
        
         return Inertia::render('Admin/Category/Index',['categoryList' => CategoryResource::collection($categoryList)]);
 
@@ -179,7 +179,7 @@ class CategoryController extends Controller
 
     public function positionUpdate(Request $request){
        
-        foreach($request->orderedIdsArray ?? [] as $position => $id){
+        foreach($request->orderedIds ?? [] as $position => $id){
             $category = Category::where('id',$id)->first();
             if($category){
                 $category->position = $position+1;

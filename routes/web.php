@@ -15,7 +15,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::post('sellers/status/update/{id}', 'VendorController@statusUpdate')->name('sellers.status-update');
     
     Route::post('category/position-update', 'CategoryController@positionUpdate')->name('category.position-update');
-    
+    Route::post('category/position-update', 'BusinessCategoryController@positionUpdate')->name('business-category.position-update');
+
     Route::resources([
         'category'          => CategoryController::class,
         'features'          => FeaturesController::class,
