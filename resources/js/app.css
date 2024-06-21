@@ -109,30 +109,16 @@ img.ad-image {
 .bi-arrows-move {cursor: -webkit-grab; cursor: grab;}
 
 
-  .sortable-container {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
+ 
+/*Navigation MENU*/
   .sortable-list {
     list-style-type: none;
     padding: 0;
   }
   
-  .sortable-item {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-top: 0;
-    border-right: 0;
-    /* border-radius: 5px; */
-    margin-bottom: 10px;
-    padding: 10px;
-    cursor: grab;
-    user-select: none;
-    transition: background-color 0.3s ease;
+
+  .sortable-container{
+    margin-left: 40px;
   }
   
   .sortable-item:hover {
@@ -146,28 +132,123 @@ img.ad-image {
 
   
 
-  .add-button {
-    background-color: #007bff;
+  .sortable-item,.sortable-list{
+    position: relative;
+  }
+  .sub-tree {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+  
+  .sub-tree .sortable-item {
+    margin-left: 10px;
+    
+    position: relative;
+
+  }
+
+  .sub-tree{
+    position: relative;
+  }
+
+  .sortable-item::before {
+    display: block;
+    width: 40px;
+    height: 1px;
+    content: " ";
+    background-color: #8a86865c;
+    position: absolute;
+    left: 0;
+    top: 16px;
+    z-index: 99;
+}
+
+
+.add-child-btn{
+    position: absolute;
+    left: -23px;
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+    background: #4c95dd;
     color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    margin-top: 10px;
+    border-radius: 25px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .add-button:hover {
-    background-color: #0069d9;
-  }
-  
-
-  .sortable-item {
-    width: 100%;
-    transition: width 0.2s ease;
 }
 
-.sortable-item.dragging {
-    width: 80%;
-    opacity: 0.8;
+.remove-child-btn{
+  position: absolute;
+  right: -18px;
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  background: #ce1f1f;
+  color: #fff;
+  border-radius: 25px;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
+  
+  .tree-node{
+    padding-left: 20px;
+    border-left: 1px solid #8a86865c;   
+    position: relative;
+  }
+  .tree-node.tree-node{
+    padding-left: 40px;
+  }
+
+  .tree-node:first-child::before {
+    display: block;
+    width: 20px;
+    height: 1px;
+    content: " ";
+    background-color: #8a86865c;
+    position: absolute;
+    left: 0;
+    top: 16px;
+}
+
+
+
+.tree, .tree ul, .tree li {
+  position: relative;
+}
+
+.tree ul {
+  list-style: none;
+  padding-left: 32px;
+}
+
+.tree li::before, .tree li::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+}
+
+.tree li::before {
+  border-top: 1px solid #000;
+  top: 9px;
+  width: 12px;
+  height: 0;
+}
+
+.tree li::after {
+  border-left: 1px solid #000;
+  height: 100%;
+  width: 0px;
+  top: 2px;
+}
+
+.tree ul > li:last-child::after {
+  height: 8px;
+}
+
+/* Navigation Menu End */

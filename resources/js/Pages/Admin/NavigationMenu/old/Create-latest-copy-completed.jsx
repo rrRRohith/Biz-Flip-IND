@@ -3,10 +3,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from "@/Layouts/AdminAuthenticated";
 import SortableComponent from "@/Components/SortableComponent";
 import InputLabel from "@/Components/InputLabel";
-import InputError from "@/Components/InputError";
 import { v4 as uuidv4 } from 'uuid';
-import Swal from 'sweetalert2';
-
 
 const initialItems = [
   {
@@ -18,13 +15,11 @@ const initialItems = [
   }
 ];
 
-const Edit = ({ auth, landingPage,menu }) => {
-  const { data, setData, post, errors } = useForm({
-    title: menu.title || '',
-    items: menu.children || [],
-    _method: "PUT",
+const Create = ({ auth, landingPage }) => {
+  const { data, setData, post } = useForm({
+    title: '',
+    items: initialItems
   });
-
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
@@ -80,29 +75,15 @@ const Edit = ({ auth, landingPage,menu }) => {
   };
 
   const handleDeleteItem = (id) => {
-    Swal.fire({
-      title: 'Are you sure you want to delete this item?',
-      text: ' Once deleted, it cannot be recovered.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
- 
-      if (result.isConfirmed) {
-        const deleteItem = (items, id) => {
-          return items.filter(item => item.id !== id).map(item => {
-            if (item.children && item.children.length) {
-              return { ...item, children: deleteItem(item.children, id) };
-            }
-            return item;
-          });
-        };
-        setData('items', deleteItem(data.items, id));
-      }
-    });
-  
+    const deleteItem = (items, id) => {
+      return items.filter(item => item.id !== id).map(item => {
+        if (item.children && item.children.length) {
+          return { ...item, children: deleteItem(item.children, id) };
+        }
+        return item;
+      });
+    };
+    setData('items', deleteItem(data.items, id));
   };
 
   const handleChangeItem = (id, updatedItem) => {
@@ -120,9 +101,36 @@ const Edit = ({ auth, landingPage,menu }) => {
   };
 
   const handleSubmit = (e) => {
+    // e.preventDefault();
+    // post(route('admin.navigation-menu.store'));
+    // // console.log(data)
     e.preventDefault();
-    post(route('admin.navigation-menu.update',menu.id));
-    // console.log(data)
+
+    // Validate form before submission
+    let valid = true;
+    const newErrors = {};
+
+    // Validate each item
+    data.items.forEach((item, index) => {
+      if (!item.linkText.trim()) {
+        newErrors[`items.${index}.linkText`] = 'Link text is required';
+        valid = false;
+      }
+      if (!item.linkType || item.linkType === 'page_link') {
+        newErrors[`items.${index}.linkType`] = 'Link type is required';
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+     
+      setData('errors', newErrors);
+      console.log(newErrors)
+      return;
+    }
+
+    // Proceed with form submission if valid
+    post(route('admin.navigation-menu.store'));
   };
 
   return (
@@ -130,18 +138,18 @@ const Edit = ({ auth, landingPage,menu }) => {
       user={auth.user}
       header={
         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          Navigation Menu/Edit
+          Navigation Menu/Create
         </h2>
       }
     >
-      <Head title="Navigation Menu Edit" />
+      <Head title="Navigation Menu Create" />
       <div className="content-wrapper me-4">
         <div className="container-full">
           <div className="content-header">
             <div className="row">
               <div className="col-lg-6">
                 <div className="d-flex flex-column">
-                  <h4 className="page-title"> Edit Navigation Menu</h4>
+                  <h4 className="page-title"> Create Navigation Menu</h4>
                   <div className="d-inline-block align-items-center mt-2">
                     <nav>
                       <ol className="breadcrumb">
@@ -155,7 +163,7 @@ const Edit = ({ auth, landingPage,menu }) => {
                             Navigation Menu
                           </Link>
                         </li>
-                        <li className="breadcrumb-item active">Edit</li>
+                        <li className="breadcrumb-item active">Create</li>
                       </ol>
                     </nav>
                   </div>
@@ -179,8 +187,6 @@ const Edit = ({ auth, landingPage,menu }) => {
                           value={data.title}
                           onChange={(e) => setData('title', e.target.value)}
                         />
-                        <InputError message={errors.title} className="mt-2 col-12" />
-
                       </div>
                       <SortableComponent
                         items={data.items}
@@ -190,7 +196,6 @@ const Edit = ({ auth, landingPage,menu }) => {
                         onDeleteItem={handleDeleteItem}
                         onChangeItem={handleChangeItem}
                         landingPage={landingPage}
-                        formErrors={errors}
                       />
                       <div className="col-lg-12 text-center mt-5">
                         <button className="btn btn-success" type="submit">
@@ -209,4 +214,4 @@ const Edit = ({ auth, landingPage,menu }) => {
   );
 };
 
-export default Edit;
+export default Create;

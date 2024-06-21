@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
 import { Pagination } from '@mui/material';
+import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from 'sweetalert2';
+
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 export default function Index({ categoryList, auth }) {
 
@@ -11,13 +17,27 @@ export default function Index({ categoryList, auth }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [categories, setCategories] = useState(categoryList.data);
 
+    const { data, setData, post, errors, reset } = useForm({
+        orderedIds: []
+    });
+
     const deleteCategory = (category) => {
-        if (!window.confirm("Are you sure you want to delete the category?")) {
-            return;
-        }
 
+        Swal.fire({
+            title: 'Are you sure you want to delete this category?',
+            text: ' Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
 
-        router.delete(route("admin.business-category.destroy", category.id))
+            if (result.isConfirmed) {
+                router.delete(route("admin.business-category.destroy", category.id))
+            }
+        })
+
     }
 
 
@@ -27,12 +47,6 @@ export default function Index({ categoryList, auth }) {
     };
 
 
-    const handleSearch = (e) => {
-        const value = e.target.value;
-
-        searchingQuery(value)
-
-    };
 
     const searchingQuery = (value = null) => {
         setSearchQuery(value);
@@ -45,11 +59,58 @@ export default function Index({ categoryList, auth }) {
 
     }
 
+    useEffect(() => {
+        setCategories(categoryList.data);
+    }, [categoryList]);
+
+
 
     const displayList = searchQuery.length > 0 ? categories : categoryList.data;
     const startIdx = (currentPage - 1) * itemsPerPage;
     const endIdx = currentPage * itemsPerPage;
     const paginatedList = displayList.slice(startIdx, endIdx);
+
+    useEffect(() => {
+        setItems(paginatedList);
+    }, [paginatedList]);
+
+    
+    const [items, setItems] = useState(paginatedList);
+    const handleDragEnd = async (result) => {
+        if (!result.destination) return;
+
+        const reorderedItems = Array.from(items);
+        const [reorderedItem] = reorderedItems.splice(result.source.index, 1);
+        reorderedItems.splice(result.destination.index, 0, reorderedItem);
+
+        const updatedItems = reorderedItems.map((item, index) => ({
+            ...item,
+            position: index + 1
+        }));
+
+        setItems(updatedItems);
+        setCategories(updatedItems);
+
+        const orderedIdsArray = updatedItems.map(item => item.id);
+        setData('orderedIds', orderedIdsArray);
+        try {
+            const response = await axios.post(route('admin.business-category.position-update'), {
+                orderedIds: orderedIdsArray
+            });
+
+            toast.success(response.data, {
+                position: "top-right",
+                autoClose: 5000,
+                closeOnClick: true,
+            });
+
+        } catch (error) {
+            console.error('Error posting data:', error);
+        }
+
+
+    };
+
 
 
 
@@ -58,8 +119,16 @@ export default function Index({ categoryList, auth }) {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Business Categories</h2>}
         >
-            <Head title="Category List" />
-
+            <Head title="Business Category List" />
+            <ToastContainer
+                position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                draggable={false}
+            />
             {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">
                 <div className="container-full">
@@ -90,7 +159,7 @@ export default function Index({ categoryList, auth }) {
                         </div>
 
                     </div>
-                   
+
 
                     {/* <!-- Main content --> */}
                     <section className="content">
@@ -99,60 +168,65 @@ export default function Index({ categoryList, auth }) {
                                 <div className="box">
                                     <div className="box-body">
                                         <PermissionAllow permission={'Categories Listing'} message="true">
-                                             {/* <!-- Search input --> */}
-                                            <div className="mb-3 col-lg-4">
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="Search by Business Category name..."
-                                                    value={searchQuery}
-                                                    onChange={handleSearch}
-                                                />
-                                            </div>
+
                                             <div className="table-responsive rounded card-table">
-                                                <table className="table border-no" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th  className='text-center'>Name</th>
-                                                            <th  className='text-center'>Status</th>
-                                                            <th  className='text-center'>Last Modified</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    {displayList.slice(startIdx, endIdx).map((category, index) => (
-                                                            <tr key={category.id} className="hover-primary">
+                                                <DragDropContext onDragEnd={handleDragEnd}>
+                                                    <Droppable droppableId="categories">
+                                                        {(provided) => (
+                                                            <table className="table border-no" id="example1" {...provided.droppableProps} ref={provided.innerRef}>
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th>Name</th>
+                                                                        <th className='text-center'>Status</th>
+                                                                        <th className='text-center'>Last Modified</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {items.map((category, index) => (
+                                                                        <Draggable key={`${category.id}-${category.name}`} draggableId={`${category.id}-${category.name}`} index={index}>
+                                                                            {(provided, snapshot) => (
+                                                                                <tr
+                                                                                    ref={provided.innerRef}
+                                                                                    {...provided.draggableProps}
+                                                                                    {...provided.dragHandleProps}
+                                                                                    className={` ${snapshot.isDragging ? 'dragging' : ''}`}
+                                                                                >
+                                                                                    <td><i className='bi bi-arrows-move me-3 fw-bold'></i></td>
+                                                                                    <td>
 
-                                                                <td>{index + 1}</td>
-
-                                                                <td  className='text-center'>
-                                                                    {category.name}
-                                                                </td>
-                                                                <td className='text-center'>
-                                                                    <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
-                                                                </td>
-                                                                <td  className='text-center'>{window.formatDateTime(category.updated_at)}</td>
-                                                                <td align='right'>
-                                                                    <PermissionAllow permission={'Category Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.business-category.edit', category.id)}>
-                                                                            <i className="bi bi-pencil"></i>
-                                                                        </Link>
-                                                                    </PermissionAllow>
-                                                                    <PermissionAllow permission={'Category Delete'}>
-                                                                        <button onClick={(e) => deleteCategory(category)} className="btn btn-transparent border-0">
-                                                                            <i className="bi bi-trash"></i>
-                                                                        </button>
-                                                                    </PermissionAllow>
-                                                                </td>
-                                                            </tr>
-                                                        ))}
-
-                                                    </tbody>
-                                                </table>
+                                                                                        {category.name}
+                                                                                    </td>
+                                                                                    <td className='text-center'>
+                                                                                        <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
+                                                                                    </td>
+                                                                                    <td className='text-center'>{window.formatDateTime(category.updated_at)}</td>
+                                                                                    <td align='right'>
+                                                                                        <PermissionAllow permission={'Category Edit'}>
+                                                                                            <Link className='btn btn-transparent' href={route('admin.business-category.edit', category.id)}>
+                                                                                                <i className="bi bi-pencil"></i>
+                                                                                            </Link>
+                                                                                        </PermissionAllow>
+                                                                                        <PermissionAllow permission={'Category Delete'}>
+                                                                                            <button onClick={() => deleteCategory(category)} className="btn btn-transparent border-0">
+                                                                                                <i className="bi bi-trash"></i>
+                                                                                            </button>
+                                                                                        </PermissionAllow>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            )}
+                                                                        </Draggable>
+                                                                    ))}
+                                                                    {provided.placeholder}
+                                                                </tbody>
+                                                            </table>
+                                                        )}
+                                                    </Droppable>
+                                                </DragDropContext>
                                             </div>
-                                               {/* <!-- Pagination --> */}
-                                               {displayList.length > itemsPerPage && (
+                                            {/* <!-- Pagination --> */}
+                                            {displayList.length > itemsPerPage && (
                                                 <div className="pagination-container float-end py-5">
                                                     <Pagination
                                                         count={Math.ceil(displayList.length / itemsPerPage)}

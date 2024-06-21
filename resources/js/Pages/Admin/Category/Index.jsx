@@ -3,8 +3,8 @@ import { Head, Link, router, useForm } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
 import { Pagination } from '@mui/material';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
 
 export default function Index({ categoryList, auth }) {
     const itemsPerPage = 20;
@@ -17,10 +17,24 @@ export default function Index({ categoryList, auth }) {
     });
 
     const deleteCategory = (category) => {
-        if (!window.confirm("Are you sure you want to delete the category?")) {
-            return;
-        }
-        router.delete(route("admin.category.destroy", category.id));
+        Swal.fire({
+            title: 'Are you sure you want to delete this category?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.category.destroy", category.id), {
+                    onSuccess: () => {
+                        setCategories(categories.filter(item => item.id !== category.id));
+                        Swal.fire('Deleted!', 'Category has been deleted.', 'success');
+                    },
+                });
+            }
+        });
     };
 
     const handlePageChange = (event, page) => {
@@ -28,34 +42,34 @@ export default function Index({ categoryList, auth }) {
         window.scrollTo(0, 0);
     };
 
+    useEffect(() => {
+        setCategories(categoryList.data);
+    }, [categoryList]);
+
     const displayList = searchQuery.length > 0 ? categories : categoryList.data;
     const startIdx = (currentPage - 1) * itemsPerPage;
     const endIdx = currentPage * itemsPerPage;
     const paginatedList = displayList.slice(startIdx, endIdx);
 
+    useEffect(() => {
+        setItems(paginatedList);
+    }, [paginatedList]);
+
     const [items, setItems] = useState(paginatedList);
 
-    const handleDragEnd = (result) => {
-        if (!result.destination) return;
-
-        const reorderedItems = Array.from(items);
-        const [reorderedItem] = reorderedItems.splice(result.source.index, 1);
-        reorderedItems.splice(result.destination.index, 0, reorderedItem);
-
-        const updatedItems = reorderedItems.map((item, index) => ({
-            ...item,
-            position: index + 1
-        }));
-
-        setItems(updatedItems);
-        setCategories(updatedItems);
-
-        const orderedIdsArray = updatedItems.map(item => item.id);
-        setData('orderedIds', orderedIdsArray);
-
-        post(route('admin.category.position-update'));
+    const searchingQuery = (value = null) => {
+        setSearchQuery(value);
+        const filtered = categoryList.data.filter(category =>
+            category.name.toLowerCase().includes(value.toLowerCase())
+        );
+        setCategories(filtered);
+        setCurrentPage(1);
     };
 
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        searchingQuery(value);
+    };
 
     return (
         <Authenticated
@@ -93,73 +107,58 @@ export default function Index({ categoryList, auth }) {
                         </div>
                     </div>
 
-                   
                     <section className="content">
                         <div className="row">
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
                                         <PermissionAllow permission={'Categories Listing'} message="true">
+                                            {/* Search input */}
+                                            <div className="mb-3 col-lg-4">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="Search by Category name..."
+                                                    value={searchQuery}
+                                                    onChange={handleSearch}
+                                                />
+                                            </div>
                                             <div className="table-responsive rounded card-table">
-                                                <DragDropContext onDragEnd={handleDragEnd}>
-                                                    <Droppable droppableId="categories">
-                                                        {(provided) => (
-                                                            <table className="table border-no" id="example1" {...provided.droppableProps} ref={provided.innerRef}>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th></th>
-                                                                        <th>Name</th>
-                                                                        <th className='text-center'>Status</th>
-                                                                        <th className='text-center'>Last Modified</th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {items.map((category, index) => (
-                                                                        <Draggable key={`${category.id}-${category.name}`} draggableId={`${category.id}-${category.name}`} index={index}>
-                                                                            {(provided, snapshot) => (
-                                                                                <tr
-                                                                                    ref={provided.innerRef}
-                                                                                    {...provided.draggableProps}
-                                                                                    {...provided.dragHandleProps}
-                                                                                    className={` ${snapshot.isDragging ? 'dragging' : ''}`}
-                                                                                >
-                                                                                    <td><i className='bi bi-arrows-move me-3 fw-bold'></i></td>
-                                                                                    <td>
-                                                                                        <img
-                                                                                            src={category.icon}
-                                                                                            className='w-30 me-20 rounded-5'
-                                                                                            alt={`${category.icon} icon`}
-                                                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                                        />
-                                                                                        {category.name}
-                                                                                    </td>
-                                                                                    <td className='text-center'>
-                                                                                        <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
-                                                                                    </td>
-                                                                                    <td className='text-center'>{window.formatDateTime(category.updated_at)}</td>
-                                                                                    <td align='right'>
-                                                                                        <PermissionAllow permission={'Category Edit'}>
-                                                                                            <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
-                                                                                                <i className="bi bi-pencil"></i>
-                                                                                            </Link>
-                                                                                        </PermissionAllow>
-                                                                                        <PermissionAllow permission={'Category Delete'}>
-                                                                                            <button onClick={() => deleteCategory(category)} className="btn btn-transparent border-0">
-                                                                                                <i className="bi bi-trash"></i>
-                                                                                            </button>
-                                                                                        </PermissionAllow>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            )}
-                                                                        </Draggable>
-                                                                    ))}
-                                                                    {provided.placeholder}
-                                                                </tbody>
-                                                            </table>
-                                                        )}
-                                                    </Droppable>
-                                                </DragDropContext>
+                                                <table className="table border-no" id="example1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th className='text-center'>Status</th>
+                                                            <th className='text-center'>Last Modified</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {items.map((category, index) => (
+                                                            <tr key={index}>
+                                                                <td>
+                                                                    {category.name}
+                                                                </td>
+                                                                <td className='text-center'>
+                                                                    <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
+                                                                </td>
+                                                                <td className='text-center'>{window.formatDateTime(category.updated_at)}</td>
+                                                                <td align='right'>
+                                                                    <PermissionAllow permission={'Category Edit'}>
+                                                                        <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
+                                                                            <i className="bi bi-pencil"></i>
+                                                                        </Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission={'Category Delete'}>
+                                                                        <button onClick={() => deleteCategory(category)} className="btn btn-transparent border-0">
+                                                                            <i className="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </PermissionAllow>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
                                             </div>
 
                                             {displayList.length > itemsPerPage && (
@@ -169,7 +168,6 @@ export default function Index({ categoryList, auth }) {
                                                         page={currentPage}
                                                         onChange={handlePageChange}
                                                     />
-                                                    <i>Show All</i>
                                                 </div>
                                             )}
                                         </PermissionAllow>

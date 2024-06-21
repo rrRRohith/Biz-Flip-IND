@@ -1,30 +1,18 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
-import Swal from 'sweetalert2';
+
 import { Dropdown } from '@mui/joy';
 
 export default function Index({ MenuList, auth, success = null, error = null }) {
      
-    const deleteMenu = (menu) => {
-       
-        Swal.fire({
-            title: 'Are you sure you want to delete this menu?',
-            text: ' Once deleted, it cannot be recovered.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!',
-          }).then((result) => {
-       
-            if (result.isConfirmed) {
-
-                router.delete(route("admin.navigation-menu.destroy", menu.id))
-            }
-        })
-
+    const deleteProvince = (menu) => {
+        if (!window.confirm("Are you sure you want to delete the menu?")) {
+          return;
+        }
         
+      
+        router.delete(route("admin.navigation-menu.destroy", menu.id))
       }
 
     return (
@@ -84,7 +72,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                             <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
-                                                            <button onClick={(e) => deleteMenu(menu)} className="btn btn-transparent border-0">
+                                                            <button onClick={(e) => deleteProvince(menu)} className="btn btn-transparent border-0">
                                                                 <i className="bi bi-trash"></i>
                                                             </button>
                                                         </td>

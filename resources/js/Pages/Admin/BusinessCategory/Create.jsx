@@ -98,9 +98,9 @@ export default function Create({ auth }) {
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-body">
                                                     <div className="row">
-                                                        <div className="col-lg-8">
+                                                        <div className="col-lg-12">
                                                             <div className="row">
-                                                                <div className="col-lg-7">
+                                                                <div className="col-lg-9">
                                                                     <div className="row">
                                                                         <div className="col-md-12 mb-3">
                                                                             <div className="form-group">
@@ -123,6 +123,33 @@ export default function Create({ auth }) {
                                                                                 <textarea className="form-control" rows={4} onChange={(e) => handleChange("description", e.target.value)}></textarea>
                                                                             </div>
                                                                         </div>
+                                                                        <div className="col-lg-12">
+                                                                            <div className="h-100 border p-3">
+                                                                                <h6 className="fw-bold mb-3">Select Availabe to Ad Categories</h6>
+                                                                                <div className="p-3">
+                                                                                    <div className="row">
+                                                                                        {adCategoryList.data.map((category, index) => (
+                                                                                            <div className="col-lg-3">
+                                                                                                <div className="form-group">
+                                                                                                    <Form.Check
+                                                                                                        key={index}
+                                                                                                        type="switch"
+                                                                                                        id={`custom-switch-${index}`}
+                                                                                                        name="adCategory"
+                                                                                                        value={category.id}
+                                                                                                        label={category.name}
+                                                                                                        role="button"
+                                                                                                        onChange={(e) => handleCheckboxChange(category.id)}
+                                                                                                    />
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        ))}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
                                                                         <div className="col-md-6">
                                                                             <div className="form-group ps-3 ">
                                                                                 <label className="fw-700  form-label">Status</label>
@@ -141,10 +168,10 @@ export default function Create({ auth }) {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-lg-5">
+                                                                <div className="col-lg-3">
                                                                     <div className="row">
                                                                         <div className="col-md-12">
-                                                                            <div className="border bg-bubbles-white rounded-4 p-3  text-center">
+                                                                            <div className="border bg-gray-100 rounded-4 p-3  text-center">
                                                                                 <h4 className="box-title text-center">Icon/Image</h4>
                                                                                 <div className="product-img">
                                                                                     {imagePreview ? (
@@ -182,30 +209,7 @@ export default function Create({ auth }) {
                                                             </div>
 
                                                         </div>
-                                                        <div className="col-lg-4">
-                                                            <div className="h-100 border p-3">
-                                                                <h6 className="fw-bold mb-3">Select Availabe to Ad Categories</h6>
-                                                                <div className="p-3">
 
-                                                                    {adCategoryList.data.map((category, index) => (
-
-                                                                        <div className="form-group">
-                                                                            <Form.Check
-                                                                                key={index}
-                                                                                type="switch"
-                                                                                id={`custom-switch-${index}`}
-                                                                                name="adCategory"
-                                                                                value={category.id}
-                                                                                label={category.name}
-                                                                                role="button"
-                                                                                onChange={(e) => handleCheckboxChange(category.id)}
-                                                                            />
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
 
                                                     </div>
                                                 </div>

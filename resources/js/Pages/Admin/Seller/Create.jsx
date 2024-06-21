@@ -338,7 +338,7 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                         </div>
                                                         <div className="col-lg-3 d-flex align-items-center">
                                                             <div className="col-md-12">
-                                                                <div className="border   p-3 bg-bubbles-white rounded10  text-center">
+                                                                <div className="border   p-3 bg-gray-100 rounded10  text-center">
                                                                     <h4 className="box-title text-center">Image</h4>
                                                                     <div className="product-img">
                                                                         {imagePreview ? (
@@ -605,7 +605,7 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                         <div className="col-lg-3 ">
                                                             <div className="row">
                                                                 <div className="col-md-12 mb-3">
-                                                                    <div className="border  p-3 bg-bubbles-white rounded10  text-center">
+                                                                    <div className="border  p-3 bg-gray-100 rounded10  text-center">
                                                                         <h4 className="box-title text-center">Logo</h4>
                                                                         <div className="product-img">
                                                                             {imagePreviewLogo ? (

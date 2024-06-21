@@ -367,7 +367,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                         </div>
                                                         <div className="col-lg-3 d-flex align-items-center">
                                                             <div className="col-md-12">
-                                                                <div className="border  bg-bubbles-white rounded10 p-3  text-center">
+                                                                <div className="border  bg-gray-100 rounded10 p-3  text-center">
                                                                     <h4 className="box-title text-center">Image</h4>
                                                                     <div className="product-img">
                                                                         {imagePreview ? (
@@ -634,7 +634,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                         <div className="col-lg-3 ">
                                                             <div className="row">
                                                                 <div className="col-md-12 mb-3">
-                                                                    <div className="border bg-bubbles-white rounded10 p-3  text-center">
+                                                                    <div className="border bg-gray-100 rounded10 p-3  text-center">
                                                                         <h4 className="box-title text-center">Logo</h4>
                                                                         <div className="product-img">
                                                                             {imagePreviewLogo ? (
