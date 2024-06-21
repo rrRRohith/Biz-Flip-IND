@@ -28,6 +28,10 @@ class UserType{
             break;
 
             case "seller" :
+            case "seller staff" :
+                if(auth()->user()->status != '1'){
+                    return redirect('/pending-review');
+                }
                 abort_if(!in_array($currentType, ['seller', 'seller staff']), 403, "You are logged in as {$currentType} and trying to access {$type} area.");
             break;
         }

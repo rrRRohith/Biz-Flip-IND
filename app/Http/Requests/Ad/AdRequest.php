@@ -15,6 +15,16 @@ class AdRequest extends FormRequest
         return true;
     }
 
+    public function __construct(ValidationFactory $validationFactory){
+        $validationFactory->extend(
+            'images',
+            function($attribute, $value, $parameters){
+                return count($this->images) + count($this->uploaded_images) >= 3;
+            },
+            'Please upload atleast 3 images for your ad.'
+        );
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,6 +35,8 @@ class AdRequest extends FormRequest
         return [
             'title' => 'required|max:256|string',
             'price' => 'required|numeric|min:0',
+            'images' => 'array|images',
+            'uploaded_images' => 'array',
             'description' => 'required|string',
             'ad_purpose' => 'required|string',
             'property_type' => 'required|string',

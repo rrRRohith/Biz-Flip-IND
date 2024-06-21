@@ -79,8 +79,9 @@ Route::resource('/ads', App\Http\Controllers\AdController::class, [
 //     'only' => ['show', 'update']
 // ])->parameters(['agents' => 'seller:slug']);
 
+Route::get('/agents', 'App\Http\Controllers\AgentController@index')->name('agents.index');
 Route::get('/agents/{agent:slug}', 'App\Http\Controllers\AgentController@show')->name('agents.show');
-Route::post('/agents/{agent:slug}', 'App\Http\Controllers\AgentController@update')->name('agents.update');
+Route::put('/agents/{agent:slug}', 'App\Http\Controllers\AgentController@update')->name('agents.update');
 
 Route::get('/agent', function () {
     return view('agent');
@@ -103,6 +104,11 @@ Route::get('/auth', function () {
 
 Route::get('/auth/seller', function () {
     return view('auth.seller');
+});
+
+
+Route::get('pending-review', function () {
+    return view('auth.pendingReview');
 });
 
 Route::post('/auth/seller', 'App\Http\Controllers\Auth\RegisteredUserController@seller');

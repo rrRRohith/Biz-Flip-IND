@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -58,7 +59,8 @@ class RegisteredUserController extends Controller
             'status' => 0,
             'role_id' => 2,
             'unique_code' => $this->unique_code(),
-            'type' => 'seller'
+            'type' => 'seller',
+            'password' => Hash::make($request->password),
         ]);
         $user->assignRole(2);
 
@@ -92,6 +94,7 @@ class RegisteredUserController extends Controller
         $seller = \App\Models\Seller::create($request->only(['company_name', 'description', 'address', 'city', 'postalcode', 'province']));
         $seller->update([
             'user_id' => $user->id,
+            'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
         ]);
         return response()->json([
             'success' => true,

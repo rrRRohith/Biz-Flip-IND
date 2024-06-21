@@ -8,11 +8,19 @@
       background-image: linear-gradient( #00000078, #00000024 ), url(https://bookly.indigitalapi.com/uploads/static/res/auth.webp);
       background-position: center center;
       background-repeat: no-repeat;
-      background-size: cover;
-      min-height: 50vh;">
-        @include('home.search')
+      background-size: cover;">
+        <div class="my-5 w-100">
+            @include('home.search')
+        </div>
     </div>
-    <div class="container agent-container">
+    <div class="container mt-5">
+        <ul class="breadcrumb">
+            <li class="pe-1">
+                <a href="/" class="text-decoration-none">Home</a>
+            </li>
+            <li class="pe-1">/ <a href="/agents" class="text-decoration-none">Agents</a></li>
+            <li class="pe-1">/ {{ $seller->seller->company_name }}</li>
+        </ul>
         <div class="card border-0 rounded-3 mb-5">
             <div class="card-body p-4">
                 <div class="text-overflow me-2">
@@ -29,9 +37,6 @@
                                 <i class="bi bi-geo-alt-fill"></i> {{ $seller->seller->address }},
                                 {{ $seller->seller->city }}
                             </div>
-                        </div>
-                        <div class="btn rounded-1 border-0 ms-auto btn-dark">
-                            Send a message <i class="bi bi-chat-left-dots-fill"></i>
                         </div>
                     </div>
                 </div>
@@ -63,7 +68,7 @@
                 @endif
                 <div class='mb-4'>
                     <div class="fw-semibold mb-3 fs-5">
-                        Locate Able Realty
+                        Locate {{ $seller->seller->company_name }}
                     </div>
                     <iframe class="w-100 rounded-1 mh-400px"
                         src= "https://maps.google.com/maps?q={{ $seller->seller->lat }},{{ $seller->seller->lng }}&hl=es;z=14&output=embed"></iframe>

@@ -39,3 +39,7 @@ function _deleteImage($path = '',$existing = '') {
 function menu(string $slug){
      return \App\Models\NavigationMenu::whereSlug($slug)->whereNull('parent_id')->first();
 }
+
+function footer_menu_category(){
+    return \App\Models\BusinessCategory::orderBy('position')->limit(4)->get();
+}

@@ -19,11 +19,11 @@ class Controller extends BaseController{
     }
 
     public function home(){
-        $houses = \App\Models\Category::whereSlug('houses')->first();
-        $franchises = \App\Models\Category::whereSlug('franchise')->first();
+        $businesses = \App\Models\BusinessCategory::whereSlug('business')->first();
+        $franchises = \App\Models\BusinessCategory::whereSlug('franchise')->first();
         return view('welcome', [
             'categories' => \App\Models\BusinessCategory::limit(6)->get(),
-            'houses' => $houses ? $houses->ads()->limit(4)->get() : collect([]),
+            'businesses' => $businesses ? $businesses->ads()->limit(4)->get() : collect([]),
             'franchises' => $franchises ? $franchises->ads()->limit(4)->get() : collect([]),
             'sellers' => \App\Models\User::sellers()->whereStatus('1')->limit(6)->get(),
             'ad_categories' => \App\Models\Category::all(),

@@ -1,5 +1,5 @@
 @if($ads->count())
-<div class="container mt-5">
+<div class="container mb-5">
     <div class="d-flex align-items-center mb-4">
         <div class="fs-2 fw-semibold text-overflow col me-2">Featured {{ $title }} For Sale</div>
         <div class="ms-auto">

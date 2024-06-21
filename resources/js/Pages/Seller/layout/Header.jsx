@@ -1,5 +1,8 @@
 import { Link } from "@inertiajs/react";
+import { usePage } from '@inertiajs/react'
 const Header = () => {
+    const { sellertopmenu } = usePage().props;
+    console.log(sellertopmenu);
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom px-0 fixed-top d-none d-lg-block">
             <div className="container">
@@ -11,18 +14,13 @@ const Header = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <a className="nav-link p-2" href="/">Home</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link p-2" href="/about-us">About us</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link p-2" href="/contact">Contact</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link p-2" href="/careers">Careers</a>
-                        </li>
+                        {sellertopmenu.map((menu) =>(
+                            <>
+                            <li className="nav-item">
+                                <a className="nav-link p-2" href={menu.link}>{menu.title}</a>
+                            </li>
+                            </>
+                        ))}
                         <li className="nav-item">
                             <Link className="nav-link p-2" href={route('seller.index')}>Dashboard</Link>
                         </li>

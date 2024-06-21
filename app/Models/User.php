@@ -134,6 +134,15 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeSearchAgent($q, Request $request){
+        return $q->when($request->aq, function($q) use($request){
+            return $q->where('firstname', 'LIKE', "%{$request->aq}%")->orWhere('lastname', 'LIKE', "%{$request->aq}%")
+            ->orWhere(function($q) use($request){
+                return $q->whereHas('seller', fn($q) => $q->where('company_name', 'LIKE', "%{$request->aq}%"));
+            });
+        })->when($request->agentCategory, fn($q) => $q->whereHas('ads', fn($q) => $q->whereHas('categories', fn($q) => $q->whereIn('categories.id', (array) $request->agentCategory))));
+    }
+
     public function ad_views(){
         return $this->hasManyDeepFromRelations($this->ads(), (new Ad())->views());
     }

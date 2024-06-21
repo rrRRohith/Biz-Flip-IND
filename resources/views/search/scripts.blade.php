@@ -1,8 +1,9 @@
 @php
-    $filteredCategories = $filteredPurposes = $filteredCities = $filteredProvinces = [];
+    $filteredCategories = $filteredAgentCategories = $filteredPurposes = $filteredCities = $filteredProvinces = [];
     $filteredCategoriesNames = $filteredPurposesNames = [];
     foreach ($categories as $category) {
         $filteredCategories["category__{$category->id}"] = in_array($category->id, (array) $request->category);
+        $filteredAgentCategories["category__{$category->id}"] = in_array($category->id, (array) $request->agentCategory);
         $filteredCategoriesNames["category__{$category->id}"] = $category->name;
     }
     foreach ($purposeOptions as $key => $purpose) {
@@ -37,13 +38,16 @@
         } = Vue
         let priceStart = '{{ $request->priceStart ?? 9999 }}';
         let priceEnd = '{{ $request->priceEnd ??  9999999 }}';
-        let bcategory = '{{ $request->bcategory ?? $business_categories->first()->id ?? ''}}';
+        let bcategory = '{{ $request->bcategory ?? "all"}}';
         const store = reactive({
             q: '{{ $request->q }}',
+            aq: '{{ $request->aq }}',
             listingType: '{{ $request->listingType }}',
             priceStart: priceStart,
             priceEnd: priceEnd,
             categories: @json($filteredCategories),
+            agentcategories: @json($filteredAgentCategories),
+            agentAdCategories : @json($categories),
             bcategory: bcategory,
             purposes: @json($filteredPurposes),
             cities: @json($filteredCities),
@@ -53,7 +57,10 @@
             business_categories : @json($business_categories),
         });
         const selectedCategories = computed(() => {
-            return selectLabels(store.categories, store.categoryLabels, "Select category");
+            return selectLabels(store.categories, store.categoryLabels, "Select industries");
+        });
+        const selectedAgentCategories = computed(() => {
+            return selectLabels(store.agentcategories, store.categoryLabels, "Select industries");
         });
         const selectedPurposes = computed(() => {
             return selectLabels(store.purposes, store.purposeLabels, "Select purpose");
@@ -70,11 +77,17 @@
         });
 
         const adCategories = computed(() => {
+            if(store.bcategory == 'all'){
+                return store.agentAdCategories;
+            }
             const category = store.business_categories.find(item => item.id == store.bcategory);
             return category.ad_category_collection;
         });
 
         const selectedBcategory = computed(() => {
+            if(store.bcategory == 'all'){
+                return "All";
+            }
             const category = store.business_categories.find(item => item.id == store.bcategory);
             return category.name;
         });
@@ -94,6 +107,7 @@
                 return {
                     sharedState: store,
                     selectedCategories,
+                    selectedAgentCategories,
                     selectedPurposes,
                     selectedPriceRange,
                     showProvince,

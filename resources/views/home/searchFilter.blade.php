@@ -18,6 +18,16 @@
                 <div id="bcategory-filter" class="accordion-collapse collapse show">
                     <div class="accordion-body p-3">
                         <div>
+                            <div class="form-group mb-1">
+                                <div class="form-check form-check-lg">
+                                    <input value="all" v-model="sharedState.bcategory"
+                                        name="bcategory" type="radio"
+                                        class="form-check-input shadow-none border border-gray border-1"
+                                        id="bcategory__all_{{ $idx }}" type="checkbox" />
+                                    <label role="button" class="form-check-label mt-1"
+                                        for="bcategory__all_{{ $idx }}">All categories</label>
+                                </div>
+                            </div>
                             @foreach ($business_categories as $category)
                                 <div class="form-group mb-1">
                                     <div class="form-check form-check-lg">
@@ -40,7 +50,7 @@
                 <h2 class="accordion-header">
                     <button class="accordion-button shadow-none p-3 fw-semibold" type="button"
                         data-bs-toggle="collapse" data-bs-target="#category-filter">
-                        Categories
+                        Industries
                     </button>
                 </h2>
                 <div id="category-filter" class="accordion-collapse collapse show">

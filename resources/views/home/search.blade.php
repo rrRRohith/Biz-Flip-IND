@@ -1,6 +1,6 @@
 <div class="m-auto mw-1100 w-100">
     <div class="mb-4 @if($business_categories->count()) mb-5 @endif text-center">
-        <div class="fs-1 fw-semibold text-white">Lets find a perfect place</div>
+        <h1 class="fs-1 fw-semibold text-white">Find Businesses for Sale</h1>
         <div class="text-light">
             Search over 1000s of places nearby you.
         </div>
@@ -13,6 +13,15 @@
                     <div class="position-absolute business-categories z-1 w-100">
                         <div class="bg-white w-fit-content m-auto shadow-sm p-2 pb-0 px-3 rounded-2">
                             <div class="row">
+                                <div class="col-auto">
+                                    <input value="all" v-model="sharedState.bcategory" id="bcategory__all" name="bcategory" hidden type="radio">
+                                    <label :class="['fw-semibold pb-2', {'selected-business-category text-primary': sharedState.bcategory == 'all'}]" role="button" for="bcategory__all">
+                                        <div class="d-flex align-items-center">
+                                            <img class="me-2" width="20" src="https://img.icons8.com/ios/50/process--v1.png" alt="">
+                                            <div>All</div>
+                                        </div>
+                                    </label>
+                                </div>
                                 @foreach($business_categories as $category)
                                 <div class="col-auto">
                                     <input value="{{ $category->id }}" v-model="sharedState.bcategory" id="bcategory__{{ $category->id }}" name="bcategory" hidden type="radio">
@@ -39,14 +48,14 @@
                             </div>
                         </div>
                         <div class="me-3 col">
-                            <div class="fw-light text-muted">Categories</div>
+                            <div class="fw-light text-muted">Industries</div>
                             <div>
                                 <div class="dropdown">
                                     <div class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedCategories }}
                                     </div>
-                                    <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
+                                    <ul class="dropdown-menu c-scroll border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         {{-- @foreach ($ad_categories as $category)
                                             <div
@@ -101,7 +110,7 @@
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedPurposes }}
                                     </div>
-                                    <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
+                                    <ul class="dropdown-menu c-scroll border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         @foreach ($search_purposeOptions as $key => $purpose)
                                             <div
@@ -136,7 +145,7 @@
                                         class="priceRange" data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedPriceRange }}
                                     </div>
-                                    <ul class="dropdown-menu border-0 w-100 rounded-1 mt-3 shadow-sm p-2 priceDropDown"
+                                    <ul class="dropdown-menu c-scroll border-0 w-100 rounded-1 mt-3 shadow-sm p-2 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         <div class="range-slider">
                                             <input v-model="sharedState.priceStart" type="range" min="9999"
@@ -203,7 +212,7 @@
                                     @{{ selectedBcategory }}
                                 </div>
                                 
-                                <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
+                                <ul class="dropdown-menu c-scroll border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                     aria-labelledby="dropdownMenuButton1">
                                     @foreach ($business_categories as $category)
                                         <div
@@ -236,7 +245,7 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     @{{ selectedCategories }}
                                 </div>
-                                <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
+                                <ul class="dropdown-menu c-scroll border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                     aria-labelledby="dropdownMenuButton1">
                                     {{-- @foreach ($ad_categories as $category)
                                         <div
@@ -290,7 +299,7 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     @{{ selectedPurposes }}
                                 </div>
-                                <ul class="dropdown-menu border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
+                                <ul class="dropdown-menu c-scroll border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                     aria-labelledby="dropdownMenuButton1">
                                     @foreach ($search_purposeOptions as $key => $purpose)
                                         <div
@@ -325,7 +334,7 @@
                                         class="priceRange" data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedPriceRange }}
                                     </div>
-                                    <ul class="dropdown-menu border-0 w-100 rounded-1 mt-3 shadow-sm p-2 priceDropDown"
+                                    <ul class="dropdown-menu c-scroll border-0 w-100 rounded-1 mt-3 shadow-sm p-2 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
                                         <div class="range-slider">
                                             <input v-model="sharedState.priceStart" type="range" min="9999"

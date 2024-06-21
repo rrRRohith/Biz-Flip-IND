@@ -23,7 +23,7 @@ const SideBar = ({ user }) => {
                     <button className="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>
-                    <a className="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0 d-none d-lg-block text-center" href="#">
+                    <a className="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0 d-none d-lg-block text-center" href="/">
                         <img src="/assets/admin/images/logo-dark-text.png" alt="..." />
                     </a>
                     <div className="navbar-user d-lg-none">

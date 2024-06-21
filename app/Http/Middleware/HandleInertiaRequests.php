@@ -45,6 +45,7 @@ class HandleInertiaRequests extends Middleware
                 'role' => $request->user() ? $request->user()->getRole->only('name') ?? null : null,
                 'permissions' => $request->user() ? $request->user()->getRole->permissions->pluck('name') ?? null  : null,
             ],
+            'sellertopmenu' => ($menu = menu('main-menu')) ? $menu->childs : [],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $this->errors(),

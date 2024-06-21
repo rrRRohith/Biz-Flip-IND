@@ -7,14 +7,15 @@
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;
-      min-height: 75vh;">
+      min-height: 50vh;">
     @include('home.search')
     </div>
     <div class="pb-5">
-        @include('home.places', ['title' => 'Houses', 'ads' => $houses])
-        @include('home.places', ['title' => 'Franchises', 'ads' => $franchises])
         @include('home.categories', ['categories' => $categories])
+        @include('home.places', ['title' => 'Business', 'ads' => $businesses])
+        @include('home.places', ['title' => 'Franchises', 'ads' => $franchises])
         @include('home.cities')
+        @include('home.advertise')
         @include('home.brokers', ['sellers' => $sellers])
         @include('home.testimonials')
     </div>

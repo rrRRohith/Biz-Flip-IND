@@ -26,18 +26,38 @@ class AgentController extends BaseController{
      * Show the specified resource.
      * 
      * @param Request $request
-     * @param Ad $ad
+     */
+    public function index(Request $request){
+        $agents = User::sellers()->whereStatus('1')->searchAgent($request)->paginate(24)->appends(request()->query());
+        return $request->ajax() ? response()->json([
+            'success' => true,
+            'total_agents' => $agents->total(),
+            'html' => view('agents.results')->withAgents($agents)->render(),
+        ]) : view('agents.index', [
+            'ad_categories' => Category::all(),
+            'business_categories'  => \App\Models\BusinessCategory::all(),
+            'search_purposeOptions' => ['Rental','Lease','Sale'],
+            'agents' => $agents,
+        ]);
+    }
+
+    /**
+     * Show the specified resource.
+     * 
+     * @param Request $request
+     * @param \App\Models\Seller $agent
      */
     public function show(Request $request, \App\Models\Seller $agent){
         $user = User::sellers()->findOrfail($agent->user_id);
-        return view('agent', [
+        return view('agents.agent', [
             'ad_categories' => Category::all(),
             'business_categories'  => \App\Models\BusinessCategory::all(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],
         ])->withSeller($user);
     }
 
-    public function update(LeadRequest $request, User $agent){
+    public function update(LeadRequest $request, \App\Models\Seller $agent){
+        $agent = User::sellers()->findOrfail($agent->user_id);
         $agent->leads()->firstOrCreate(
             $request->only('email', 'phone'), $request->only('firstname', 'lastname', 'message')
         );

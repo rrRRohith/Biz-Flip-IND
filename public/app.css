@@ -34,6 +34,10 @@ main.wrapper {
   max-width: 100px;
 }
 
+.mw-150 {
+  max-width: 150px !important;
+}
+
 .mw-200 {
   max-width: 200px;
 }
@@ -226,7 +230,7 @@ body .border-none:focus {
 }
 
 .place-image-small {
-  height: 160px;
+  height: 206px;
 }
 
 .w-35 {
@@ -815,4 +819,23 @@ div#swal2-html-container {
 
 label.selected-business-category img {
   filter: invert(31%) sepia(52%) saturate(3293%) hue-rotate(207deg) brightness(96%) contrast(107%);
+}
+
+ul.dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+ul.dropdown-menu {
+  max-width: 300px;
+  min-width: 240px;
+}
+
+.mt--200{
+  margin-top: -200px;
+}
+
+.advertise-divider {
+  width: 4px;
+  height: 60px !important;
 }

@@ -122,6 +122,6 @@ class Ad extends Model
 
             return $q->where('price', '<=', $priceMax)->where('price', '>=', $priceMin);
         })->when($request->category, fn($q) => $q->whereHas('categories', fn($q) => $q->whereIn('categories.id', (array) $request->category)))
-        ->when($request->bcategory, fn($q) => $q->whereHas('business_categories', fn($q) => $q->whereIn('business_categories.id', (array) $request->bcategory)));
+        ->when($request->bcategory && $request->bcategory != 'all', fn($q) => $q->whereHas('business_categories', fn($q) => $q->whereIn('business_categories.id', (array) $request->bcategory)));
     }
 }

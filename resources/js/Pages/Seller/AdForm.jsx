@@ -383,6 +383,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                             </div>
                                             <input onChange={(e) => handleImages(e)} type="file" name="" id="images" multiple hidden accept='image/*' />
                                         </div>
+                                        <InputError className='mt-0' message={errors.images} />
                                     </div>
                                     <div className="mb-5">
                                         <h4>Additional info</h4>

@@ -7,9 +7,10 @@
       background-image: linear-gradient( #00000078, #00000024 ), url(https://bookly.indigitalapi.com/uploads/static/res/auth.webp);
       background-position: center center;
       background-repeat: no-repeat;
-      background-size: cover;
-      min-height: 50vh;">
-        @include('home.search')
+      background-size: cover;">
+        <div class="my-5 w-100">
+            @include('home.search')
+        </div>
     </div>
     <div class="listingContainer" style="display: none">
         <div :class="['mt-5 container-fluid', { 'container': sharedState.listingType != 'map' }]">
@@ -34,18 +35,16 @@
     'request' => request(),
 ])
 @push('scripts')
-<script
-    src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key={{ env('MAP_API_KEY') }}">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key={{ env('MAP_API_KEY') }}"></script>
 <script
     src="https://cdn.jsdelivr.net/gh/googlemaps/v3-utility-library@07f15d84/markerclustererplus/src/markerclusterer.js">
 </script>
 <script>
-    $(document).ready( async function() { 
+    $(document).ready(async function() {
         $('.listingContainer').show();
         await sleep(500);
         $('.spinner').hide();
-     });
+    });
     const resultContainer = $('.resultContainer');
     let mapURL = ("/ads/map?{!! request()->getQueryString() !!}");
     $(document).on('change', '.sideFilters input:not(.not-filter)', async (e) => {
@@ -81,7 +80,7 @@
         $('[name="listingType"]').val($(this).data('value'));
         pushFilter();
     });
-    
+
     $('.search-ads').on('click', async () => {
         $('div#filterModal').modal('hide');
         await pushFilter();
@@ -115,7 +114,9 @@
         let $style = '';
         await ads.forEach(function(ad) {
             setMarker(ad);
-            $('body').append(`<style>#mapCanvas [src="${ad.image}?styled=true"]{border-radius:50%;object-fit:cover;border:2px solid #fff !important;}</style>`);
+            $('body').append(
+                `<style>#mapCanvas [src="${ad.image}?styled=true"]{border-radius:50%;object-fit:cover;border:2px solid #fff !important;}</style>`
+                );
 
         });
 
@@ -187,7 +188,7 @@
             marker.setMap(null);
         });
         markers = [];
-        
+
     }
 
     const initArchiveMap = async function() {

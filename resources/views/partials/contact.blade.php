@@ -10,7 +10,11 @@
                         {{ $user->name }}
                     </div>
                     <div class="text-muted">
-                        {{ $user->city }}
+                        @if($user->seller)
+                        {{ $user->seller->address }}, {{ $user->seller->city }}
+                        @elseif($user->address)
+                        {{ $user->address }}, {{ $user->city }}
+                        @endif
                     </div>
                 </div>
             </div>

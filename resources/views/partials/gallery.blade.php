@@ -1,18 +1,20 @@
-<div id="gallery" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner position-relative">
-        @foreach ($ad->images as $image)
-        <main data-bs-toggle="modal" data-bs-target="#galleryModal"
-            class="page-banner mh-75vh carousel-item @if($loop->first) active @endif background-fit" role="button"
-            style="background-image: linear-gradient( #00000038, #00000014 ), url('{{ $image->image_url }}')">
-            <div data-bs-target="#popGallery" data-bs-slide-to="0" class="w-100 mh-75vh"></div>
-        </main>
-        @endforeach
-        <button class="carousel-control-prev z-2" type="button" data-bs-target="#gallery" data-bs-slide="prev">
-            <i class="bi bi-chevron-compact-left fs-1"></i>
-        </button>
-        <button class="carousel-control-next z-2" type="button" data-bs-target="#gallery" data-bs-slide="next">
-            <i class="bi bi-chevron-compact-right fs-1"></i>
-        </button>
+<div class="container">
+    <div id="gallery" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner position-relative">
+            @foreach ($ad->images as $image)
+            <main data-bs-toggle="modal" data-bs-target="#galleryModal"
+                class="page-banner mh-50vh rounded-1 carousel-item @if($loop->first) active @endif background-fit" role="button"
+                style="background-image: linear-gradient( #00000038, #00000014 ), url('{{ $image->image_url }}')">
+                <div data-bs-target="#popGallery" data-bs-slide-to="0" class="w-100 mh-50vh"></div>
+            </main>
+            @endforeach
+            <button class="carousel-control-prev z-2" type="button" data-bs-target="#gallery" data-bs-slide="prev">
+                <i class="bi bi-chevron-compact-left fs-1"></i>
+            </button>
+            <button class="carousel-control-next z-2" type="button" data-bs-target="#gallery" data-bs-slide="next">
+                <i class="bi bi-chevron-compact-right fs-1"></i>
+            </button>
+        </div>
     </div>
 </div>
 <div class="modal" id="galleryModal" data-bs-backdrop="static" data-bs-keyboard="false"

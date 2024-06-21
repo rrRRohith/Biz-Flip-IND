@@ -2,8 +2,19 @@
 @section('contents')
 @section('title', $ad->title)
 <div>
+    <div class="mt-5">
+        <div class="container pt-5">
+            <ul class="breadcrumb">
+                <li class="pe-1">
+                    <a href="/" class="text-decoration-none">Home</a>
+                </li>
+                <li class="pe-1">/ <a href="/ads" class="text-decoration-none">Ads</a></li>
+                <li class="pe-1">/ {{ $ad->title }}</li>
+            </ul>
+        </div>
+    </div>
     @include('partials.gallery')
-    <div class="container agent-container">
+    <div class="container mt-4">
         <div class="card border-0 rounded-3 mb-2">
             <div class="card-body p-4">
                 <div class="text-overflow me-2">

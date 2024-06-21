@@ -69,7 +69,7 @@ class SettingsController extends Controller{
             
             $availability->update($request->days);
             $this->seller->socials()->delete();
-            foreach($request->socials as $social => $status){
+            foreach($request->socials ?? [] as $social => $status){
                 $this->seller->socials()->create([
                     'site' => $social,
                     'link ' => ($request->{$social} ?? null),
