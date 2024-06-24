@@ -47,7 +47,7 @@
                     <a target="_blank" href="{{ $seller->seller->website }}"
                         class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none me-3'>Visit website
                         <i class="bi bi-box-arrow-up-right"></i></a>
-                    <a href="#" class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
+                    <a role="button" data-url="{{ request()->url() }}" data-title="{{ "{$seller->name} | {$seller->seller->company_name}" }}" class='share btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
                         Share <i class="bi bi-share"></i></a>
                 </div>
             </div>

@@ -6,6 +6,8 @@ import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 import InputError from '@/Components/InputError';
 import { ToastContainer, toast } from 'react-toastify';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const type_options = [
     {
@@ -200,6 +202,11 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-6">
+                                            <label>Category</label>
+                                            <Select defaultValue={{ value: data.business_category, label: ad ? ad.business_category.label : 'Select...' }} onChange={(e) => { handleChange('business_category', e.value), changeAdCategories(e.value) }} options={business_categories_options}></Select>
+                                            <InputError message={errors.business_category} />
+                                        </div>
+                                        <div className="col-md-6">
                                             <div>
                                                 <label>Title</label>
                                                 <input value={data.title} onChange={(e) => { handleChange('title', e.target.value) }} type="text" placeholder="Title" className="form-control" />
@@ -244,9 +251,25 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                                 </div>
                                             </>
                                         )}
-                                        <div className="col-md-12">
+                                        {/* <div className="col-md-12">
                                             <label>Description</label>
                                             <textarea value={data.description} onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your property in detail" className="form-control"></textarea>
+                                            <InputError message={errors.description} />
+                                        </div> */}
+                                        <div className="col-md-12">
+                                            <label>Description</label>
+                                            <CKEditor
+                                                editor={ClassicEditor}
+                                                data={data.description}
+                                                onChange={(event, editor) => {
+                                                    handleChange('description', editor.getData())
+                                                }} config={{
+                                                    toolbar: [
+                                                        'heading', '|',
+                                                        'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'
+                                                    ]
+                                                }}
+                                            />
                                             <InputError message={errors.description} />
                                         </div>
                                         <div className="col-md-6">
@@ -260,12 +283,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                             <InputError message={errors.ad_purpose} />
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Category</label>
-                                            <Select defaultValue={{ value: data.business_category, label: ad ? ad.business_category.label : 'Select...' }} onChange={(e) => { handleChange('business_category', e.value), changeAdCategories(e.value) }} options={business_categories_options}></Select>
-                                            <InputError message={errors.business_category} />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label>Category</label>
+                                            <label>Industry</label>
                                             <Select defaultValue={{ value: data.category, label: ad ? ad.category.label : 'Select...' }} onChange={(e) => { handleChange('category', e.value) }} options={ad_categories}></Select>
                                             <InputError message={errors.category} />
                                         </div>

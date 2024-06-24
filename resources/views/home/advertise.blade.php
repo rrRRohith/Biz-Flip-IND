@@ -12,7 +12,7 @@
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;">
-            <div class="py-5">
+            <div class="py-5 px-3">
                 <div class="text-center">
                     <a class="fw-semibold btn btn-dark btn-sm" href="/auth">Advertise with us</a>
                     <h1 class="mt-4 mb-4">10X Your Business Growth!</h1>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="mw-800 m-auto mt-4">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-3">
                             <div class="d-flex align-items-center">
                                 <div class="fs-3 fw-bold">
                                     3.7M+
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-3">
                             <div class="d-flex align-items-center">
                                 <div class="fs-3 fw-bold">
                                     1500+
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-3">
                             <div class="d-flex align-items-center">
                                 <div class="fs-3 fw-bold">
                                     500k+

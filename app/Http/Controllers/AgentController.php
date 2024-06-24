@@ -34,8 +34,6 @@ class AgentController extends BaseController{
             'total_agents' => $agents->total(),
             'html' => view('agents.results')->withAgents($agents)->render(),
         ]) : view('agents.index', [
-            'ad_categories' => Category::all(),
-            'business_categories'  => \App\Models\BusinessCategory::all(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],
             'agents' => $agents,
         ]);

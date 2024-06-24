@@ -25,7 +25,7 @@
     'categories' => $ad_categories,
     'business_categories' => $business_categories,
     'purposeOptions' => $search_purposeOptions,
-    'provinces' => [],
+    'provinces' => $provinces,
     'cities' => [],
     'request' => request(),
 ])

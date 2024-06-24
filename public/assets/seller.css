@@ -120,3 +120,7 @@ nav#navbarVertical {
 .avatar{
     object-fit: cover;
 }
+
+.ck.ck-content.ck-editor__editable {
+    min-height: 300px; /* Set your desired height */
+  }

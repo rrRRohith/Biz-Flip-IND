@@ -8,59 +8,46 @@
                 <li class="pe-1">
                     <a href="/" class="text-decoration-none">Home</a>
                 </li>
-                <li class="pe-1">/ <a href="/ads" class="text-decoration-none">Ads</a></li>
+                <li class="pe-1">/ <a href="{{ route('ads.index') }}" class="text-decoration-none">Ads</a></li>
+                @if ($ad->business_category)
+                <li class="pe-1">/ <a href="{{ route('ads.index', ['bcategory' => $ad->business_category->id]) }}" class="text-decoration-none">{{ $ad->business_category->name }}</a></li>
+                @endif
+                @if ($ad->category)
+                <li class="pe-1">/ <a href="{{ route('ads.index', ['category' => $ad->category->id]) }}" class="text-decoration-none">{{ $ad->category->name }}</a></li>
+                @endif
                 <li class="pe-1">/ {{ $ad->title }}</li>
             </ul>
         </div>
     </div>
     @include('partials.gallery')
     <div class="container mt-4">
-        <div class="card border-0 rounded-3 mb-2">
-            <div class="card-body p-4">
-                <div class="text-overflow me-2">
-                    <div class="d-flex align-items-center">
-                        <div class="me-2">
-                            <img class="image-fit w-h-60 rounded-circle" src="{{ $ad->seller->is_agent ? $ad->seller->seller->logo_url : $ad->seller->picture_url }}"
-                                alt="" />
-                        </div>
-                        <div class="text-overflow">
-                            <div class="fw-semibold text-overflow fs-4">
-                                {{ $ad->title }}
-                            </div>
-                            <div class="text-muted">
-                                By {{ $ad->seller->is_agent ? $ad->seller->seller->company_name : $ad->seller->name }}
-                            </div>
-                        </div>
-                        <div class="btn rounded-1 border-0 ms-auto btn-dark">
-                            Send a message <i class="bi bi-chat-left-dots-fill"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class='mt-3'>
-                    @if($ad->seller->is_agent)
-                    <a target="_blank." href="{{ $ad->seller->seller->website }}"
-                        class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none me-3'>Visit website
-                        <i class="bi bi-box-arrow-up-right"></i></a>
-                    @endif
-                    <a href="#" class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
-                        Share <i class="bi bi-share"></i></a>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-8 mb-4 m-lg-0">
-                <div class=''>
-                    <p class='fw-semibold fs-5'>Description</p>
-                    <div>
-                        {{ $ad->description }}
+                <div>
+                    <h1 class="fs-2 fw-semibold">{{ $ad->title }}</h1>
+                    <div class="fs-5 fw-semibold">${{ number_format($ad->price) }}</div>
+                    <div class="text-overflow mt-4">
+                        <span class="text-uppercase">Location</span>. <i class="bi bi-geo-alt-fill"></i><span class="fw-semibold">{{ $ad->city }}</span>
                     </div>
+                    @if ($ad->business_category)
+                        <div class="text-overflow">
+                            <span class="text-uppercase">Category</span>. <a href="{{ route('ads.index', ['bcategory' => $ad->business_category->id]) }}"
+                                class="fw-semibold text-decoration-none">{{ $ad->business_category->name }}</a>
+                        </div>
+                    @endif
+                    @if ($ad->category)
+                        <div class="text-overflow">
+                            <span class="text-uppercase">Industry</span>. <a href="{{ route('ads.index', ['category' => $ad->category->id]) }}"
+                                class="fw-semibold text-decoration-none">{{ $ad->category->name }}</a>
+                        </div>
+                    @endif
                 </div>
                 <div class="mt-4">
-                    <p class='fw-semibold fs-5'>Property Details</p>
+                    <p class='fw-semibold fs-5'>Ad details</p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex mb-2">
-                                <span class="label w-35 text-muted me-2">Property ID:</span>
+                                <span class="label w-35 text-muted me-2">Ad ID:</span>
                                 <div class="content fw-semibold">{{ $ad->unique_code }}</div>
                             </div>
                         </div>
@@ -113,51 +100,92 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="mt-4">
+                    {!! $ad->description !!}
+                </div>
                 <div class='mt-4 mb-4'>
                     <div class="fw-semibold mb-3 fs-5">
-                        Locate Lakeview Haven, Lake Tahoe
+                        Locate {{ $ad->title }}
                     </div>
                     <iframe class="w-100 rounded-1 mh-400px"
                         src= "https://maps.google.com/maps?q={{ $ad->lat }},{{ $ad->lng }}&hl=es;z=14&output=embed"></iframe>
                 </div>
-                @if($ad->seller_ads()->count() && $ad->seller->is_agent)
-                <div class='mb-4'>
-                    <div class="fw-semibold mb-3 fs-5">
-                        Other listings by James McGill
-                    </div>
-                    <div class="row">
-                        @foreach ($ad->seller_ads()->limit(2)->get() as $sAd)
-                            @include('partials.propertyList', ['ad' => $sAd])
-                        @endforeach
-                    </div>
-                    <div class="mt-4 d-flex w-100">
-                        <a href="{{ route('agents.show', ['agent' => $ad->seller->seller]) }}" class="btn rounded-1 border-0 m-auto btn-dark">View all listings <i
-                                class="bi bi-arrow-repeat"></i></a>
-                    </div>
+                <div class="mb-4">
+                    <a role="button" data-url="{{ request()->url() }}" data-title="{{ $ad->title }}"
+                        class='share btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
+                        Share <i class="bi bi-share"></i></a>
                 </div>
+                @if ($ad->seller_ads()->count() && $ad->seller->is_agent)
+                    <div class='mb-4'>
+                        <div class="fw-semibold mb-3 fs-5">
+                            Other listings by {{ $ad->seller->name }}
+                        </div>
+                        <div class="row">
+                            @foreach ($ad->seller_ads()->limit(2)->get() as $sAd)
+                                @include('partials.propertyList', ['ad' => $sAd])
+                            @endforeach
+                        </div>
+                        <div class="mt-4 d-flex w-100">
+                            <a href="{{ route('agents.show', ['agent' => $ad->seller->seller]) }}"
+                                class="btn rounded-1 border-0 m-auto btn-dark">View all listings <i
+                                    class="bi bi-arrow-repeat"></i></a>
+                        </div>
+                    </div>
                 @endif
             </div>
             <div class="col-lg-4">
                 @include('partials.contact', ['user' => $ad->seller])
             </div>
             <div class="my-4"></div>
-            @if($ad->similar_ads->count())
-            <div class='mb-5'>
-                <div class="fw-semibold mb-3 fs-5">
-                    Similar listing
+            @if ($ad->similar_ads->count())
+                <div class='mb-5'>
+                    <div class="fw-semibold mb-3 fs-5">
+                        Similar listing
+                    </div>
+                    <div class="row">
+                        @foreach ($ad->similar_ads as $sAd)
+                            @include('partials.propertyGrid', ['ad' => $sAd])
+                        @endforeach
+                    </div>
+                    <div class="mt-4 d-flex w-100">
+                        <a href="{{ route('ads.index') }}" class="btn rounded-1 border-0 m-auto btn-dark">View all
+                            listings <i class="bi bi-arrow-repeat"></i></a>
+                    </div>
                 </div>
-                <div class="row">
-                    @foreach ($ad->similar_ads as $sAd)
-                        @include('partials.propertyGrid', ['ad' => $sAd])
-                    @endforeach
-                </div>
-                <div class="mt-4 d-flex w-100">
-                    <a href="{{ route('ads.index') }}" class="btn rounded-1 border-0 m-auto btn-dark">View all listings <i
-                        class="bi bi-arrow-repeat"></i></a>
-                </div>
-            </div>
             @endif
         </div>
     </div>
 </div>
 @endsection
+@push('scripts')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+    $(function() {
+        // Owl Carousel
+        var owl = $(".owl-carousel");
+        owl.owlCarousel({
+            margin: 10,
+            responsive: {
+                0: {
+                    items: 1,
+                    // nav: true,
+                    loop: true,
+                },
+                600: {
+                    items: 3,
+                    // nav: false,
+                    loop: true,
+                },
+                1000: {
+                    items: 3,
+                    // nav: true,
+                    loop: true,
+                }
+            }
+        });
+    });
+</script>
+@endpush

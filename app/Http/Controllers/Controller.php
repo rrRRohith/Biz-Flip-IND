@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Http\Requests\{ContactRequest, SubscribeRequest};
+use View;
 
 class Controller extends BaseController{
     use AuthorizesRequests, ValidatesRequests;
@@ -15,7 +16,11 @@ class Controller extends BaseController{
      * @return void
      */
     public function __construct(){
-        //
+        View::share('countries', \App\Models\Country::with('provinces')->get());
+        View::share('provinces', \App\Models\Province::all());
+        View::share('ad_categories',  \App\Models\Category::all());
+        View::share('categories',  \App\Models\Category::all());
+        View::share('business_categories', \App\Models\BusinessCategory::all());
     }
 
     public function home(){

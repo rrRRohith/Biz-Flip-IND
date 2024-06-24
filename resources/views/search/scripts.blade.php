@@ -39,6 +39,7 @@
         let priceStart = '{{ $request->priceStart ?? 9999 }}';
         let priceEnd = '{{ $request->priceEnd ??  9999999 }}';
         let bcategory = '{{ $request->bcategory ?? "all"}}';
+        let country = '{{ $request->country ?? "all" }}';
         const store = reactive({
             q: '{{ $request->q }}',
             aq: '{{ $request->aq }}',
@@ -55,6 +56,9 @@
             categoryLabels: @json($filteredCategoriesNames),
             purposeLabels: @json($filteredPurposesNames),
             business_categories : @json($business_categories),
+            countries: @json($countries),
+            adProvinces: @json($provinces),
+            country : country,
         });
         const selectedCategories = computed(() => {
             return selectLabels(store.categories, store.categoryLabels, "Select industries");
@@ -76,6 +80,15 @@
             return formatter.format(priceMin) + ' - ' + formatter.format(priceMax);
         });
 
+        const selectedCountry = computed(() => {
+            if(store.country == 'all'){
+                return 'All countries';
+            }
+
+            const country = store.countries.find(item => item.id == store.country);
+            return country.name;
+        });
+
         const adCategories = computed(() => {
             if(store.bcategory == 'all'){
                 return store.agentAdCategories;
@@ -83,6 +96,16 @@
             const category = store.business_categories.find(item => item.id == store.bcategory);
             return category.ad_category_collection;
         });
+
+        const adProvinces = computed(() => {
+            console.log(store.adProvinces);
+            if(store.country == 'all'){
+                return store.adProvinces;
+            }
+            const country = store.countries.find(item => item.id == store.country);
+            return country.provinces;
+        });
+
 
         const selectedBcategory = computed(() => {
             if(store.bcategory == 'all'){
@@ -115,7 +138,9 @@
                     showCity,
                     searchCity,
                     adCategories,
-                    selectedBcategory
+                    selectedBcategory,
+                    selectedCountry,
+                    adProvinces
                 };
             },
         }).mount('#app')

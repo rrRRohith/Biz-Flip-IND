@@ -15,7 +15,7 @@
                     <p class="mt-0 mb-0 fs-5 fw-semibold text-overflow text-capitalize"> {{ $ad->title }} </p>
                     <p class="mb-0 text-gray text-overflow"> <i class="bi bi-geo-alt-fill"></i>{{ $ad->address }}, {{ $ad->city }} </p>
                     <div class="text-muted text-overflow">
-                        {{ $ad->description }}
+                        {{ strip_tags($ad->description) }}
                     </div>
                     @if($ad->business_category)
                     <div class="text-overflow">

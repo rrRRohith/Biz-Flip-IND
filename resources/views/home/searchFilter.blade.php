@@ -56,18 +56,6 @@
                 <div id="category-filter" class="accordion-collapse collapse show">
                     <div class="accordion-body p-3">
                         <div>
-                            {{-- @foreach ($categories as $category)
-                                <div class="form-group mb-1">
-                                    <div class="form-check form-check-lg">
-                                        <input v-model="sharedState.categories.category__{{ $category->id }}"
-                                            value="{{ $category->id }}" role="button" name="category[]"
-                                            class="form-check-input shadow-none border border-gray border-1"
-                                            id="category__{{ $category->id }}_{{ $idx }}" type="checkbox" />
-                                        <label role="button" class="form-check-label mt-1"
-                                            for="category__{{ $category->id }}_{{ $idx }}">{{ $category->name }}</label>
-                                    </div>
-                                </div>
-                            @endforeach --}}
                             <div v-for="category in adCategories">
                                 <div class="form-group mb-1">
                                     <div class="form-check form-check-lg">
@@ -145,10 +133,10 @@
                 </h2>
                 <div id="province-filter" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <div class="form-group mb-2">
+                        {{-- <div class="form-group mb-2">
                             <input v-model="searchProvince" type="text" placeholder="Search provinces"
                                 class="not-filter form-control border-1 border rounded-1 border-gray shadow-none">
-                        </div>
+                        </div> --}}
                         <div class="filterContainer c-scroll ps-2">
                             @forelse ($provinces as $province)
                                 <div v-show="showProvince('{{ $province->name }}')" class="form-group mb-1">
@@ -180,10 +168,10 @@
                 </h2>
                 <div id="city-filter" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <div class="form-group mb-2">
+                        {{-- <div class="form-group mb-2">
                             <input v-model="searchCity" type="text" placeholder="Search city"
                                 class="not-filter form-control border-1 border rounded-1 border-gray shadow-none">
-                        </div>
+                        </div> --}}
                         <div class="filterContainer c-scroll ps-2">
                             @forelse ($cities as $key => $city)
                                 <div v-show='showCity("{{ $city }}")' class="form-group mb-1">

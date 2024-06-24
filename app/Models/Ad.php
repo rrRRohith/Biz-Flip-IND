@@ -124,4 +124,8 @@ class Ad extends Model
         })->when($request->category, fn($q) => $q->whereHas('categories', fn($q) => $q->whereIn('categories.id', (array) $request->category)))
         ->when($request->bcategory && $request->bcategory != 'all', fn($q) => $q->whereHas('business_categories', fn($q) => $q->whereIn('business_categories.id', (array) $request->bcategory)));
     }
+
+    public function franchise(){
+        return $this->hasOne(Franchise::class, 'ad_id', 'id');
+    }
 }

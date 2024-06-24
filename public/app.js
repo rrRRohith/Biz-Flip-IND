@@ -373,3 +373,13 @@ addEventListener('DOMContentLoaded', (event) => {
 //         $('.dropdown-menu').removeClass('show');
 //     }
 // });
+
+
+$(document).on('click', '.share', function () {
+    navigator
+        .share({
+            title: $(this).data('title'),
+            text: $(this).data('text'),
+            url: $(this).data('url'),
+        });
+});

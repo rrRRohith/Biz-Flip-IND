@@ -1,19 +1,15 @@
 <div class="container">
     <div id="gallery" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner position-relative">
-            @foreach ($ad->images as $image)
+        <div class="position-relative">
+            <div class="owl-carousel owl-theme">
+            @foreach ($ad->images as $key => $image)
             <main data-bs-toggle="modal" data-bs-target="#galleryModal"
-                class="page-banner mh-50vh rounded-1 carousel-item @if($loop->first) active @endif background-fit" role="button"
+                class="page-banner item mh-50vh rounded-1 background-fit" role="button"
                 style="background-image: linear-gradient( #00000038, #00000014 ), url('{{ $image->image_url }}')">
-                <div data-bs-target="#popGallery" data-bs-slide-to="0" class="w-100 mh-50vh"></div>
+                <div data-bs-target="#popGallery" data-bs-slide-to="{{ $key }}" class="w-100 mh-50vh"></div>
             </main>
             @endforeach
-            <button class="carousel-control-prev z-2" type="button" data-bs-target="#gallery" data-bs-slide="prev">
-                <i class="bi bi-chevron-compact-left fs-1"></i>
-            </button>
-            <button class="carousel-control-next z-2" type="button" data-bs-target="#gallery" data-bs-slide="next">
-                <i class="bi bi-chevron-compact-right fs-1"></i>
-            </button>
+            </div>
         </div>
     </div>
 </div>
@@ -30,7 +26,7 @@
                 </div>
                 <div id="popGallery" class="carousel slide">
                     <div class="carousel-inner">
-                        @foreach ($ad->images as $image)
+                        @foreach ($ad->images as $key => $image)
                             <div class="carousel-item @if($loop->first) active @endif mh-100vh">
                                 <div class="d-flex  mh-100vh align-content-center">
                                     <img src="{{ $image->image_url }}"
