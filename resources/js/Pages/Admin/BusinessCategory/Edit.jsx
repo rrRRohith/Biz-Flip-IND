@@ -120,7 +120,7 @@ export default function Edit({ category_item, queryParams = null, auth, adCatego
                                                                         <div className="col-md-12 mb-3">
                                                                             <div className="form-group">
                                                                                 <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
-                                                                                <TextInput
+                                                                                <TextInput disabled={true} readonly={true}
                                                                                     id="category-name"
                                                                                     type="text"
                                                                                     name="category_name"

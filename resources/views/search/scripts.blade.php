@@ -59,6 +59,7 @@
             countries: @json($countries),
             adProvinces: @json($provinces),
             country : country,
+            adCities: @json($cities),
         });
         const selectedCategories = computed(() => {
             return selectLabels(store.categories, store.categoryLabels, "Select industries");
@@ -98,7 +99,6 @@
         });
 
         const adProvinces = computed(() => {
-            console.log(store.adProvinces);
             if(store.country == 'all'){
                 return store.adProvinces;
             }
@@ -106,6 +106,17 @@
             return country.provinces;
         });
 
+        const adCities = computed(() => {
+            if(Object.values(store.provinces).includes(true) && store.country == 'all'){
+                return store.adProvinces.filter(province => store.provinces['province__' + province.id]).flatMap(province => province.cities);
+            }else if(Object.values(store.provinces).includes(true)){
+                const country = store.countries.find(item => item.id == store.country);
+                return country.provinces.filter(province => store.provinces['province__' + province.id]).flatMap(province => province.cities);
+            }else{
+                return store.adCities;
+            }
+            
+        });
 
         const selectedBcategory = computed(() => {
             if(store.bcategory == 'all'){
@@ -140,7 +151,8 @@
                     adCategories,
                     selectedBcategory,
                     selectedCountry,
-                    adProvinces
+                    adProvinces,
+                    adCities,
                 };
             },
         }).mount('#app')

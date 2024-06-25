@@ -30,7 +30,8 @@ class AdController extends BaseController{
         $ads = Ad::search($request)->searchListings($request)->whereStatus(1)->paginate(24)->appends(request()->query());
         $data = [
             'ads' => $ads,
-            'cities' => Ad::selectRaw("DISTINCT city as city")->pluck('city'),
+            //'cities' => Ad::selectRaw("DISTINCT city as city")->pluck('city'),
+            'cities' => \App\Models\City::get(),
             'request' => $request,
             'purposeOptions' => ['Rental','Lease','Sale'],
             'search_purposeOptions' => ['Rental','Lease','Sale'],

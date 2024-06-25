@@ -151,9 +151,9 @@ export default function Index({ categoryList, auth }) {
 
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <PermissionAllow permission={'Category Create'}>
+                                    {/* <PermissionAllow permission={'Category Create'}>
                                         <Link className='btn btn-info text-end' href={route('admin.business-category.create')}><i className='bi bi-plus'></i> Create</Link>
-                                    </PermissionAllow>
+                                    </PermissionAllow> */}
                                 </div>
                             </div>
                         </div>
@@ -208,11 +208,11 @@ export default function Index({ categoryList, auth }) {
                                                                                                 <i className="bi bi-pencil"></i>
                                                                                             </Link>
                                                                                         </PermissionAllow>
-                                                                                        <PermissionAllow permission={'Category Delete'}>
+                                                                                        {/* <PermissionAllow permission={'Category Delete'}>
                                                                                             <button onClick={() => deleteCategory(category)} className="btn btn-transparent border-0">
                                                                                                 <i className="bi bi-trash"></i>
                                                                                             </button>
-                                                                                        </PermissionAllow>
+                                                                                        </PermissionAllow> */}
                                                                                     </td>
                                                                                 </tr>
                                                                             )}
