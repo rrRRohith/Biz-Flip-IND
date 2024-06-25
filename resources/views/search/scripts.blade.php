@@ -112,7 +112,12 @@
             }else if(Object.values(store.provinces).includes(true)){
                 const country = store.countries.find(item => item.id == store.country);
                 return country.provinces.filter(province => store.provinces['province__' + province.id]).flatMap(province => province.cities);
-            }else{
+            }
+            else if(store.country != 'all'){
+                const country = store.countries.find(item => item.id == store.country);
+                return country.provinces.flatMap(province => province.cities);
+            }
+            else{
                 return store.adCities;
             }
             
