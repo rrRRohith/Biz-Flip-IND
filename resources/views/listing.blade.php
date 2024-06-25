@@ -26,6 +26,9 @@
                 <div>
                     <h1 class="fs-2 fw-semibold">{{ $ad->title }}</h1>
                     <div class="fs-5 fw-semibold">${{ number_format($ad->price) }}</div>
+                    @if($ad->is_franchise)
+                    @include('franchise')
+                    @endif
                     <div class="text-overflow mt-4">
                         <span class="text-uppercase">Location</span>. <i class="bi bi-geo-alt-fill"></i><span class="fw-semibold">{{ $ad->city }}</span>
                     </div>

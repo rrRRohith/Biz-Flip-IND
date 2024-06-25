@@ -32,7 +32,8 @@ class AdRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $businessCategory = \App\Models\BusinessCategory::find($this->business_category);
+        $rules = [
             'title' => 'required|max:256|string',
             'price' => 'required|numeric|min:0',
             'images' => 'array|images',
@@ -62,5 +63,15 @@ class AdRequest extends FormRequest
             'seo_tags' => 'sometimes|nullable|max:256|string',
             'seo_description' => 'sometimes|nullable|max:256|string',
         ];
+
+        if($businessCategory->slug == 'franchise'){
+            $rules = array_merge($rules, [
+                'territories' => 'required|string',
+                'franchising_since' => 'required|string',
+                'in_business_since' => 'required|string',
+            ]);
+        }
+
+        return $rules;
     }
 }

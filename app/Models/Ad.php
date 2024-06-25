@@ -126,6 +126,10 @@ class Ad extends Model
     }
 
     public function franchise(){
-        return $this->hasOne(Franchise::class, 'ad_id', 'id');
+        return $this->hasOne(AdFranchise::class, 'ad_id', 'id');
+    }
+
+    public function getIsFranchiseAttribute(){
+        return ($this->business_category->slug ?? null) == 'franchise' && $this->franchise()->exists();
     }
 }

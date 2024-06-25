@@ -839,3 +839,12 @@ ul.dropdown-menu {
   width: 4px;
   height: 60px !important;
 }
+
+button.franchise-button {
+  background: var(--bs-gray-300) !important;
+}
+
+button.franchise-button::after {
+  opacity: 0;
+  display: none;
+}

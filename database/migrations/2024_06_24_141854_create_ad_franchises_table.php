@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('liquid_capital')->nullable();
             $table->string('total_investment')->nullable();
             $table->string('in_business_since')->nullable();
-            $table->string('franchising')->nullable();
+            $table->string('franchising_since')->nullable();
             $table->string('territories')->nullable();
             $table->softDeletes();
             $table->timestamps();

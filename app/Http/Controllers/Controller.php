@@ -16,11 +16,11 @@ class Controller extends BaseController{
      * @return void
      */
     public function __construct(){
-        View::share('countries', \App\Models\Country::with('provinces')->get());
-        View::share('provinces', \App\Models\Province::all());
-        View::share('ad_categories',  \App\Models\Category::all());
-        View::share('categories',  \App\Models\Category::all());
-        View::share('business_categories', \App\Models\BusinessCategory::all());
+        View::share('countries', \App\Models\Country::whereStatus(1)->with('provinces')->get());
+        View::share('provinces', \App\Models\Province::whereStatus(1)->get());
+        View::share('ad_categories',  \App\Models\Category::whereStatus(1)->get());
+        View::share('categories',  \App\Models\Category::whereStatus(1)->get());
+        View::share('business_categories', \App\Models\BusinessCategory::whereStatus(1)->get());
     }
 
     public function home(){
@@ -28,11 +28,11 @@ class Controller extends BaseController{
         $franchises = \App\Models\BusinessCategory::whereSlug('franchise')->first();
         return view('welcome', [
             'categories' => \App\Models\BusinessCategory::limit(6)->get(),
-            'businesses' => $businesses ? $businesses->ads()->limit(4)->get() : collect([]),
-            'franchises' => $franchises ? $franchises->ads()->limit(4)->get() : collect([]),
+            'businesses' => $businesses ? $businesses->ads()->whereStatus(1)->limit(4)->get() : collect([]),
+            'franchises' => $franchises ? $franchises->ads()->whereStatus(1)->limit(4)->get() : collect([]),
             'sellers' => \App\Models\User::sellers()->whereStatus('1')->limit(6)->get(),
-            'ad_categories' => \App\Models\Category::all(),
-            'business_categories'  => \App\Models\BusinessCategory::all(),
+            'ad_categories' => \App\Models\Category::whereStatus(1)->get(),
+            'business_categories'  => \App\Models\BusinessCategory::whereStatus(1)->get(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],
             'testimonials' => \App\Models\Testimonial::latest()->limit(10)->get()->chunk(2)->map(function ($group) {
                 return collect($group);

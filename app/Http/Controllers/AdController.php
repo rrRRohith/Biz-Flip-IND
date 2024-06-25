@@ -27,7 +27,7 @@ class AdController extends BaseController{
      * @param Request $request
      */
     public function index(Request $request){
-        $ads = Ad::search($request)->searchListings($request)->paginate(24)->appends(request()->query());
+        $ads = Ad::search($request)->searchListings($request)->whereStatus(1)->paginate(24)->appends(request()->query());
         $data = [
             'ads' => $ads,
             'cities' => Ad::selectRaw("DISTINCT city as city")->pluck('city'),
@@ -49,7 +49,7 @@ class AdController extends BaseController{
     public function map(Request $request){
         return response()->json([
             'success' => true,
-            'data' => \App\Http\Resources\MapAdResource::collection(Ad::search($request)->searchListings($request)->get())
+            'data' => \App\Http\Resources\MapAdResource::collection(Ad::search($request)->whereStatus(1)->searchListings($request)->get())
         ]);
     }
 

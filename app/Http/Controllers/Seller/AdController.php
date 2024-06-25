@@ -119,6 +119,23 @@ class AdController extends BaseController{
             $ad->features()->sync($request->features);
             $ad->facilities()->sync($request->facilities);
 
+            $ad->refresh();
+
+            if($ad->business_category->slug == 'franchise'){
+                $ad->franchise()->create($request->only([
+                    'canadian_units',
+                    'us_units',
+                    'international_units',
+                    'corporate_units',
+                    'franchise_fee',
+                    'liquid_capital',
+                    'total_investment',
+                    'in_business_since',
+                    'franchising_since',
+                    'territories',
+                ]));
+            }
+
             return to_route('seller.ads.index')->with('success', 'Ad created successfully.');
         }
         catch(\Exception $e){
@@ -205,6 +222,25 @@ class AdController extends BaseController{
                         'image' => $image,
                     ]);
                 }
+            }
+
+            $ad->refresh();
+
+            if($ad->business_category->slug == 'franchise'){
+                $ad->franchise()->updateOrcreate([
+                    'ad_id' => $ad->id,
+                ], $request->only([
+                    'canadian_units',
+                    'us_units',
+                    'international_units',
+                    'corporate_units',
+                    'franchise_fee',
+                    'liquid_capital',
+                    'total_investment',
+                    'in_business_since',
+                    'franchising_since',
+                    'territories',
+                ]));
             }
 
             return to_route('seller.ads.index')->with('success', 'Ad updated successfully.');

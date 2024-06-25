@@ -8,6 +8,7 @@ import InputError from '@/Components/InputError';
 import { ToastContainer, toast } from 'react-toastify';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import AdFranchise from './AdFranchise';
 
 const type_options = [
     {
@@ -44,6 +45,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
 
     const [additionalInfo, setAdditionalInfo] = useState(ad ? ad.additional_info : []);
     const [ad_categories, setAdcategories] = useState([]);
+    const [isFranchise, setFranchise] = useState(ad && ad.business_category.slug == 'franchise');
     const { data, setData, post, errors, reset } = useForm({
         _method: ad ? "PUT" : 'POST',
         title: ad ? ad.title : '',
@@ -72,6 +74,18 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
         seo_title: ad ? ad.seo_title : '',
         seo_keywords: ad ? ad.seo_keywords : '',
         seo_description: ad ? ad.seo_description : '',
+
+        //Franchising details here.
+        canadian_units: ad && ad.franchise ? ad.franchise.canadian_units : '',
+        us_units: ad && ad.franchise ? ad.franchise.us_units : '',
+        international_units: ad && ad.franchise ? ad.franchise.international_units : '',
+        corporate_units: ad && ad.franchise ? ad.franchise.corporate_units : '',
+        franchise_fee: ad && ad.franchise ? ad.franchise.franchise_fee : '',
+        liquid_capital: ad && ad.franchise ? ad.franchise.liquid_capital : '',
+        total_investment: ad && ad.franchise ? ad.franchise.total_investment : '',
+        in_business_since: ad && ad.franchise ? ad.franchise.in_business_since : '',
+        franchising_since: ad && ad.franchise ? ad.franchise.franchising_since : '',
+        territories: ad && ad.franchise ? ad.franchise.territories : ''
     });
 
     const handleChange = (key, value) => {
@@ -177,6 +191,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
     const changeAdCategories = (value) => {
         const category = business_categories_options.find(item => item.value === value);
         setAdcategories(category.ad_category_collection);
+        setFranchise(category.slug == 'franchise');
         // handleChange('business_category', value);
         // handleChange('category', null);
     }
@@ -298,6 +313,12 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                             <InputError message={errors.features} />
                                         </div>
                                     </div>
+                                    <hr />
+                                    {isFranchise && (
+                                        <>
+                                            <AdFranchise handleChange={handleChange} data={data} errors={errors}></AdFranchise>
+                                        </>
+                                    )}
                                     <div className="mb-5">
                                         <h4>Address</h4>
                                     </div>
@@ -345,6 +366,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                             </div>
                                         </div>
                                     </div>
+                                    <hr />
                                     <div className="mb-5">
                                         <h4>Gallery</h4>
                                     </div>
@@ -403,6 +425,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                         </div>
                                         <InputError className='mt-0' message={errors.images} />
                                     </div>
+                                    <hr />
                                     <div className="mb-5">
                                         <h4>Additional info</h4>
                                     </div>
@@ -412,11 +435,12 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                                 onValueChange={updateInfoValue}
                                                 onDelete={removeInfo} info={info}></AdditionalInfo>
                                         ))}
-                                        <InputError message={errors.addiotion_info} />
+                                        <InputError handleChange={handleChange} message={errors.addiotion_info} />
                                         <div className="col-12">
                                             <button type="button" className="btn btn-secondary" onClick={addInfo}><i className="bi bi-plus"></i> Add additional info</button>
                                         </div>
                                     </div>
+                                    <hr />
                                     <div className="mb-5">
                                         <h4>Seo Settings</h4>
                                     </div>

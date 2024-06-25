@@ -19,7 +19,7 @@ class AdFranchise extends Model
         'liquid_capital',
         'total_investment',
         'in_business_since',
-        'franchising',
+        'franchising_since',
         'territories',
     ];
     

@@ -44,11 +44,14 @@ class AdResource extends JsonResource
             'category' => [
                 'id' => $this->category->id ?? null,
                 'label' => $this->category->name ?? null,
+                'slug' => $this->category->slug ?? null,
             ],
             'business_category' => [
                 'id' => $this->business_category->id ?? null,
                 'label' => $this->business_category->name ?? null,
+                'slug' => $this->business_category->slug ?? null,
             ],
+            'franchise' => $this->franchise,
             'facilities' => $this->facilities()->selectRaw("facilities.id as value, name as label")->get()->toArray(),
             'features' => $this->features()->selectRaw("features.id as value, name as label")->get()->toArray(),
             'facilities_ids' => $this->facilities->pluck('id'),
