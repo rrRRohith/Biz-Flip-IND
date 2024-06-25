@@ -260,7 +260,7 @@ body .border-none:focus {
 }
 
 textarea {
-  min-height: 120px !important;
+  min-height: 150px !important;
 }
 
 .label-top label {
@@ -294,7 +294,7 @@ select.p-none {
 }
 
 .navbar-brand img {
-  max-width: 120px;
+  max-width: 150px;
 }
 
 .mh-400px {
