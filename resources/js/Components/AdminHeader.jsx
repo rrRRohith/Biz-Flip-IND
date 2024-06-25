@@ -35,8 +35,8 @@ export default function AdminHeader({ user, header, onSidebarToggle,  handle, is
                             <Link href={route('admin.index')} className="logo">
                                 {/* <!-- logo--> */}
                                 <div className="logo-lg">
-                                    <span className="light-logo"><img src="/assets/admin/images/logo-dark-text.png" className="wd-100" alt="logo" /></span>
-                                    <span className="dark-logo"><img src="/assets/admin/images/logo-light-text.png" className="wd-100" alt="logo" /></span>
+                                    <span className="light-logo"><img src="/logo.png" width={120} alt="logo" /></span>
+                                    <span className="dark-logo"><img src="/logo.png" width={120} alt="logo" /></span>
                                 </div>
                             </Link>
                         </div>

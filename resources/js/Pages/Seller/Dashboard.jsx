@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Wrapper from './layout/Wrapper';
 import LeadsTable from './LeadsTable';
 import PermissionAllow from '@/Components/PermissionAllow';
@@ -26,11 +26,6 @@ export default function Dashboard({ auth, data, leads }) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="mt-2 mb-0 text-sm">
-                                            <span className="badge badge-pill bg-soft-success text-success me-2">
-                                                <i className="bi bi-arrow-up me-1" />30% </span>
-                                            <span className="text-nowrap text-xs text-muted">Since last month</span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -47,11 +42,6 @@ export default function Dashboard({ auth, data, leads }) {
                                                     <i className="bi bi-people" />
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="mt-2 mb-0 text-sm">
-                                            <span className="badge badge-pill bg-soft-success text-success me-2">
-                                                <i className="bi bi-arrow-up me-1" />23% </span>
-                                            <span className="text-nowrap text-xs text-muted">Since last week</span>
                                         </div>
                                     </div>
                                 </div>
@@ -70,11 +60,6 @@ export default function Dashboard({ auth, data, leads }) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="mt-2 mb-0 text-sm">
-                                            <span className="badge badge-pill bg-soft-danger text-danger me-2">
-                                                <i className="bi bi-arrow-down me-1" />-10% </span>
-                                            <span className="text-nowrap text-xs text-muted">Since last month</span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -92,22 +77,24 @@ export default function Dashboard({ auth, data, leads }) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="mt-2 mb-0 text-sm">
-                                            <span className="badge badge-pill bg-soft-success text-success me-2">
-                                                <i className="bi bi-arrow-up me-1" />15% </span>
-                                            <span className="text-nowrap text-xs text-muted">Since yestearday</span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <PermissionAllow permission="Ads Leads Listing">
-                        <div className="text-xl font-bold mt-5">Latest leads</div>
-                        <div>
-                            <div className="card">
-                                <LeadsTable leads={leads.data}></LeadsTable>
+                        <PermissionAllow permission="Ad Create">
+                            <div className="ms-auto text-center mt-10">
+                                <Link className="btn btn-primary btn-lg text-overflow" href={route('seller.ads.create')}><i className="bi bi-plus text-md"></i>
+                                    <span className="d-none d-md-inline">Create new ad</span>
+                                </Link>
                             </div>
-                        </div>
+                        </PermissionAllow>
+                        <PermissionAllow permission="Ads Leads Listing">
+                            <div className="text-xl font-bold mt-5">Latest leads</div>
+                            <div>
+                                <div className="card">
+                                    <LeadsTable leads={leads.data}></LeadsTable>
+                                </div>
+                            </div>
                         </PermissionAllow>
                     </div>
                 </main>

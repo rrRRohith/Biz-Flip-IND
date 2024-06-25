@@ -27,6 +27,28 @@
         </div>
     </div>
 </div>
+<div class="w-100 bg-light py-5">
+    <div class="container">
+        <div class="row">
+            @foreach (footer_menu_category() as $category)
+                <div class="col-md-3 mb-3 mb-md-3">
+                    <div>
+                        <div class="fw-semibold mb-3">
+                            <a href="{{ route('ads.index', ['bcategory' => $category->id]) }}"
+                                class='text-decoration-none text-muted'>{{ $category->name }}</a>
+                        </div>
+                        <div>
+                            @foreach ($category->ad_categories as $item)
+                                <div class="mb-1"><a href="{{ route('ads.index', ['category' => $item->id]) }}"
+                                        class='text-decoration-none text-muted'>{{ $item->name }}</a></div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</div>
 <div class="w-100 bg-white py-5">
     <div class="container">
         <div class="row">
@@ -81,28 +103,6 @@
             <div class="col-md-3 mb-3 mb-md-3">
                 @include('layouts.menu.bottom.index', ['menu' => 'resources'])
             </div>
-        </div>
-    </div>
-</div>
-<div class="w-100 bg-light py-5">
-    <div class="container">
-        <div class="row">
-            @foreach (footer_menu_category() as $category)
-                <div class="col-md-3 mb-3 mb-md-3">
-                    <div>
-                        <div class="fw-semibold mb-3">
-                            <a href="{{ route('ads.index', ['bcategory' => $category->id]) }}"
-                                class='text-decoration-none text-muted'>{{ $category->name }}</a>
-                        </div>
-                        <div>
-                            @foreach ($category->ad_categories as $item)
-                                <div class="mb-1"><a href="{{ route('ads.index', ['category' => $item->id]) }}"
-                                        class='text-decoration-none text-muted'>{{ $item->name }}</a></div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            @endforeach
         </div>
     </div>
 </div>

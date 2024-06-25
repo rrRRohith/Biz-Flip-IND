@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg py-3 px-0 navbar-light bg-white fixed-top shadow-sm">
     <div class="container">
         <a class="navbar-brand py-1" href="/">
-            <img src="https://res.cloudinary.com/rr6/image/upload/v1716203422/unnamed_1_l0br9p.png"
+            <img src="/logo.png"
                 alt="{{ env('APP_NAME') }}">
         </a>
         <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"

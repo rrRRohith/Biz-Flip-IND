@@ -12,7 +12,7 @@
     </div>
     <div class="pb-5">
         @include('home.categories', ['categories' => $categories])
-        @include('home.places', ['title' => 'Business', 'ads' => $businesses])
+        @include('home.places', ['title' => 'Businesses', 'ads' => $businesses])
         @include('home.places', ['title' => 'Franchises', 'ads' => $franchises])
         @include('home.cities')
         @include('home.advertise')
