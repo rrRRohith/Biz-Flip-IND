@@ -90,9 +90,12 @@ class BusinessCategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(BusinessCategory $category)
+    public function show($id)
     {
         //
+        $category = BusinessCategory::with('ad_categories')->where('id',$id)->first();
+
+        return response()->json(new BusinessCategoryResource($category));
     }
 
     /**
