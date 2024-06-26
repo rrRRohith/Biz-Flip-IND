@@ -55,18 +55,23 @@
                 <div id="category-filter" class="accordion-collapse collapse show">
                     <div class="accordion-body p-3">
                         <div>
-                            <div v-for="category in adCategories">
-                                <div class="form-group mb-1">
-                                    <div class="form-check form-check-lg">
-                                        <input v-model="sharedState.categories['category__' + category.id]"
-                                            :value="category.id" role="button" name="category[]"
-                                            class="form-check-input shadow-none border border-gray border-1"
-                                            :id="'category__' + category.id + '_' + '{{ $idx }}'"
-                                            type="checkbox" />
-                                        <label role="button" class="form-check-label mt-1"
-                                            :for="'category__' + category.id + '_' + '{{ $idx }}'">@{{ category.name }}</label>
+                            <div v-if="adCategories.length > 0">
+                                <div v-for="category in adCategories">
+                                    <div class="form-group mb-1">
+                                        <div class="form-check form-check-lg">
+                                            <input v-model="sharedState.categories['category__' + category.id]"
+                                                :value="category.id" role="button" name="category[]"
+                                                class="form-check-input shadow-none border border-gray border-1"
+                                                :id="'category__' + category.id + '_' + '{{ $idx }}'"
+                                                type="checkbox" />
+                                            <label role="button" class="form-check-label mt-1"
+                                                :for="'category__' + category.id + '_' + '{{ $idx }}'">@{{ category.name }}</label>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div v-else>
+                                No categories found
                             </div>
                         </div>
                     </div>
@@ -155,7 +160,7 @@
                             @endforelse
                         </div> --}}
                         <input v-model="searchProvince" type="text" placeholder="Search city"
-                                class="not-filter form-control border-0 rounded-1 mb-1 bg-light border-gray shadow-none">
+                            class="not-filter form-control border-0 rounded-1 mb-1 bg-light border-gray shadow-none">
                         <div class="filterContainer c-scroll ps-2">
                             <div v-if="adProvinces.length > 0" class="search-res">
                                 <template v-for="province in adProvinces" :key="province.id">
@@ -211,13 +216,13 @@
                             @endforelse
                         </div> --}}
                         <input v-model="searchCity" type="text" placeholder="Search city"
-                                class="not-filter form-control border-0 rounded-1 mb-1 bg-light border-gray shadow-none">
+                            class="not-filter form-control border-0 rounded-1 mb-1 bg-light border-gray shadow-none">
                         <div class="filterContainer c-scroll ps-2">
                             <div v-if="adCities.length > 0" class="search-res">
                                 <template v-for="city in adCities" :key="city.id">
                                     <div v-if='showCity(city.name)' class="form-check form-check-lg">
-                                        <input v-model="sharedState.cities['city__' + city.id]"
-                                            name="city[]" role="button"
+                                        <input v-model="sharedState.cities['city__' + city.id]" name="city[]"
+                                            role="button"
                                             class="form-check-input shadow-none border border-gray border-1"
                                             :id="'city__' + city.id + '_' + '{{ $idx }}'"
                                             :value="city.name" type="checkbox" />
