@@ -64,7 +64,7 @@
                             <div class="fw-light text-muted">Industries</div>
                             <div>
                                 <div class="dropdown">
-                                    <div class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
+                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedCategories }}
                                     </div>
@@ -99,7 +99,7 @@
                             <div class="fw-light text-muted">Country</div>
                             <div>
                                 <div class="dropdown">
-                                    <div class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
+                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedCountry }}
                                     </div>
@@ -198,7 +198,7 @@
                             <div class="fw-light text-muted">Price</div>
                             <div>
                                 <div class="dropdown w-100">
-                                    <div class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
+                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
                                         class="priceRange" data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedPriceRange }}
                                     </div>

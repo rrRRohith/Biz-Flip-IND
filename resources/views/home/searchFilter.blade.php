@@ -154,10 +154,12 @@
                                 <div class="text-danger">No province found</div>
                             @endforelse
                         </div> --}}
+                        <input v-model="searchProvince" type="text" placeholder="Search city"
+                                class="not-filter form-control border-0 rounded-1 mb-1 bg-light border-gray shadow-none">
                         <div class="filterContainer c-scroll ps-2">
-                            <div v-if="adProvinces.length > 0">
-                                <div v-for="province in adProvinces">
-                                    <div class="form-check form-check-lg">
+                            <div v-if="adProvinces.length > 0" class="search-res">
+                                <template v-for="province in adProvinces" :key="province.id">
+                                    <div v-if="showProvince(province.name)" class="form-check form-check-lg">
                                         <input v-model="sharedState.provinces['province__' + province.id]"
                                             name="province[]" role="button"
                                             class="form-check-input shadow-none border border-gray border-1"
@@ -166,7 +168,7 @@
                                         <label role="button" class="form-check-label mt-1 text-overflow"
                                             :for="'province__' + province.id + '_' + '{{ $idx }}'">@{{ province.name }}</label>
                                     </div>
-                                </div>
+                                </template>
                             </div>
                             <div v-else>
                                 No provinces found
@@ -208,10 +210,12 @@
                                 <div class="text-danger">No cities found</div>
                             @endforelse
                         </div> --}}
+                        <input v-model="searchCity" type="text" placeholder="Search city"
+                                class="not-filter form-control border-0 rounded-1 mb-1 bg-light border-gray shadow-none">
                         <div class="filterContainer c-scroll ps-2">
-                            <div v-if="adCities.length > 0">
-                                <div v-for="city in adCities">
-                                    <div class="form-check form-check-lg">
+                            <div v-if="adCities.length > 0" class="search-res">
+                                <template v-for="city in adCities" :key="city.id">
+                                    <div v-if='showCity(city.name)' class="form-check form-check-lg">
                                         <input v-model="sharedState.cities['city__' + city.id]"
                                             name="city[]" role="button"
                                             class="form-check-input shadow-none border border-gray border-1"
@@ -220,7 +224,7 @@
                                         <label role="button" class="form-check-label mt-1 text-overflow"
                                             :for="'city__' + city.id + '_' + '{{ $idx }}'">@{{ city.name }}</label>
                                     </div>
-                                </div>
+                                </template>
                             </div>
                             <div v-else>
                                 No cities found

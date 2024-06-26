@@ -831,7 +831,7 @@ ul.dropdown-menu {
   min-width: 240px;
 }
 
-.mt--200{
+.mt--200 {
   margin-top: -200px;
 }
 
@@ -847,4 +847,14 @@ button.franchise-button {
 button.franchise-button::after {
   opacity: 0;
   display: none;
+}
+
+[v-cloak] {
+  opacity: 0;
+}
+
+.search-res:empty::after {
+  content: "No results found..";
+  color: var(--bs-gray-600);
+  font-size: .9em;
 }
