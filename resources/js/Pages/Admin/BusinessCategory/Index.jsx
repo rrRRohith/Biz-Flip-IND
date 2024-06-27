@@ -8,13 +8,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from 'sweetalert2';
 
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import ModalPopup from '@/Components/ModalPopup';
+import ViewCategory from '@/Pages/Admin/BusinessCategory/ViewCategory';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 export default function Index({ categoryList, auth }) {
-
-    const itemsPerPage = 20;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [show, setShow] = useState(false);
+  
     const [categories, setCategories] = useState(categoryList.data);
 
     const { data, setData, post, errors, reset } = useForm({
@@ -59,23 +61,20 @@ export default function Index({ categoryList, auth }) {
 
     }
 
-    useEffect(() => {
-        setCategories(categoryList.data);
-    }, [categoryList]);
+    // useEffect(() => {
+    //     setCategories(categoryList.data);
+    // }, [categoryList]);
 
 
 
-    const displayList = searchQuery.length > 0 ? categories : categoryList.data;
-    const startIdx = (currentPage - 1) * itemsPerPage;
-    const endIdx = currentPage * itemsPerPage;
-    const paginatedList = displayList.slice(startIdx, endIdx);
-
-    useEffect(() => {
-        setItems(paginatedList);
-    }, [paginatedList]);
+    // useEffect(() => {
+    //     setItems(paginatedList);
+    // }, [paginatedList]);
 
     
-    const [items, setItems] = useState(paginatedList);
+    const [items, setItems] = useState(categoryList.data);
+    const handleClose = () => setShow(false);
+
     const handleDragEnd = async (result) => {
         if (!result.destination) return;
 
@@ -112,6 +111,17 @@ export default function Index({ categoryList, auth }) {
     };
 
 
+    const handleShow = async (vendor) => {
+        try {
+            const response = await axios.get(route("admin.business-category.show", vendor.id));
+            const responseData = response.data;
+            
+            setData(responseData);
+            setShow(true);
+        } catch (error) {
+            console.error('Error fetching data', error);
+        }
+    };
 
 
     return (
@@ -173,36 +183,40 @@ export default function Index({ categoryList, auth }) {
                                                 <DragDropContext onDragEnd={handleDragEnd}>
                                                     <Droppable droppableId="categories">
                                                         {(provided) => (
-                                                            <table className="table border-no" id="example1" {...provided.droppableProps} ref={provided.innerRef}>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th></th>
-                                                                        <th>Name</th>
-                                                                        <th className='text-center'>Status</th>
-                                                                        <th className='text-center'>Last Modified</th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
+                                                            <Table className="table border-no" id="example1" {...provided.droppableProps} ref={provided.innerRef}>
+                                                                <Thead>
+                                                                    <Tr>
+                                                                        <Th></Th>
+                                                                        <Th>Name</Th>
+                                                                        <Th className='text-center'>Status</Th>
+                                                                        <Th className='text-center'>Last Modified</Th>
+                                                                        <Th></Th>
+                                                                    </Tr>
+                                                                </Thead>
+                                                                <Tbody>
                                                                     {items.map((category, index) => (
                                                                         <Draggable key={`${category.id}-${category.name}`} draggableId={`${category.id}-${category.name}`} index={index}>
                                                                             {(provided, snapshot) => (
-                                                                                <tr
+                                                                                <Tr
                                                                                     ref={provided.innerRef}
                                                                                     {...provided.draggableProps}
                                                                                     {...provided.dragHandleProps}
                                                                                     className={` ${snapshot.isDragging ? 'dragging' : ''}`}
                                                                                 >
-                                                                                    <td><i className='bi bi-arrows-move me-3 fw-bold'></i></td>
-                                                                                    <td>
+                                                                                    <Td><i className='bi bi-arrows-move me-3 fw-bold'></i></Td>
+                                                                                    <Td>
 
                                                                                         {category.name}
-                                                                                    </td>
-                                                                                    <td className='text-center'>
+                                                                                    </Td>
+                                                                                    <Td className='text-center'>
                                                                                         <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
-                                                                                    </td>
-                                                                                    <td className='text-center'>{window.formatDateTime(category.updated_at)}</td>
-                                                                                    <td align='right'>
+                                                                                    </Td>
+                                                                                    <Td className='text-center'>{window.formatDateTime(category.updated_at)}</Td>
+                                                                                    <Td align='right'>
+                                                                                        <PermissionAllow permission={'Category Show'}>
+                                                                                            <span onClick={() => handleShow(category)} className="btn btn-transparent">
+                                                                                                <i className="bi bi-eye"></i></span>
+                                                                                        </PermissionAllow>
                                                                                         <PermissionAllow permission={'Category Edit'}>
                                                                                             <Link className='btn btn-transparent' href={route('admin.business-category.edit', category.id)}>
                                                                                                 <i className="bi bi-pencil"></i>
@@ -213,28 +227,20 @@ export default function Index({ categoryList, auth }) {
                                                                                                 <i className="bi bi-trash"></i>
                                                                                             </button>
                                                                                         </PermissionAllow> */}
-                                                                                    </td>
-                                                                                </tr>
+                                                                                    </Td>
+                                                                                </Tr>
                                                                             )}
                                                                         </Draggable>
                                                                     ))}
                                                                     {provided.placeholder}
-                                                                </tbody>
-                                                            </table>
+                                                                </Tbody>
+                                                            </Table>
                                                         )}
                                                     </Droppable>
                                                 </DragDropContext>
                                             </div>
                                             {/* <!-- Pagination --> */}
-                                            {displayList.length > itemsPerPage && (
-                                                <div className="pagination-container float-end py-5">
-                                                    <Pagination
-                                                        count={Math.ceil(displayList.length / itemsPerPage)}
-                                                        page={currentPage}
-                                                        onChange={handlePageChange}
-                                                    />
-                                                </div>
-                                            )}
+                                            
                                         </PermissionAllow>
                                     </div>
                                 </div>
@@ -245,6 +251,17 @@ export default function Index({ categoryList, auth }) {
                 </div>
             </div>
             {/* <!-- /.content-wrapper --> */}
+          
+            <ModalPopup show={show} handleClose={handleClose} size="md" title="Business Category Details">
+                {data ? (
+                    <ViewCategory
+                        collection={data}
+                        handleClose={handleClose}
+                    />
+                ) : (
+                    'Failed fetching data...'
+                )}
+            </ModalPopup>
         </Authenticated>
 
     )

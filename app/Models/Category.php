@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 class Category extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,HasRelationships;
     protected $dates = ['deleted_at'];
 
     public function ads(){
@@ -21,4 +22,10 @@ class Category extends Model
     public function selectedItms(){
         return $this->hasMany(CategoriesItem::class, 'ad_category_id', 'id');
     }
+
+    public function business_categories(){
+    
+        return $this->hasManyDeepFromRelations($this->selectedItms(), (new CategoriesItem())->business_category());
+    }
+
 }

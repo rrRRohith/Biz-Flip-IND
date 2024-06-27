@@ -5,8 +5,13 @@ import PermissionAllow from '@/Components/PermissionAllow';
 import { Pagination } from '@mui/material';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
-
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import ModalPopup from '@/Components/ModalPopup';
+import ViewCategory from '@/Pages/Admin/Category/ViewCategory';
+import axios from 'axios';
 export default function Index({ categoryList, auth }) {
+    const [show, setShow] = useState(false);
     const itemsPerPage = 20;
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
@@ -51,18 +56,20 @@ export default function Index({ categoryList, auth }) {
     const endIdx = currentPage * itemsPerPage;
     const paginatedList = displayList.slice(startIdx, endIdx);
 
-    useEffect(() => {
-        setItems(paginatedList);
-    }, [paginatedList]);
+    // useEffect(() => {
+    //     setItems(paginatedList);
+    // }, [paginatedList]);
 
     const [items, setItems] = useState(paginatedList);
 
     const searchingQuery = (value = null) => {
         setSearchQuery(value);
+      
         const filtered = categoryList.data.filter(category =>
             category.name.toLowerCase().includes(value.toLowerCase())
         );
         setCategories(filtered);
+        setItems(filtered)
         setCurrentPage(1);
     };
 
@@ -70,6 +77,21 @@ export default function Index({ categoryList, auth }) {
         const value = e.target.value;
         searchingQuery(value);
     };
+
+    
+    const handleClose = () => setShow(false);
+    const handleShow = async (vendor) => {
+        try {
+            const response = await axios.get(route("admin.category.show", vendor.id));
+            const responseData = response.data;
+            console.log(responseData)
+            setData(responseData);
+            setShow(true);
+        } catch (error) {
+            console.error('Error fetching data', error);
+        }
+    };
+
 
     return (
         <Authenticated
@@ -124,26 +146,30 @@ export default function Index({ categoryList, auth }) {
                                                 />
                                             </div>
                                             <div className="table-responsive rounded card-table">
-                                                <table className="table border-no" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th className='text-center'>Status</th>
-                                                            <th className='text-center'>Last Modified</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                                <Table className="table border-no" id="example1">
+                                                    <Tbody>
+                                                        <Tr>
+                                                            <Th>Name</Th>
+                                                            <Th className='text-center'>Status</Th>
+                                                            <Th className='text-center'>Last Modified</Th>
+                                                            <Th></Th>
+                                                        </Tr>
+                                                    </Tbody>
+                                                    <Tbody>
                                                         {items.map((category, index) => (
-                                                            <tr key={index}>
-                                                                <td>
+                                                            <Tr key={index}>
+                                                                <Td>
                                                                     {category.name}
-                                                                </td>
-                                                                <td className='text-center'>
+                                                                </Td>
+                                                                <Td className='text-center'>
                                                                     <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
-                                                                </td>
-                                                                <td className='text-center'>{window.formatDateTime(category.updated_at)}</td>
-                                                                <td align='right'>
+                                                                </Td>
+                                                                <Td className='text-center'>{window.formatDateTime(category.updated_at)}</Td>
+                                                                <Td align='right'>
+                                                                    <PermissionAllow permission={'Category Show'}>
+                                                                        <span onClick={() => handleShow(category)} className="btn btn-transparent">
+                                                                            <i className="bi bi-eye"></i></span>
+                                                                    </PermissionAllow>
                                                                     <PermissionAllow permission={'Category Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
                                                                             <i className="bi bi-pencil"></i>
@@ -154,11 +180,11 @@ export default function Index({ categoryList, auth }) {
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>
-                                                                </td>
-                                                            </tr>
+                                                                </Td>
+                                                            </Tr>
                                                         ))}
-                                                    </tbody>
-                                                </table>
+                                                    </Tbody>
+                                                </Table>
                                             </div>
 
                                             {displayList.length > itemsPerPage && (
@@ -178,6 +204,17 @@ export default function Index({ categoryList, auth }) {
                     </section>
                 </div>
             </div>
+            
+            <ModalPopup show={show} handleClose={handleClose} size="md" title="Ad Category Details">
+                {data ? (
+                    <ViewCategory
+                        collection={data}
+                        handleClose={handleClose}
+                    />
+                ) : (
+                    'Failed fetching data...'
+                )}
+            </ModalPopup>
         </Authenticated>
     );
 }

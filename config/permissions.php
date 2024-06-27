@@ -171,6 +171,11 @@ return $permissions = [
         "Type" => "Common"
     ],
     [
+        "Permissions" => "Ad Show",
+        "Section" => "Ads",
+        "Type" => "Common"
+    ],
+    [
         "Permissions" => "Ad Edit",
         "Section" => "Ads",
         "Type" => "Common"
@@ -187,6 +192,11 @@ return $permissions = [
     ],
     [
         "Permissions" => "Category Create",
+        "Section" => "Categories",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Category Show",
         "Section" => "Categories",
         "Type" => "Admin"
     ],
@@ -241,6 +251,11 @@ return $permissions = [
         "Type" => "Admin"
     ],
     [
+        "Permissions" => "Country Show",
+        "Section" => "Locations",
+        "Type" => "Admin"
+    ],
+    [
         "Permissions" => "Country Edit",
         "Section" => "Locations",
         "Type" => "Admin"
@@ -257,6 +272,11 @@ return $permissions = [
     ],
     [
         "Permissions" => "Province Create",
+        "Section" => "Locations",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Province Show",
         "Section" => "Locations",
         "Type" => "Admin"
     ],
@@ -281,6 +301,11 @@ return $permissions = [
         "Type" => "Admin"
     ],
     [
+        "Permissions" => "City Show",
+        "Section" => "Locations",
+        "Type" => "Admin"
+    ],
+    [
         "Permissions" => "City Edit",
         "Section" => "Locations",
         "Type" => "Admin"
@@ -297,6 +322,11 @@ return $permissions = [
     ],
     [
         "Permissions" => "Support Ticket Create",
+        "Section" => "Support Ticket",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Support Ticket Show",
         "Section" => "Support Ticket",
         "Type" => "Common"
     ],
@@ -321,6 +351,11 @@ return $permissions = [
         "Type" => "Admin"
     ],
     [
+        "Permissions" => "Subscriber Show",
+        "Section" => "Subscribers",
+        "Type" => "Admin"
+    ],
+    [
         "Permissions" => "Subscriber Edit",
         "Section" => "Subscribers",
         "Type" => "Admin"
@@ -337,6 +372,11 @@ return $permissions = [
     ],
     [
         "Permissions" => "Banner Create",
+        "Section" => "Banners",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Banner Show",
         "Section" => "Banners",
         "Type" => "Admin"
     ],
@@ -361,6 +401,11 @@ return $permissions = [
         "Type" => "Admin"
     ],
     [
+        "Permissions" => "Navigation Menu Show",
+        "Section" => "Collections",
+        "Type" => "Admin"
+    ],
+    [
         "Permissions" => "Navigation Menu Edit",
         "Section" => "Collections",
         "Type" => "Admin"
@@ -377,6 +422,11 @@ return $permissions = [
     ],
     [
         "Permissions" => "Testimonial Create",
+        "Section" => "Collections",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Testimonial Show",
         "Section" => "Collections",
         "Type" => "Admin"
     ],
@@ -401,6 +451,11 @@ return $permissions = [
         "Type" => "Admin"
     ],
     [
+        "Permissions" => "Content Page Show",
+        "Section" => "Collections",
+        "Type" => "Admin"
+    ],
+    [
         "Permissions" => "Content Page Edit",
         "Section" => "Collections",
         "Type" => "Admin"
@@ -421,6 +476,11 @@ return $permissions = [
         "Type" => "Admin"
     ],
     [
+        "Permissions" => "Feature Show",
+        "Section" => "Collections",
+        "Type" => "Admin"
+    ],
+    [
         "Permissions" => "Feature Edit",
         "Section" => "Collections",
         "Type" => "Admin"
@@ -437,6 +497,11 @@ return $permissions = [
     ],
     [
         "Permissions" => "Feature Label Create",
+        "Section" => "Collections",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Feature Label Show",
         "Section" => "Collections",
         "Type" => "Admin"
     ],
@@ -467,6 +532,11 @@ return $permissions = [
     ],
     [
         "Permissions" => "Role and Responsibilities Create",
+        "Section" => "Settings",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Role and Responsibilities Show",
         "Section" => "Settings",
         "Type" => "Common"
     ],
@@ -516,6 +586,11 @@ return $permissions = [
         "Type" => "Common"
     ],
     [
+        "Permissions" => "Facility Show",
+        "Section" => "Facilities",
+        "Type" => "Common"
+    ],
+    [
         "Permissions" => "Facility Edit",
         "Section" => "Facilities",
         "Type" => "Common"
@@ -532,6 +607,11 @@ return $permissions = [
     ],
     [
         "Permissions" => "Staff Listing",
+        "Section" => "Staff",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Staff Show",
         "Section" => "Staff",
         "Type" => "Common"
     ],

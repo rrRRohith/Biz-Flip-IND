@@ -28,7 +28,7 @@ export default function AdminHeader({ user, header, onSidebarToggle,  handle, is
                             <a href="#" onClick={onSidebarToggle}
                                 className="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent hover-primary"
                                 data-toggle="push-menu" role="button">
-                                <span className="icon-Align-left"><span className="path1"></span><span className="path2"></span><span
+                                <span className="icon-Align-left" style={{ fontSize: "2.2rem" }}><span className="path1"></span><span className="path2"></span><span
                                     className="path3"></span></span>
                             </a>
                             {/* <!-- Logo --> */}

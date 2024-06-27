@@ -88,9 +88,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
         //
+        $category = Category::with('business_categories')->where('id',$id)->first();
+ 
+        return response()->json(new CategoryResource($category));
     }
 
     /**
