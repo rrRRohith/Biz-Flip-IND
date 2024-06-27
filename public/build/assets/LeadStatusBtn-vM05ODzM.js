@@ -1,0 +1,1 @@
+import{j as t}from"./app-CWwNjyRo.js";function s({status:n}){if(n==1)return t.jsx("div",{className:"btn btn-sm p-2 py-1 btn-success small",children:"Attended"});if(n==0)return t.jsx("div",{className:"btn btn-sm p-2 py-1 btn-warning small",children:"Unattended"})}export{s as default};
