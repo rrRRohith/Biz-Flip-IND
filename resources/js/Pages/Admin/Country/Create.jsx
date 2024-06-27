@@ -7,7 +7,8 @@ import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
-import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import Form from 'react-bootstrap/Form';
+
 
 export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
@@ -124,31 +125,23 @@ export default function Create({ auth }) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="row">
-                                                            <div className="col-md-6">
-                                                                <div className="form-group">
-                                                                    <label className="fw-700 fs-16 form-label">Status</label>
-                                                                    <div className="radio-list">
-                                                                        <RadioButtonLabel
-                                                                            name="status"
-                                                                            onChange={(value) => handleChange("status", value)}
-                                                                            value="1"
-                                                                            checked={data.status === "1"}
-                                                                            label="Published"
-                                                                        />
-                                                                        <RadioButtonLabel
-                                                                            name="status"
-                                                                            onChange={(value) => handleChange("status", value)}
-                                                                            value="0"
-                                                                            checked={data.status === "0"}
-                                                                            label="Draft"
-                                                                        />
-                                                                      <InputError message={errors.status} className="mt-2 col-12" />
+                                                        <div className="col-md-6">
+                                                            <div className="form-group p-3 ">
+                                                                <label className="fw-700  form-label">Status</label>
+                                                                <Form.Check
+                                                                    type="switch"
+                                                                    id="custom-switch"
+                                                                    name="status"
+                                                                    label="Publish"
+                                                                    role="button"
+                                                                    onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
 
-                                                                    </div>
-                                                                </div>
+                                                                />
+                                                                <InputError message={errors.status} className="mt-2 col-12" />
+
                                                             </div>
                                                         </div>
+                                                        
                                                     </div>
                                                     <div className="col-lg-3">
                                                         <div className="row">
@@ -191,7 +184,7 @@ export default function Create({ auth }) {
                                                 </div>
                                             </div>
                                             <div className="form-actions mt-10">
-                                                <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
+                                                <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                             </div>
                                         </form>
                                     </div>

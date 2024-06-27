@@ -32,7 +32,7 @@ class LeadEnquiryResource extends JsonResource
             'available_time'=> $this->available_time,
             'lead_attended'	=> $this->lead_attended,
             'ad'            => $this->ad ?? null,
-            'seller'        => $this->seller,
+            'seller'        => $this->seller ?? null,
             'status'        => $this->status == 1 ? 'Attended' : 'Unattended',
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),

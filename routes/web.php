@@ -45,6 +45,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'profiles' => 'profile'
     ]);
 
+    Route::get('leads', 'EnquiryController@contact_index')->name('leads');
     Route::get('provinces/{countryId}', 'CityController@getProvincesByCountry');
     Route::get('contact-messages', 'EnquiryController@contact_index')->name('contact_index');
     Route::get('contact-leads/{id}', 'EnquiryController@contact_show')->name('contact_show');

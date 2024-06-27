@@ -10,6 +10,7 @@ import ViewSeller from '@/Pages/Admin/Seller/ViewSeller';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default function Index({ vendorsList, pendingVendorsList, suspendedVendorsList, auth }) {
     const itemsPerPage = 20;
@@ -23,10 +24,20 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     const [data, setData] = useState(null);
 
     const deleteVendor = (vendor) => {
-        if (!window.confirm("Are you sure you want to delete the Seller?")) {
-            return;
-        }
-        router.delete(route("admin.sellers.destroy", vendor.id));
+        Swal.fire({
+            title: 'Are you sure you want to delete the Seller?',
+            text: ' Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                router.delete(route("admin.sellers.destroy", vendor.id));
+            }
+        })
     };
 
     const handlePageChange = (event, page) => {

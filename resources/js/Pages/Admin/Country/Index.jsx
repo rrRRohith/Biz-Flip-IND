@@ -1,21 +1,33 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
-
-import { Dropdown } from '@mui/joy';
-
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import { Pagination } from '@mui/material';
+import PermissionAllow from '@/Components/PermissionAllow';
+import Swal from 'sweetalert2';
+       
 export default function Index({ countryList, auth, success = null, error = null }) {
-     
+     console.log(countryList)
     const deleteCountry = (country) => {
-        if (!window.confirm("Are you sure you want to delete the country?")) {
-          return;
-        }
+        Swal.fire({
+            title: 'Are you sure you want to delete this country?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.country.destroy", country.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'Country has been deleted.', 'success');
+                    },
+                });
+            }
+        });
         
-      
-        router.delete(route("admin.country.destroy", country.id))
       }
-
-      
 
     return (
         <Authenticated
@@ -54,35 +66,33 @@ export default function Index({ countryList, auth, success = null, error = null 
                                 <div className="box">
                                     <div className="box-body">
                                         <div className="table-responsive rounded card-table">
-                                            <table className="table border-no" id="example1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Image</th>
-                                                        <th>Name</th>
-                                                        <th>Code</th>
-                                                        <th>Position</th>
-                                                        <th>Status</th>
-                                                        <th>Last Modified</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            <Table className="table border-no" id="example1">
+                                                <Thead>
+                                                    <Tr>
+                                                        <Th>#</Th>
+                                                        <Th>Name</Th>
+                                                        <Th>Code</Th>
+                                                        <Th>Position</Th>
+                                                        <Th>Status</Th>
+                                                        <Th>Last Modified</Th>
+                                                        <Th></Th>
+                                                    </Tr>
+                                                </Thead>
+                                                <Tbody>
 
                                                 {countryList.data.map((country) => (
                                                 
                                                     <tr key={country.id} className="hover-primary">
                                                         <td>{country.id}</td>
-                                                        
                                                         <td>
-                                                        <img
-                                                            src={country.image}
-                                                            className='w-100 rounded-5 '
-                                                            alt={`${country.image} icon`}
-                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                        />
+                                                            <img
+                                                                src={country.image}
+                                                                className='w-40 rounded-5 '
+                                                                alt={`${country.image} icon`}
+                                                                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                                            />
+                                                            <span className='ms-3'>{country.name}</span>
                                                         </td>
-                                                        <td>{country.name}</td>
                                                         <td>{country.code}</td>
                                                         <td>{country.position}</td>
                                                         <td>{country.status}</td>
@@ -98,8 +108,8 @@ export default function Index({ countryList, auth, success = null, error = null 
                                                     </tr>
                                                 ))}
 
-                                                </tbody>
-                                            </table>
+                                                </Tbody>
+                                            </Table>
                                         </div>
                                     </div>
                                 </div>

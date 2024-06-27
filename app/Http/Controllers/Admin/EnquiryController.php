@@ -20,8 +20,13 @@ class EnquiryController extends Controller
 
     public function contact_index()
     {
-        $contactMsgList = ContactEnquiry::query()->paginate(100);
-        return Inertia::render('Admin/ContactEnquiry/Index',['contactMsgList' => ContactEnquiryResource::collection($contactMsgList),]);
+        $contactLeads = ContactEnquiry::query()->paginate(100);
+        $adLeads = LeadEnquiry::with('ad','ad.seller')->get();
+
+        return Inertia::render('Admin/ContactEnquiry/Index',
+                        ['contactLeads' => ContactEnquiryResource::collection($contactLeads),
+                        'adLeads' => LeadEnquiryResource::collection($adLeads)
+                        ]);
     }
 
     /**

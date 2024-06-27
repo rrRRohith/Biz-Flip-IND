@@ -10,6 +10,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import ModalPopup from '@/Components/ModalPopup';
 import ViewCategory from '@/Pages/Admin/Category/ViewCategory';
 import axios from 'axios';
+
 export default function Index({ categoryList, auth }) {
     const [show, setShow] = useState(false);
     const itemsPerPage = 20;
@@ -147,14 +148,14 @@ export default function Index({ categoryList, auth }) {
                                             </div>
                                             <div className="table-responsive rounded card-table">
                                                 <Table className="table border-no" id="example1">
-                                                    <Tbody>
+                                                    <Thead>
                                                         <Tr>
                                                             <Th>Name</Th>
                                                             <Th className='text-center'>Status</Th>
                                                             <Th className='text-center'>Last Modified</Th>
                                                             <Th></Th>
                                                         </Tr>
-                                                    </Tbody>
+                                                    </Thead>
                                                     <Tbody>
                                                         {items.map((category, index) => (
                                                             <Tr key={index}>

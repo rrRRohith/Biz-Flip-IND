@@ -75,7 +75,7 @@ const ViewSeller = ({ collection, handleClose, onSubmit }) => {
                             <tbody>
                                 <tr>
                                     <td colSpan={2}>
-                                        <img src={collection.picture} className='w-200 h-200 me-3 rounded-circle' onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }} />
+                                        <img src={collection.picture} className='wd-100 hd-100 me-3 rounded-circle' onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }} />
                                     </td>
                                     <td colSpan={10}>
                                         <table className='border-0 '>

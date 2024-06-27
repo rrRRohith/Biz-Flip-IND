@@ -1,18 +1,33 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
+import { Pagination } from '@mui/material';
+import Swal from 'sweetalert2';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
-import { Dropdown } from '@mui/joy';
 
 export default function Index({ provinceList, auth, success = null, error = null }) {
      
     const deleteProvince = (province) => {
-        if (!window.confirm("Are you sure you want to delete the province?")) {
-          return;
-        }
-        
-      
-        router.delete(route("admin.province.destroy", province.id))
+       
+        Swal.fire({
+            title: 'Are you sure you want to delete this province?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.province.destroy", province.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'Province has been deleted.', 'success');
+                    },
+                });
+            }
+        });
       }
 
       
@@ -55,55 +70,55 @@ export default function Index({ provinceList, auth, success = null, error = null
                                 <div className="box">
                                     <div className="box-body">
                                         <div className="table-responsive rounded card-table">
-                                            <table className="table border-no" id="example1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Image</th>
-                                                        <th>Name</th>
-                                                        <th>Code</th>
-                                                        <th>Country</th>
-                                                        <th>Position</th>
-                                                        <th>Status</th>
-                                                        <th>Last Modified</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            <Table className="table border-no" id="example1">
+                                                <Thead>
+                                                    <Tr>
+                                                        <Th>#</Th>
+                                                        <Th>Name</Th>
+                                                        <Th>Code</Th>
+                                                        <Th>Country</Th>
+                                                        <Th>Position</Th>
+                                                        <Th>Status</Th>
+                                                        <Th>Last Modified</Th>
+                                                        <Th></Th>
+                                                    </Tr>
+                                                </Thead>
+                                                <Tbody>
 
                                                 {provinceList.data.map((province) => (
                                                 
-                                                    <tr key={province.id} className="hover-primary">
-                                                        <td>{province.id}</td>
+                                                    <Tr key={province.id} className="hover-primary">
+                                                        <Td>{province.id}</Td>
                                                         
-                                                        <td>
-                                                        <img
-                                                            src={province.image}
-                                                            className='w-100 rounded-5 '
-                                                            alt={`${province.image} icon`}
-                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                        />
-                                                        </td>
-                                                        <td>{province.name}</td>
-                                                        <td>{province.code}</td>
-                                                        <td>{province.country_name}</td>
-                                                        
-                                                        <td>{province.position}</td>
-                                                        <td>{province.status}</td>
-                                                        <td>{province.updated_at}</td>
-                                                        <td>
+                                                        <Td>
+                                                            <img
+                                                                src={province.image}
+                                                                className='w-40 rounded-5 '
+                                                                alt={`${province.image} icon`}
+                                                                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                                            />
+                                                            <span className='ms-3'>
+                                                            {province.name}   
+                                                            </span>
+                                                        </Td>
+                                                        <Td>{province.code}</Td>
+                                                        <Td>{province.country_name}</Td>
+                                                        <Td>{province.position}</Td>
+                                                        <Td>{province.status}</Td>
+                                                        <Td>{province.updated_at}</Td>
+                                                        <Td>
                                                             <Link className='btn btn-transparent' href={route('admin.province.edit', province.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
                                                             <button onClick={(e) => deleteProvince(province)} className="btn btn-transparent border-0">
                                                                 <i className="bi bi-trash"></i>
                                                             </button>
-                                                        </td>
-                                                    </tr>
+                                                        </Td>
+                                                    </Tr>
                                                 ))}
 
-                                                </tbody>
-                                            </table>
+                                                </Tbody>
+                                            </Table>
                                         </div>
                                     </div>
                                 </div>

@@ -53,65 +53,20 @@ export default function AdminSidebar() {
                                     </li>
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Ads'}>
-                                    <li className={`treeview ${openDropdown === 'properties' ? 'active' : ''}`}>
-                                        <a href="#" onClick={() => handleToggle('properties')}>
-                                            <i className="bi bi-badge-ad" title="properties"></i>
+                                    <li className={`treeview ${openDropdown === 'ads' ? 'active' : ''}`}>
+                                        <a  href={route('admin.ads.index')}>
+                                            <i className="bi bi-badge-ad" title="ads"></i>
                                             <span>Ads</span>
-                                            <span className="pull-right-container">
-                                                <i className={`fa ${openDropdown === 'properties' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
-                                            </span>
                                         </a>
-                                        {openDropdown === 'properties' && (
-                                            <ul className="treeview-menu">
-                                                <PermissionAllow permission={'Ads Listing'}>
-                                                    <li>
-                                                        <Link href={route('admin.ads.index')}>
-                                                            <i className="icon-Commit"></i>Ads Listing
-                                                        </Link>
-                                                    </li>
-                                                </PermissionAllow>
-                                               
-                                                <PermissionAllow permission={'Ads Peding Approvel'}>
-                                                    <li>
-                                                        <Link href={route('admin.ads.pendingApprovel')}>
-                                                            <i className="icon-Commit"></i>Peding Approvel
-                                                        </Link>
-                                                    </li>  
-                                                </PermissionAllow>
-                                               
-                                            </ul>
-                                        )}
                                     </li>
 
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Leads'}>
                                     <li className={`treeview ${openDropdown === 'leads' ? 'active' : ''}`}>
-                                        <a href="#" onClick={() => handleToggle('leads')}>
+                                        <a href={route('admin.leads')} onClick={() => handleToggle('leads')}>
                                             <i className="bi bi-at" title="Leads"></i>
                                             <span>Leads</span>
-                                            <span className="pull-right-container">
-                                                <i className={`fa ${openDropdown === 'leads' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
-                                            </span>
                                         </a>
-                                        {openDropdown === 'leads' && (
-                                            <ul className="treeview-menu">
-                                                <PermissionAllow permission={'Contact Leads Listing'}>
-                                                    <li>
-                                                        <Link href={route('admin.contact_index')}>
-                                                            <i className="icon-Commit"></i>Contact Messages
-                                                        </Link>
-                                                    </li>
-                                                </PermissionAllow>
-                                                <PermissionAllow permission={'Ads Leads Listing'}>
-                                                     <li>
-                                                        <Link href={route('admin.propery_leads_index')}>
-                                                            <i className="icon-Commit"></i>Property Leads
-                                                        </Link>
-                                                    </li>
-                                                </PermissionAllow>
-                                               
-                                            </ul>
-                                        )}
                                     </li>
 
                                 </PermissionAllow>

@@ -23,8 +23,8 @@ function TabView({ options }) {
             <TabContent>
                 {options.map((option, index) => (
                     <TabPane key={index} eventKey={index.toString()} active={activeKey === index.toString()}>
-                        <h3>{option.title} Content</h3>
-                        <p>Tab {option.title} Content Here</p>
+                         <div className='p-20' dangerouslySetInnerHTML={{ __html: option.content }} />
+                        
                     </TabPane>
                 ))}
             </TabContent>

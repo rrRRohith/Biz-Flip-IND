@@ -19,12 +19,59 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
 
     const images = collection.images || [];
     const options = [
-        { title: 'Details', content: 'test' },
-        { title: 'Address', content: 'test' },
-        { title: 'Additional Info', content: 'test' },
-        { title: 'SEO Details', content: 'test' },
-        { title: 'Leads', content: 'test' },
+        { title: 'Details', content: collection.description+ '<br>'
+                                     
+         },
+         
+        { title: 'More Information', content:   `<table class="table">
+                                                    <tr>
+                                                        <th>
+                                                        Addess
+                                                        </th>
+                                                        <td>
+                                                            ${collection.address}, <br>
+                                                            ${collection.postalcode}, 
+                                                            ${collection.city}, <br>
+                                                            ${collection.province}.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                        Space
+                                                        </th>
+                                                        <td>
+                                                            ${collection.space}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                        Price
+                                                        </th>
+                                                        <td>
+                                                            ${window.formatPrice(collection.price)}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                        Ad Viewed
+                                                        </th>
+                                                        <td>
+                                                            ${collection.total_views}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                        Total Leads
+                                                        </th>
+                                                        <td>
+                                                            ${collection.total_leads}
+                                                        </td>
+                                                    </tr>
+                                                </table>`
+         },
     ];
+    
+
     const statusOptions = [
         { value: '0', label: 'Pending' },
         { value: '1', label: 'Publish' },
@@ -47,10 +94,11 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
         defaultStatus = 'Pending';
     }
 
+
     const handleStatusEdit = () => {
         setEditingStatus(true);
     };
-
+  <StatusBtn status={collection.status} />
     const handleStatusSubmit = (e) => {
         e.preventDefault();
         console.log(data);
@@ -72,6 +120,7 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
         setData('status', selectedOption);
         setSelectedStatus(selectedOption.value);
     };
+
 
     return (
        
@@ -134,7 +183,11 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
                                         {!editingStatus ? (
                                             <>
                                                 <StatusBtn status={collection.status} />
-                                                <i className='bi bi-pencil-fill ms-2 text-primary' role='button' onClick={handleStatusEdit}></i>
+                                                {collection.status !=   2 ? 
+                                                <i className='bi bi-pencil-fill ms-2 text-primary' role='button' onClick={handleStatusEdit}></i> :
+                                                 ''
+                                                }
+                                                
                                             </>
                                         ) : (
                                             <form onSubmit={handleStatusSubmit}>
@@ -163,6 +216,7 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
                         </table>
                     </div>
                     <div className='col-lg-12 mt-50'>
+                       
                         <TabView options={options} />
                     </div>
                 </div>

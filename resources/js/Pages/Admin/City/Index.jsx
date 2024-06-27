@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import { Pagination } from '@mui/material';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Index({ cityList, auth, success = null, error = null }) {
     const itemsPerPage = 50;
@@ -16,11 +18,23 @@ export default function Index({ cityList, auth, success = null, error = null }) 
     }, []);
 
     const deleteCity = (city) => {
-        if (!window.confirm("Are you sure you want to delete the City?")) {
-            return;
-        }
-
-        router.delete(route("admin.city.destroy", city.id));
+        Swal.fire({
+            title: 'Are you sure you want to delete this country?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.city.destroy", city.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'City has been deleted.', 'success');
+                    },
+                });
+            }
+        });
     };
 
     const handlePageChange = (event, page) => {
@@ -113,31 +127,31 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                 <div className="box">
                                     <div className="box-body">
                                         <div className="table-responsive rounded card-table">
-                                            <table className="table border-no" id="example1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Image</th>
-                                                        <th>Name</th>
-                                                        <th>Position</th>
-                                                        <th>Status</th>
-                                                        <th>Last Modified</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            <Table className="table border-no" id="example1">
+                                                <Thead>
+                                                    <Tr>
+                                                        <Th>#</Th>
+                                                        <Th>Image</Th>
+                                                        <Th>Name</Th>
+                                                        <Th>Position</Th>
+                                                        <Th>Status</Th>
+                                                        <Th>Last Modified</Th>
+                                                        <Th></Th>
+                                                    </Tr>
+                                                </Thead>
+                                                <Tbody>
                                                     {displayList.slice(startIdx, endIdx).map((city, index) => (
-                                                        <tr key={city.id} className="hover-primary">
+                                                        <Tr key={city.id} className="hover-primary">
                                                             <td>{index + startIdx + 1}</td>
                                                             <td>
                                                                 <img
                                                                     src={city.image}
-                                                                    className='w-100 rounded-5 '
+                                                                    className='w-40 rounded-5 '
                                                                     alt={`${city.image} icon`}
                                                                     onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                                 />
+                                                            <span className='ms-3'>{city.name}</span>
                                                             </td>
-                                                            <td>{city.name}</td>
                                                             <td>{city.position}</td>
                                                             <td>{city.status}</td>
                                                             <td>{city.updated_at}</td>
@@ -149,10 +163,10 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                                                     <i className="bi bi-trash"></i>
                                                                 </button>
                                                             </td>
-                                                        </tr>
+                                                        </Tr>
                                                     ))}
-                                                </tbody>
-                                            </table>
+                                                </Tbody>
+                                            </Table>
                                         </div>
 
                                         {/* <!-- Pagination --> */}

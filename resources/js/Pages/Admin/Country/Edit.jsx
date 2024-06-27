@@ -6,7 +6,7 @@ import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
-import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import Form from 'react-bootstrap/Form';
 
 export default function Edit({ country_item ,queryParams = null, auth}) {
    
@@ -139,26 +139,20 @@ export default function Edit({ country_item ,queryParams = null, auth}) {
                                                         </div>
                                                         <div className="row">
                                                             <div className="col-md-6">
-                                                                <div className="form-group">
-                                                                    <label className="fw-700 fs-16 form-label">Status</label>
-                                                                    <div className="radio-list">
-                                                                        <RadioButtonLabel
-                                                                            name="status"
-                                                                            onChange={(value) => handleChange("status", value)}
-                                                                            value="1"
-                                                                            checked={data.status === 1}
-                                                                            label="Published"
-                                                                        />
-                                                                        <RadioButtonLabel
-                                                                            name="status"
-                                                                            onChange={(value) => handleChange("status", value)}
-                                                                            value="0"
-                                                                            checked={data.status === 0}
-                                                                            label="Draft"
-                                                                        />
-                                                                      <InputError message={errors.status} className="mt-2 col-12" />
+                                                                <div className="form-group p-3 ">
+                                                                    <label className="fw-700  form-label">Status</label>
+                                                                    <Form.Check
+                                                                        type="switch"
+                                                                        id="custom-switch"
+                                                                        name="status"
+                                                                        label="Publish"
+                                                                        role="button"
+                                                                        checked={data.status === 1}
+                                                                        onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
 
-                                                                    </div>
+                                                                    />
+                                                                    <InputError message={errors.status} className="mt-2 col-12" />
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -204,7 +198,7 @@ export default function Edit({ country_item ,queryParams = null, auth}) {
                                                 </div>
                                             </div>
                                             <div className="form-actions mt-10">
-                                                <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
+                                                <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                             </div>
                                         </form>
                                     </div>

@@ -9,12 +9,90 @@ import AdView from '@/Pages/Admin/Ads/AdView';
 import StatusBtn from '@/Components/StatusBtn';
 import axios from 'axios';
 import Badge from '@/Components/Badge';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import { Pagination } from '@mui/material';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
-const Index = ({ ads, auth, success = null, error = null }) => {
+
+const Index = ({ ads, pendingAdsList, suspendedAdsList, soldAdsList, auth, success = null, error = null }) => {
 
     const [show, setShow] = useState(false);
     const [data, setData] = useState(null);
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredAds, setFilteredAds] = useState(ads.data);
+    const [filteredPendingAds, setFilteredPendingAds] = useState(pendingAdsList.data);
+    const [filteredSuspendedAds, setFilteredSuspendedAds] = useState(suspendedAdsList.data);
+    const [filteredSoldAds, setFilteredSoldAds] = useState(soldAdsList.data);
+    const [key, setKey] = useState('ApprovedAds');
+    
 
+    
+    const handlePageChange = (event, page) => {
+        setCurrentPage(page);
+        window.scrollTo(0, 0);
+    };
+
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setSearchQuery(value);
+
+        let filtered;
+        if (key === 'ApprovedAds') {
+            filtered = ads.data.filter(ad =>
+                ad.title.toLowerCase().includes(value.toLowerCase())
+            );
+            setFilteredAds(filtered);
+        } else if (key === 'PendingApproval') {
+            filtered = pendingAdsList.data.filter(ad =>
+                ad.title.toLowerCase().includes(value.toLowerCase())
+            );
+            setFilteredPendingAds(filtered);
+        } else if (key === 'SuspendedAds') {
+            filtered = suspendedAdsList.data.filter(ad =>
+                ad.title.toLowerCase().includes(value.toLowerCase())
+            );
+            setFilteredSuspendedAds(filtered);
+        } else if (key === 'SoldAds') {
+            filtered = soldAdsList.data.filter(ad =>
+                ad.title.toLowerCase().includes(value.toLowerCase())
+            );
+            setFilteredSoldAds(filtered);
+        }
+        setCurrentPage(1);
+    };
+
+    const getDisplayList = () => {
+        if (searchQuery.length > 0) {
+            if (key === 'ApprovedAds') {
+                return filteredAds;
+            } else if (key === 'PendingApproval') {
+                return filteredPendingAds;
+            } else if (key === 'SuspendedAds') {
+                return filteredSuspendedAds;
+            } else if (key === 'SoldAds') {
+                return filteredSoldAds;
+            }
+            
+        } else {
+            if (key === 'ApprovedAds') {
+                return ads.data;
+            } else if (key === 'PendingApproval') {
+                return pendingAdsList.data;
+            } else if (key === 'SuspendedAds') {
+                return suspendedAdsList.data;
+            } else if (key === 'SoldAds') {
+                return soldAdsList.data;
+            }
+        }
+    };
+
+    const displayList = getDisplayList();
+    const startIdx = (currentPage - 1) * itemsPerPage;
+    const endIdx = currentPage * itemsPerPage;
     const handleClose = () => setShow(false);
     const handleShow = async (ad) => {
         try {
@@ -62,88 +140,76 @@ const Index = ({ ads, auth, success = null, error = null }) => {
                         </div>
 
                     </div>
-
-                    {/* <!-- Main content --> */}
-                    <section className="content">
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="box">
-                                    <div className="box-body">
-                                        <PermissionAllow permission={'Support Ticket Listing'} message={'true'}>
-                                            <div className="table-responsive rounded card-table">
-                                                <table className="table border-no" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Image</th>
-                                                            <th>Title</th>
-                                                            <th>Address</th>
-                                                            <th>Price</th>
-                                                            <th>Leads</th>
-                                                            <th>Type</th>
-                                                            <th>Purpose</th>
-                                                            <th>Seller</th>
-                                                            <th>Status</th>
-                                                            <th>Last Modified</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {ads.data.length ? (
-                                                            ads.data.map((ad) => (
-                                                                <tr key={ad.id}>
-                                                                    <td>
-                                                                        <Badge value={`#${ad.unique_code}`} bg="bg-dark" color='text-white' />
-                                                                    </td>
-                                                                    <td>
-                                                                        <img
-                                                                            src={ad.main_picture}
-                                                                            className='w-50 rounded-5 '
-                                                                            alt={`Image`}
-                                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                        />
-                                                                    </td>
-                                                                    <td>{ad.title}</td>
-                                                                    <td>
-                                                                        {ad.address}
-                                                                        <div className="small">
-                                                                            <small>{ad.city}</small>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>{window.formatPrice(ad.price)}</td>
-                                                                    <td>
-                                                                        <Link className="text-decoration-none" href={route('admin.propery_leads_index', { ad: ad.id })}>
-                                                                            {ad.total_leads} leads
-                                                                        </Link>
-                                                                    </td>
-                                                                    <td>{ad.property_type}</td>
-                                                                    <td>{ad.ad_purpose}</td>
-                                                                    <td>{ad.seller.firstname} {ad.seller.lastname}</td>
-                                                                    <td>{ad.date_text}</td>
-                                                                    <td>
-                                                                        <StatusBtn status={ad.status}></StatusBtn>
-                                                                    </td>
-                                                                    <td>
-                                                                        <span onClick={() => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
-                                                                    </td>
-                                                                </tr>
-                                                            ))
-                                                        ) : (
-                                                            <tr>
-                                                                <td className="text-center" colSpan="100">
-                                                                    No records found..
-                                                                </td>
-                                                            </tr>
-                                                        )}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </PermissionAllow>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    <Tabs
+                        id="uncontrolled-tab-example"
+                        activeKey={key}
+                        onSelect={(k) => setKey(k)}
+                        className=""
+                    >
+                        <Tab eventKey="ApprovedAds" title="Approved Ads">
+                            <AdTable
+                                displayList={displayList}
+                                startIdx={startIdx}
+                                endIdx={endIdx}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                                itemsPerPage={itemsPerPage}
+                                handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
+                            />
+                        </Tab>
+                    
+                        <Tab eventKey="PendingApproval" title={
+                            <>
+                                <span>Pending Approval</span> 
+                                {pendingAdsList.data.length > 0 && (
+                                    <span className="pending-approval-count">
+                                        {pendingAdsList.data.length}
+                                    </span>
+                                )}
+                            </>
+                        }>
+                            <AdTable
+                                displayList={displayList}
+                                startIdx={startIdx}
+                                endIdx={endIdx}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                                itemsPerPage={itemsPerPage}
+                                handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
+                            />
+                        </Tab>
+                        <Tab eventKey="SuspendedAds" title="Suspended Ads">
+                            <AdTable
+                                displayList={displayList}
+                                startIdx={startIdx}
+                                endIdx={endIdx}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                                itemsPerPage={itemsPerPage}
+                                handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
+                            />
+                        </Tab>
+                        <Tab eventKey="SoldAds" title="Sold Ads">
+                            <AdTable
+                                displayList={displayList}
+                                startIdx={startIdx}
+                                endIdx={endIdx}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                                itemsPerPage={itemsPerPage}
+                                handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
+                            />
+                        </Tab>
+                    </Tabs>
+                   
                     {/* <!-- /.content --> */}
                 </div>
             </div>
@@ -164,5 +230,94 @@ const Index = ({ ads, auth, success = null, error = null }) => {
         </Authenticated>
     );
 };
+
+
+const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch }) => (
+    <section className="content2">
+        <div className="row">
+            <div className="col-12">
+                <div className="box">
+                    <div className="box-body">
+                        <PermissionAllow permission={'Ad Show'} message={'true'}>
+                            <div className="mb-3 col-lg-4">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Search by name..."
+                                    value={searchQuery}
+                                    onChange={handleSearch}
+                                />
+                            </div>
+                            <div className="table-responsive rounded card-table">
+                                <Table className="table border-no" id="example1">
+                                    <Thead>
+                                        <Tr>
+                                            <Th>#</Th>
+                                            <Th>Ad</Th>
+                                            <Th>Address</Th>
+                                            <Th className="text-end">Price</Th>
+                                            <Th>Leads</Th>
+                                            <Th>Type</Th>
+                                            <Th>Purpose</Th>
+                                            <Th>Seller</Th>
+                                            <Th>Last Modified</Th>
+                                            <Th></Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                            {displayList.slice(startIdx, endIdx).map((ad) => (
+                                                <Tr key={ad.id}>
+                                                    <Td>
+                                                        <Badge value={`#${ad.unique_code}`} bg="bg-dark" color='text-white' />
+                                                    </Td>
+                                                    <Td>
+                                                        <img
+                                                            src={ad.main_picture}
+                                                            className='w-25 rounded-5 '
+                                                            alt={`Image`}
+                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                                        />
+                                                        <span className='ms-2'> {ad.title} </span>
+                                                    </Td>
+                                                    <Td>
+                                                        {ad.address}
+                                                        <div className="small">
+                                                            <small>{ad.city}</small>
+                                                        </div>
+                                                    </Td>
+                                                    <Td className="text-end">{window.formatPrice(ad.price)}</Td>
+                                                    <Td>
+                                                        <Link className="text-decoration-none" href={route('admin.propery_leads_index', { ad: ad.id })}>
+                                                            {ad.total_leads} leads
+                                                        </Link>
+                                                    </Td>
+                                                    <Td>{ad.property_type}</Td>
+                                                    <Td>{ad.ad_purpose}</Td>
+                                                    <Td>{ad.seller.firstname} {ad.seller.lastname}</Td>
+                                                    <Td>{ad.date_text}</Td>
+                                                    <Td>
+                                                        <span onClick={() => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                    </Td>
+                                                </Tr>
+                                            ))}
+                                    </Tbody>
+                                </Table>
+                            </div>
+                            {displayList.length > itemsPerPage && (
+                                <div className="pagination-container float-end py-5">
+                                    <Pagination
+                                        count={Math.ceil(displayList.length / itemsPerPage)}
+                                        page={currentPage}
+                                        onChange={handlePageChange}
+                                    />
+                                </div>
+                            )}
+                        </PermissionAllow>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+);
 
 export default Index;

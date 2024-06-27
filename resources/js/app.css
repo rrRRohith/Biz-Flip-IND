@@ -252,3 +252,16 @@ img.ad-image {
 }
 
 /* Navigation Menu End */
+
+
+
+.pending-approval-count{
+  position: absolute;
+    top: -6px;
+    color: var(--bs-light);
+    background: #4c95dd;
+    height: 15px;
+    width: 15px;
+    font-size: 10px;
+    border-radius: 25px;
+}

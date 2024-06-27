@@ -18,10 +18,17 @@ class AdsController extends Controller
     public function index()
     {
         //
-        $ads = Ad::with('seller')->orderBy('updated_at','DESC')->get();
+        $ads = Ad::with('seller')->where('status',1)->orderBy('updated_at','DESC')->get();
        
+        $pendingAdsList= Ad::with('seller')->where('status',0)->orderBy('updated_at','DESC')->get();
+        $suspendedAdsList= Ad::with('seller')->where('status',-1)->orderBy('updated_at','DESC')->get();
+        $soldAdsList= Ad::with('seller')->where('status',2)->orderBy('updated_at','DESC')->get();
+
         return Inertia::render('Admin/Ads/Index', [
                             'ads' => AdResource::collection($ads),
+                            'pendingAdsList' => AdResource::collection($pendingAdsList),
+                            'suspendedAdsList' => AdResource::collection($suspendedAdsList),
+                            'soldAdsList' => AdResource::collection($soldAdsList),
                         ]);
     }
 
