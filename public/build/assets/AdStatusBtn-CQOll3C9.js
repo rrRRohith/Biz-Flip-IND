@@ -1,1 +1,0 @@
-import{j as n}from"./app-Crzp0ZJB.js";function t({status:s}){return s==1?n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-success small",children:"Active"}):s==0?n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-warning small",children:"Pending"}):n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-danger small",children:"Inactive"})}export{t as default};
