@@ -9,7 +9,7 @@ import Lead from './Lead';
 import Modal from 'react-bootstrap/Modal';
 import PermissionAllow from '@/Components/PermissionAllow';
 
-export default function ({ leads }) {
+export default function ({ leads, confirmDelete }) {
     const [show, setShow] = useState(false);
     const [mdata, setmData] = useState(null);
     const [title, setTitle] = useState("Lead details");
@@ -26,12 +26,6 @@ export default function ({ leads }) {
         router.put(route("seller.leads.update", lead.id))
     }
 
-    const deleteLead = (lead) => {
-        if (!window.confirm("Are you sure you want to delete the lead?")) {
-            return;
-        }
-        router.delete(route("seller.leads.destroy", lead.id))
-    }
     return (
         <>
             <Modal show={show} onHide={handleClose} centered>
@@ -99,7 +93,7 @@ export default function ({ leads }) {
                                             <button onClick={(e) => showLead(lead)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
                                             </PermissionAllow>
                                             <PermissionAllow permission="Ad Lead Edit">
-                                            <button onClick={(e) => deleteLead(lead)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                            <button onClick={(e) => confirmDelete(lead.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
                                             </PermissionAllow>
                                         </td>
                                     </tr>

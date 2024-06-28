@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react";
 import AdStatusBtn from "./Components/AdStatusBtn";
 import PermissionAllow from '@/Components/PermissionAllow';
 
-export default function ({ ads, deleteAd }) {
+export default function ({ ads, confirmDelete }) {
     return (
         <>
             <div className="table-responsive">
@@ -53,7 +53,7 @@ export default function ({ ads, deleteAd }) {
                                                 <Link type="button" href={route('seller.ads.edit', ad.id)} className="btn btn-sm btn-square btn-neutral me-2"><i className="bi bi-pen"></i></Link>
                                             </PermissionAllow>
                                             <PermissionAllow permission="Ad Delete">
-                                                <button onClick={(e) => deleteAd(ad.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                <button onClick={(e) => confirmDelete(ad.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
                                             </PermissionAllow>
                                         </td>
                                     </tr>

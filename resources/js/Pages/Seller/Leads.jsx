@@ -2,10 +2,11 @@ import AuthenticatedLayout from '@/Layouts/Authenticated';
 import Wrapper from './layout/Wrapper';
 import LeadsTable from './LeadsTable';
 import Select from 'react-select';
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, router } from "@inertiajs/react";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '@/Components/Spinner';
+import Delete from './Components/Delete';
 
 export default function Leads({ auth, leads, ads }) {
     const [loading, setLoading] = useState(false);
@@ -29,10 +30,24 @@ export default function Leads({ auth, leads, ads }) {
         setLoading(false);
     }
 
+    const [showDelete, setShowDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+    const deleteAction = function (id) {
+        setShowDelete(false);
+        router.delete(route("seller.leads.destroy", id))
+    }
+
+    const confirmDelete = (id) => {
+        setDeleteId(id);
+        setShowDelete(true);
+    }
+    const handleClose = () => setShowDelete(false);
+
     return (
         <>
             {loading && <Spinner />}
             <Head title="Leads" />
+            <Delete showDelete={showDelete} handleClose={handleClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
             <Wrapper user={auth.user}>
                 <main className="py-6">
                     <div className="container">
@@ -53,7 +68,7 @@ export default function Leads({ auth, leads, ads }) {
                                             </div>
                                         </div>
                                     </div>
-                                    <LeadsTable leads={leadData}></LeadsTable>
+                                    <LeadsTable confirmDelete={confirmDelete} leads={leadData}></LeadsTable>
                                 </div>
                             </div>
                         </div>

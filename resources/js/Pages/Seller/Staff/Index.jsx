@@ -8,6 +8,7 @@ import axios from 'axios';
 import ReactDOMServer from 'react-dom/server';
 import Spinner from '@/Components/Spinner';
 import PermissionAllow from '@/Components/PermissionAllow';
+import Delete from '../Components/Delete';
 
 export default function Index({ auth, staffs }) {
 
@@ -30,19 +31,25 @@ export default function Index({ auth, staffs }) {
         setLoading(false);
     }
 
-    const deleteStaff = function (staff) {
-        if (!window.confirm("Are you sure you want to delete the staff?")) {
-            return;
-        }
-        router.delete(route("seller.staffs.destroy", staff))
+    const [showDelete, setShowDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+    const deleteAction = function (id) {
+        setShowDelete(false);
+        router.delete(route("seller.staffs.destroy", id))
     }
+
+    const confirmDelete = (id) => {
+        setDeleteId(id);
+        setShowDelete(true);
+    }
+    const handleClose = () => setShowDelete(false);
 
     return (
         <>
             {loading && <Spinner />}
             <Head title="Staffs" />
             <Wrapper user={auth.user}>
-
+            <Delete showDelete={showDelete} handleClose={handleClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
                 <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-lg vstack gap-6 m-auto">
@@ -107,7 +114,7 @@ export default function Index({ auth, staffs }) {
                                                                         <Link href={route('seller.staffs.edit', staff.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission="Staff Delete">
-                                                                        <button onClick={(e) => deleteStaff(staff.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                                        <button onClick={(e) => confirmDelete(staff.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
                                                                     </PermissionAllow>
                                                                 </td>
                                                             </tr>

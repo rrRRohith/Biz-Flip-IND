@@ -10,6 +10,7 @@ import axios from 'axios';
 import ReactDOMServer from 'react-dom/server';
 import Spinner from '@/Components/Spinner';
 import PermissionAllow from '@/Components/PermissionAllow';
+import Delete from '../Components/Delete';
 
 export default function Index({ auth, roles }) {
 
@@ -28,13 +29,6 @@ export default function Index({ auth, roles }) {
         const response = await axios.get(route("seller.roles.search", data));
         setroleData(response.data);
         setLoading(false);
-    }
-
-    const deleteRole = function (role) {
-        if (!window.confirm("Are you sure you want to delete the role?")) {
-            return;
-        }
-        router.delete(route("seller.roles.destroy", role))
     }
 
     const [show, setShow] = useState(false);
@@ -57,9 +51,23 @@ export default function Index({ auth, roles }) {
 
     }
 
+    const [showDelete, setShowDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+    const deleteAction = function (id) {
+        setShowDelete(false);
+        router.delete(route("seller.roles.destroy", id))
+    }
+
+    const confirmDelete = (id) => {
+        setDeleteId(id);
+        setShowDelete(true);
+    }
+    const handleDeleteClose = () => setShowDelete(false);
+
     return (
         <>
             <Head title="Staff roles" />
+            <Delete showDelete={showDelete} handleClose={handleDeleteClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
             <Wrapper user={auth.user}>
                 <main className="py-6">
                     <div className="container">
@@ -119,7 +127,7 @@ export default function Index({ auth, roles }) {
                                                                         <Link href={route('seller.roles.edit', role.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission="Role and Responsibilities Delete">
-                                                                        <button onClick={(e) => deleteRole(role.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                                        <button onClick={(e) => confirmDelete(role.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
                                                                     </PermissionAllow>
                                                                 </td>
                                                             </tr>

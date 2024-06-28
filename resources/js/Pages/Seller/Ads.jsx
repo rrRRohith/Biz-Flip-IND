@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '@/Components/Spinner';
 import PermissionAllow from '@/Components/PermissionAllow';
+import Delete from './Components/Delete';
 
 export default function Ads({ auth, ads }) {
     const [loading, setLoading] = useState(false);
@@ -27,18 +28,25 @@ export default function Ads({ auth, ads }) {
         setLoading(false);
     }
 
-    const deleteAd = function (ad) {
-        if (!window.confirm("Are you sure you want to delete the ad?")) {
-            return;
-        }
-        router.delete(route("seller.ads.destroy", ad))
+    const [showDelete, setShowDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+    const deleteAction = function (id) {
+        setShowDelete(false);
+        router.delete(route("seller.ads.destroy", id))
     }
+
+    const confirmDelete = (id) => {
+        setDeleteId(id);
+        setShowDelete(true);
+    }
+    const handleClose = () => setShowDelete(false);
+    
     return (
         <>
             {loading && <Spinner />}
             <Head title="Ads" />
+            <Delete showDelete={showDelete} handleClose={handleClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
             <Wrapper user={auth.user}>
-
                 <main className="py-6">
                     <div className="container">
                         <div className="max-w-screen-xl vstack gap-6 m-auto">
@@ -62,7 +70,7 @@ export default function Ads({ auth, ads }) {
                                             </PermissionAllow>
                                         </div>
                                     </div>
-                                    <AdsTable deleteAd={deleteAd} ads={adData}></AdsTable>
+                                    <AdsTable confirmDelete={confirmDelete} ads={adData}></AdsTable>
                                 </div>
                             </div>
                         </div>
