@@ -169,7 +169,7 @@ export default function AdminSidebar() {
                                                 <PermissionAllow permission={'Content Pages'}>
                                                 <li>
                                                     <Link href={route('admin.content-page.index')}>
-                                                        <i className="icon-Commit"></i>Content Pages
+                                                        <i className="icon-Commit"></i>Pages
                                                     </Link>
                                                 </li>
                                                 </PermissionAllow>

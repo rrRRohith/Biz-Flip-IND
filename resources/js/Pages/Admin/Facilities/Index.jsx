@@ -2,18 +2,32 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
-
-import { Dropdown } from '@mui/joy';
+import Swal from 'sweetalert2';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 export default function Index({ facilityList, auth, success = null, error = null }) {
      
     const deleteFacility = (facility) => {
-        if (!window.confirm("Are you sure you want to delete the Facility?")) {
-          return;
-        }
-        
       
-        router.delete(route("admin.facilities.destroy", facility.id))
+        Swal.fire({
+            title: 'Are you sure you want to delete this Facility?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.facilities.destroy", facility.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'Facility has been deleted.', 'success');
+                    },
+                });
+            }
+        });
+      
       }
 
       
@@ -59,54 +73,51 @@ export default function Index({ facilityList, auth, success = null, error = null
                                     <div className="box-body">
                                     <PermissionAllow permission={'Facilities Listing'} message={true}>
                                         <div className="table-responsive rounded card-table">
-                                            <table className="table border-no" id="example1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Icon</th>
-                                                        <th>Name</th>
-                                                        <th>Position</th>
-                                                        <th>Status</th>
-                                                        <th>Last Modified</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            <Table className="table border-no" id="example1">
+                                                <Thead>
+                                                    <Tr>
+                                                        <Th>#</Th>
+                                                        <Th>Icon</Th>
+                                                        <Th>Name</Th>
+                                                        <Th>Position</Th>
+                                                        <Th>Status</Th>
+                                                        <Th>Last Modified</Th>
+                                                        <Th></Th>
+                                                    </Tr>
+                                                </Thead>
+                                                <Tbody>
 
                                                 {facilityList.data.map((facility) => (
-                                                
-                                                    <tr key={facility.id} className="hover-primary">
-                                                        <td>{facility.id}</td>
-                                                        
-                                                        <td>
-                                                        <img
-                                                            src={facility.icon}
-                                                            className='w-100 rounded-5 '
-                                                            alt={`${facility.icon} icon`}
-                                                            onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                        />
-                                                        </td>
-                                                        <td>{facility.name}</td>
-                                                        <td>{facility.position}</td>
-                                                        <td>{facility.status}</td>
-                                                        <td>{facility.updated_at}</td>
-                                                        <td>
-                                                        <PermissionAllow permission={'Facility Edit'}>
-                                                            <Link className='btn btn-transparent' href={route('admin.facilities.edit', facility.id)}>
-                                                                <i className="bi bi-pencil"></i>
-                                                            </Link>
-                                                        </PermissionAllow>
-                                                        <PermissionAllow permission={'Facility Delete'}>
-                                                            <button onClick={(e) => deleteFacility(facility)} className="btn btn-transparent border-0">
-                                                                <i className="bi bi-trash"></i>
-                                                            </button>
-                                                        </PermissionAllow>
-                                                        </td>
-                                                    </tr>
+                                                    <Tr key={facility.id} className="hover-primary">
+                                                        <Td>{facility.id}</Td>
+                                                        <Td>
+                                                            <img
+                                                                src={facility.icon}
+                                                                className='w-40 rounded-5 '
+                                                                alt={`${facility.icon} icon`}
+                                                                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                                            /> <span className='ms-3'>{facility.name}</span>
+                                                        </Td>
+                                                        <Td>{facility.position}</Td>
+                                                        <Td>{facility.status}</Td>
+                                                        <Td>{window.formatDateTime(facility.updated_at)}</Td>
+                                                        <Td>
+                                                            <PermissionAllow permission={'Facility Edit'}>
+                                                                <Link className='btn btn-transparent' href={route('admin.facilities.edit', facility.id)}>
+                                                                    <i className="bi bi-pencil"></i>
+                                                                </Link>
+                                                            </PermissionAllow>
+                                                            <PermissionAllow permission={'Facility Delete'}>
+                                                                <button onClick={(e) => deleteFacility(facility)} className="btn btn-transparent border-0">
+                                                                    <i className="bi bi-trash"></i>
+                                                                </button>
+                                                            </PermissionAllow>
+                                                        </Td>
+                                                    </Tr>
                                                 ))}
 
-                                                </tbody>
-                                            </table>
+                                                </Tbody>
+                                            </Table>
                                         </div>
                                     </PermissionAllow>
                                     </div>

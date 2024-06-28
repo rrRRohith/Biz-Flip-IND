@@ -2,18 +2,31 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
+import Swal from 'sweetalert2';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
-import { Dropdown } from '@mui/joy';
 
 export default function Index({ labelList, auth, success = null, error = null }) {
      
     const deleteLabel = (label) => {
-        if (!window.confirm("Are you sure you want to delete the Feature label?")) {
-          return;
-        }
-        
-      
-        router.delete(route("admin.feature-label.destroy", label.id))
+        Swal.fire({
+            title: 'Are you sure you want to delete this Feature label?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.feature-label.destroy", label.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'Feature label has been deleted.', 'success');
+                    },
+                });
+            }
+        });
       }
 
       
@@ -61,46 +74,43 @@ export default function Index({ labelList, auth, success = null, error = null })
                                     <div className="box-body">
                                         <div className="table-responsive rounded card-table">
                                             <PermissionAllow permission={'Feature Label Listing'} message={true}>
-                                            <table className="table border-no" id="example1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Color</th>
-                                                        <th>Priority</th>
-                                                        <th>Status</th>
-                                                        <th>Last Modified</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                {labelList.data.map((label) => (
-                                                
-                                                    <tr key={label.id} className="hover-primary">
-                                                        <td>{label.id}</td>
-                                                        <td>{label.name}</td>
-                                                        <td><div style={{ backgroundColor: label.color,width:"20px",height:"20px" }}></div></td>
-                                                        <td>{label.priority}</td>
-                                                        <td>{label.status}</td>
-                                                        <td>{label.updated_at}</td>
-                                                        <td>
-                                                        <PermissionAllow permission={'Feature Label Edit'}>
-                                                            <Link className='btn btn-transparent' href={route('admin.feature-label.edit', label.id)}>
-                                                                <i className="bi bi-pencil"></i>
-                                                            </Link>
-                                                        </PermissionAllow>
-                                                            <PermissionAllow permission={'Feature Label Delete'}>
-                                                            <button onClick={(e) => deleteLabel(label)} className="btn btn-transparent border-0">
-                                                                <i className="bi bi-trash"></i>
-                                                            </button>
-                                                            </PermissionAllow>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-
-                                                </tbody>
-                                            </table>
+                                                <Table className="table border-no" id="example1">
+                                                    <Thead>
+                                                        <Tr>
+                                                            <Th>#</Th>
+                                                            <Th>Name</Th>
+                                                            <Th>Color</Th>
+                                                            <Th>Priority</Th>
+                                                            <Th>Status</Th>
+                                                            <Th>Last Modified</Th>
+                                                            <Th></Th>
+                                                        </Tr>
+                                                    </Thead>
+                                                    <Tbody>
+                                                        {labelList.data.map((label) => (
+                                                            <Tr key={label.id} className="hover-primary">
+                                                                <Td>{label.id}</Td>
+                                                                <Td>{label.name}</Td>
+                                                                <Td><div style={{ backgroundColor: label.color,width:"20px",height:"20px" }}></div></Td>
+                                                                <Td>{label.priority}</Td>
+                                                                <Td>{label.status}</Td>
+                                                                <Td>{window.formatDateTime(label.updated_at)}</Td>
+                                                                <Td>
+                                                                    <PermissionAllow permission={'Feature Label Edit'}>
+                                                                        <Link className='btn btn-transparent' href={route('admin.feature-label.edit', label.id)}>
+                                                                            <i className="bi bi-pencil"></i>
+                                                                        </Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission={'Feature Label Delete'}>
+                                                                    <button onClick={(e) => deleteLabel(label)} className="btn btn-transparent border-0">
+                                                                        <i className="bi bi-trash"></i>
+                                                                    </button>
+                                                                    </PermissionAllow>
+                                                                </Td>
+                                                            </Tr>
+                                                        ))}
+                                                    </Tbody>
+                                                </Table>
                                             </PermissionAllow>
                                         </div>
                                     </div>

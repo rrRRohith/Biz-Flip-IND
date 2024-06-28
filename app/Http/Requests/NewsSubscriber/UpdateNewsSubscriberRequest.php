@@ -25,7 +25,7 @@ class UpdateNewsSubscriberRequest extends FormRequest
             "firstname" => ['required', 'max:255'],
             "lastname" => ['required', 'max:255'],
             "email_id" => ['required', 'max:255', Rule::unique('news_subscribers')->ignore($this->route('subscriber'))],
-            "type_of_needed" => ['required', 'max:255'],
+            // "type_of_needed" => ['required', 'max:255'],
             'status' => ['required', Rule::in(['0', '1'])]
         ];
     }

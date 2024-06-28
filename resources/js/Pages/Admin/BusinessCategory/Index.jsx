@@ -33,9 +33,12 @@ export default function Index({ categoryList, auth }) {
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Yes, delete it!',
         }).then((result) => {
-
             if (result.isConfirmed) {
-                router.delete(route("admin.business-category.destroy", category.id))
+                router.delete(route("admin.business-category.destroy", category.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'category has been deleted.', 'success');
+                    },
+                });
             }
         })
 

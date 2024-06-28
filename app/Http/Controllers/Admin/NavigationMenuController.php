@@ -91,9 +91,12 @@ private function saveItems(array $items, $parentId)
     /**
      * Display the specified resource.
      */
-    public function show(NavigationMenu $navigationMenu)
+    public function show($id)
     {
         //
+
+        $nav = NavigationMenu::with('children')->where('id',$id)->first() ?? abort(404);
+        return response()->json(new NavigationMenuResource($nav));
     }
 
     /**

@@ -70,9 +70,11 @@ class TestimonialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Testimonial $testimonial)
+    public function show($id)
     {
         //
+        $testimonial = Testimonial::where('id',$id)->first();
+        return response()->json(new TestimonialResource($testimonial));
     }
 
     /**

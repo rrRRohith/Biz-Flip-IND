@@ -1,20 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
-
-import { Dropdown } from '@mui/joy';
+import Swal from 'sweetalert2';
+import ViewTestimonial from '@/Pages/Admin/Testimonial/ViewTestimonial';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import ModalPopup from '@/Components/ModalPopup';
+import axios from 'axios';
 
 export default function Index({ testimonialList, auth, success = null, error = null }) {
+    const [show, setShow] = useState(false);
+    const [data, setData] = useState(null);
 
     const deleteTestimonial = (testimonial) => {
-        if (!window.confirm("Are you sure you want to delete the testimonial?")) {
-            return;
-        }
-
-
-        router.delete(route("admin.testimonial.destroy", testimonial.id))
+        Swal.fire({
+            title: 'Are you sure you want to delete this testimonial?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.testimonial.destroy", testimonial.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'testimonial has been deleted.', 'success');
+                    },
+                });
+            }
+        });
     }
+
+    const handleClose = () => setShow(false);
+    const handleShow = async (vendor) => {
+          try {
+              const response = await axios.get(route("admin.testimonial.show", vendor.id));
+              const responseData = response.data;
+              
+              setData(responseData);
+              setShow(true);
+          } catch (error) {
+              console.error('Error fetching data', error);
+          }
+      };
 
 
 
@@ -59,42 +89,42 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                     <div className="box-body">
                                         <PermissionAllow permission={'Testimonials Listing'} message={true}>
                                             <div className="table-responsive rounded card-table">
-                                                <table className="table border-no" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Image</th>
-                                                            <th>Name</th>
-                                                            <th>Company</th>
-                                                            <th>Designation</th>
-                                                            <th>Position</th>
-                                                            <th>Status</th>
-                                                            <th>Last Modified</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                                <Table className="table border-no" id="example1">
+                                                    <Thead>
+                                                        <Tr>
+                                                            <Th>#</Th>
+                                                            <Th>Name</Th>
+                                                            <Th>Company</Th>
+                                                            <Th>Designation</Th>
+                                                            <Th>Status</Th>
+                                                            <Th>Last Modified</Th>
+                                                            <Th></Th>
+                                                        </Tr>
+                                                    </Thead>
+                                                    <Tbody>
 
                                                         {testimonialList.data.map((testimonial) => (
 
-                                                            <tr key={testimonial.id} className="hover-primary">
-                                                                <td>{testimonial.id}</td>
-
-                                                                <td>
+                                                            <Tr key={testimonial.id} className="hover-primary">
+                                                                <Td>{testimonial.id}</Td>
+                                                                <Td>
                                                                     <img
                                                                         src={testimonial.image}
-                                                                        className='w-100 rounded-5 '
+                                                                        className='w-40 rounded-5 '
                                                                         alt={`${testimonial.image} icon`}
                                                                         onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                                     />
-                                                                </td>
-                                                                <td>{testimonial.name}</td>
-                                                                <td>{testimonial.company_name}</td>
-                                                                <td>{testimonial.designation}</td>
-                                                                <td>{testimonial.position}</td>
-                                                                <td>{testimonial.status}</td>
-                                                                <td>{testimonial.updated_at}</td>
-                                                                <td>
+                                                                <span className='ms-3'>{testimonial.name}</span>
+                                                                </Td>
+                                                                <Td>{testimonial.company_name}</Td>
+                                                                <Td>{testimonial.designation}</Td>
+                                                                <Td>{testimonial.status}</Td>
+                                                                <Td>{window.formatDateTime(testimonial.updated_at)}</Td>
+                                                                <Td> 
+                                                                    <PermissionAllow permission={'Testimonial Show'}>
+                                                                        <span onClick={() => handleShow(testimonial)} className="btn btn-transparent">
+                                                                            <i className="bi bi-eye"></i></span>
+                                                                    </PermissionAllow>
                                                                     <PermissionAllow permission={'Testimonial Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.testimonial.edit', testimonial.id)}>
                                                                             <i className="bi bi-pencil"></i>
@@ -105,12 +135,12 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>
-                                                                </td>
-                                                            </tr>
+                                                                </Td>
+                                                            </Tr>
                                                         ))}
 
-                                                    </tbody>
-                                                </table>
+                                                    </Tbody>
+                                                </Table>
                                             </div>
                                         </PermissionAllow>
                                     </div>
@@ -123,6 +153,17 @@ export default function Index({ testimonialList, auth, success = null, error = n
                 </div>
             </div>
             {/* <!-- /.content-wrapper --> */}
+
+            <ModalPopup show={show} handleClose={handleClose} size="md" title="Testimonial Details">
+                {data ? (
+                    <ViewTestimonial
+                        collection={data}
+                        handleClose={handleClose}
+                    />
+                ) : (
+                    'Failed fetching data...'
+                )}
+            </ModalPopup>
         </Authenticated>
 
     )

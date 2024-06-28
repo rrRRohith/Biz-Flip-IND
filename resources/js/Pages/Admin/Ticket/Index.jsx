@@ -2,7 +2,9 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
-import { Dropdown } from '@mui/joy';
+import Swal from 'sweetalert2';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 export default function Index({ tickets, auth, success = null, error = null }) {
 
@@ -45,46 +47,46 @@ export default function Index({ tickets, auth, success = null, error = null }) {
                                     <div className="box-body">
                                         <PermissionAllow permission={'Support Ticket Listing'} message={'true'}>
                                             <div className="table-responsive rounded card-table">
-                                                <table className="table border-no" id="example1">
-                                                    <thead>
-                                                        <tr>		
-                                                            <th>#</th>
-                                                            <th>Seller</th>
-                                                            <th>Subject</th>
-                                                            <th>Priority</th>
-                                                            <th>Status</th>
-                                                            <th>Created Date</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
+                                                <Table className="table border-no" id="example1">
+                                                    <Thead>
+                                                        <Tr>		
+                                                            <Th>#</Th>
+                                                            <Th>Seller</Th>
+                                                            <Th>Subject</Th>
+                                                            <Th>Priority</Th>
+                                                            <Th>Status</Th>
+                                                            <Th>Created Date</Th>
+                                                            <Th></Th>
+                                                        </Tr>
+                                                    </Thead>
                                                     <tbody>
 
                                                         {tickets.data.map((ticket) => (
                                                             <React.Fragment key={ticket.id}>
-                                                                <tr key={ticket.id} className="hover-primary">
-                                                                    <td>{ticket.id}</td>
-                                                                    <td className='text-capitalize'>{ticket.user.firstname} {ticket.user.lastname}</td>
-                                                                    <td className='text-capitalize'>{ticket.subject}</td>
-                                                                    <td className='text-capitalize'>{ticket.priority}</td>
-                                                                    <td className='text-capitalize'>
+                                                                <Tr key={ticket.id} className="hover-primary">
+                                                                    <Td>{ticket.id}</Td>
+                                                                    <Td className='text-capitalize'>{ticket.user.firstname} {ticket.user.lastname}</Td>
+                                                                    <Td className='text-capitalize'>{ticket.subject}</Td>
+                                                                    <Td className='text-capitalize'>{ticket.priority}</Td>
+                                                                    <Td className='text-capitalize'>
                                                                         <span className= {`badge  ${ticket.status == 'open' ? 'bg-info' : 'bg-success'}`}>
                                                                             {ticket.status}
                                                                         </span>
-                                                                    </td>
-                                                                    <td>{ticket.date_text}</td>
-                                                                    <td>
+                                                                    </Td>
+                                                                    <Td>{ticket.date_text}</Td>
+                                                                    <Td>
                                                                         <PermissionAllow permission={'Support Ticket Edit'}>
-                                                                            <Link className='btn btn-transparent' href={route('admin.support-tickets.show', ticket.id)}>
+                                                                             <Link className='btn btn-transparent' href={route('admin.support-tickets.show', ticket.id)}>
                                                                                 <i className="bi bi-eye"></i>
                                                                             </Link>
                                                                         </PermissionAllow>
-                                                                    </td>
-                                                                </tr>
+                                                                    </Td>
+                                                                </Tr>
                                                             </React.Fragment>
                                                         ))}
 
                                                     </tbody>
-                                                </table>
+                                                </Table>
                                             </div>
                                         </PermissionAllow>
                                     </div>

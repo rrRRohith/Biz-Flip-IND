@@ -7,7 +7,7 @@ import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import DynamicMultiSelect from '@/Components/DynamicMultiSelect';
-import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import Form from 'react-bootstrap/Form';
 
 export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
@@ -15,7 +15,7 @@ export default function Create({ auth }) {
         lastname : '',
         email_id : '',
         type_of_needed: [],
-        status: '1',
+        status: 1,
     });
 
     const handleSubmit = (e) => {
@@ -136,27 +136,21 @@ export default function Create({ auth }) {
 
                                                                 </div>
                                                             </div>
-                                                            <div className="col-md-12 mb-3">
-                                                                <div className="form-group">
-                                                                    <label className="fw-700 fs-16 form-label">Status</label>
-                                                                    <div className="radio-list">
-                                                                        <RadioButtonLabel
-                                                                            name="status"
-                                                                            onChange={(value) => handleChange("status", value)}
-                                                                            value="1"
-                                                                            checked={data.status === "1"}
-                                                                            label="Subscribed"
-                                                                        />
-                                                                        <RadioButtonLabel
-                                                                            name="status"
-                                                                            onChange={(value) => handleChange("status", value)}
-                                                                            value="0"
-                                                                            checked={data.status === "0"}
-                                                                            label="Unsubscribed"
-                                                                        />
-                                                                        <InputError message={errors.status} className="mt-2 col-12" />
+                                                            <div className="col-md-6">
+                                                                <div className="form-group ps-3 ">
+                                                                    <label className="fw-700  form-label">Status</label>
+                                                                    <Form.Check
+                                                                        type="switch"
+                                                                        id="custom-switch"
+                                                                        name="status"
+                                                                        label="Publish"
+                                                                        role="button"
+                                                                        checked={data.status === 1}
+                                                                        onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
 
-                                                                    </div>
+                                                                    />
+                                                                    <InputError message={errors.status} className="mt-2 col-12" />
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -165,7 +159,7 @@ export default function Create({ auth }) {
                                                 </div>
                                             </div>
                                             <div className="form-actions mt-10">
-                                                <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
+                                                <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                             </div>
                                         </form>
                                     </div>

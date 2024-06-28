@@ -145,9 +145,9 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                                         <input type="password" value={data.confirm_password} onChange={(e) => handleChange("confirm_password", e.target.value)} name="confirm_password" id="confirm_password" placeholder="Confirm your secret password" className="form-control" /></div>
                                                     <InputError message={errors.confirm_password} />
                                                 </div>
-                                                <div className="col-12 text-end">
-                                                    <Link href={route('seller.staffs.index')} className="btn btn-neutral me-2">Cancel</Link>
-                                                    <button type="submit" className="btn btn-sm btn-neutral">Save changes</button></div>
+                                                <div className="col-12 text-start">
+                                                    <button type="submit" className="btn  btn-success">Save changes</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>

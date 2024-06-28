@@ -2,17 +2,30 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
-import { Dropdown } from '@mui/joy';
+import Swal from 'sweetalert2';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 export default function Index({ bannersList, auth, success = null, error = null }) {
 
     const deleteBanner = (banner) => {
-        if (!window.confirm("Are you sure you want to delete the Banners?")) {
-            return;
-        }
-
-
-        router.delete(route("admin.banners.destroy", banner.id))
+        Swal.fire({
+            title: 'Are you sure you want to delete this Banners?',
+            text: ' Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.banners.destroy", banner.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'Banners has been deleted.', 'success');
+                    },
+                });
+            }
+        })
     }
 
 
@@ -58,40 +71,37 @@ export default function Index({ bannersList, auth, success = null, error = null 
                                     <div className="box-body">
                                         <PermissionAllow permission={'Banners Listing'} message={'true'}>
                                             <div className="table-responsive rounded card-table">
-                                                <table className="table border-no" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Image</th>
-                                                            <th>Title</th>
-                                                            <th>Type</th>
-                                                            <th>Position</th>
-                                                            <th>Status</th>
-                                                            <th>Last Modified</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
+                                                <Table className="table border-no" id="example1">
+                                                    <Thead>
+                                                        <Tr>
+                                                            <Th>#</Th>
+                                                            <Th>Image</Th>
+                                                            <Th>Title</Th>
+                                                            <Th>Type</Th>
+                                                            <Th>Position</Th>
+                                                            <Th>Status</Th>
+                                                            <Th>Last Modified</Th>
+                                                            <Th></Th>
+                                                        </Tr>
+                                                    </Thead>
+                                                    <Tbody>
                                                         {bannersList.data.map((banner) => (
-
-                                                            <tr key={banner.id} className="hover-primary">
-                                                                <td>{banner.id}</td>
-
-                                                                <td>
+                                                            <Tr key={banner.id} className="hover-primary">
+                                                                <Td>{banner.id}</Td>
+                                                                <Td>
                                                                     <img
                                                                         src={banner.picture_desktop || banner.picture_mobile}
-                                                                        className='w-100 rounded-5 '
+                                                                        className='wd-100 rounded-5 '
                                                                         alt={`${banner.picture_desktop} Image`}
                                                                         onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                                     />
-                                                                </td>
-                                                                <td>{banner.title}</td>
-                                                                <td>{banner.type}</td>
-                                                                <td>{banner.position}</td>
-                                                                <td>{banner.status}</td>
-                                                                <td>{banner.updated_at}</td>
-                                                                <td>
+                                                                </Td>
+                                                                <Td>{banner.title}</Td>
+                                                                <Td>{banner.type}</Td>
+                                                                <Td>{banner.position}</Td>
+                                                                <Td>{banner.status}</Td>
+                                                                <Td>{banner.updated_at}</Td>
+                                                                <Td>
                                                                     <PermissionAllow permission={'Banner Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.banners.edit', banner.id)}>
                                                                             <i className="bi bi-pencil"></i>
@@ -102,12 +112,12 @@ export default function Index({ bannersList, auth, success = null, error = null 
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>
-                                                                </td>
-                                                            </tr>
+                                                                </Td>
+                                                            </Tr>
                                                         ))}
 
-                                                    </tbody>
-                                                </table>
+                                                    </Tbody>
+                                                </Table>
                                             </div>
                                         </PermissionAllow>
                                     </div>
