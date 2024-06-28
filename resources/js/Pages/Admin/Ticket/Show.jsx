@@ -85,7 +85,7 @@ export default function Show({ ticket, messages, auth, success = null, error = n
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <Link href={route('admin.support-tickets.index')} className="btn btn-sm btn-danger"><i className="bi bi-arrow-left"></i> Go back</Link>
+                                    <Link href={route('admin.support-tickets.index')} className="btn btn-danger"><i className="bi bi-arrow-left"></i> Go back</Link>
                                 </div>
                             </div>
                         </div>
@@ -154,8 +154,12 @@ export default function Show({ ticket, messages, auth, success = null, error = n
 
                                             <div className="col-lg-2  align-content-center">
                                                 <div className='d-flex gap-2'>
-                                                    <button type="submit" className="btn btn-primary btn-sm">Send message</button>
-                                                    <span onClick={(e) => closeTicket(ticket.id)} className="btn btn-warning btn-sm">
+                                                    <button type="submit" className="btn btn-success">
+                                                        <i className="bi bi-send"></i> 
+                                                        Send message
+                                                    </button>
+                                                    <span onClick={(e) => closeTicket(ticket.id)} className="btn btn-warning">
+                                                        <i className="bi bi-x"></i> 
                                                         Close Ticket
                                                     </span>
                                                 </div>

@@ -6,8 +6,7 @@ import Authenticated from '@/Layouts/AdminAuthenticated';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
-import SelectOption from '@/Components/SelectOption';
-import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import SelectOption from '@/Components/SelectOption';import Form from 'react-bootstrap/Form';
 import PermissionAllow from "@/Components/PermissionAllow";
 
 export default function Create({ auth }) {
@@ -145,7 +144,7 @@ export default function Create({ auth }) {
                                                                         <InputError message={errors.message} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
+                                                                <div className="col-md-4 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
                                                                         <SelectOption
@@ -158,29 +157,24 @@ export default function Create({ auth }) {
                                                                 </div>
                                                             </div>
                                                             <div className="row">
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group">
-                                                                        <label className="fw-700 fs-16 form-label">Status</label>
-                                                                        <div className="radio-list">
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="1"
-                                                                                checked={data.status === "1"}
-                                                                                label="Published"
-                                                                            />
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="0"
-                                                                                checked={data.status === "0"}
-                                                                                label="Draft"
-                                                                            />
-                                                                            <InputError message={errors.status} className="mt-2 col-12" />
+                                                                <div className="col-md-12">
+                                                                    <div className="form-group ps-3 ">
+                                                                        <label className="fw-700  form-label">Status</label>
+                                                                        <Form.Check
+                                                                            type="switch"
+                                                                            id="custom-switch"
+                                                                            name="status"
+                                                                            label="Publish"
+                                                                            role="button"
+                                                                            checked={data.status === 1}
+                                                                            onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
 
-                                                                        </div>
+                                                                        />
+                                                                        <InputError message={errors.status} className="mt-2 col-12" />
+
                                                                     </div>
                                                                 </div>
+                                                               
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-3">
@@ -191,14 +185,14 @@ export default function Create({ auth }) {
                                                                         <div className="product-img">
                                                                             {imagePreview ? (
                                                                                 <div className="mb-15 text-center position-relative">
-                                                                                    <img src={imagePreview} alt="Selected" className="w-100 rounded-5" />
+                                                                                    <img src={imagePreview} alt="Selected" className="w-50 rounded-5" />
                                                                                     <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
 
                                                                                 </div>
                                                                             ) : (
                                                                                 <img src="/assets/admin/images/noimage.webp" alt="No Image"
                                                                                     onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                                    className="mb-15 text-center" />
+                                                                                    className="w-50  mb-15 text-center" />
                                                                             )}
                                                                             <div className=" mb-20">
                                                                                 <button
@@ -226,7 +220,7 @@ export default function Create({ auth }) {
                                                     </div>
                                                 </div>
                                                 <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
+                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </form>
                                         </PermissionAllow>

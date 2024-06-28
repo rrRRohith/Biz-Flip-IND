@@ -6,8 +6,6 @@ import Authenticated from '@/Layouts/AdminAuthenticated';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
-import SelectOption from '@/Components/SelectOption';
-import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import PermissionAllow from "@/Components/PermissionAllow";
 import Form from 'react-bootstrap/Form';
 
@@ -170,7 +168,6 @@ export default function Edit({ category_item, queryParams = null, auth, adCatego
                                                                             <div className="col-md-6">
                                                                                 <div className="form-group ps-3 ">
                                                                                     <label className="fw-700  form-label">Status</label>
-
                                                                                     <Form.Check
                                                                                         type="switch"
                                                                                         id="custom-switch"

@@ -22,8 +22,8 @@ class RoleResource extends JsonResource
             'name'          => $this->name,
             'guard_name'    => $this->guard_name,
             'permissions'   => $this->permissions->pluck('name','id'),
-            'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
-            'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
+            'created_at'    => (new Carbon($this->created_at)),
+            'updated_at'    => (new Carbon($this->updated_at)),
             'updated_text' => \Carbon\Carbon::parse($this->updated_at)->format('h:i a, d M'),
             'total_permissions' => $this->permissions()->count(),
         ];

@@ -1,18 +1,28 @@
 import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
-
-import { Dropdown } from '@mui/joy';
+import Swal from 'sweetalert2';
 
 export default function Index({ subscribersList, auth, success = null, error = null }) {
      
     const deleteSubscriber = (subscriber) => {
-        if (!window.confirm("Are you sure you want to delete the subscriber?")) {
-          return;
-        }
-        
-      
-        router.delete(route("admin.subscribers.destroy", subscriber.id))
+        Swal.fire({
+            title: 'Are you sure you want to delete this subscriber?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.subscribers.destroy", subscriber.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'Subscriber has been deleted.', 'success');
+                    },
+                });
+            }
+        });
       }
 
       
@@ -76,7 +86,7 @@ export default function Index({ subscribersList, auth, success = null, error = n
                                                        
                                                         <td>{subscriber.email_id}</td>
                                                         <td>{subscriber.type_of_needed}</td>
-                                                        <td>{subscriber.status}</td>
+                                                        <td>{subscriber.status_text}</td>
                                                         <td>{subscriber.updated_at}</td>
                                                         <td>
                                                             <Link className='btn btn-transparent' href={route('admin.subscribers.edit', subscriber.id)}>

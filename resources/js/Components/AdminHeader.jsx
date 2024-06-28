@@ -185,13 +185,13 @@ export default function AdminHeader({ user, header, onSidebarToggle,  handle, is
                                 {/* <!-- Control Sidebar Toggle Button --> */}
 
                                 {/* <!-- Right Sidebar Toggle Button --> */}
-                                <li className="btn-group nav-item d-xl-none d-inline-flex">
+                                {/* <li className="btn-group nav-item d-xl-none d-inline-flex">
                                     <a href="#"
                                         className="push-btn right-bar-btn waves-effect waves-light nav-link full-screen btn-primary-light">
                                         <span className="icon-Layout-left-panel-1"><span className="path1"></span><span
                                             className="path2"></span></span>
                                     </a>
-                                </li>
+                                </li> */}
 
                                 {/* <!-- User Account--> */}
                                 <li className="user user-menu">

@@ -43,7 +43,7 @@ class NewsSubscriberController extends Controller
         $new->firstname = $request->firstname; 
         $new->lastname  = $request->lastname;
         $new->email_id  = $request->email_id;
-        $new->type_of_needed = implode(',',$request->type_of_needed);
+        $new->categories = implode(',',$request->type_of_needed);
         $new->status    = $request->status;
         try{
             $new->save();			
@@ -83,7 +83,7 @@ class NewsSubscriberController extends Controller
         $subscriber->firstname    = $request->firstname;
         $subscriber->lastname     = $request->lastname;
         $subscriber->email_id     = $request->email_id;
-        $subscriber->type_of_needed = implode(',',$request->type_of_needed);
+        $subscriber->categories = implode(',',$request->type_of_needed);
         $subscriber->status       = $request->status;
         $subscriber->save();
 

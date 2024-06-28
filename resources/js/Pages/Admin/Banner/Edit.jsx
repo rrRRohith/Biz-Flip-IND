@@ -6,9 +6,9 @@ import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
-import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import DynamicSelect from '@/Components/DynamicSelect';
 import PermissionAllow from "@/Components/PermissionAllow";
+import Form from 'react-bootstrap/Form';
 
 export default function Edit({ banner, queryParams = null, auth, countries }) {
 
@@ -20,7 +20,7 @@ export default function Edit({ banner, queryParams = null, auth, countries }) {
         picture_desktop: '',
         picture_mobile: '',
         position: banner.position || '',
-        status: '1',
+        status: banner.status || 1,
         _method: "PUT",
         remove_image: false,
         remove_image2: false,
@@ -92,16 +92,16 @@ export default function Edit({ banner, queryParams = null, auth, countries }) {
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">City/Edit</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Banner/Edit</h2>}
         >
-            <Head title="City Edit" />
+            <Head title="Banner Edit" />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Edit City</h4>
+                                    <h4 className="page-title"> Edit Banner</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
@@ -190,26 +190,20 @@ export default function Edit({ banner, queryParams = null, auth, countries }) {
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">
-                                                                    <div className="form-group">
-                                                                        <label className="fw-700 fs-16 form-label">Status</label>
-                                                                        <div className="radio-list">
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="1"
-                                                                                checked={data.status === "1"}
-                                                                                label="Published"
-                                                                            />
-                                                                            <RadioButtonLabel
-                                                                                name="status"
-                                                                                onChange={(value) => handleChange("status", value)}
-                                                                                value="0"
-                                                                                checked={data.status === "0"}
-                                                                                label="Draft"
-                                                                            />
-                                                                            <InputError message={errors.status} className="mt-2 col-12" />
+                                                                    <div className="form-group ps-3 ">
+                                                                        <label className="fw-700  form-label">Status</label>
+                                                                        <Form.Check
+                                                                            type="switch"
+                                                                            id="custom-switch"
+                                                                            name="status"
+                                                                            label="Publish"
+                                                                            role="button"
+                                                                            checked={data.status === 1}
+                                                                            onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
 
-                                                                        </div>
+                                                                        />
+                                                                        <InputError message={errors.status} className="mt-2 col-12" />
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -222,12 +216,12 @@ export default function Edit({ banner, queryParams = null, auth, countries }) {
                                                                         <div className="desktop-img">
                                                                             {imagePreview ? (
                                                                                 <div className="mb-15 text-center position-relative">
-                                                                                    <img src={imagePreview} alt="Selected" className="w-100 rounded-5" />
+                                                                                    <img src={imagePreview} alt="Selected" className="w-50 rounded-5" />
                                                                                     <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveDkImage}></i>
 
                                                                                 </div>
                                                                             ) : (
-                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
+                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="w-50 mb-15 text-center" />
                                                                             )}
                                                                             <div className=" mb-20">
                                                                                 <button
@@ -256,12 +250,12 @@ export default function Edit({ banner, queryParams = null, auth, countries }) {
                                                                         <div className="desktop-img">
                                                                             {imagePreview2 ? (
                                                                                 <div className="mb-15 text-center position-relative">
-                                                                                    <img src={imagePreview2} alt="Selected" className="w-100 rounded-5" />
+                                                                                    <img src={imagePreview2} alt="Selected" className="w-50  rounded-5" />
                                                                                     <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveMbImage}></i>
 
                                                                                 </div>
                                                                             ) : (
-                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
+                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="w-50 mb-15 text-center" />
                                                                             )}
                                                                             <div className=" mb-20">
                                                                                 <button
@@ -288,7 +282,7 @@ export default function Edit({ banner, queryParams = null, auth, countries }) {
                                                     </div>
                                                 </div>
                                                 <div className="form-actions mt-10">
-                                                    <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
+                                                    <button type="submit" className="btn  btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </form>
                                         </PermissionAllow>

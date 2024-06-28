@@ -30043,8 +30043,8 @@ ul.panel-actions > li {
 
 /*data table*/
 @media (max-width: 767px) {
-  .table > tbody > tr > td, .table > tbody > tr > th {
-    white-space: nowrap; }
+  /* .table > tbody > tr > td, .table > tbody > tr > th {
+    white-space: nowrap; } */
   .table > tfoot > tr > td, .table > tfoot > tr > th {
     white-space: nowrap; }
   .table > thead > tr > td, .table > thead > tr > th {

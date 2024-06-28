@@ -7,7 +7,7 @@ import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import DynamicMultiSelect from '@/Components/DynamicMultiSelect';
-import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import Form from 'react-bootstrap/Form';
 
 export default function Create({ subscriber_item, queryParams = null, auth }) {
 
@@ -16,7 +16,7 @@ export default function Create({ subscriber_item, queryParams = null, auth }) {
         lastname: subscriber_item.lastname || '',
         email_id: subscriber_item.email_id || '',
         type_of_needed: subscriber_item.type_of_needed || [],
-        status: subscriber_item.status = 'Subscribed' ? 1 : 0 || 1,
+        status: subscriber_item.status || 1,
         _method: "PUT",
     });
     const options = [
@@ -135,34 +135,32 @@ export default function Create({ subscriber_item, queryParams = null, auth }) {
 
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-12 mb-3">
-                                                        <div className="form-group">
-                                                            <label className="fw-700 fs-16 form-label">Status</label>
-                                                            <div className="radio-list">
-                                                                <RadioButtonLabel
-                                                                    name="status"
-                                                                    onChange={(value) => handleChange("status", value)}
-                                                                    value="1"
-                                                                    checked={data.status === 1}
-                                                                    label="Subscribed"
-                                                                />
-                                                                <RadioButtonLabel
-                                                                    name="status"
-                                                                    onChange={(value) => handleChange("status", value)}
-                                                                    value="0"
-                                                                    checked={data.status === 0}
-                                                                    label="Unsubscribed"
-                                                                />
-                                                                <InputError message={errors.status} className="mt-2 col-12" />
+                                                    <div className="col-md-6">
+                                                        <div className="form-group ps-3 ">
+                                                            <label className="fw-700  form-label">Status</label>
+                                                           
+                                                            <Form.Check
+                                                                type="switch"
+                                                                id="custom-switch"
+                                                                name="status"
+                                                                label="Publish"
+                                                                role="button"
+                                                                
+                                                                checked={data.status === 1 ? false : true}
+                                                                onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
 
-                                                            </div>
+                                                            />
+                                                            <InputError message={errors.status} className="mt-2 col-12" />
+
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div className="form-actions mt-10">
-                                                <button type="submit" className="btn btn-sm btn-neutral"> <i className="bi bi-check"></i> Save Data</button>
+                                                <button type="submit" className="btn btn-success"> 
+                                                    <i className="bi bi-check"></i> Save Data
+                                                </button>
                                             </div>
                                         </form>
                                     </div>

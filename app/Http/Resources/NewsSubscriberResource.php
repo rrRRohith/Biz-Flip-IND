@@ -23,7 +23,8 @@ class NewsSubscriberResource extends JsonResource
             'lastname'      => $this->lastname,
             'email_id'      => $this->email_id,
             'type_of_needed'=> $this->type_of_needed,
-            'status'        => $this->status == 1 ? 'Subscribed' : 'Unsubscribed',
+            'status_text'        => $this->status == 1 ? 'Subscribed' : 'Unsubscribed',
+            'status'        => $this->status == 1,
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
         ];

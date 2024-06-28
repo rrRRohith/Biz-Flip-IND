@@ -8,7 +8,7 @@ function ModalPopup({ show, handleClose, data, title, size =null, children , ...
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{minHeight:'350px'}}>
+      <Modal.Body>
         {children ? (
           children
         ) : data ? (

@@ -62,6 +62,11 @@ class StaffController extends BaseController
             return $e->getMessage();
         }
     }
+    public function show(Request $request, User $staff){
+        abort_if($this->user->id == $staff->id, 403);
+        $this->seller->staffs()->findOrfail($staff->id);
+        return response()->json(new StaffResource($staff));
+    }
 
     public function edit(Request $request, User $staff){
         abort_if($this->user->id == $staff->id, 403);

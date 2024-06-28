@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import Swal from 'sweetalert2';
-import { Dropdown } from '@mui/joy';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import ModalPopup from '@/Components/ModalPopup';
+import ViewNavigationMenu from '@/Pages/Admin/NavigationMenu/ViewNavigationMenu';
+import axios from 'axios';
 
 export default function Index({ MenuList, auth, success = null, error = null }) {
      
+    const [show, setShow] = useState(false);
+    const [data, setData] = useState(null);
     const deleteMenu = (menu) => {
-       
         Swal.fire({
             title: 'Are you sure you want to delete this menu?',
             text: ' Once deleted, it cannot be recovered.',
@@ -17,15 +22,29 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Yes, delete it!',
           }).then((result) => {
-       
             if (result.isConfirmed) {
-
-                router.delete(route("admin.navigation-menu.destroy", menu.id))
+                router.delete(route("admin.navigation-menu.destroy", menu.id), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'menu has been deleted.', 'success');
+                    },
+                });
             }
         })
-
-        
       }
+
+      const handleClose = () => setShow(false);
+      const handleShow = async (menu) => {
+          try {
+              const response = await axios.get(route("admin.navigation-menu.show", menu.id));
+              const responseData = response.data;
+              console.log(1,response.data)
+              setData(responseData);
+              setShow(true);
+          } catch (error) {
+              console.error('Error fetching data', error);
+          }
+      };
+  
 
     return (
         <Authenticated
@@ -81,6 +100,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                         <td>{menu.title}</td>
                                                         <td>{window.formatDateTime(menu.updated_at)}</td>
                                                         <td>
+                                                            <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
                                                             <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
@@ -104,6 +124,16 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                 </div>
             </div>
             {/* <!-- /.content-wrapper --> */}
+            <ModalPopup show={show} handleClose={handleClose} size="md" title="Navigaion Menu Details">
+                {data ? (
+                    <ViewNavigationMenu
+                        collection={data}
+                        handleClose={handleClose}
+                    />
+                ) : (
+                    'Failed fetching data...'
+                )}
+            </ModalPopup>
         </Authenticated>
 
     )

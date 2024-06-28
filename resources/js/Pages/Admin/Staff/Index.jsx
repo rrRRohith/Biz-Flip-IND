@@ -1,15 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
+import Swal from 'sweetalert2';
+import PermissionAllow from '@/Components/PermissionAllow';
+import { Pagination } from '@mui/material';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import ModalPopup from '@/Components/ModalPopup';
+import axios from 'axios';
+import ViewStaff from '@/Pages/Admin/Staff/ViewStaff';
 
 export default function Index({ auth, staffs }) {
+    const [show, setShow] = useState(false);
+    const [data, setData] = useState(null);
 
     const deleteStaff = function (staff) {
-        if (!window.confirm("Are you sure you want to delete the staff?")) {
-            return;
-        }
-        router.delete(route("admin.staff.destroy", staff))
+        
+        Swal.fire({
+            title: 'Are you sure you want to delete this staff?',
+            text: 'Once deleted, it cannot be recovered.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.staff.destroy", staff), {
+                    onSuccess: () => {
+                        Swal.fire('Deleted!', 'staff has been deleted.', 'success');
+                    },
+                });
+            }
+        });
     }
+
+    const handleClose = () => setShow(false);
+    const handleShow = async (staff) => {
+        try {
+            const response = await axios.get(route("admin.staff.show", staff.id));
+            const responseData = response.data;
+            setData(responseData);
+            setShow(true);
+        } catch (error) {
+            console.error('Error fetching data', error);
+        }
+    };
+
 
     return (
         <>
@@ -48,57 +85,59 @@ export default function Index({ auth, staffs }) {
                                     <div className="box">
                                         <div className="box-body">
                                         <div className="table-responsive rounded card-table">
-                                            <table className="table border-no" id="example1">
-                                                    <thead >
-                                                        <tr>
-                                                            <th scope="col">ID</th>
-                                                            <th scope="col">Name</th>
-                                                            <th scope="col">Email</th>
-                                                            <th scope="col">Phone</th>
-                                                            <th scope="col">Role</th>
-                                                            <th scope="col">Last updated</th>
-                                                            <th scope="col" />
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                                <Table className="table border-no" id="example1">
+                                                    <Thead >
+                                                        <Tr>
+                                                            <Th scope="col">#</Th>
+                                                            <Th scope="col">Name</Th>
+                                                            <Th scope="col">Email</Th>
+                                                            <Th scope="col">Phone</Th>
+                                                            <Th scope="col">Role</Th>
+                                                            <Th scope="col" >Last Modified</Th>
+                                                            <Th scope="col" ></Th>
+                                                        </Tr>
+                                                    </Thead>
+                                                    <Tbody>
                                                         {staffs.data.length ? (
                                                             <>
                                                                 {staffs.data.map((staff) => (
-                                                                    <tr key={staff.id}>
-                                                                        <td>
+                                                                    <Tr key={staff.id}>
+                                                                        <Td>
                                                                             #{staff.id}
-                                                                        </td>
-                                                                        <td>
+                                                                        </Td>
+                                                                        <Td>
                                                                             {staff.name}
-                                                                        </td>
-                                                                        <td>
+                                                                        </Td>
+                                                                        <Td>
                                                                             {staff.email}
-                                                                        </td>
-                                                                        <td>
+                                                                        </Td>
+                                                                        <Td>
                                                                             {staff.phone}
-                                                                        </td>
-                                                                        <td>
+                                                                        </Td>
+                                                                        <Td>
                                                                             {staff.role_names}
-                                                                        </td>
-                                                                        <td>
+                                                                        </Td>
+                                                                        <Td>
                                                                             {staff.date_text}
-                                                                        </td>
-                                                                        <td>
+                                                                        </Td>
+                                                                        <Td>
+                                                                            <span onClick={() => handleShow(staff)} className="btn btn-transparent">
+                                                                                    <i className="bi bi-eye"></i></span>
                                                                             <Link href={route('admin.staff.edit', staff.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
                                                                             <button onClick={(e) => deleteStaff(staff.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
-                                                                        </td>
-                                                                    </tr>
+                                                                        </Td>
+                                                                    </Tr>
                                                                 ))}
                                                             </>
                                                         ) : (<>
-                                                            <tr>
-                                                                <td className="text-center" colSpan="100">
+                                                            <Tr>
+                                                                <Td className="text-center" colSpan="100">
                                                                     No records found..
-                                                                </td>
-                                                            </tr>
+                                                                </Td>
+                                                            </Tr>
                                                         </>)}
-                                                    </tbody>
-                                                </table>
+                                                    </Tbody>
+                                                </Table>
                                             </div>
                                         </div>
                                     </div>
@@ -108,6 +147,17 @@ export default function Index({ auth, staffs }) {
                     </div>
                 </div>
             </Authenticated>
+                
+                    <ModalPopup show={show} handleClose={handleClose} size="md" title="Staff User Details">
+                        {data ? (
+                            <ViewStaff
+                                collection={data}
+                                handleClose={handleClose}
+                            />
+                        ) : (
+                            'Failed fetching data...'
+                        )}
+                    </ModalPopup>
         </>
     );
 }
