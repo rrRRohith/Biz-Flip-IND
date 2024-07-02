@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\{LeadResource};
+use App\Http\Resources\{TicketMessageResource, TicketResource};
+use DB;
 
 class Controller extends BaseController{
     public $user;
@@ -37,21 +39,51 @@ class Controller extends BaseController{
      * @param Request $request
      */
     public function dashboard(Request $request){
-        $ads = $this->seller->ads()->count();
+
         $leads = $this->seller->leads()->count();
         $views = $this->seller->ad_views()->count();
-    
-        // Calculate view_lead_ratio safely
-        $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) ($views / $leads) : 1)) : 0;
-    
+        
+        $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) max(($views / $leads), 1) : 1)) : 0;
+        
         return Inertia::render('Seller/Dashboard', [
             'data' => [
-                'ads' => $ads,
+                'ads' => $this->seller->ads()->count(),
                 'leads' => $leads,
                 'views' => $views,
                 'view_lead_ratio' => $view_lead_ratio,
             ],
+            'ads' => AdResource::collection($this->seller->ads()->withCount('views')->orderBy('views_count', 'desc')->get()),
+            'tickets' => TicketResource::collection($this->seller->tickets()->latest()->limit(5)->get()),
             'leads' => LeadResource::collection($this->seller->leads()->latest()->limit(5)->get()),
         ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     * 
+     * @param Request $request
+     */
+    public function graph(Request $request){
+        $leadsCollection = collect($this->seller->leads()->search($request)
+            ->select(DB::raw('DATE_FORMAT(created_at, "%d-%m-%y") as date'),DB::raw('count(*) as count'))
+            ->groupBy('date')->orderByDesc('date')->get()->pluck('count', 'date')->toArray());
+
+        $viewsCollection = collect($this->seller->ad_views()->search($request)
+            ->select(DB::raw('DATE_FORMAT(ad_views.created_at, "%d-%m-%y") as date'),DB::raw('count(*) as count'))
+            ->groupBy('date', 'ads.seller_id')->orderByDesc('date')->get()->pluck('count', 'date')->toArray());
+
+        $allDates = $leadsCollection->keys()->merge($viewsCollection->keys())->unique();
+
+        $combined = $allDates->mapWithKeys(function ($date) use ($leadsCollection, $viewsCollection) {
+            return [
+                $date => [
+                    'date' => \Carbon\Carbon::createFromFormat('d-m-y', $date)->timestamp,
+                    'leads' => $leadsCollection->get($date, 0),
+                    'views' => $viewsCollection->get($date, 0)
+                ]
+            ];
+        });
+
+        return response()->json($combined->sortBy('date')->toArray());
     }
 }

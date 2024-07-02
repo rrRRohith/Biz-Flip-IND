@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\UserProfileResource;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\{ProfileUpdateRequest, PasswordRequest};
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Exception;
@@ -25,6 +25,10 @@ class ProfileController extends Controller{
 
     public function index(){
         return Inertia::render('Seller/Profile',['user' => new UserProfileResource($this->user), 'success' => session('success'),'error' => session('error')]);
+    }
+
+    public function password(){
+        return Inertia::render('Seller/Password');
     }
 
     public function store(ProfileUpdateRequest $request){
@@ -49,6 +53,21 @@ class ProfileController extends Controller{
             }
 
             return to_route('seller.profile.index')->with('success', 'Profile updated successfully.');
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function changePassword(PasswordRequest $request){
+        try{		
+            if($request->has('password') && $request->password){
+                $this->user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+            }
+
+            return to_route('seller.password.index')->with('success', 'Password changed successfully.');
         }
         catch(Exception $e){
             return $e->getMessage();

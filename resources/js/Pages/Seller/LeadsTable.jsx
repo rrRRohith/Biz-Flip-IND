@@ -9,7 +9,7 @@ import Lead from './Lead';
 import Modal from 'react-bootstrap/Modal';
 import PermissionAllow from '@/Components/PermissionAllow';
 
-export default function ({ leads, confirmDelete }) {
+export default function ({ leads, confirmDelete, minimal = false }) {
     const [show, setShow] = useState(false);
     const [mdata, setmData] = useState(null);
     const [title, setTitle] = useState("Lead details");
@@ -23,7 +23,16 @@ export default function ({ leads, confirmDelete }) {
 
     const attendLead = (lead) => {
         setShow(false);
-        router.put(route("seller.leads.update", lead.id))
+        router.put(route("seller.leads.update", lead.id), {
+            status: 'responded',
+        })
+    }
+
+    const sold = (lead) => {
+        setShow(false);
+        router.put(route("seller.leads.update", lead.id), {
+            status: 'sold',
+        })
     }
 
     return (
@@ -33,20 +42,32 @@ export default function ({ leads, confirmDelete }) {
                     <Modal.Title>Lead Details</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Lead lead={mdata} attendLead={attendLead}/>
+                    <Lead lead={mdata} attendLead={attendLead} sold={sold} />
                 </Modal.Body>
             </Modal>
             <div className="table-responsive">
                 <table className="table table-hover table-nowrap">
                     <thead className="table-light">
                         <tr>
-                            <th scope="col">Client</th>
+                            {!minimal && (
+                                <>
+                                <th scope="col">Client</th>
+                                <th>
+                                    <PermissionAllow permission="Ad Lead Show">
+                                        <th scope="col">Message</th>
+                                    </PermissionAllow>
+                                </th>
+                                </>
+                            )}
                             <th scope="col">Ad</th>
-                            <th scope="col">Date</th>
-                            <PermissionAllow permission="Ad Lead Show">
-                            <th scope="col">Message</th>
-                            </PermissionAllow>
-                            <th scope="col">Contact details</th>
+                            <th scope="col">Date time</th>
+                            {!minimal && (
+                                <>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone</th>
+                                </>
+                            )}
+
                             <th scope="col">Status</th>
                             <th />
                         </tr>
@@ -55,46 +76,56 @@ export default function ({ leads, confirmDelete }) {
                         {leads.length ? (
                             <>
                                 {leads.map((lead) => (
-                                    <tr key={lead.id}>
-                                        <td>
+                                    <tr key={lead.id} >
+                                        {!minimal && (
+                                        <>
+                                        <td onClick={(e) => showLead(lead)}>
                                             <div>
                                                 {lead.firstname} {lead.lastname}
                                             </div>
                                         </td>
-                                        <td>
+                                        <PermissionAllow permission="Ad Lead Show">
+                                        <td className='text-overflow mw-200' onClick={(e) => showLead(lead)}>
+                                            {lead.message}
+                                        </td>
+                                    </PermissionAllow>
+                                        </>
+                                        )}
+                                        <td onClick={(e) => showLead(lead)}>
                                             <div>
                                                 {lead.ad.title}
                                             </div>
+                                            {!minimal && (
                                             <div className="small text-muted">
                                                 {lead.ad.city}
                                             </div>
+                                            )}
                                         </td>
-                                        <td>
+                                        <td onClick={(e) => showLead(lead)}>
                                             {lead.date_text}
                                         </td>
-                                        <PermissionAllow permission="Ad Lead Show">
+                                        {!minimal && (
+                                            <>
+                                                <td onClick={(e) => showLead(lead)}>
+                                                        {lead.email}
+                                                </td>
+                                                <td onClick={(e) => showLead(lead)}>
+                                                        {lead.phone}
+                                                </td>
+                                            </>
+                                        )}
                                         <td>
-                                            <div onClick={(e) => showLead(lead)} role='button' className="text-primary text-decoration-underline">Read message</div>
-                                        </td>
-                                        </PermissionAllow>
-                                        <td>
-                                            <div>
-                                                {lead.email}
-                                            </div>
-                                            <div className="small text-muted">
-                                                {lead.phone}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <LeadStatusBtn status={lead.status}></LeadStatusBtn>
+                                            <LeadStatusBtn attendLead={attendLead} sold={sold} lead={lead}></LeadStatusBtn>
                                         </td>
                                         <td>
                                             <PermissionAllow permission="Ad Lead Show">
-                                            <button onClick={(e) => showLead(lead)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
+                                                <button onClick={(e) => showLead(lead)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
                                             </PermissionAllow>
+                                            {!minimal && (
                                             <PermissionAllow permission="Ad Lead Edit">
-                                            <button onClick={(e) => confirmDelete(lead.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                <button onClick={(e) => confirmDelete(lead.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
                                             </PermissionAllow>
+                                            )}
                                         </td>
                                     </tr>
                                 ))}

@@ -34,7 +34,7 @@ class LeadResource extends JsonResource
             'available_time'	 => $this->available_time,
             'property'       => $this->property,
             'status'        => $this->status,
-            'date_text' => \Carbon\Carbon::parse($this->created_at)->format('h:i a, d M'),
+            'date_text' => \Carbon\Carbon::parse($this->created_at)->format('D d M, h:i a'),
             'attender' => $this->attender->name ?? null, 
         ];
     }

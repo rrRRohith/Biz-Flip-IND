@@ -26,6 +26,15 @@ const SideBar = ({ user }) => {
                     <a className="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0 d-none d-lg-block text-center" href="/">
                         <img src="/logo.png" alt="..." />
                     </a>
+                    <div className='me-auto ms-3 d-lg-none'>
+                        <PermissionAllow permission="Ad Create">
+                            <Link className="btn btn-primary btn-sm text-overflow" href={route('seller.ads.create')}>Place an ad
+                            </Link>
+                        </PermissionAllow>
+                    </div>
+                    <div className='ms-auto me-3 d-lg-none'>
+                        <a class="fw-semibold btn btn-primary btn-sm" href="/">Home</a>
+                    </div>
                     <div className="navbar-user d-lg-none">
                         <div className="dropdown">
                             <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -96,6 +105,11 @@ const SideBar = ({ user }) => {
                                     <i className="bi bi-person"></i> Profile
                                 </Link>
                             </li>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/password') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.password.index')}>
+                                    <i className="bi bi-person"></i> Security
+                                </Link>
+                            </li>
                             <PermissionAllow permission="Settings">
                                 {user.is_agent && (
                                     <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/settings*') ? 'bg-gray-100' : ''}`}>
@@ -114,7 +128,7 @@ const SideBar = ({ user }) => {
                             </li>
                         </ul>
                         <div className="mb-auto" />
-                        <div className="my-4 px-lg-6 position-relative d-none d-lg-block">
+                        {/* <div className="my-4 px-lg-6 position-relative d-none d-lg-block">
                             <div className="dropup w-full">
                                 <button className="btn-light bg-gray-100 d-flex w-full py-3 ps-3 pe-4 align-items-center border-0 border-none shadow-none rounded-0 rounded-lg-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <span className="me-3">
@@ -129,7 +143,7 @@ const SideBar = ({ user }) => {
                                     <ProfileDropdown user={user}></ProfileDropdown>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>

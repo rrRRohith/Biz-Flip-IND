@@ -7,14 +7,21 @@ import axios from 'axios';
 import Spinner from '@/Components/Spinner';
 import PermissionAllow from '@/Components/PermissionAllow';
 import Delete from './Components/Delete';
+import Select from 'react-select';
 
-export default function Ads({ auth, ads }) {
+export default function Ads({ auth, ads, categories, industries }) {
     const [loading, setLoading] = useState(false);
 
     const [adData, setadData] = useState(ads.data);
 
     const { data, setData } = useForm({
         q: "",
+        status: "",
+        status_title: 'All status',
+        category: '',
+        category_title: 'All categories',
+        industry: '',
+        industry_title: 'All industries',
     });
 
     // useEffect(() => {
@@ -41,6 +48,27 @@ export default function Ads({ auth, ads }) {
     }
     const handleClose = () => setShowDelete(false);
     
+    const status = [
+        {
+            'label': 'Pending',
+            'value': -1,
+        }, {
+            'label': 'Active',
+            'value': 1,
+        }, {
+            'label': 'Inactive',
+            'value': 0,
+        }, {
+            'label': 'Sold',
+            'value': 2,
+        }
+    ]
+    const [ad_categories, setAdcategories] = useState(industries);
+    const changeAdCategories = (value) => {
+        const category = categories.find(item => item.value === value);
+        setAdcategories(category ? category.ad_category_collection : industries);
+    }
+
     return (
         <>
             {loading && <Spinner />}
@@ -48,15 +76,24 @@ export default function Ads({ auth, ads }) {
             <Delete showDelete={showDelete} handleClose={handleClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
             <Wrapper user={auth.user}>
                 <main className="py-6">
-                    <div className="container">
-                        <div className="max-w-screen-xl vstack gap-6 m-auto">
+                    <div className="container-fluid">
+                        <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Ads</div>
                             <div>
                                 <div className="card">
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">
-                                            <div className="me-2">
+                                            <div className="">
                                                 <input defaultValue={data.q} onChange={(e) => setData('q', e.target.value)} type="search" placeholder='Search by name, location etc' className='text-overflow form-control' />
+                                            </div>
+                                            <div className="ms-2">
+                                                <Select defaultValue={{ value: data.category, label: data.category_title }} onChange={(e) => {setData('category', e.value); changeAdCategories(e.value)}} options={[{ label: "All categories", value: "" }, ...categories]}></Select>
+                                            </div>
+                                            <div className="ms-2">
+                                                <Select defaultValue={{ value: data.industry, label: data.industry_title }} onChange={(e) => {setData('industry', e.value)}} options={[{ label: "All industries", value: "" }, ...ad_categories]}></Select>
+                                            </div>
+                                            <div className="ms-2">
+                                                <Select defaultValue={{ value: data.status, label: data.status_title }} onChange={(e) => setData('status', e.value)} options={[{ label: "All status", value: "" }, ...status]}></Select>
                                             </div>
                                             <div className="ms-2">
                                                 <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>

@@ -40,7 +40,8 @@ class Ad extends Model
         'space',
         'seo_title',
         'seo_keywords',
-        'seo_description'
+        'seo_description',
+        'status',
     ];
 
     
@@ -94,9 +95,20 @@ class Ad extends Model
 
     public function scopeSearch($q, Request $request){
         return $q->when($request->q, function($q) use($request){
-            return $q->where('title', 'LIKE', "%{$request->q}%")->orWhere('address', 'LIKE', "%{$request->q}%")
-            ->orWhere('city', 'LIKE', "%{$request->q}%");
+            return $q->where(fn($q) => $q->where('title', 'LIKE', "%{$request->q}%")
+            ->orWhere('address', 'LIKE', "%{$request->q}%")
+            ->orWhere('city', 'LIKE', "%{$request->q}%"));
         });
+    }
+
+    public function scopeAgent_search($q, Request $request){
+        return $q->when($request->q, function($q) use($request){
+            return $q->where(fn($q) => $q->where('title', 'LIKE', "%{$request->q}%")
+            ->orWhere('address', 'LIKE', "%{$request->q}%")
+            ->orWhere('city', 'LIKE', "%{$request->q}%"));
+        })->when($request->has('status') && !is_null($request->status), fn($q) => $q->whereStatus($request->status))
+        ->when($request->category, fn($q) => $q->whereHas('business_categories', fn($q) => $q->where('business_categories.id', $request->category)))
+        ->when($request->industry, fn($q) => $q->whereHas('categories', fn($q) => $q->where('categories.id', $request->industry)));
     }
 
     public function views(){

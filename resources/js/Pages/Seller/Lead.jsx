@@ -2,7 +2,7 @@ import LeadStatusBtn from "./Components/LeadStatusBtn";
 import { Link } from "@inertiajs/react";
 import PermissionAllow from '@/Components/PermissionAllow';
 
-export default function ({ lead, attendLead }) {
+export default function ({ lead, attendLead, sold }) {
     return (
         <>
             <table className="table table-hover table-nowrap mb-5">
@@ -51,7 +51,7 @@ export default function ({ lead, attendLead }) {
                         <td>
                             Message.
                         </td>
-                        <td className="font-bold">
+                        <td className="font-bold whitespace-wrap">
                             {lead.message}
                         </td>
                     </tr>
@@ -60,7 +60,7 @@ export default function ({ lead, attendLead }) {
                             Status.
                         </td>
                         <td>
-                            <LeadStatusBtn status={lead.status}></LeadStatusBtn>
+                            <LeadStatusBtn lead={lead}></LeadStatusBtn>
                         </td>
                     </tr>
                     {lead.attender && (
@@ -80,7 +80,16 @@ export default function ({ lead, attendLead }) {
                 <PermissionAllow permission="Ad Lead Edit">
                 <div className="row g-5">
                     <div className="col-12 text-end">
-                        <button onClick={(e) => attendLead(lead)} type="submit" className="btn btn-primary">Mark as attended</button>
+                        <button onClick={(e) => attendLead(lead)} type="submit" className="btn btn-primary">Mark as responded</button>
+                    </div>
+                </div>
+                </PermissionAllow>
+            )}
+            {lead.status == 1 && (
+                <PermissionAllow permission="Ad Lead Edit">
+                <div className="row g-5">
+                    <div className="col-12 text-end">
+                        <button onClick={(e) => sold(lead)} type="submit" className="btn btn-primary">Mark as sold</button>
                     </div>
                 </div>
                 </PermissionAllow>

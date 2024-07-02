@@ -27,7 +27,10 @@ class LeadEnquiry extends Model
     public function scopeSearch($q, Request $request){
         return $q->when($request->q, function($q) use($request){
             return $q->where('firstname', 'LIKE', "%{$request->q}%")->orWhere('lastname', 'LIKE', "%{$request->q}%");
-        })->when($request->ad, fn($q) => $q->whereAdId($request->ad));
+        })->when($request->ad, fn($q) => $q->whereAdId($request->ad))
+        ->when($request->has('status') && !is_null($request->status), fn($q) => $q->whereStatus($request->status))
+        ->when($request->category, fn($q) => $q->whereHas('ad', fn($q) => $q->whereHas('business_categories', fn($q) => $q->where('business_categories.id', $request->category))))
+        ->when($request->date_range && isset($request->date_range['start']) && isset($request->date_range['end']), fn($q) => $q->whereBetween('created_at', [$request->date_range['start'] . ' 00:00:00', $request->date_range['end'] . ' 23:59:59']));
     }
 
     public function scopeLast7Days(Builder $query)

@@ -42,12 +42,14 @@ class AdController extends BaseController{
      */
     public function index(Request $request){
         return Inertia::render('Seller/Ads', [
+            'industries' => Category::selectRaw("id as value, name as label")->get()->toArray(),
+            'categories' => BusinessCategory::selectRaw("id as value, name as label, business_categories.*")->get()->toArray(),
             'ads' => AdResource::collection($this->seller->ads()->latest()->get()),
         ]);
     }
 
     public function search(Request $request){
-        return response()->json(AdResource::collection($this->seller->ads()->search($request)->latest()->get()));
+        return response()->json(AdResource::collection($this->seller->ads()->agent_search($request)->latest()->get()));
     }
 
     /**
@@ -248,6 +250,15 @@ class AdController extends BaseController{
         catch(\Exception $e){
 			return $e->getMessage();
         }
+    }
+
+    public function status(Request $request, Ad $ad){
+        abort_if($ad->status == -1, 403);
+        $this->seller->ads()->findOrfail($ad->id);
+        $ad->update([
+            'status' => $request->status,
+        ]);
+        return redirect()->back()->with('success', 'Ad updated successfully.');
     }
 
     /**

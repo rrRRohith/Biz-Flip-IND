@@ -36,6 +36,7 @@ class LeadController extends BaseController{
      */
     public function index(Request $request){
         return Inertia::render('Seller/Leads', [
+            'categories' => \App\Models\BusinessCategory::selectRaw("id as value, name as label")->get()->toArray(),
             'ads' => $this->seller->ads()->selectRaw("title as label, id as value")->get()->toArray(),
             'leads' => LeadResource::collection($this->seller->leads()->latest()->get()),
         ]);
@@ -55,7 +56,7 @@ class LeadController extends BaseController{
         $this->seller->leads()->findOrfail($lead->id);
         try{
             $lead->update([
-                'status' => '1',
+                'status' => $request->status == 'sold' ? '2' : '1',
                 'attender_id' => $this->user->id,
             ]);
             return to_route('seller.leads.index')->with('success', 'Lead updated successfully.');

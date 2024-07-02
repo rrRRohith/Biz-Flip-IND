@@ -1,8 +1,8 @@
 @extends('layouts.wrapper', ['wrapperClass' => 'bg-light'])
 @section('contents')
 @section('title', $ad->title)
-<div>
-    <div class="mt-5">
+<div class="">
+    <div class="mt-5 not-embed">
         <div class="container pt-5">
             <ul class="breadcrumb">
                 <li class="pe-1">
@@ -10,10 +10,12 @@
                 </li>
                 <li class="pe-1">/ <a href="{{ route('ads.index') }}" class="text-decoration-none">Ads</a></li>
                 @if ($ad->business_category)
-                <li class="pe-1">/ <a href="{{ route('ads.index', ['bcategory' => $ad->business_category->id]) }}" class="text-decoration-none">{{ $ad->business_category->name }}</a></li>
+                    <li class="pe-1">/ <a href="{{ route('ads.index', ['bcategory' => $ad->business_category->id]) }}"
+                            class="text-decoration-none">{{ $ad->business_category->name }}</a></li>
                 @endif
                 @if ($ad->category)
-                <li class="pe-1">/ <a href="{{ route('ads.index', ['category' => $ad->category->id]) }}" class="text-decoration-none">{{ $ad->category->name }}</a></li>
+                    <li class="pe-1">/ <a href="{{ route('ads.index', ['category' => $ad->category->id]) }}"
+                            class="text-decoration-none">{{ $ad->category->name }}</a></li>
                 @endif
                 <li class="pe-1">/ {{ $ad->title }}</li>
             </ul>
@@ -26,21 +28,24 @@
                 <div>
                     <h1 class="fs-2 fw-semibold">{{ $ad->title }}</h1>
                     <div class="fs-5 fw-semibold">${{ number_format($ad->price) }}</div>
-                    @if($ad->is_franchise)
-                    @include('franchise')
+                    @if ($ad->is_franchise)
+                        @include('franchise')
                     @endif
                     <div class="text-overflow mt-4">
-                        <span class="text-uppercase">Location</span>. <i class="bi bi-geo-alt-fill"></i><span class="fw-semibold">{{ $ad->city }}</span>
+                        <span class="text-uppercase">Location</span>. <i class="bi bi-geo-alt-fill"></i><span
+                            class="fw-semibold">{{ $ad->city }}</span>
                     </div>
                     @if ($ad->business_category)
                         <div class="text-overflow">
-                            <span class="text-uppercase">Category</span>. <a href="{{ route('ads.index', ['bcategory' => $ad->business_category->id]) }}"
+                            <span class="text-uppercase">Category</span>. <a
+                                href="{{ route('ads.index', ['bcategory' => $ad->business_category->id]) }}"
                                 class="fw-semibold text-decoration-none">{{ $ad->business_category->name }}</a>
                         </div>
                     @endif
                     @if ($ad->category)
                         <div class="text-overflow">
-                            <span class="text-uppercase">Industry</span>. <a href="{{ route('ads.index', ['category' => $ad->category->id]) }}"
+                            <span class="text-uppercase">Industry</span>. <a
+                                href="{{ route('ads.index', ['category' => $ad->category->id]) }}"
                                 class="fw-semibold text-decoration-none">{{ $ad->category->name }}</a>
                         </div>
                     @endif
@@ -106,20 +111,20 @@
                 <div class="mt-4">
                     {!! $ad->description !!}
                 </div>
-                <div class='mt-4 mb-4'>
+                <div class='mt-4 mb-4 not-embed'>
                     <div class="fw-semibold mb-3 fs-5">
                         Locate {{ $ad->title }}
                     </div>
                     <iframe class="w-100 rounded-1 mh-400px"
                         src= "https://maps.google.com/maps?q={{ $ad->lat }},{{ $ad->lng }}&hl=es;z=14&output=embed"></iframe>
                 </div>
-                <div class="mb-4">
+                <div class="mb-4 not-embed">
                     <a role="button" data-url="{{ request()->url() }}" data-title="{{ $ad->title }}"
                         class='share btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
                         Share <i class="bi bi-share"></i></a>
                 </div>
                 @if ($ad->seller_ads()->count() && $ad->seller->is_agent)
-                    <div class='mb-4'>
+                    <div class='mb-4 not-embed'>
                         <div class="fw-semibold mb-3 fs-5">
                             Other listings by {{ $ad->seller->name }}
                         </div>
@@ -136,12 +141,12 @@
                     </div>
                 @endif
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 not-embed">
                 @include('partials.contact', ['user' => $ad->seller])
             </div>
             <div class="my-4"></div>
             @if ($ad->similar_ads->count())
-                <div class='mb-5'>
+                <div class='mb-5 not-embed'>
                     <div class="fw-semibold mb-3 fs-5">
                         Similar listing
                     </div>
@@ -189,6 +194,15 @@
                 }
             }
         });
+    });
+    
+    $(document).ready(() => {
+        if(!(document.cookie.split('; ').find(row => row.startsWith('client_ip=')) || '').split('=')[1] || null){
+            $.getJSON("https://api.ipify.org?format=json", function(data) {
+                document.cookie = `client_ip=${data.ip}`;
+                $.getJSON(location.href);
+            })
+        }
     });
 </script>
 @endpush

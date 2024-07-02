@@ -8,7 +8,9 @@ use Inertia\Inertia;
 Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
     
     Route::get('/', 'App\Http\Controllers\Seller\Controller@dashboard')->name('index');
+    Route::get('/graph', 'App\Http\Controllers\Seller\Controller@graph')->name('graph');
     Route::get('/ads/search', 'App\Http\Controllers\Seller\AdController@search')->name('ads.search');
+    Route::put('/ads/{ad}/status', 'App\Http\Controllers\Seller\AdController@status')->name('ads.status');
     
     Route::resource('/ads', App\Http\Controllers\Seller\AdController::class, [
         'except' => ['show']
@@ -25,6 +27,8 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     ])->parameters([
         'profiles' => 'profile'
     ]);
+    Route::get('/password', 'App\Http\Controllers\Seller\ProfileController@password')->name('password.index');
+    Route::post('/password', 'App\Http\Controllers\Seller\ProfileController@changePassword')->name('password.store');
 
     Route::resource('/settings', App\Http\Controllers\Seller\SettingsController::class, [
         'only' => ['index', 'store']

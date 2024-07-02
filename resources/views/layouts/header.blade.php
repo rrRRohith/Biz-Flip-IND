@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg py-3 px-0 navbar-light bg-white fixed-top shadow-sm">
+<nav class="not-embed navbar navbar-expand-lg py-3 px-0 navbar-light bg-white fixed-top shadow-sm">
     <div class="container">
         <a class="navbar-brand py-1" href="/">
             <img src="/logo.png"

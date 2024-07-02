@@ -51,8 +51,8 @@ export default function Index({ auth, staffs }) {
             <Wrapper user={auth.user}>
             <Delete showDelete={showDelete} handleClose={handleClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
                 <main className="py-6">
-                    <div className="container">
-                        <div className="max-w-screen-lg vstack gap-6 m-auto">
+                    <div className="container-fluid">
+                        <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Staffs</div>
                             <div>
                                 <div className="card">

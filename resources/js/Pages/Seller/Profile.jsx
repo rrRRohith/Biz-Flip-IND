@@ -60,13 +60,15 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                     <div className="d-flex align-items-center">
                                         <div>
                                             <div className="d-flex align-items-center">
-                                                <a href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></a>
-                                                <div className="ms-4"><span className="h4 d-block mb-0">{data.firstname} {data.lastname}</span></div>
+                                                <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></label>
+                                                <div className="ms-4"><span className="h4 d-block mb-0">{data.firstname} {data.lastname}</span>
+                                                <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Change image</label>
+                                                </div>
                                             </div>
                                             <InputError message={errors.picture} />
                                         </div>
                                         <input onChange={handleImageChange} type="file" id="avatar" className='d-none' hidden accept='image/*' />
-                                        <div className="ms-auto"><label htmlFor='avatar' type="button" className="btn btn-sm btn-neutral">Upload</label></div>
+                                        {/* <div className="ms-auto"><label htmlFor='avatar' type="button" className="btn btn-sm btn-neutral">Upload</label></div> */}
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +95,7 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                             <InputError message={errors.phone} />
                                         </div>
                                     </div>
-                                    <div className="mb-5 mt-5">
+                                    {/* <div className="mb-5 mt-5">
                                         <h4>Change password</h4>
                                     </div>
                                     <div className="row g-5">
@@ -105,9 +107,13 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                             <div><label>Conform new password</label> <input type="password" value={data.confirm_password} onChange={(e) => handleChange("confirm_password", e.target.value)} name="confirm_password" id="confirm_password" placeholder="Confirm your secret password" className="form-control" /></div>
                                             <InputError message={errors.confirm_password} />
                                         </div>
-                                        <div className="col-12 text-end">
+
+                                    </div> */}
+                                    <div className="row g-5">
+                                        <div className="col-12 text-end mt-10">
                                             <button type="button" className="btn btn-neutral me-2">Cancel</button>
-                                            <button type="submit" className="btn btn-primary">Save changes</button></div>
+                                            <button type="submit" className="btn btn-primary">Save changes</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

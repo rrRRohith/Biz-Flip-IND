@@ -117,10 +117,47 @@ nav#navbarVertical {
     object-fit: cover;
 }
 
-.avatar{
+.avatar {
     object-fit: cover;
 }
 
 .ck.ck-content.ck-editor__editable {
-    min-height: 300px; /* Set your desired height */
-  }
+    min-height: 300px;
+    /* Set your desired height */
+}
+
+
+.mw-200 {
+    max-width: 200px !important;
+}
+
+.navbar-vertical.navbar-expand-lg.show {
+    min-width: 270px;
+}
+
+.seller-top-navbar{
+    margin-left: 270px;
+}
+
+.whitespace-wrap {
+    white-space: unset !important;
+}
+
+.rs-picker-input-group.rs-input-group.rs-input-group-inside {
+    height: 48px !important;
+    border-width: 2px;
+    box-shadow: none !important;
+    border-color: #e7eaf0 !important;
+}
+
+.rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus, .rs-input-group:focus-within {
+    border-color: var(--x-primary) !important;
+    border-color: var(--x-primary) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+iframe.adframe {
+    width: 100%;
+    min-height: 50vh;
+}

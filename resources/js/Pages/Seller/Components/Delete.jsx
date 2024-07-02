@@ -9,7 +9,7 @@ export default function Delete({deleteAction, deleteId, setShowDelete, handleClo
                     <Modal.Title className='text-danger'>Hold on!</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='border-0 py-0'>
-                    <div className='text-md'>Are you sure want to delete? this action is non non reversible</div>
+                    <div className='text-md'>Are you sure want to delete? this action is non reversible</div>
                 </Modal.Body>
                 <Modal.Footer className='border-0'>
                     <div className="row g-5">

@@ -17,7 +17,7 @@
     @stack('styles')
 </head>
 
-<body class="{{ $bodyClass ?? null }}">
+<body class="{{ $bodyClass ?? null }} {{ request()->has('embed') ? "embeded" : "" }}">
     @yield('content')
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -25,4 +25,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.3/rails.min.js"></script>
 <script src="{{ asset('app.js') }}"></script>
 @stack('scripts')
+<script>
+    document.cookie = 'name=value';
+</script>
 </html>

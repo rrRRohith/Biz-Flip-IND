@@ -6,7 +6,7 @@ const Wrapper = ({ success, error, children, user }) => {
     return (
         <>
             <ToastNotification success={success} error={error} />
-            <Header></Header>
+            <Header user={user}></Header>
             <div className="">
                 <div className="d-flex flex-column flex-lg-row h-lg-full bg-white">
                     <SideBar user={user}></SideBar>
