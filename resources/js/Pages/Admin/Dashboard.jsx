@@ -22,7 +22,13 @@ export default function Dashboard({ auth, data, adsListing, leadLast7Days, selle
     // Calculate percentage change in leads compared to the previous week
     const currentWeekLeads = leadData.reduce((acc, val) => acc + val, 0);
     const previousWeekLeads = leadData.slice(0, 7).reduce((acc, val) => acc + val, 0);
-    const percentageChange = ((currentWeekLeads - previousWeekLeads) / previousWeekLeads) * 100;
+    var percentageChange = 0;
+    if(previousWeekLeads > 0){
+         percentageChange = ((currentWeekLeads - previousWeekLeads) / previousWeekLeads) * 100;
+    }
+    else{
+         percentageChange = currentWeekLeads * 100;
+    }
 
     // Determine the color based on the percentage change
     let changeColor = '';
