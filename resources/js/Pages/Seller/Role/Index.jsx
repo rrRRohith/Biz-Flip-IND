@@ -20,10 +20,6 @@ export default function Index({ auth, roles }) {
         q: "",
     });
 
-    // useEffect(() => {
-    //     searchResult();
-    // }, [data]);
-
     const searchResult = async () => {
         setLoading(true);
         const response = await axios.get(route("seller.roles.search", data));
