@@ -265,3 +265,15 @@ img.ad-image {
     font-size: 10px;
     border-radius: 25px;
 }
+
+
+.slick-slide img{
+  aspect-ratio: 3/2 !important;
+}
+
+
+
+iframe.listframe {
+  width: 100%;
+  min-height: 50vh;
+}

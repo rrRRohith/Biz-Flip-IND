@@ -34,7 +34,7 @@ class Controller extends BaseController
 
         // Initialize the last 7 days with zero counts
         for ($i = 6; $i >= 0; $i--) {
-            $date = Carbon::now()->subDays($i)->format('Y-m-d');
+            $date = Carbon::now()->subDays($i)->format('d-M-Y');
             $leadCategory[] = $date;
             $leadData[$date] = 0;
         }
@@ -58,11 +58,13 @@ class Controller extends BaseController
             ->groupBy('seller_id')
             ->get();
 
+
+
         $adSellerArray = [];
 
         foreach ($adCompletedBySeller as $ad) {
             // Load the seller model using the seller_id
-            $seller = Seller::find($ad->seller_id);
+            $seller = User::find($ad->seller_id);
 
             // Check if the seller exists (optional, based on your database structure)
             if ($seller) {
@@ -73,26 +75,39 @@ class Controller extends BaseController
             }
         }
 
+        
+     
+
+
         // JSON encode the array if needed for passing as props
         $sellerAdsJson = $adSellerArray;
 
         ////////////////////////////////Ads Listing//////////////////////////////////////////////////
         $adsList = Ad::with('images')->orderBy('updated_at', 'DESC')->get();
-        $adsListImages = $adsList->flatMap(function ($ad) {
-            return $ad->images->pluck('image')->toArray();
-        })->toArray();
 
+        $adsListing = $adsList->flatMap(function ($ad) {
+            return $ad->images->map(function ($image) use ($ad) {
+                return [
+                    'image' => $image->image,
+                    'title' => $ad->title,
+                    'slug' => $ad->slug,
+                ];
+            });
+        })->toArray();
+        
+        
         ///////////////////////////////Ads Completed///////////////////////////////////////////////////
-        $adCompletedBySeller = Ad::where('status', 3)
+        $adCompletedBySeller = Ad::where('status', 2)
             ->select('seller_id', DB::raw('COUNT(*) as lead_count'))
             ->groupBy('seller_id')
             ->get();
+
 
         $adCompletedLeads = [];
 
         foreach ($adCompletedBySeller as $ad) {
             // Load the seller model using the seller_id
-            $seller = Seller::find($ad->seller_id);
+            $seller = User::find($ad->seller_id);
 
             // Check if the seller exists (optional, based on your database structure)
             if ($seller) {
@@ -106,6 +121,7 @@ class Controller extends BaseController
         // JSON encode the array if needed for passing as props
         $adCompletedJson = $adCompletedLeads;
 
+
         return Inertia::render('Admin/Dashboard', [
             'data' => [
                 'sellers' => $sellers,
@@ -113,7 +129,7 @@ class Controller extends BaseController
                 'ads' => $ads,
                 'ads_completed' => $ads_completed,
             ],
-            'adsListImages' => $adsListImages,
+            'adsListing' => $adsListing,
             'leadLast7Days' => $leadLast7Days,
             'sellerLeads' => $sellerAdsJson,
             'adCompletedBySeller' => $adCompletedJson,

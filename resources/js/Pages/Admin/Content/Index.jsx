@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
 import Swal from 'sweetalert2';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import ModalPopup from '@/Components/ModalPopup';
+import PageView from '@/Pages/Admin/Content/PageView';
+import axios from 'axios';
 
 export default function Index({ pageList, auth, success = null, error = null }) {
+
+    
+    const [show, setShow] = useState(false);
+    const [data, setData] = useState(null);
+    const handleClose = () => setShow(false);
+    const handleShow = async (ad) => {
+        try {
+            const response = await axios.get(route("admin.content-page.show", ad.id));
+            const responseData = response.data;
+            setData(responseData);
+            setShow(true);
+        } catch (error) {
+            console.error('Error fetching data', error);
+        }
+    };
 
     const deletePage = (page) => {
         Swal.fire({
@@ -69,26 +89,25 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                                     <div className="box-body">
                                         <PermissionAllow permission={'Content Pages Listing'} message={true}>
                                             <div className="table-responsive rounded card-table">
-                                                <table className="table border-no" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Title</th>
-                                                            <th>Status</th>
-                                                            <th>Last Modified</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
+                                                <Table className="table border-no" id="example1">
+                                                    <Thead>
+                                                        <Tr>
+                                                            <Th>#</Th>
+                                                            <Th>Title</Th>
+                                                            <Th>Status</Th>
+                                                            <Th>Last Modified</Th>
+                                                            <Th></Th>
+                                                        </Tr>
+                                                    </Thead>
+                                                    <Tbody>
                                                         {pageList.data.map((page) => (
-
-                                                            <tr key={page.id} className="hover-primary">
-                                                                <td>{page.id}</td>
-                                                                <td>{page.title}</td>
-                                                                <td>{page.status}</td>
-                                                                <td>{page.updated_at}</td>
-                                                                <td>
+                                                            <Tr key={page.id} className="hover-primary">
+                                                                <Td>{page.id}</Td>
+                                                                <Td>{page.title}</Td>
+                                                                <Td>{page.status}</Td>
+                                                                <Td>{page.updated_at}</Td>
+                                                                <Td>
+                                                                    <span onClick={() => handleShow(page)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
                                                                     <PermissionAllow permission={'Content Page Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.content-page.edit', page.id)}>
                                                                             <i className="bi bi-pencil"></i>
@@ -99,12 +118,11 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>
-                                                                </td>
-                                                            </tr>
+                                                                </Td>
+                                                            </Tr>
                                                         ))}
-
-                                                    </tbody>
-                                                </table>
+                                                    </Tbody>
+                                                </Table>
                                             </div>
                                         </PermissionAllow>
                                     </div>
@@ -117,6 +135,20 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                 </div>
             </div>
             {/* <!-- /.content-wrapper --> */}
+
+
+             {/* Display modal for  details */}
+             <ModalPopup show={show} handleClose={handleClose} size="lg" title="Page Show">
+                {data ? (
+                    <PageView
+                        collection={data}
+                        handleClose={handleClose}
+                    />
+                ) : (
+                    'Failed fetching data...'
+                )}
+            </ModalPopup>
+
         </Authenticated>
 
     )

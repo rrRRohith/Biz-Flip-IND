@@ -67,9 +67,11 @@ class ContentPageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Page $page)
+    public function show($id)
     {
         //
+        $page =  Page::where('id',$id)->first();
+        return response()->json(new ContentPageResource($page));
     }
 
     /**

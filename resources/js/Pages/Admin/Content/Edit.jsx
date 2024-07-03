@@ -8,6 +8,7 @@ import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import EmailEditor from 'react-email-editor';
 import PermissionAllow from "@/Components/PermissionAllow";
 import DynamicSelect from "@/Components/DynamicSelect";
+import Form from 'react-bootstrap/Form';
 
 export default function Edit({ page_item, auth, imageList }) {
     const images = Object.entries(imageList).map(([key, value]) => ({
@@ -195,25 +196,20 @@ export default function Edit({ page_item, auth, imageList }) {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-md-6">
-                                                            <div className="form-group">
-                                                                <label className="fw-700 fs-16 form-label">Status</label>
-                                                                <div className="radio-list">
-                                                                    <RadioButtonLabel
-                                                                        name="status"
-                                                                        onChange={(value) => handleChange("status", value)}
-                                                                        value="1"
-                                                                        checked={data.status === 1}
-                                                                        label="Published"
-                                                                    />
-                                                                    <RadioButtonLabel
-                                                                        name="status"
-                                                                        onChange={(value) => handleChange("status", value)}
-                                                                        value="0"
-                                                                        checked={data.status === 0}
-                                                                        label="Draft"
-                                                                    />
-                                                                </div>
+                                                            <div className="form-group ps-3 ">
+                                                                <label className="fw-700  form-label">Status</label>
+                                                                <Form.Check
+                                                                    type="switch"
+                                                                    id="custom-switch"
+                                                                    name="status"
+                                                                    label="Publish"
+                                                                    role="button"
+                                                                    checked={data.status === 1}
+                                                                    onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+
+                                                                />
                                                                 <InputError message={errors.status} className="mt-2 col-12" />
+
                                                             </div>
                                                         </div>
                                                     </div>
