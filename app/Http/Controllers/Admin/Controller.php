@@ -78,10 +78,18 @@ class Controller extends BaseController
 
         ////////////////////////////////Ads Listing//////////////////////////////////////////////////
         $adsList = Ad::with('images')->orderBy('updated_at', 'DESC')->get();
-        $adsListImages = $adsList->flatMap(function ($ad) {
-            return $ad->images->pluck('image')->toArray();
-        })->toArray();
 
+        $adsListing = $adsList->flatMap(function ($ad) {
+            return $ad->images->map(function ($image) use ($ad) {
+                return [
+                    'image' => $image->image,
+                    'title' => $ad->title,
+                    'slug' => $ad->slug,
+                ];
+            });
+        })->toArray();
+        
+        
         ///////////////////////////////Ads Completed///////////////////////////////////////////////////
         $adCompletedBySeller = Ad::where('status', 3)
             ->select('seller_id', DB::raw('COUNT(*) as lead_count'))
@@ -106,6 +114,7 @@ class Controller extends BaseController
         // JSON encode the array if needed for passing as props
         $adCompletedJson = $adCompletedLeads;
 
+
         return Inertia::render('Admin/Dashboard', [
             'data' => [
                 'sellers' => $sellers,
@@ -113,7 +122,7 @@ class Controller extends BaseController
                 'ads' => $ads,
                 'ads_completed' => $ads_completed,
             ],
-            'adsListImages' => $adsListImages,
+            'adsListing' => $adsListing,
             'leadLast7Days' => $leadLast7Days,
             'sellerLeads' => $sellerAdsJson,
             'adCompletedBySeller' => $adCompletedJson,

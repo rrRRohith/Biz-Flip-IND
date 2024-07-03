@@ -156,8 +156,3 @@ nav#navbarVertical {
     box-shadow: none !important;
     outline: none !important;
 }
-
-iframe.listframe {
-    width: 100%;
-    min-height: 50vh;
-}

@@ -1,12 +1,15 @@
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import { Head } from '@inertiajs/react';
-import PropertiesSlider from '@/Components/SlickSlider';
+import DashboardSlider from '@/Components/DashboardSlider';
 import LeadsChart from '@/Components/LeadsChart';
 import CustomCircularProgress from '@/Components/CustomCircularProgress';
 
-export default function Dashboard({ auth, data, adsListImages, leadLast7Days, sellerLeads, adCompletedBySeller }) {
 
-    const images = adsListImages;
+
+export default function Dashboard({ auth, data, adsListing, leadLast7Days, sellerLeads, adCompletedBySeller }) {
+
+
+
     const leadCategory = JSON.parse(leadLast7Days['leadCategoryArray']);
     const leadData = JSON.parse(leadLast7Days['leadDataArray']);
 
@@ -122,7 +125,7 @@ export default function Dashboard({ auth, data, adsListImages, leadLast7Days, se
                                         <h4 className="box-title">Ads Listing</h4>
                                     </div>
                                     <div className="box-body">
-                                        <PropertiesSlider images={images} slidesToShow={4} />
+                                        <DashboardSlider adsListing={adsListing} slidesToShow={4} />
                                     </div>
                                 </div>
                             </div>
@@ -146,6 +149,8 @@ export default function Dashboard({ auth, data, adsListImages, leadLast7Days, se
                     </section>
                 </div>
             </div>
+
+           
         </Authenticated>
     );
 }
