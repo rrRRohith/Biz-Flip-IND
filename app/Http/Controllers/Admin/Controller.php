@@ -34,7 +34,7 @@ class Controller extends BaseController
 
         // Initialize the last 7 days with zero counts
         for ($i = 6; $i >= 0; $i--) {
-            $date = Carbon::now()->subDays($i)->format('Y-m-d');
+            $date = Carbon::now()->subDays($i)->format('d-M-Y');
             $leadCategory[] = $date;
             $leadData[$date] = 0;
         }
@@ -58,11 +58,13 @@ class Controller extends BaseController
             ->groupBy('seller_id')
             ->get();
 
+
+
         $adSellerArray = [];
 
         foreach ($adCompletedBySeller as $ad) {
             // Load the seller model using the seller_id
-            $seller = Seller::find($ad->seller_id);
+            $seller = User::find($ad->seller_id);
 
             // Check if the seller exists (optional, based on your database structure)
             if ($seller) {
@@ -72,6 +74,10 @@ class Controller extends BaseController
                 ];
             }
         }
+
+        
+     
+
 
         // JSON encode the array if needed for passing as props
         $sellerAdsJson = $adSellerArray;
@@ -91,16 +97,17 @@ class Controller extends BaseController
         
         
         ///////////////////////////////Ads Completed///////////////////////////////////////////////////
-        $adCompletedBySeller = Ad::where('status', 3)
+        $adCompletedBySeller = Ad::where('status', 2)
             ->select('seller_id', DB::raw('COUNT(*) as lead_count'))
             ->groupBy('seller_id')
             ->get();
+
 
         $adCompletedLeads = [];
 
         foreach ($adCompletedBySeller as $ad) {
             // Load the seller model using the seller_id
-            $seller = Seller::find($ad->seller_id);
+            $seller = User::find($ad->seller_id);
 
             // Check if the seller exists (optional, based on your database structure)
             if ($seller) {
