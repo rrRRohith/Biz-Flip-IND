@@ -19,7 +19,7 @@ const SideBar = ({ user }) => {
     return (
         <>
             <nav className="navbar show border-end navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0" id="navbarVertical">
-                <div className="container-fluid px-3 px-lg-6">
+                <div className="container-fluid px-3 px-lg-4">
                     <button className="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>
