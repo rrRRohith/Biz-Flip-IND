@@ -132,7 +132,7 @@ export default function Settings({ seller, auth, success, error, province_option
             <Wrapper user={auth.user} success={success} error={error}>
 
                 <main className="py-6">
-                    <div className="container">
+                    <div className="container px-3 px-lg-6">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Your business settings</div>
                             <div className="card rounded-input">
@@ -140,13 +140,15 @@ export default function Settings({ seller, auth, success, error, province_option
                                     <div className="d-flex align-items-center">
                                         <div>
                                             <div className="d-flex align-items-center">
-                                                <a href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></a>
-                                                <div className="ms-4"><span className="h4 d-block mb-0">{data.company_name}</span></div>
+                                                <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></label>
+                                                <div className="ms-4"><span className="h4 d-block mb-0">{data.company_name}</span>
+                                                <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Change image</label></div>
+                                                
                                             </div>
                                             <InputError message={errors.logo} />
                                         </div>
                                         <input onChange={handleImageChange} type="file" id="avatar" className='d-none' hidden accept='image/*' />
-                                        <div className="ms-auto"><label htmlFor='avatar' type="button" className="btn btn-sm btn-neutral">Upload</label></div>
+                                        {/* <div className="ms-auto"><label htmlFor='avatar' type="button" className="btn btn-sm btn-neutral">Upload</label></div> */}
                                     </div>
                                 </div>
                             </div>

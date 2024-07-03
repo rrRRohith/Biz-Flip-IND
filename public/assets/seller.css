@@ -139,7 +139,7 @@ nav#navbarVertical {
     margin-left: 270px;
 }
 
-.whitespace-wrap {
+.whitespace-wrap, .table td.whitespace-wrap {
     white-space: unset !important;
 }
 
@@ -157,7 +157,7 @@ nav#navbarVertical {
     outline: none !important;
 }
 
-iframe.adframe {
+iframe.listframe {
     width: 100%;
     min-height: 50vh;
 }

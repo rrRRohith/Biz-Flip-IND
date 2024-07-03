@@ -70,7 +70,7 @@ export default function Index({ auth, roles }) {
             <Delete showDelete={showDelete} handleClose={handleDeleteClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
             <Wrapper user={auth.user}>
                 <main className="py-6">
-                    <div className="container-fluid">
+                    <div className="container-fluid px-3 px-lg-6">
                         <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Staff roles</div>
                             <div>

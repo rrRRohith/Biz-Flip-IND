@@ -13,7 +13,7 @@ export default function Dashboard({ auth, data, leads, tickets, ads }) {
             <Head title="Dashboard" />
             <Wrapper user={auth.user}>
                 <main className="py-6">
-                    <div className="container-fluid">
+                    <div className="container-fluid px-3 px-lg-6">
                         <div className="row g-6">
                             <div className="col-xl-3 col-sm-6 col-12">
                                 <div className="card rounded-input">

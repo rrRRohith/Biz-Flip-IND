@@ -11,7 +11,7 @@ export default function ({ lead, attendLead, sold }) {
                         <td>
                             Ad.
                         </td>
-                        <td className="font-bold">
+                        <td className="font-bold whitespace-wrap">
                             {lead.ad.title} <small>{lead.ad.city}</small>
                         </td>
                     </tr>
@@ -19,7 +19,7 @@ export default function ({ lead, attendLead, sold }) {
                         <td>
                             Name.
                         </td>
-                        <td className="font-bold">
+                        <td className="font-bold whitespace-wrap">
                             {lead.firstname} {lead.lastname}
                         </td>
                     </tr>
@@ -27,7 +27,7 @@ export default function ({ lead, attendLead, sold }) {
                         <td>
                             Email.
                         </td>
-                        <td className="font-bold">
+                        <td className="font-bold whitespace-wrap">
                             {lead.email}
                         </td>
                     </tr>
@@ -35,7 +35,7 @@ export default function ({ lead, attendLead, sold }) {
                         <td>
                             Phone.
                         </td>
-                        <td className="font-bold">
+                        <td className="font-bold whitespace-wrap">
                             {lead.phone}
                         </td>
                     </tr>
@@ -43,7 +43,7 @@ export default function ({ lead, attendLead, sold }) {
                         <td>
                             Date.
                         </td>
-                        <td className="font-bold">
+                        <td className="font-bold whitespace-wrap">
                             {lead.date_text}
                         </td>
                     </tr>
@@ -68,7 +68,7 @@ export default function ({ lead, attendLead, sold }) {
                             <td>
                                 Attended by.
                             </td>
-                            <td className="font-bold">
+                            <td className="font-bold whitespace-wrap">
                                 {lead.attender}
                             </td>
                         </tr>

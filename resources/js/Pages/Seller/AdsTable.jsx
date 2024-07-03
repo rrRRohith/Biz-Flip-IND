@@ -28,7 +28,7 @@ export default function ({ ads, confirmDelete, minimal = false }) {
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='p-0'>
-                    <iframe className='rounded-3 adframe' src={adsource} frameborder="0"></iframe>
+                    <iframe className='rounded-3 listframe' src={adsource} frameborder="0"></iframe>
                 </Modal.Body>
             </Modal>
             <div className="table-responsive">

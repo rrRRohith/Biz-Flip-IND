@@ -32,7 +32,7 @@ export default function Password({ user, queryParams = null, auth, success, erro
             <Wrapper success={success} error={error} user={auth.user}>
 
                 <main className="py-6">
-                    <div className="container">
+                    <div className="container px-3 px-lg-6">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Change your password</div>
                             <div>

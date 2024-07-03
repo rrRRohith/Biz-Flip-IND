@@ -13,9 +13,12 @@ class AdView{
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response{
-        $request->ad->views()->firstOrcreate([
-            'ip_address' => $_COOKIE['client_ip'] ?? null,
-        ]);
+        if(($_COOKIE['client_ip'] ?? null) && !$request->has('embed')){
+            $request->ad->views()->firstOrcreate([
+                'ip_address' => ($_COOKIE['client_ip'] ?? null)
+            ]);
+        }
+        
         return $next($request);
     }
 }

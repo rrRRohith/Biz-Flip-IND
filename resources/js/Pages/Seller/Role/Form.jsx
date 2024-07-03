@@ -47,7 +47,7 @@ export default function Form({ role, permissions, auth, success, error }) {
             <Wrapper user={auth.user} success={success} error={error}>
 
                 <main className="py-6">
-                    <div className="container">
+                    <div className="container px-3 px-lg-6">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="d-flex align-items-center">
                                 <div className="text-xl font-bold">{role ? 'Edit role' : 'Create new role'}</div>

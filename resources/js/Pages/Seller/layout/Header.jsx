@@ -8,7 +8,7 @@ const Header = ({ user }) => {
 
     return (
         <nav className="navbar seller-top-navbar navbar-expand-lg navbar-light bg-white border-bottom px-0 fixed-top d-none d-lg-block">
-            <div className="container-fluid">
+            <div className="container-fluid px-3 px-lg-6">
                 <button className="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" />
                 </button>
