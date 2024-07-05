@@ -18,10 +18,6 @@ export default function Index({ auth, tickets }) {
         q: "",
     });
 
-    // useEffect(() => {
-    //     searchResult();
-    // }, [data]);
-
     const searchResult = async () => {
         setLoading(true);
         const response = await axios.get(route("seller.tickets.search", data));

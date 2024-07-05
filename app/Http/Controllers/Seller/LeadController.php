@@ -59,7 +59,7 @@ class LeadController extends BaseController{
                 'status' => $request->status == 'sold' ? '2' : '1',
                 'attender_id' => $this->user->id,
             ]);
-            return to_route('seller.leads.index')->with('success', 'Lead updated successfully.');
+            return redirect()->back()->with('success', 'Lead updated successfully.');
         }
         catch(\Exception $e){
 			return $e->getMessage();
@@ -72,6 +72,6 @@ class LeadController extends BaseController{
     public function destroy(LeadEnquiry $lead){
         $this->seller->leads()->findOrfail($lead->id);
         $lead->delete();
-        return to_route('seller.leads.index')->with('success', "Lead was deleted");
+        return redirect()->back()->with('success', "Lead was deleted");
     }
 }

@@ -5,11 +5,12 @@ import AdAction from "./Components/AdAction";
 import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
 
-export default function ({ ads, confirmDelete, minimal = false }) {
+export default function ({ ads, confirmDelete, minimal = false, searchResult }) {
     const adStatus = (ad, status) =>{
         router.put(route("seller.ads.status", ad.id), {
             status: status,
-        })
+        });
+        searchResult();
     }
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState('');

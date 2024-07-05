@@ -9,7 +9,7 @@ import Lead from './Lead';
 import Modal from 'react-bootstrap/Modal';
 import PermissionAllow from '@/Components/PermissionAllow';
 
-export default function ({ leads, confirmDelete, minimal = false }) {
+export default function ({ leads, confirmDelete, minimal = false, searchResult }) {
     const [show, setShow] = useState(false);
     const [mdata, setmData] = useState(null);
     const [title, setTitle] = useState("Lead details");
@@ -25,14 +25,16 @@ export default function ({ leads, confirmDelete, minimal = false }) {
         setShow(false);
         router.put(route("seller.leads.update", lead.id), {
             status: 'responded',
-        })
+        });
+        searchResult();
     }
 
     const sold = (lead) => {
         setShow(false);
         router.put(route("seller.leads.update", lead.id), {
             status: 'sold',
-        })
+        });
+        searchResult();
     }
 
     return (

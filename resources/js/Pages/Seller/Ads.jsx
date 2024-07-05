@@ -39,7 +39,8 @@ export default function Ads({ auth, ads, categories, industries }) {
     const [deleteId, setDeleteId] = useState(null);
     const deleteAction = function (id) {
         setShowDelete(false);
-        router.delete(route("seller.ads.destroy", id))
+        router.delete(route("seller.ads.destroy", id));
+        searchResult();
     }
 
     const confirmDelete = (id) => {
@@ -122,7 +123,7 @@ export default function Ads({ auth, ads, categories, industries }) {
                                             </div>
                                         </div>
                                     </div>
-                                    <AdsTable confirmDelete={confirmDelete} ads={adData}></AdsTable>
+                                    <AdsTable searchResult={searchResult} confirmDelete={confirmDelete} ads={adData}></AdsTable>
                                 </div>
                             </div>
                         </div>

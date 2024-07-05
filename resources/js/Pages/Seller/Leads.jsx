@@ -39,10 +39,6 @@ export default function Leads({ auth, leads, ads, categories }) {
         end : '',
     });
 
-    // useEffect(() => {
-    //     searchResult();
-    // }, [data]);
-
     const searchResult = async () => {
         setLoading(true);
         const response = await axios.get(route("seller.leads.search", data));
@@ -54,7 +50,8 @@ export default function Leads({ auth, leads, ads, categories }) {
     const [deleteId, setDeleteId] = useState(null);
     const deleteAction = function (id) {
         setShowDelete(false);
-        router.delete(route("seller.leads.destroy", id))
+        router.delete(route("seller.leads.destroy", id));
+        searchResult();
     }
 
     const confirmDelete = (id) => {
@@ -114,7 +111,7 @@ export default function Leads({ auth, leads, ads, categories }) {
                                             </div>
                                         </div>
                                     </div>
-                                    <LeadsTable confirmDelete={confirmDelete} leads={leadData}></LeadsTable>
+                                    <LeadsTable searchResult={searchResult} confirmDelete={confirmDelete} leads={leadData}></LeadsTable>
                                 </div>
                             </div>
                         </div>
