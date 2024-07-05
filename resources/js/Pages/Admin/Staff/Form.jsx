@@ -9,12 +9,9 @@ import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import Select from 'react-select';
 import DynamicSelect from '@/Components/DynamicSelect';
-
-
+import PermissionAllow from "@/Components/PermissionAllow";
 
 export default function Form({ staff, permissions, auth, success, error, roles }) {
-
-
     const { data, setData, post, errors, reset } = useForm({
         firstname: staff ? staff.firstname : null,
         lastname: staff ? staff.lastname : null,
@@ -25,16 +22,12 @@ export default function Form({ staff, permissions, auth, success, error, roles }
         _method: staff ? "PUT" : 'POST',
     });
 
-
-
     const handleChange = (key, value) => {
         setData(key, value);
     };
-
     const handleSelect = (key, e) => {
         setData(key, e.value);
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         await post(route(staff ? "admin.staff.update" : "admin.staff.store", {
@@ -43,9 +36,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
             preserveScroll: true,
         });
     };
-
     return (
-
         <Authenticated
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight"> staff ? 'Staff/Edit' : 'Staff/Create'</h2>}
@@ -78,6 +69,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
+                                    <PermissionAllow permission={'Staff Edit'}>
                                         <form onSubmit={handleSubmit}>
                                             <div className="mb-35">
                                                 <h4>Contact Information</h4>
@@ -150,6 +142,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                                 </div>
                                             </div>
                                         </form>
+                                    </PermissionAllow>
                                     </div>
                                 </div>
                             </div>

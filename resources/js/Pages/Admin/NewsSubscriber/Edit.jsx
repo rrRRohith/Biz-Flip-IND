@@ -25,7 +25,7 @@ export default function Create({ subscriber_item, queryParams = null, auth }) {
         { value: 'Commrecial Real Estate', label: 'Commrecial Real Estate' },
         { value: 'Preconstruction', label: 'Preconstruction' },
         { value: 'Business Services', label: 'Business Services' },
-      ]
+    ]
 
 
     const handleSubmit = (e) => {
@@ -72,97 +72,99 @@ export default function Create({ subscriber_item, queryParams = null, auth }) {
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
-                                        <form onSubmit={handleSubmit}>
-                                            <div className="form-body">
-                                                <div className="row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <div className="form-group">
-                                                            <InputLabel className="fw-700 fs-16 form-label form-group__label">First Name</InputLabel>
+                                        <PermissionAllow permission={'Subscriber Edit'} message="true">
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="form-body">
+                                                    <div className="row">
+                                                        <div className="col-md-6 mb-3">
+                                                            <div className="form-group">
+                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">First Name</InputLabel>
 
-                                                            <TextInput
-                                                                id="firstname"
-                                                                type="text"
-                                                                name="firstname"
-                                                                className="form-control"
-                                                                value={data.firstname}
-                                                                onChange={(e) => handleChange("firstname", e.target.value)}
-                                                                autoComplete="off"
-                                                            />
-                                                            <InputError message={errors.firstname} className="mt-2 col-12" />
+                                                                <TextInput
+                                                                    id="firstname"
+                                                                    type="text"
+                                                                    name="firstname"
+                                                                    className="form-control"
+                                                                    value={data.firstname}
+                                                                    onChange={(e) => handleChange("firstname", e.target.value)}
+                                                                    autoComplete="off"
+                                                                />
+                                                                <InputError message={errors.firstname} className="mt-2 col-12" />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <div className="form-group">
-                                                            <InputLabel className="fw-700 fs-16 form-label form-group__label">Last Name</InputLabel>
-                                                            <TextInput
-                                                                id="lastname"
-                                                                type="text"
-                                                                name="lastname"
-                                                                className="form-control"
-                                                                value={data.lastname}
-                                                                onChange={(e) => handleChange("lastname", e.target.value)}
-                                                                autoComplete="off"
-                                                            />
-                                                            <InputError message={errors.lastname} className="mt-2 col-12" />
+                                                        <div className="col-md-6 mb-3">
+                                                            <div className="form-group">
+                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">Last Name</InputLabel>
+                                                                <TextInput
+                                                                    id="lastname"
+                                                                    type="text"
+                                                                    name="lastname"
+                                                                    className="form-control"
+                                                                    value={data.lastname}
+                                                                    onChange={(e) => handleChange("lastname", e.target.value)}
+                                                                    autoComplete="off"
+                                                                />
+                                                                <InputError message={errors.lastname} className="mt-2 col-12" />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <div className="form-group">
-                                                            <InputLabel className="fw-700 fs-16 form-label form-group__label">Email Id</InputLabel>
-                                                            <TextInput
-                                                                id="email_id"
-                                                                type="email"
-                                                                name="email_id"
-                                                                className="form-control"
-                                                                value={data.email_id}
-                                                                onChange={(e) => handleChange("email_id", e.target.value)}
-                                                                autoComplete="off"
-                                                            />
-                                                            <InputError message={errors.email_id} className="mt-2 col-12" />
+                                                        <div className="col-md-6 mb-3">
+                                                            <div className="form-group">
+                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">Email Id</InputLabel>
+                                                                <TextInput
+                                                                    id="email_id"
+                                                                    type="email"
+                                                                    name="email_id"
+                                                                    className="form-control"
+                                                                    value={data.email_id}
+                                                                    onChange={(e) => handleChange("email_id", e.target.value)}
+                                                                    autoComplete="off"
+                                                                />
+                                                                <InputError message={errors.email_id} className="mt-2 col-12" />
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div className="col-md-6 mb-3">
-                                                        <div className="form-group">
-                                                            <InputLabel className="fw-700 fs-16 form-label form-group__label">Type of Needed</InputLabel>
-                                                            <DynamicMultiSelect
-                                                                onChange={(value) => handleChange("type_of_needed", value)}
-                                                                value={data.type_of_needed}
-                                                                options={options}
-                                                                name="type_of_needed"
-                                                            />
-                                                            <InputError message={errors.type_of_needed} className="mt-2 col-12" />
+                                                        <div className="col-md-6 mb-3">
+                                                            <div className="form-group">
+                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">Type of Needed</InputLabel>
+                                                                <DynamicMultiSelect
+                                                                    onChange={(value) => handleChange("type_of_needed", value)}
+                                                                    value={data.type_of_needed}
+                                                                    options={options}
+                                                                    name="type_of_needed"
+                                                                />
+                                                                <InputError message={errors.type_of_needed} className="mt-2 col-12" />
 
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-group ps-3 ">
-                                                            <label className="fw-700  form-label">Status</label>
-                                                           
-                                                            <Form.Check
-                                                                type="switch"
-                                                                id="custom-switch"
-                                                                name="status"
-                                                                label="Publish"
-                                                                role="button"
-                                                                
-                                                                checked={data.status === 1 ? false : true}
-                                                                onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+                                                        <div className="col-md-6">
+                                                            <div className="form-group ps-3 ">
+                                                                <label className="fw-700  form-label">Status</label>
 
-                                                            />
-                                                            <InputError message={errors.status} className="mt-2 col-12" />
+                                                                <Form.Check
+                                                                    type="switch"
+                                                                    id="custom-switch"
+                                                                    name="status"
+                                                                    label="Publish"
+                                                                    role="button"
 
+                                                                    checked={data.status === 1 ? false : true}
+                                                                    onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+
+                                                                />
+                                                                <InputError message={errors.status} className="mt-2 col-12" />
+
+                                                            </div>
                                                         </div>
-                                                    </div>
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="form-actions mt-10">
-                                                <button type="submit" className="btn btn-success"> 
-                                                    <i className="bi bi-check"></i> Save Data
-                                                </button>
-                                            </div>
-                                        </form>
+                                                <div className="form-actions mt-10">
+                                                    <button type="submit" className="btn btn-success">
+                                                        <i className="bi bi-check"></i> Save Data
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </PermissionAllow>
                                     </div>
                                 </div>
                             </div>

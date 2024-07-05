@@ -1,5 +1,5 @@
 
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import InputError from '@/Components/InputError';
@@ -10,8 +10,8 @@ import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import DynamicSelect from '@/Components/DynamicSelect';
 import Form from 'react-bootstrap/Form';
 
-export default function Edit({ city_item ,queryParams = null, auth,countries }) {
-   console.log(city_item)
+export default function Edit({ city_item, queryParams = null, auth, countries }) {
+    console.log(city_item)
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         name: city_item.name || '',
@@ -19,13 +19,13 @@ export default function Edit({ city_item ,queryParams = null, auth,countries }) 
         position: city_item.position || '',
         _method: "PUT",
         remove_image: false,
-        country : city_item.country,
-        province : city_item.province
+        country: city_item.country,
+        province: city_item.province
     });
-   
+
     const [imagePreview, setImagePreview] = useState('');
 
-  
+
     useEffect(() => {
         // Set the initial image preview if an image exists
         if (city_item.image) {
@@ -50,37 +50,37 @@ export default function Edit({ city_item ,queryParams = null, auth,countries }) 
     const handleRemoveImage = () => {
         setData('image', '');
         setImagePreview('');
-      
+
         setData('remove_image', true);
     };
 
 
-        const handleSubmit = (e) => {
-            e.preventDefault();
-      
-            post(route("admin.city.update", city_item.id));
-          };
-          
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-          const [provinces, setProvinces] = useState([]);
-          const fetchProvinces = async (countryId) => {
-              if (!countryId) {
-                  setProvinces([]);
-                  return;
-              }
-      
-              try {
-                  const response = await fetch(`/admin/provinces/${countryId}`, {
-                      headers: {
-                          'Authorization': `Bearer ${auth.token}`,
-                      },
-                  });
-                  const provincesData = await response.json();
-                  setProvinces(provincesData);
-              } catch (error) {
-                  console.error('Error fetching provinces:', error);
-              }
-          };
+        post(route("admin.city.update", city_item.id));
+    };
+
+
+    const [provinces, setProvinces] = useState([]);
+    const fetchProvinces = async (countryId) => {
+        if (!countryId) {
+            setProvinces([]);
+            return;
+        }
+
+        try {
+            const response = await fetch(`/admin/provinces/${countryId}`, {
+                headers: {
+                    'Authorization': `Bearer ${auth.token}`,
+                },
+            });
+            const provincesData = await response.json();
+            setProvinces(provincesData);
+        } catch (error) {
+            console.error('Error fetching provinces:', error);
+        }
+    };
 
     const handleChange = (key, value) => {
         setData(key, value);
@@ -122,127 +122,129 @@ export default function Edit({ city_item ,queryParams = null, auth,countries }) 
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
-                                        <form onSubmit={handleSubmit}>
-                                            <div className="form-body">
-                                                <div className="row">
-                                                    <div className="col-lg-9">
-                                                        <div className="row">
-                                                            <div className="col-md-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
-                                                                    <TextInput
-                                                                        id="name"
-                                                                        type="text"
-                                                                        name="name"
-                                                                        className="form-control"
-                                                                        value={data.name}
-                                                                        onChange={(e) => handleChange("name", e.target.value)}
-                                                                        autoComplete="off"
-                                                                    />
-                                                                    <InputError message={errors.name} className="mt-2 col-12" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Country</InputLabel>
-                                                                    <DynamicSelect
-                                                                           options={countries}
-                                                                           onChange={(value) => handleChange("country", value)}
-                                                                           defaultValue={data.country}
-                                                                        value={data.country}
-                                                                    />
-                                                                    <InputError message={errors.country} className="mt-2 col-12" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Province</InputLabel>
-                                                                    <DynamicSelect
-                                                                           options={provinces}
-                                                                           onChange={(value) => handleChange("province", value)}
-                                                                           defaultValue={data.province}
-                                                                        value={data.province}
-                                                                    />
-                                                                    <InputError message={errors.province} className="mt-2 col-12" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-6 mb-3">
-                                                                <div className="form-group">
-                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
-                                                                    <SelectOption
-                                                                        onChange={(value) => handleChange("position", value)}
-                                                                        value={data.position}
-                                                                        defaultValue={data.position}
-                                                                    />
-                                                                    <InputError message={errors.position} className="mt-2 col-12" />
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="row">
-                                                            <div className="col-md-6">
-                                                                <div className="form-group ps-3 ">
-                                                                    <label className="fw-700  form-label">Status</label>
-                                                                    <Form.Check
-                                                                        type="switch"
-                                                                        id="custom-switch"
-                                                                        name="status"
-                                                                        label="Publish"
-                                                                        role="button"
-                                                                        checked={data.status === 1}
-                                                                        onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
-
-                                                                    />
-                                                                    <InputError message={errors.status} className="mt-2 col-12" />
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-3">
-                                                        <div className="row">
-                                                            <div className="col-md-12">
-                                                                <div className="border rounded-4 p-3  text-center">
-                                                                    <h4 className="box-title text-center">Image</h4>
-                                                                    <div className="product-img">
-                                                                        {imagePreview ? (
-                                                                            <div className="mb-15 text-center position-relative">
-                                                                                <img src={imagePreview} alt="Selected" className="w-100 rounded-5" />
-                                                                                <i className="bi bi-x-lg fw-bold position-absolute text-danger top-0" role="button" onClick={handleRemoveImage}></i>
-                                                                                
-                                                                            </div>
-                                                                        ) : (
-                                                                            <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
-                                                                        )}
-                                                                        <div className="mb-20">
-                                                                        <button
-                                                                                type="button"
-                                                                                className="btn btn-sm btn-neutral"
-                                                                                onClick={() => document.getElementById('project_image_path').click()}
-                                                                            >
-                                                                                Choose Image
-                                                                            </button>
-                                                                            <TextInput
-                                                                                id="project_image_path"
-                                                                                type="file"
-                                                                                name="image"
-                                                                                className="d-none mt-1 block w-full upload"
-                                                                                onChange={handleImageChange}
-                                                                            />
-                                                                            
-                                                                        </div>
+                                        <PermissionAllow permission={'City Edit'} message="true">
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="form-body">
+                                                    <div className="row">
+                                                        <div className="col-lg-9">
+                                                            <div className="row">
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
+                                                                        <TextInput
+                                                                            id="name"
+                                                                            type="text"
+                                                                            name="name"
+                                                                            className="form-control"
+                                                                            value={data.name}
+                                                                            onChange={(e) => handleChange("name", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.name} className="mt-2 col-12" />
                                                                     </div>
-                                                                    
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Country</InputLabel>
+                                                                        <DynamicSelect
+                                                                            options={countries}
+                                                                            onChange={(value) => handleChange("country", value)}
+                                                                            defaultValue={data.country}
+                                                                            value={data.country}
+                                                                        />
+                                                                        <InputError message={errors.country} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Province</InputLabel>
+                                                                        <DynamicSelect
+                                                                            options={provinces}
+                                                                            onChange={(value) => handleChange("province", value)}
+                                                                            defaultValue={data.province}
+                                                                            value={data.province}
+                                                                        />
+                                                                        <InputError message={errors.province} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
+                                                                        <SelectOption
+                                                                            onChange={(value) => handleChange("position", value)}
+                                                                            value={data.position}
+                                                                            defaultValue={data.position}
+                                                                        />
+                                                                        <InputError message={errors.position} className="mt-2 col-12" />
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="row">
+                                                                <div className="col-md-6">
+                                                                    <div className="form-group ps-3 ">
+                                                                        <label className="fw-700  form-label">Status</label>
+                                                                        <Form.Check
+                                                                            type="switch"
+                                                                            id="custom-switch"
+                                                                            name="status"
+                                                                            label="Publish"
+                                                                            role="button"
+                                                                            checked={data.status === 1}
+                                                                            onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+
+                                                                        />
+                                                                        <InputError message={errors.status} className="mt-2 col-12" />
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-3">
+                                                            <div className="row">
+                                                                <div className="col-md-12">
+                                                                    <div className="border rounded-4 p-3  text-center">
+                                                                        <h4 className="box-title text-center">Image</h4>
+                                                                        <div className="product-img">
+                                                                            {imagePreview ? (
+                                                                                <div className="mb-15 text-center position-relative">
+                                                                                    <img src={imagePreview} alt="Selected" className="w-100 rounded-5" />
+                                                                                    <i className="bi bi-x-lg fw-bold position-absolute text-danger top-0" role="button" onClick={handleRemoveImage}></i>
+
+                                                                                </div>
+                                                                            ) : (
+                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center" />
+                                                                            )}
+                                                                            <div className="mb-20">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    className="btn btn-sm btn-neutral"
+                                                                                    onClick={() => document.getElementById('project_image_path').click()}
+                                                                                >
+                                                                                    Choose Image
+                                                                                </button>
+                                                                                <TextInput
+                                                                                    id="project_image_path"
+                                                                                    type="file"
+                                                                                    name="image"
+                                                                                    className="d-none mt-1 block w-full upload"
+                                                                                    onChange={handleImageChange}
+                                                                                />
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="form-actions mt-10">
-                                                <button type="submit" className="btn  btn-success"> <i className="bi bi-check"></i> Save Data</button>
-                                            </div>
-                                        </form>
+                                                <div className="form-actions mt-10">
+                                                    <button type="submit" className="btn  btn-success"> <i className="bi bi-check"></i> Save Data</button>
+                                                </div>
+                                            </form>
+                                        </PermissionAllow>
                                     </div>
                                 </div>
                             </div>

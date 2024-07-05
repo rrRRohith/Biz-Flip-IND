@@ -4,7 +4,7 @@ import Authenticated from '@/Layouts/AdminAuthenticated';
 import Swal from 'sweetalert2';
 
 export default function Index({ subscribersList, auth, success = null, error = null }) {
-     
+
     const deleteSubscriber = (subscriber) => {
         Swal.fire({
             title: 'Are you sure you want to delete this subscriber?',
@@ -23,16 +23,16 @@ export default function Index({ subscribersList, auth, success = null, error = n
                 });
             }
         });
-      }
+    }
 
-      
+
 
     return (
         <Authenticated
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Subscriber</h2>}
-            success = {success}
-            error   = {error}
+            success={success}
+            error={error}
         >
             <Head title="Subscribers List" />
 
@@ -51,7 +51,9 @@ export default function Index({ subscribersList, auth, success = null, error = n
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <Link className='btn btn-info text-end' href={route('admin.subscribers.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    <PermissionAllow permission={'Subscriber Create'}>
+                                        <Link className='btn btn-info text-end' href={route('admin.subscribers.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    </PermissionAllow>
                                 </div>
                             </div>
                         </div>
@@ -64,44 +66,50 @@ export default function Index({ subscribersList, auth, success = null, error = n
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
-                                        <div className="table-responsive rounded card-table">
-                                            <table className="table border-no" id="example1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Full Name</th>
-                                                        <th>Email</th>
-                                                        <th>Type of Needed</th>
-                                                        <th>Status</th>
-                                                        <th>Last Modified</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {subscribersList.data.map((subscriber) => (
-                                                
-                                                    <tr key={subscriber.id} className="hover-primary">
-                                                        <td>{subscriber.id}</td>
-                                                        <td>{subscriber.firstname} {subscriber.lastname}</td>
-                                                       
-                                                        <td>{subscriber.email_id}</td>
-                                                        <td>{subscriber.type_of_needed}</td>
-                                                        <td>{subscriber.status_text}</td>
-                                                        <td>{subscriber.updated_at}</td>
-                                                        <td>
-                                                            <Link className='btn btn-transparent' href={route('admin.subscribers.edit', subscriber.id)}>
-                                                                <i className="bi bi-pencil"></i>
-                                                            </Link>
-                                                            <button onClick={(e) => deleteSubscriber(subscriber)} className="btn btn-transparent border-0">
-                                                                <i className="bi bi-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
+                                        <PermissionAllow permission={'Subscribers Listing'} message="true">
+                                            <div className="table-responsive rounded card-table">
+                                                <table className="table border-no" id="example1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Full Name</th>
+                                                            <th>Email</th>
+                                                            <th>Type of Needed</th>
+                                                            <th>Status</th>
+                                                            <th>Last Modified</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {subscribersList.data.map((subscriber) => (
 
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            <tr key={subscriber.id} className="hover-primary">
+                                                                <td>{subscriber.id}</td>
+                                                                <td>{subscriber.firstname} {subscriber.lastname}</td>
+
+                                                                <td>{subscriber.email_id}</td>
+                                                                <td>{subscriber.type_of_needed}</td>
+                                                                <td>{subscriber.status_text}</td>
+                                                                <td>{subscriber.updated_at}</td>
+                                                                <td>
+                                                                    <PermissionAllow permission={'Subscriber Edit'}>
+                                                                        <Link className='btn btn-transparent' href={route('admin.subscribers.edit', subscriber.id)}>
+                                                                            <i className="bi bi-pencil"></i>
+                                                                        </Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission={'Subscriber Delete'}>
+                                                                        <button onClick={(e) => deleteSubscriber(subscriber)} className="btn btn-transparent border-0">
+                                                                            <i className="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </PermissionAllow>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </PermissionAllow>
                                     </div>
                                 </div>
                             </div>

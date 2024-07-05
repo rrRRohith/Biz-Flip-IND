@@ -68,7 +68,10 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
+                                
+                                <PermissionAllow permission={'Navigation Menu Create'}>
                                     <Link className='btn btn-info text-end' href={route('admin.navigation-menu.create')}><i className='bi bi-plus'></i> Create</Link>
+                                </PermissionAllow>
                                 </div>
                             </div>
                         </div>
@@ -81,39 +84,45 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
-                                        <div className="table-responsive rounded card-table">
-                                            <table className="table border-no" id="example1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Title</th>
-                                                        <th>Last Modified</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                        <PermissionAllow permission={'Navigation Menu Listing'} message="true">
+                                            <div className="table-responsive rounded card-table">
+                                                <table className="table border-no" id="example1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Title</th>
+                                                            <th>Last Modified</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {MenuList.data.map((menu) => (
+                                                        <tr key={menu.id} className="hover-primary">
+                                                            <td>{menu.id}</td>
+                                                            <td>{menu.title}</td>
+                                                            <td>{window.formatDateTime(menu.updated_at)}</td>
+                                                            <td>
+                                                            <PermissionAllow permission={'Navigation Menu Edit'}>
+                                                                <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                            </PermissionAllow>
+                                                            <PermissionAllow permission={'Navigation Menu Edit'}>
+                                                                <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
+                                                                    <i className="bi bi-pencil"></i>
+                                                                </Link>
+                                                            </PermissionAllow>
+                                                            <PermissionAllow permission={'Navigation Menu Delete'}>
+                                                                <button onClick={(e) => deleteMenu(menu)} className="btn btn-transparent border-0">
+                                                                    <i className="bi bi-trash"></i>
+                                                                </button>
+                                                            </PermissionAllow>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
 
-                                                {MenuList.data.map((menu) => (
-                                                
-                                                    <tr key={menu.id} className="hover-primary">
-                                                        <td>{menu.id}</td>
-                                                        <td>{menu.title}</td>
-                                                        <td>{window.formatDateTime(menu.updated_at)}</td>
-                                                        <td>
-                                                            <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
-                                                            <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
-                                                                <i className="bi bi-pencil"></i>
-                                                            </Link>
-                                                            <button onClick={(e) => deleteMenu(menu)} className="btn btn-transparent border-0">
-                                                                <i className="bi bi-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </PermissionAllow>
                                     </div>
                                 </div>
                             </div>

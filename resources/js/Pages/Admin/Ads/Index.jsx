@@ -270,7 +270,7 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                                     <Td>
                                                         <Badge value={`#${ad.unique_code}`} bg="bg-dark" color='text-white' />
                                                     </Td>
-                                                    <Td>
+                                                    <Td onClick={() => handleShow(ad)}>
                                                         <img
                                                             src={ad.main_picture}
                                                             className='w-25 rounded-5 '
@@ -279,22 +279,22 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                                         />
                                                         <span className='ms-2'> {ad.title} </span>
                                                     </Td>
-                                                    <Td>
+                                                    <Td onClick={() => handleShow(ad)}>
                                                         {ad.address}
                                                         <div className="small">
                                                             <small>{ad.city}</small>
                                                         </div>
                                                     </Td>
-                                                    <Td className="text-end">{window.formatPrice(ad.price)}</Td>
-                                                    <Td>
+                                                    <Td onClick={() => handleShow(ad)} className="text-end">{window.formatPrice(ad.price)}</Td>
+                                                    <Td onClick={() => handleShow(ad)}>
                                                         <Link className="text-decoration-none" href={route('admin.propery_leads_index', { ad: ad.id })}>
                                                             {ad.total_leads} leads
                                                         </Link>
                                                     </Td>
-                                                    <Td>{ad.property_type}</Td>
-                                                    <Td>{ad.ad_purpose}</Td>
-                                                    <Td>{ad.seller.firstname} {ad.seller.lastname}</Td>
-                                                    <Td>{ad.date_text}</Td>
+                                                    <Td onClick={() => handleShow(ad)}>{ad.property_type}</Td>
+                                                    <Td onClick={() => handleShow(ad)}>{ad.ad_purpose}</Td>
+                                                    <Td onClick={() => handleShow(ad)}>{ad.seller.firstname} {ad.seller.lastname}</Td>
+                                                    <Td onClick={() => handleShow(ad)}>{ad.date_text}</Td>
                                                     <Td>
                                                         <span onClick={() => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
                                                     </Td>

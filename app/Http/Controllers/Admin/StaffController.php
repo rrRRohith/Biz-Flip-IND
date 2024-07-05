@@ -40,7 +40,7 @@ class StaffController extends BaseController
 
     public function create(){
         return Inertia::render('Admin/Staff/Form', [
-            'roles' => $this->seller->staff_roles()->latest()->selectRaw('name as label, id as value')->get()->toArray(),
+            'roles' => $this->seller->staff_roles()->where('name','!=','seller')->where('name','!=','admin')->latest()->selectRaw('name as label, id as value')->get()->toArray(),
         ]);
     }
 
@@ -62,6 +62,7 @@ class StaffController extends BaseController
             return $e->getMessage();
         }
     }
+    
     public function show(Request $request, User $staff){
         abort_if($this->user->id == $staff->id, 403);
         $this->seller->staffs()->findOrfail($staff->id);
@@ -73,7 +74,7 @@ class StaffController extends BaseController
         $this->seller->staffs()->findOrfail($staff->id);
         return Inertia::render('Admin/Staff/Form', [
             'staff' => new StaffResource($staff),
-            'roles' => $this->seller->staff_roles()->latest()->selectRaw('name as label, id as value')->get()->toArray(),
+            'roles' => $this->seller->staff_roles()->where('name','!=','seller')->where('name','!=','admin')->latest()->selectRaw('name as label, id as value')->get()->toArray(),
         ]);
     }
 

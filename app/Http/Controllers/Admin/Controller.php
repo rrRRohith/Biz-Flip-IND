@@ -23,34 +23,50 @@ class Controller extends BaseController
         $ads_completed = Ad::where('status', 3)->count();
 
         //////////////////////////////////Last 7 Days Data values///////////////////////////////////
-        $leadsLast7Days = LeadEnquiry::where('created_at', '>=', now()->subDays(6))
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
-            ->groupBy('date')
-            ->orderBy('date')
-            ->get();
+        $leadsLast7Days = LeadEnquiry::where('created_at', '>=', now()->subDays(6)->startOfDay())
+                        ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+                        ->groupBy('date')
+                        ->orderBy('date')
+                        ->get();
 
         $leadCategory = [];
         $leadData = [];
 
         // Initialize the last 7 days with zero counts
         for ($i = 6; $i >= 0; $i--) {
-            $date = Carbon::now()->subDays($i)->format('d-M-Y');
-            $leadCategory[] = $date;
-            $leadData[$date] = 0;
+            $date = Carbon::now()->subDays($i)->format('Y-m-d');
+            $ShowDate = Carbon::now()->subDays($i)->format('d-M-Y');
+            $leadCategory[] = $ShowDate;
+            $leadData[] = $leadsLast7Days->where('date',$date)->pluck('count')->first() ?? 0 ;
         }
+
+
+        $leadsPrevious7Days = LeadEnquiry::whereBetween('created_at', [now()->subDays(13)->startOfDay(), now()->subDays(7)->endOfDay()])
+                                ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+                                ->groupBy('date')
+                                ->orderBy('date')
+                                ->get();
+
+        $leadsPrevious7Days->pluck('count')->first() ?? 0;
+        $leadsLast7Days->pluck('count')->first() ?? 0;
+
+        
 
         // Fill the leadData array with the actual counts
-        foreach ($leadsLast7Days as $lead) {
-            $leadData[$lead->date] = $lead->count;
-        }
+        // foreach ($leadsLast7Days as $lead) {
+        //     $leadData[$lead->date] = $lead->count;
+        // }
 
-        // Prepare the data for the chart
-        $leadData = array_values($leadData);
+      
+
+        // // Prepare the data for the chart
+        // $leadData = array_values($leadData);
 
         $leadLast7Days = [
             'leadCategoryArray' => json_encode($leadCategory),
             'leadDataArray' => json_encode($leadData),
         ];
+
 
         ///////////////////////////////Seller By Ads///////////////////////////////////////////////////
         $adCompletedBySeller = Ad::where('status', 1)

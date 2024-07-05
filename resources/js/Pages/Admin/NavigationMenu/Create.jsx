@@ -87,7 +87,7 @@ const Create = ({ auth, landingPage }) => {
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
- 
+
       if (result.isConfirmed) {
         const deleteItem = (items, id) => {
           return items.filter(item => item.id !== id).map(item => {
@@ -100,7 +100,7 @@ const Create = ({ auth, landingPage }) => {
         setData('items', deleteItem(data.items, id));
       }
     });
-   
+
   };
 
   const handleChangeItem = (id, updatedItem) => {
@@ -167,35 +167,37 @@ const Create = ({ auth, landingPage }) => {
               <div className="col-12">
                 <div className="box">
                   <div className="box-body">
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-group">
-                        <InputLabel htmlFor="title" className="fw-700 fs-16 form-label form-group__label">Menu Title</InputLabel>
-                        <input
-                          type="text"
-                          id="title"
-                          className="form-control"
-                          value={data.title}
-                          onChange={(e) => setData('title', e.target.value)}
-                        />
-                        <InputError message={errors.title} className="mt-2 col-12" />
+                    <PermissionAllow permission={'Navigation Menu Create'} message="true">
+                      <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                          <InputLabel htmlFor="title" className="fw-700 fs-16 form-label form-group__label">Menu Title</InputLabel>
+                          <input
+                            type="text"
+                            id="title"
+                            className="form-control"
+                            value={data.title}
+                            onChange={(e) => setData('title', e.target.value)}
+                          />
+                          <InputError message={errors.title} className="mt-2 col-12" />
 
-                      </div>
-                      <SortableComponent
-                        items={data.items}
-                        onDragEnd={handleDragEnd}
-                        onAddItem={handleAddItem}
-                        onAddChildItem={handleAddChildItem}
-                        onDeleteItem={handleDeleteItem}
-                        onChangeItem={handleChangeItem}
-                        landingPage={landingPage}
-                        formErrors={errors}
-                      />
-                      <div className="col-lg-12 text-center mt-5">
-                        <button className="btn btn-success" type="submit">
-                          Submit
-                        </button>
-                      </div>
-                    </form>
+                        </div>
+                        <SortableComponent
+                          items={data.items}
+                          onDragEnd={handleDragEnd}
+                          onAddItem={handleAddItem}
+                          onAddChildItem={handleAddChildItem}
+                          onDeleteItem={handleDeleteItem}
+                          onChangeItem={handleChangeItem}
+                          landingPage={landingPage}
+                          formErrors={errors}
+                        />
+                        <div className="col-lg-12 text-center mt-5">
+                          <button className="btn btn-success" type="submit">
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </PermissionAllow>
                   </div>
                 </div>
               </div>

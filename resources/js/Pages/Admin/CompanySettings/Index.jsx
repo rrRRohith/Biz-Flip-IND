@@ -13,7 +13,7 @@ import Tab from 'react-bootstrap/Tab';
 export default function Index({ company_settings, socialLinks, queryParams = null, auth, success = null, error = null }) {
 
     const { data, setData, post, errors, reset } = useForm({
-        socialmedia_links: socialLinks || [
+        socialmedia_links: socialLinks.length > 0 ? socialLinks : [
             { key: 'facebook', label: 'Facebook', url: '' },
             { key: 'twitter', label: 'Twitter', url: '' },
             { key: 'instagram', label: 'Instagram', url: '' },
@@ -28,6 +28,9 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
         email_config_api_method: company_settings.email_config_api_method || '',
     });
 
+
+    
+    console.log(socialLinks)
 
     const handleSubmitEmailConfig = (e) => {
         e.preventDefault();
@@ -58,6 +61,8 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
         newSocialLinks[index].url = value;
         setData('socialmedia_links', newSocialLinks);
     };
+
+
 
     return (
         <Authenticated
@@ -162,7 +167,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
                                                                                 </div>
                                                                                 <div className="col-md-6 mb-3 text-center">
                                                                                     <div className="form-actions mt-10">
-                                                                                        <button type="submit" className="btn btn-sm btn-neutral">
+                                                                                        <button type="submit" className="btn btn-success">
                                                                                             <i className="bi bi-check"></i> Update Data
                                                                                         </button>
                                                                                     </div>
@@ -194,7 +199,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
                                                                         ))}
                                                                         <div className="col-md-12 mb-3 text-center">
                                                                             <div className="form-actions mt-10">
-                                                                                <button type="submit" className="btn btn-sm btn-neutral">
+                                                                                <button type="submit" className="btn btn-success">
                                                                                     <i className="bi bi-check"></i> Update Data
                                                                                 </button>
                                                                             </div>
@@ -259,7 +264,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
 
                                                                             <div className="col-md-6 mb-3 text-center">
                                                                                 <div className="form-actions mt-10">
-                                                                                    <button type="submit" className="btn btn-sm btn-neutral">
+                                                                                    <button type="submit" className="btn btn-success">
                                                                                         <i className="bi bi-check"></i> Update Data
                                                                                     </button>
                                                                                 </div>

@@ -113,7 +113,7 @@ class VendorController extends Controller
             $seller->user_id            = $user->id;
             $seller->short_description  = $request->short_description;
             $seller->description        = $request->description;
-            $seller->logo               = $imgPath2;
+            $seller->logo               = $imgPath2 ?? null;
             $seller->company_name       = $request->company_name;
             $seller->address            = $request->full_address;
             $seller->email              = $request->company_email;
@@ -201,13 +201,13 @@ class VendorController extends Controller
         }
         
         if ($request->remove_picture) {
-            if ($user->picture) {
+            if (($user->picture) && ($user->picture != null)) {
                 Storage::disk('images')->delete($user->picture);
                 $user->picture = null;
             }
         }
         if ($request->remove_logo) {
-            if ($seller->logo) {
+            if (($seller->logo) && ($seller->logo != null) ) {
                 Storage::disk('images')->delete($seller->logo);
                 $seller->logo = null;
             }
@@ -233,7 +233,7 @@ class VendorController extends Controller
 
             $image = $request->picture;
             if ($image) {
-                if ($user->picture) {
+                if (($user->picture) && ($user->picture != null)) {
                     Storage::disk('images')->delete($user->picture);
                 }
                 $imageName          = Str::random(20) . '.' . $image->getClientOriginalExtension();
@@ -265,7 +265,7 @@ class VendorController extends Controller
 
             $logo = $request->logo;
             if ($logo) {
-                if ($seller->logo) {
+                if (($seller->logo) && ($seller->logo != null) ) {
                     Storage::disk('images')->delete($seller->logo);
                 }
                 $imageName      = Str::random(20) . '.' . $logo->getClientOriginalExtension();
@@ -321,15 +321,18 @@ class VendorController extends Controller
         $seller = Seller::with('user')->where('user_id', $user_id)->first();
         SellerAvailability::where('user_id',$user_id)->delete();
         
-        if ($user->picture) {
+        if (($user->picture) && ($user->picture != null)) {
             Storage::disk('images')->delete($user->picture);
         }
 
-        if ($seller->logo) {
+        if ($seller && ($seller->logo) && ($seller->logo != null)) {
             Storage::disk('images')->delete($seller->logo);
         }
         
-        $seller->delete();
+        if($seller){
+
+            $seller->delete();
+        }
         $user->delete();
 
         return to_route('admin.sellers.index')

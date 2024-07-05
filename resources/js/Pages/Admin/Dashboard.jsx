@@ -8,8 +8,6 @@ import CustomCircularProgress from '@/Components/CustomCircularProgress';
 
 export default function Dashboard({ auth, data, adsListing, leadLast7Days, sellerLeads, adCompletedBySeller }) {
 
-
-
     const leadCategory = JSON.parse(leadLast7Days['leadCategoryArray']);
     const leadData = JSON.parse(leadLast7Days['leadDataArray']);
 

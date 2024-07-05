@@ -46,13 +46,13 @@ const LeadTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPag
                                         {displayList.slice(startIdx, endIdx).map((lead) => (
                                             <Tr key={lead.id} className="hover-primary">
                                                 <Td>{lead.id}</Td>
-                                                <Td>{lead.ad ? lead.ad.title : 'Unknown ad'}</Td>
-                                                <Td>{lead.seller && `${lead.seller.firstname} ${lead.seller.lastname}`}</Td>
-                                                <Td>{lead.firstname} {lead.lastname}</Td>
-                                                <Td>{lead.email}</Td>
-                                                <Td>{lead.phone}</Td>
-                                                <Td>{lead.status}</Td>
-                                                <Td>{lead.created_at}</Td>
+                                                <Td onClick={() => handleShow(lead)}>{lead.ad ? lead.ad.title : 'Unknown ad'}</Td>
+                                                <Td onClick={() => handleShow(lead)}>{lead.seller && `${lead.seller.firstname} ${lead.seller.lastname}`}</Td>
+                                                <Td onClick={() => handleShow(lead)}>{lead.firstname} {lead.lastname}</Td>
+                                                <Td onClick={() => handleShow(lead)}>{lead.email}</Td>
+                                                <Td onClick={() => handleShow(lead)}>{lead.phone}</Td>
+                                                <Td onClick={() => handleShow(lead)}>{lead.status}</Td>
+                                                <Td onClick={() => handleShow(lead)}>{lead.created_at}</Td>
                                                 <Td>
                                                     <button onClick={() => handleShow(lead)} className="btn btn-transparent border-0">
                                                         <i className="bi bi-eye"></i>
@@ -116,11 +116,11 @@ const ContactLeadTable = ({ displayList, startIdx, endIdx, handlePageChange, cur
                                         {displayList.slice(startIdx, endIdx).map((inquiry) => (
                                             <Tr key={inquiry.id} className="hover-primary">
                                                 <Td>{inquiry.id}</Td>
-                                                <Td>{inquiry.firstname} {inquiry.lastname}</Td>
-                                                <Td>{inquiry.email}</Td>
-                                                <Td>{inquiry.phone}</Td>
-                                                <Td>{inquiry.subject}</Td>
-                                                <Td>{inquiry.created_at}</Td>
+                                                <Td  onClick={() => handleShow(inquiry)}>{inquiry.firstname} {inquiry.lastname}</Td>
+                                                <Td  onClick={() => handleShow(inquiry)}>{inquiry.email}</Td>
+                                                <Td  onClick={() => handleShow(inquiry)}>{inquiry.phone}</Td>
+                                                <Td  onClick={() => handleShow(inquiry)}>{inquiry.subject}</Td>
+                                                <Td  onClick={() => handleShow(inquiry)}>{inquiry.created_at}</Td>
                                                 <Td>
                                                     <button onClick={() => handleShow(inquiry)} className="btn btn-transparent border-0">
                                                         <i className="bi bi-eye"></i>

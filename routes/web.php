@@ -36,6 +36,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'role-responsibilities'=> RoleController::class,
         'staff'             => StaffController::class,
         'business-category' => BusinessCategoryController::class,
+        'app-settings'      => AppSettingsController::class,
         
     ]);
 
@@ -56,8 +57,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     
     Route::post('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
     
-    Route::get('app-settings', 'AppSettingsController@index')->name('app-settings.index');
-    Route::post('app-settings/{id}', 'AppSettingsController@index')->name('app-settings.update');
+    // Route::get('app-settings', 'AppSettingsController@index')->name('app-settings.index');
+    // Route::post('app-settings/{id}', 'AppSettingsController@index')->name('app-settings.update');
     
     Route::get('company-settings', 'CompanySettingsController@index')->name('company-settings.index');
     

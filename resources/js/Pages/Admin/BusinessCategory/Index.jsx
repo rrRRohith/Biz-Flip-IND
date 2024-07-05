@@ -185,36 +185,36 @@ export default function Index({ categoryList, auth }) {
                                                 <DragDropContext onDragEnd={handleDragEnd}>
                                                     <Droppable droppableId="categories">
                                                         {(provided) => (
-                                                            <Table className="table border-no" id="example1" {...provided.droppableProps} ref={provided.innerRef}>
-                                                                <Thead>
-                                                                    <Tr>
-                                                                        <Th></Th>
-                                                                        <Th>Name</Th>
-                                                                        <Th className='text-center'>Status</Th>
-                                                                        <Th className='text-center'>Last Modified</Th>
-                                                                        <Th></Th>
-                                                                    </Tr>
-                                                                </Thead>
-                                                                <Tbody>
+                                                            <table className="table border-no " id="example1" {...provided.droppableProps} ref={provided.innerRef}>
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th>Name</th>
+                                                                        <th className='text-center'>Status</th>
+                                                                        <th className='text-center'>Last Modified</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
                                                                     {items.map((category, index) => (
                                                                         <Draggable key={`${category.id}-${category.name}`} draggableId={`${category.id}-${category.name}`} index={index}>
                                                                             {(provided, snapshot) => (
-                                                                                <Tr
+                                                                                <tr
                                                                                     ref={provided.innerRef}
                                                                                     {...provided.draggableProps}
                                                                                     {...provided.dragHandleProps}
                                                                                     className={` ${snapshot.isDragging ? 'dragging' : ''}`}
                                                                                 >
-                                                                                    <Td><i className='bi bi-arrows-move me-3 fw-bold'></i></Td>
-                                                                                    <Td>
+                                                                                    <td><i className='bi bi-arrows-move me-3 fw-bold'></i></td>
+                                                                                    <td onClick={() => handleShow(category)} >
 
                                                                                         {category.name}
-                                                                                    </Td>
-                                                                                    <Td className='text-center'>
+                                                                                    </td>
+                                                                                    <td onClick={() => handleShow(category)}  className='text-center'>
                                                                                         <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
-                                                                                    </Td>
-                                                                                    <Td className='text-center'>{window.formatDateTime(category.updated_at)}</Td>
-                                                                                    <Td align='right'>
+                                                                                    </td>
+                                                                                    <td onClick={() => handleShow(category)}  className='text-center'>{window.formatDateTime(category.updated_at)}</td>
+                                                                                    <td align='right'>
                                                                                         <PermissionAllow permission={'Category Show'}>
                                                                                             <span onClick={() => handleShow(category)} className="btn btn-transparent">
                                                                                                 <i className="bi bi-eye"></i></span>
@@ -229,14 +229,14 @@ export default function Index({ categoryList, auth }) {
                                                                                                 <i className="bi bi-trash"></i>
                                                                                             </button>
                                                                                         </PermissionAllow> */}
-                                                                                    </Td>
-                                                                                </Tr>
+                                                                                    </td>
+                                                                                </tr>
                                                                             )}
                                                                         </Draggable>
                                                                     ))}
                                                                     {provided.placeholder}
-                                                                </Tbody>
-                                                            </Table>
+                                                                </tbody>
+                                                            </table>
                                                         )}
                                                     </Droppable>
                                                 </DragDropContext>

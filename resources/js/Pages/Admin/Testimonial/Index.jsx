@@ -107,7 +107,7 @@ export default function Index({ testimonialList, auth, success = null, error = n
 
                                                             <Tr key={testimonial.id} className="hover-primary">
                                                                 <Td>{testimonial.id}</Td>
-                                                                <Td>
+                                                                <Td  onClick={() => handleShow(testimonial)}>
                                                                     <img
                                                                         src={testimonial.image}
                                                                         className='w-40 rounded-5 '
@@ -116,10 +116,10 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                                                     />
                                                                 <span className='ms-3'>{testimonial.name}</span>
                                                                 </Td>
-                                                                <Td>{testimonial.company_name}</Td>
-                                                                <Td>{testimonial.designation}</Td>
-                                                                <Td>{testimonial.status}</Td>
-                                                                <Td>{window.formatDateTime(testimonial.updated_at)}</Td>
+                                                                <Td  onClick={() => handleShow(testimonial)}>{testimonial.company_name}</Td>
+                                                                <Td  onClick={() => handleShow(testimonial)}>{testimonial.designation}</Td>
+                                                                <Td  onClick={() => handleShow(testimonial)}>{testimonial.status}</Td>
+                                                                <Td  onClick={() => handleShow(testimonial)}>{window.formatDateTime(testimonial.updated_at)}</Td>
                                                                 <Td> 
                                                                     <PermissionAllow permission={'Testimonial Show'}>
                                                                         <span onClick={() => handleShow(testimonial)} className="btn btn-transparent">

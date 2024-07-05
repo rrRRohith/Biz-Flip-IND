@@ -15,7 +15,7 @@ export default function Index({ auth, staffs }) {
     const [data, setData] = useState(null);
 
     const deleteStaff = function (staff) {
-        
+
         Swal.fire({
             title: 'Are you sure you want to delete this staff?',
             text: 'Once deleted, it cannot be recovered.',
@@ -71,11 +71,12 @@ export default function Index({ auth, staffs }) {
                                 </div>
                                 <div className='col-lg-6'>
                                     <div className="text-end">
-                                        <Link className='btn btn-info text-end' href={route('admin.staff.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <PermissionAllow permission={'Staff Create'}>
+                                            <Link className='btn btn-info text-end' href={route('admin.staff.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        </PermissionAllow>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         {/* <!-- Main content --> */}
@@ -84,61 +85,70 @@ export default function Index({ auth, staffs }) {
                                 <div className="col-12">
                                     <div className="box">
                                         <div className="box-body">
-                                        <div className="table-responsive rounded card-table">
-                                                <Table className="table border-no" id="example1">
-                                                    <Thead >
-                                                        <Tr>
-                                                            <Th scope="col">#</Th>
-                                                            <Th scope="col">Name</Th>
-                                                            <Th scope="col">Email</Th>
-                                                            <Th scope="col">Phone</Th>
-                                                            <Th scope="col">Role</Th>
-                                                            <Th scope="col" >Last Modified</Th>
-                                                            <Th scope="col" ></Th>
-                                                        </Tr>
-                                                    </Thead>
-                                                    <Tbody>
-                                                        {staffs.data.length ? (
-                                                            <>
-                                                                {staffs.data.map((staff) => (
-                                                                    <Tr key={staff.id}>
-                                                                        <Td>
-                                                                            #{staff.id}
-                                                                        </Td>
-                                                                        <Td>
-                                                                            {staff.name}
-                                                                        </Td>
-                                                                        <Td>
-                                                                            {staff.email}
-                                                                        </Td>
-                                                                        <Td>
-                                                                            {staff.phone}
-                                                                        </Td>
-                                                                        <Td>
-                                                                            {staff.role_names}
-                                                                        </Td>
-                                                                        <Td>
-                                                                            {staff.date_text}
-                                                                        </Td>
-                                                                        <Td>
-                                                                            <span onClick={() => handleShow(staff)} className="btn btn-transparent">
-                                                                                    <i className="bi bi-eye"></i></span>
-                                                                            <Link href={route('admin.staff.edit', staff.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
-                                                                            <button onClick={(e) => deleteStaff(staff.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
-                                                                        </Td>
-                                                                    </Tr>
-                                                                ))}
-                                                            </>
-                                                        ) : (<>
+                                            <PermissionAllow permission={'Staff Listing'} message="true">
+                                                <div className="table-responsive rounded card-table">
+                                                    <Table className="table border-no" id="example1">
+                                                        <Thead >
                                                             <Tr>
-                                                                <Td className="text-center" colSpan="100">
-                                                                    No records found..
-                                                                </Td>
+                                                                <Th scope="col">#</Th>
+                                                                <Th scope="col">Name</Th>
+                                                                <Th scope="col">Email</Th>
+                                                                <Th scope="col">Phone</Th>
+                                                                <Th scope="col">Role</Th>
+                                                                <Th scope="col" >Last Modified</Th>
+                                                                <Th scope="col" ></Th>
                                                             </Tr>
-                                                        </>)}
-                                                    </Tbody>
-                                                </Table>
-                                            </div>
+                                                        </Thead>
+                                                        <Tbody>
+                                                            {staffs.data.length ? (
+                                                                <>
+                                                                    {staffs.data.map((staff) => (
+                                                                        <Tr key={staff.id}>
+                                                                            <Td>
+                                                                                #{staff.id}
+                                                                            </Td>
+                                                                            <Td>
+                                                                                {staff.name}
+                                                                            </Td>
+                                                                            <Td>
+                                                                                {staff.email}
+                                                                            </Td>
+                                                                            <Td>
+                                                                                {staff.phone}
+                                                                            </Td>
+                                                                            <Td>
+                                                                                {staff.role_names}
+                                                                            </Td>
+                                                                            <Td>
+                                                                                {staff.date_text}
+                                                                            </Td>
+                                                                            <Td>
+                                                                                <PermissionAllow permission={'Seller Show'}>
+                                                                                    <span onClick={() => handleShow(staff)} className="btn btn-transparent">
+                                                                                        <i className="bi bi-eye"></i>
+                                                                                    </span>
+                                                                                </PermissionAllow>
+                                                                                <PermissionAllow permission={'Staff Edit'}>
+                                                                                    <Link href={route('admin.staff.edit', staff.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
+                                                                                </PermissionAllow>
+                                                                                <PermissionAllow permission={'Staff Delete'}>
+                                                                                    <button onClick={(e) => deleteStaff(staff.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                                                </PermissionAllow>
+                                                                            </Td>
+                                                                        </Tr>
+                                                                    ))}
+                                                                </>
+                                                            ) : (<>
+                                                                <Tr>
+                                                                    <Td className="text-center" colSpan="100">
+                                                                        No records found..
+                                                                    </Td>
+                                                                </Tr>
+                                                            </>)}
+                                                        </Tbody>
+                                                    </Table>
+                                                </div>
+                                            </PermissionAllow>
                                         </div>
                                     </div>
                                 </div>
@@ -147,17 +157,17 @@ export default function Index({ auth, staffs }) {
                     </div>
                 </div>
             </Authenticated>
-                
-                    <ModalPopup show={show} handleClose={handleClose} size="md" title="Staff User Details">
-                        {data ? (
-                            <ViewStaff
-                                collection={data}
-                                handleClose={handleClose}
-                            />
-                        ) : (
-                            'Failed fetching data...'
-                        )}
-                    </ModalPopup>
+
+            <ModalPopup show={show} handleClose={handleClose} size="md" title="Staff User Details">
+                {data ? (
+                    <ViewStaff
+                        collection={data}
+                        handleClose={handleClose}
+                    />
+                ) : (
+                    'Failed fetching data...'
+                )}
+            </ModalPopup>
         </>
     );
 }

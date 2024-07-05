@@ -35,7 +35,6 @@ export default function Index({ categoryList, auth }) {
             if (result.isConfirmed) {
                 router.delete(route("admin.category.destroy", category.id), {
                     onSuccess: () => {
-                        setCategories(categories.filter(item => item.id !== category.id));
                         Swal.fire('Deleted!', 'Category has been deleted.', 'success');
                     },
                 });
@@ -48,18 +47,15 @@ export default function Index({ categoryList, auth }) {
         window.scrollTo(0, 0);
     };
 
-    useEffect(() => {
-        setCategories(categoryList.data);
-    }, [categoryList]);
+    useEffect(() => { setCategories(categoryList.data);}, [categoryList]);
+    
 
     const displayList = searchQuery.length > 0 ? categories : categoryList.data;
     const startIdx = (currentPage - 1) * itemsPerPage;
     const endIdx = currentPage * itemsPerPage;
     const paginatedList = displayList.slice(startIdx, endIdx);
 
-    // useEffect(() => {
-    //     setItems(paginatedList);
-    // }, [paginatedList]);
+    useEffect(() => { setItems(paginatedList);}, [paginatedList]);
 
     const [items, setItems] = useState(paginatedList);
 
@@ -85,7 +81,7 @@ export default function Index({ categoryList, auth }) {
         try {
             const response = await axios.get(route("admin.category.show", vendor.id));
             const responseData = response.data;
-            console.log(responseData)
+         
             setData(responseData);
             setShow(true);
         } catch (error) {
@@ -159,13 +155,13 @@ export default function Index({ categoryList, auth }) {
                                                     <Tbody>
                                                         {items.map((category, index) => (
                                                             <Tr key={index}>
-                                                                <Td>
+                                                                <Td  onClick={() => handleShow(category)} >
                                                                     {category.name}
                                                                 </Td>
-                                                                <Td className='text-center'>
+                                                                <Td  onClick={() => handleShow(category)}  className='text-center'>
                                                                     <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
                                                                 </Td>
-                                                                <Td className='text-center'>{window.formatDateTime(category.updated_at)}</Td>
+                                                                <Td  onClick={() => handleShow(category)}  className='text-center'>{window.formatDateTime(category.updated_at)}</Td>
                                                                 <Td align='right'>
                                                                     <PermissionAllow permission={'Category Show'}>
                                                                         <span onClick={() => handleShow(category)} className="btn btn-transparent">

@@ -245,7 +245,7 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                         {displayList.slice(startIdx, endIdx).map((vendor) => (
                                             <Tr key={vendor.id} className="hover-primary">
                                                 <Td valign="middle">{vendor.id}</Td>
-                                                <Td valign="middle">
+                                                <Td valign="middle"  onClick={() => handleShow(vendor)} >
                                                     <img
                                                         src={vendor.picture}
                                                         className='w-30 h-30 me-3 rounded-circle'
@@ -253,14 +253,14 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                                         onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                     /> <span>{vendor.full_name}</span>
                                                 </Td>
-                                                <Td valign="middle">{vendor.email}</Td>
-                                                <Td valign="middle">{vendor.phone}</Td>
-                                                <Td valign="middle">{vendor.company_name}</Td>
-                                                <Td valign="middle">{vendor.designation}</Td>
-                                                <Td className='text-center'>
+                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.email}</Td>
+                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.phone}</Td>
+                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.company_name}</Td>
+                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.designation}</Td>
+                                                <Td  onClick={() => handleShow(vendor)}  className='text-center'>
                                                     <div dangerouslySetInnerHTML={{ __html: window.statusIcon(vendor.status) }} />
                                                 </Td>
-                                                <Td valign="middle">{window.formatDateTime(vendor.updated_at)}</Td>
+                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{window.formatDateTime(vendor.updated_at)}</Td>
                                                 <Td className="text-end">
                                                     <PermissionAllow permission={'Seller Show'}>
                                                         <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>

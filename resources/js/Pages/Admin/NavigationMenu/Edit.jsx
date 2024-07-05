@@ -18,7 +18,7 @@ const initialItems = [
   }
 ];
 
-const Edit = ({ auth, landingPage,menu }) => {
+const Edit = ({ auth, landingPage, menu }) => {
   const { data, setData, post, errors } = useForm({
     title: menu.title || '',
     items: menu.children || [],
@@ -89,7 +89,7 @@ const Edit = ({ auth, landingPage,menu }) => {
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
- 
+
       if (result.isConfirmed) {
         const deleteItem = (items, id) => {
           return items.filter(item => item.id !== id).map(item => {
@@ -102,7 +102,7 @@ const Edit = ({ auth, landingPage,menu }) => {
         setData('items', deleteItem(data.items, id));
       }
     });
-  
+
   };
 
   const handleChangeItem = (id, updatedItem) => {
@@ -121,7 +121,7 @@ const Edit = ({ auth, landingPage,menu }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route('admin.navigation-menu.update',menu.id));
+    post(route('admin.navigation-menu.update', menu.id));
     // console.log(data)
   };
 
@@ -169,35 +169,37 @@ const Edit = ({ auth, landingPage,menu }) => {
               <div className="col-12">
                 <div className="box">
                   <div className="box-body">
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-group">
-                        <InputLabel htmlFor="title" className="fw-700 fs-16 form-label form-group__label">Menu Title</InputLabel>
-                        <input
-                          type="text"
-                          id="title"
-                          className="form-control"
-                          value={data.title}
-                          onChange={(e) => setData('title', e.target.value)}
-                        />
-                        <InputError message={errors.title} className="mt-2 col-12" />
+                    <PermissionAllow permission={'Navigation Menu Edit'} message="true">
+                      <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                          <InputLabel htmlFor="title" className="fw-700 fs-16 form-label form-group__label">Menu Title</InputLabel>
+                          <input
+                            type="text"
+                            id="title"
+                            className="form-control"
+                            value={data.title}
+                            onChange={(e) => setData('title', e.target.value)}
+                          />
+                          <InputError message={errors.title} className="mt-2 col-12" />
 
-                      </div>
-                      <SortableComponent
-                        items={data.items}
-                        onDragEnd={handleDragEnd}
-                        onAddItem={handleAddItem}
-                        onAddChildItem={handleAddChildItem}
-                        onDeleteItem={handleDeleteItem}
-                        onChangeItem={handleChangeItem}
-                        landingPage={landingPage}
-                        formErrors={errors}
-                      />
-                      <div className="col-lg-12 text-center mt-5">
-                        <button className="btn btn-success" type="submit">
-                          Submit
-                        </button>
-                      </div>
-                    </form>
+                        </div>
+                        <SortableComponent
+                          items={data.items}
+                          onDragEnd={handleDragEnd}
+                          onAddItem={handleAddItem}
+                          onAddChildItem={handleAddChildItem}
+                          onDeleteItem={handleDeleteItem}
+                          onChangeItem={handleChangeItem}
+                          landingPage={landingPage}
+                          formErrors={errors}
+                        />
+                        <div className="col-lg-12 text-center mt-5">
+                          <button className="btn btn-success" type="submit">
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </PermissionAllow>
                   </div>
                 </div>
               </div>

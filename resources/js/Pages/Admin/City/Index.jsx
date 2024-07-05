@@ -101,9 +101,11 @@ export default function Index({ cityList, auth, success = null, error = null }) 
 
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <Link className='btn btn-info text-end' href={route('admin.city.create')}>
-                                        <i className='bi bi-plus'></i> Create
-                                    </Link>
+                                    <PermissionAllow permission={'City Create'}>
+                                        <Link className='btn btn-info text-end' href={route('admin.city.create')}>
+                                            <i className='bi bi-plus'></i> Create
+                                        </Link>
+                                    </PermissionAllow>
                                 </div>
                             </div>
                         </div>
@@ -126,59 +128,65 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                             <div className="col-12">
                                 <div className="box">
                                     <div className="box-body">
-                                        <div className="table-responsive rounded card-table">
-                                            <Table className="table border-no" id="example1">
-                                                <Thead>
-                                                    <Tr>
-                                                        <Th>#</Th>
-                                                        <Th>Image</Th>
-                                                        <Th>Name</Th>
-                                                        <Th>Position</Th>
-                                                        <Th>Status</Th>
-                                                        <Th>Last Modified</Th>
-                                                        <Th></Th>
-                                                    </Tr>
-                                                </Thead>
-                                                <Tbody>
-                                                    {displayList.slice(startIdx, endIdx).map((city, index) => (
-                                                        <Tr key={city.id} className="hover-primary">
-                                                            <td>{index + startIdx + 1}</td>
-                                                            <td>
-                                                                <img
-                                                                    src={city.image}
-                                                                    className='w-40 rounded-5 '
-                                                                    alt={`${city.image} icon`}
-                                                                    onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                />
-                                                            <span className='ms-3'>{city.name}</span>
-                                                            </td>
-                                                            <td>{city.position}</td>
-                                                            <td>{city.status}</td>
-                                                            <td>{city.updated_at}</td>
-                                                            <td>
-                                                                <Link className='btn btn-transparent' href={route('admin.city.edit', city.id)}>
-                                                                    <i className="bi bi-pencil"></i>
-                                                                </Link>
-                                                                <button onClick={(e) => deleteCity(city)} className="btn btn-transparent border-0">
-                                                                    <i className="bi bi-trash"></i>
-                                                                </button>
-                                                            </td>
+                                        <PermissionAllow permission={'Cities Listing'} message="true">
+                                            <div className="table-responsive rounded card-table">
+                                                <Table className="table border-no" id="example1">
+                                                    <Thead>
+                                                        <Tr>
+                                                            <Th>#</Th>
+                                                            <Th>Image</Th>
+                                                            <Th>Name</Th>
+                                                            <Th>Position</Th>
+                                                            <Th>Status</Th>
+                                                            <Th>Last Modified</Th>
+                                                            <Th></Th>
                                                         </Tr>
-                                                    ))}
-                                                </Tbody>
-                                            </Table>
-                                        </div>
-
-                                        {/* <!-- Pagination --> */}
-                                        {displayList.length > itemsPerPage && (
-                                            <div className="pagination-container float-end py-5">
-                                                <Pagination
-                                                    count={Math.ceil(displayList.length / itemsPerPage)}
-                                                    page={currentPage}
-                                                    onChange={handlePageChange}
-                                                />
+                                                    </Thead>
+                                                    <Tbody>
+                                                        {displayList.slice(startIdx, endIdx).map((city, index) => (
+                                                            <Tr key={city.id} className="hover-primary">
+                                                                <td>{index + startIdx + 1}</td>
+                                                                <td>
+                                                                    <img
+                                                                        src={city.image}
+                                                                        className='w-40 rounded-5 '
+                                                                        alt={`${city.image} icon`}
+                                                                        onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                                                    />
+                                                                    <span className='ms-3'>{city.name}</span>
+                                                                </td>
+                                                                <td>{city.position}</td>
+                                                                <td>{city.status}</td>
+                                                                <td>{city.updated_at}</td>
+                                                                <td>
+                                                                    <PermissionAllow permission={'City Edit'}>
+                                                                        <Link className='btn btn-transparent' href={route('admin.city.edit', city.id)}>
+                                                                            <i className="bi bi-pencil"></i>
+                                                                        </Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission={'City Delete'}>
+                                                                        <button onClick={(e) => deleteCity(city)} className="btn btn-transparent border-0">
+                                                                            <i className="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </PermissionAllow>
+                                                                </td>
+                                                            </Tr>
+                                                        ))}
+                                                    </Tbody>
+                                                </Table>
                                             </div>
-                                        )}
+
+                                            {/* <!-- Pagination --> */}
+                                            {displayList.length > itemsPerPage && (
+                                                <div className="pagination-container float-end py-5">
+                                                    <Pagination
+                                                        count={Math.ceil(displayList.length / itemsPerPage)}
+                                                        page={currentPage}
+                                                        onChange={handlePageChange}
+                                                    />
+                                                </div>
+                                            )}
+                                        </PermissionAllow>
                                     </div>
                                 </div>
                             </div>
