@@ -51,8 +51,7 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $this->errors(),
             ],
-            
-            'notifications' => $request->user() ? DashboardNotification::where('recipient_id', $request->user()->id)->get() : [],
+            'notifications' => $request->user() ? DashboardNotification::where('recipient_id', $request->user()->id)->whereNull('read_at')->get() : [],
         ];
     }
 

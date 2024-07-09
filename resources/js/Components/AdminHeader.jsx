@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { usePage } from '@inertiajs/react'
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import NavLink from '@/Components/NavLink';
 import { Head, Link, useForm } from "@inertiajs/react";
@@ -15,11 +16,10 @@ export default function AdminHeader({ user, header, onSidebarToggle, handle, isF
         Inertia.post(route('logout'));
     }
 
+    const { notifications } = usePage().props
     const [show2, setShow] = useState(false);
-
     const handleClose2 = () => setShow(false);
     const handleShow2 = () => setShow(true);
-
     const [openDropdown, setOpenDropdown] = useState(null);
 
     const handleToggle = (menu) => {
@@ -313,37 +313,40 @@ export default function AdminHeader({ user, header, onSidebarToggle, handle, isF
                             </li>
                             {/* <!-- Notifications --> */}
 
-                            <Dropdown>
-                                <Dropdown.Toggle
-                                    as="a"
-                                    href="#"
-                                    className="text-dark hover-primary ms-md-30 ms-10">
-                                    <li className="dropdown notifications-menu">
-                                        <span className="label label-primary count">5</span>
-                                        <a href="#" className="waves-effect waves-light "
-                                            title="Notifications">
-                                            <span className="bi bi bi-bell fs-20"></span>
-                                        </a>
-                                    </li>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu className="animated flipInX">
-                                    <Dropdown.Item href="#">
-                                            item 1
-                                    </Dropdown.Item>
-                                    <Dropdown.Item href="#">
-                                            item 1
-                                    </Dropdown.Item>
-                                    <Dropdown.Item href="#">
-                                            item 1
-                                    </Dropdown.Item>
-                                    <Dropdown.Item href="#">
-                                            item 1
-                                    </Dropdown.Item>
-                                    <Dropdown.Item href="#">
-                                        item 1
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                            <>
+                                {notifications.length > 0 && (
+                                    <Dropdown>
+                                        <Dropdown.Toggle
+                                            as="a"
+                                            href="#"
+                                            className="text-dark hover-primary ms-md-30 ms-10"
+                                        >
+                                            <li className="dropdown notifications-menu">
+                                                <span className="label label-primary count">
+                                                    {notifications.length}
+                                                </span>
+                                                <a
+                                                    href="#"
+                                                    className="waves-effect waves-light"
+                                                    title="Notifications"
+                                                >
+                                                    <span className="bi bi-bell fs-20"></span>
+                                                </a>
+                                            </li>
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className="animated flipInX">
+                                            {notifications.map((notification, index) => (
+                                                <Dropdown.Item
+                                                    key={index}
+                                                    href={notification.redirection}
+                                                >
+                                                    {truncateText(notification.subject, 20)}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                )}
+                            </>
 
                             {/* <!-- Messages --> */}
                             <li className="dropdown messages-menu">

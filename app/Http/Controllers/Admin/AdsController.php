@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\{Ad, Category, Facility, Features, Province};
+use App\Models\{Ad, Category, Facility, Features, Province, DashboardNotification};
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\Ad\{AdRequest};
@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 use App\Events\NewNotification;
+
 
 class AdsController extends Controller
 {
@@ -25,6 +26,8 @@ class AdsController extends Controller
         $suspendedAdsList= Ad::with('seller')->where('status',-1)->orderBy('updated_at','DESC')->get();
         $soldAdsList= Ad::with('seller')->where('status',2)->orderBy('updated_at','DESC')->get();
 
+
+        DashboardNotification::where('recipient_id', auth()->user()->id)->update(['read_at' => date('Y-m-d H:i:s')]);
         return Inertia::render('Admin/Ads/Index', [
                             'ads' => AdResource::collection($ads),
                             'pendingAdsList' => AdResource::collection($pendingAdsList),

@@ -305,7 +305,20 @@ class VendorController extends Controller
         $user   = User::where('id', $user_id)->first() ?? abort(404);
         $user->status = $request->status;
         try{
-            $user->save();		
+             $user->save();	
+           
+            if($request->status == '0'){
+                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Pending Stage', 'A account has been pending stage.', route('seller.index')));
+            }
+            else if($request->status == '1'){
+                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Approved', 'A account has been approved.', route('seller.index')));
+    
+            }
+            else if($request->status == '-1'){
+                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Suspended', 'A account has been suspended.', route('seller.index')));
+            }
+
+           	
             return to_route('admin.sellers.index')->with('success', 'Status was updated.');
         }
         catch(Exception $e){
