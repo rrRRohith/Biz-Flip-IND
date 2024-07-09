@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Closure;
+use App\Models\DashboardNotification;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -50,6 +51,8 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $this->errors(),
             ],
+            
+            'notifications' => $request->user() ? DashboardNotification::where('recipient_id', $request->user()->id)->get() : [],
         ];
     }
 

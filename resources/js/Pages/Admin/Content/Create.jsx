@@ -12,6 +12,7 @@ import PermissionAllow from "@/Components/PermissionAllow";
 import DynamicSelect from "@/Components/DynamicSelect";
 import Form from 'react-bootstrap/Form';
 
+
 export default function Create({ auth,imageList }) {
   const images = Object.entries(imageList).map(([key, value]) => ({
     value: key,

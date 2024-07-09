@@ -10,12 +10,14 @@ use Inertia\Inertia;
 use Carbon\Carbon;
 use DB;
 
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
     public function dashboard()
     {
+
         //////////////////////////////////Data values///////////////////////////////////
         $sellers = User::where('type', 'seller')->where('status', 1)->count();
         $leads = LeadEnquiry::count();

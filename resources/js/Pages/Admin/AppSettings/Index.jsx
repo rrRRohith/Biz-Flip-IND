@@ -6,6 +6,7 @@ import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function index({ app_settings ,queryParams = null, auth, success = null, error = null }) {
    

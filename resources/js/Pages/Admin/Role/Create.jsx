@@ -9,6 +9,8 @@ import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import Form from 'react-bootstrap/Form';
+import PermissionAllow from '@/Components/PermissionAllow';
+
 
 export default function Create({ permissionsList, auth }) {
     const { data, setData, post, errors, reset } = useForm({

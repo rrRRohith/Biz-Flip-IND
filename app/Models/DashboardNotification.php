@@ -9,4 +9,17 @@ class DashboardNotification extends Model
 {
      use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
+
+
+
+    protected $fillable = [
+        'sender_id',
+        'recipient_id',
+        'subject',
+        'message',
+        'redirection',
+        'read_at',
+        'status',
+    ];
+    
 }

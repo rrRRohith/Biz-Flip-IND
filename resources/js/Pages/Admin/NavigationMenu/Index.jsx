@@ -7,6 +7,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import ModalPopup from '@/Components/ModalPopup';
 import ViewNavigationMenu from '@/Pages/Admin/NavigationMenu/ViewNavigationMenu';
 import axios from 'axios';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Index({ MenuList, auth, success = null, error = null }) {
      

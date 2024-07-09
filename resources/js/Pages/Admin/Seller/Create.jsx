@@ -10,6 +10,7 @@ import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import Select from 'react-select';
 import DynamicSelect from '@/Components/DynamicSelect';
 import Form from 'react-bootstrap/Form';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 
 export default function Create({ auth, cities, provinces,featureLabel }) {

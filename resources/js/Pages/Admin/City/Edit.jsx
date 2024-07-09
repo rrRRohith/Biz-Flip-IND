@@ -9,6 +9,7 @@ import SelectOption from '@/Components/SelectOption';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
 import DynamicSelect from '@/Components/DynamicSelect';
 import Form from 'react-bootstrap/Form';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Edit({ city_item, queryParams = null, auth, countries }) {
     console.log(city_item)

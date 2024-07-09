@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { Pagination } from '@mui/material';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-
+import PermissionAllow from '@/Components/PermissionAllow';
 export default function Index({ contactLeads, adLeads, auth, success = null, error = null }) {
     const itemsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(1);

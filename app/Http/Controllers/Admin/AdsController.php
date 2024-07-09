@@ -9,6 +9,7 @@ use App\Http\Resources\{AdResource};
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use App\Events\NewNotification;
 
 class AdsController extends Controller
 {
@@ -76,7 +77,22 @@ class AdsController extends Controller
         $ad->status = $request->status;
        
         try{
-            $ad->save();		
+            $ad->save();	
+
+            if($request->status == '0'){
+                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Pending Stage', 'A post has been pending stage.', route('seller.ads.index')));
+            }
+            else if($request->status == '1'){
+                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Approved', 'A post has been approved.', route('seller.ads.index')));
+    
+            }
+            else if($request->status == '-1'){
+                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Suspended', 'A post has been suspended.', route('seller.ads.index')));
+    
+            }
+           
+
+            
             return to_route('admin.ads.index')->with('success', 'Ad was updated.');
         }
         catch(Exception $e){

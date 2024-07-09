@@ -7,6 +7,7 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import SelectOption from '@/Components/SelectOption';
 import Form from 'react-bootstrap/Form';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Edit({ country_item, queryParams = null, auth }) {
 

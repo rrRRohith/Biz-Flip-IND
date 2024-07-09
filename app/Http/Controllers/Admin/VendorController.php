@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\FeatureLabel;
 use PHPUnit\Metadata\Uses;
+use App\Events\NewNotification;
 
 class VendorController extends Controller
 {

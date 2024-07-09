@@ -5,7 +5,7 @@ import { Pagination } from '@mui/material';
 import Swal from 'sweetalert2';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Index({ provinceList, auth, success = null, error = null }) {
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import Swal from 'sweetalert2';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Index({ subscribersList, auth, success = null, error = null }) {
 

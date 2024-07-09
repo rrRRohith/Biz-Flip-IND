@@ -75,8 +75,7 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
     const statusOptions = [
         { value: '0', label: 'Pending' },
         { value: '1', label: 'Publish' },
-        { value: '-1', label: 'Suspend' },
-        { value: '3', label: 'Inactive' },
+        { value: '-1', label: 'Suspend' }
     ];
 
     var defaultStatus = '';

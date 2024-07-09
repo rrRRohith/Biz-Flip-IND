@@ -6,6 +6,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import ModalPopup from '@/Components/ModalPopup';
 import ViewRole from '@/Pages/Admin/Role/ViewRole';
+import PermissionAllow from '@/Components/PermissionAllow';
 import axios from 'axios';
 
 export default function Index({ roleList, auth, success = null, error = null }) {
