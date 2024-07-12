@@ -11,10 +11,12 @@ import DynamicSelect from '@/Components/DynamicSelect';
 import Select from 'react-select';
 import Form from 'react-bootstrap/Form';
 import PermissionAllow from '@/Components/PermissionAllow';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 
 export default function Edit({ auth, seller, cities, provinces, featureLabel }) {
 
+    const [showPassword, setShowPassword] = useState(false);
 
     const { data, setData, post, errors, reset } = useForm({
         firstname: seller.firstname || '',
@@ -27,7 +29,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
         city: seller.city || '',
         province: seller.province || '',
         featureLabel: seller.feature_label_id || '',
-        featureLabelName : seller.featureLabelName || '',
+        featureLabelName: seller.featureLabelName || '',
         picture: '',
         short_description: seller.short_description || '',
         description: seller.description || '',
@@ -89,6 +91,9 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
     });
 
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+      };
 
 
     const handleCheckboxChange = (day) => {
@@ -191,22 +196,22 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Seller/Create</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Seller/Edit</h2>}
         >
-            <Head title="Seller Create" />
+            <Head title="Seller Edit" />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Create Seller</h4>
+                                    <h4 className="page-title"> Edit Seller</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
                                                 <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.sellers.index')}>Sellers</Link></li>
-                                                <li className="breadcrumb-item active" aria-current="page">Create</li>
+                                                <li className="breadcrumb-item active" aria-current="page">Edit</li>
                                             </ol>
                                         </nav>
                                     </div>
@@ -227,7 +232,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                     <div className="row">
                                                         <div className="col-lg-9">
 
-                                                            <h4 className="col-lg-12 pb-30"><u>Contact Person Information</u></h4>
+                                                            <h4 className="col-lg-12 pb-30"><u>Contact Person </u></h4>
                                                             <div className="row">
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
@@ -291,18 +296,41 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                         <InputError message={errors.phone} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
+
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Designation</InputLabel>
+                                                                        <TextInput
+                                                                            id="designation"
+                                                                            type="text"
+                                                                            name="designation"
+                                                                            className="form-control"
+                                                                            value={data.designation}
+                                                                            onChange={(e) => handleChange("designation", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.designation} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Password</InputLabel>
-                                                                        <TextInput
-                                                                            id="password"
-                                                                            type="text"
-                                                                            name="password"
-                                                                            className="form-control"
-                                                                            value={data.password}
-                                                                            onChange={(e) => handleChange("password", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
+                                                                        <InputGroup className="mb-3">
+                                                                            <TextInput
+                                                                                id="password"
+                                                                                type={showPassword ? 'text' : 'password'}
+                                                                                name="password"
+                                                                                className="form-control"
+                                                                                autoComplete="new-password"
+                                                                                value={data.password}
+                                                                                onChange={(e) => handleChange("password", e.target.value)}
+                                                                            />
+                                                                            <InputGroup.Text id="inputGroup-sizing-sm">
+                                                                                <i role="button" className={`bi ${showPassword ? 'bi-eye' : 'bi-eye-slash'}`} onClick={togglePasswordVisibility}></i>
+                                                                            </InputGroup.Text>
+                                                                        </InputGroup>
+
                                                                         <InputError message={errors.password} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
@@ -373,17 +401,17 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                     <div className="product-img">
                                                                         {imagePreview ? (
                                                                             <div className="mb-15 text-center position-relative">
-                                                                                <img src={imagePreview} alt="Selected" className="w-100 h-100 rounded-circle" />
+                                                                                <img src={imagePreview} alt="Selected" className="avatar-xxxl rounded-circle" />
                                                                                 <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
 
                                                                             </div>
                                                                         ) : (
-                                                                            <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 w-100 h-100 text-center rounded-circle " />
+                                                                            <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 avatar-xxxl text-center rounded-circle " />
                                                                         )}
                                                                         <div className=" mb-20">
                                                                             <button
                                                                                 type="button"
-                                                                                className="btn btn-primary btn-sm"
+                                                                                className="btn btn-nature btn-sm"
                                                                                 onClick={() => document.getElementById('project_image_path').click()}
                                                                             >
                                                                                 Choose Image
@@ -424,36 +452,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                         <InputError message={errors.company_name} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Contact Person Designation</InputLabel>
-                                                                        <TextInput
-                                                                            id="designation"
-                                                                            type="text"
-                                                                            name="designation"
-                                                                            className="form-control"
-                                                                            value={data.designation}
-                                                                            onChange={(e) => handleChange("designation", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.designation} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Short Bio</InputLabel>
-                                                                        <TextInput
-                                                                            id="short_description"
-                                                                            type="text"
-                                                                            name="short_description"
-                                                                            className="form-control"
-                                                                            value={data.short_description}
-                                                                            onChange={(e) => handleChange("short_description", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.short_description} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
+
                                                                 <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
@@ -640,19 +639,19 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                         <div className="product-img">
                                                                             {imagePreviewLogo ? (
                                                                                 <div className="mb-15 text-center position-relative">
-                                                                                    <img src={imagePreviewLogo} alt="Selected" className="w-100 h-100 text-center rounded-circle" />
+                                                                                    <img src={imagePreviewLogo} alt="Selected" className="avatar-xxxl text-center rounded-circle" />
                                                                                     <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImageLogo}></i>
 
                                                                                 </div>
                                                                             ) : (
-                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center w-100 h-100 rounded-circle" />
+                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center avatar-xxxl rounded-circle" />
                                                                             )}
 
 
                                                                             <div className=" mb-20">
                                                                                 <button
                                                                                     type="button"
-                                                                                    className="btn btn-primary btn-sm"
+                                                                                    className="btn btn-nature btn-sm"
                                                                                     onClick={() => document.getElementById('project_image_path2').click()}
                                                                                 >
                                                                                     Choose Image
@@ -738,7 +737,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
 
                                                 </div>
 
-                                                <div className="form-actions mt-10 col-lg-12 text-center">
+                                                <div className="form-actions mt-10 col-lg-12 text-left">
                                                     <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </div>

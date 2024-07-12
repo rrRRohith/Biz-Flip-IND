@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import CreatableSelect from 'react-select/creatable';
+// import Select  from 'react-select/creatable';
+import Select from 'react-select'
+
 
 class DynamicSelect extends Component {
     constructor(props) {
@@ -28,7 +30,7 @@ class DynamicSelect extends Component {
         const { nameval } = this.props;
 
         return (
-            <CreatableSelect
+            <Select 
                 isClearable={isClearable}
                 options={options}
                 onChange={this.handleChange}

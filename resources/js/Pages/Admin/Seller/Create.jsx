@@ -11,9 +11,13 @@ import Select from 'react-select';
 import DynamicSelect from '@/Components/DynamicSelect';
 import Form from 'react-bootstrap/Form';
 import PermissionAllow from '@/Components/PermissionAllow';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 
-export default function Create({ auth, cities, provinces,featureLabel }) {
+export default function Create({ auth, cities, provinces, featureLabel }) {
+    const [showPassword, setShowPassword] = useState(false);
+
+
     const { data, setData, post, errors, reset } = useForm({
         firstname: '',
         lastname: '',
@@ -42,7 +46,7 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
         company_email: '',
         company_phone: '',
         position: '',
-        featureLabel : '',
+        featureLabel: '',
         status: '1'
     });
 
@@ -145,7 +149,7 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
         setData(key, value);
     };
 
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -156,6 +160,11 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
 
             },
         });
+    };
+
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
 
@@ -198,7 +207,7 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                     <div className="row">
                                                         <div className="col-lg-9">
 
-                                                            <h4 className="col-lg-12 pb-30"><u>Contact Person Information</u></h4>
+                                                            <h4 className="col-lg-12 pb-30"><u>Contact Person</u></h4>
                                                             <div className="row">
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
@@ -264,16 +273,37 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Password</InputLabel>
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Designation</InputLabel>
                                                                         <TextInput
-                                                                            id="password"
+                                                                            id="designation"
                                                                             type="text"
-                                                                            name="password"
+                                                                            name="designation"
                                                                             className="form-control"
-                                                                            value={data.password}
-                                                                            onChange={(e) => handleChange("password", e.target.value)}
+                                                                            value={data.designation}
+                                                                            onChange={(e) => handleChange("designation", e.target.value)}
                                                                             autoComplete="off"
                                                                         />
+                                                                        <InputError message={errors.designation} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Password</InputLabel>
+                                                                        <InputGroup className="mb-3">
+
+                                                                            <TextInput
+                                                                                id="password"
+                                                                                type={showPassword ? 'text' : 'password'}
+                                                                                name="password"
+                                                                                className="form-control"
+                                                                                autoComplete="new-password"
+                                                                                value={data.password}
+                                                                                onChange={(e) => handleChange("password", e.target.value)}
+                                                                            />
+                                                                            <InputGroup.Text id="inputGroup-sizing-sm">
+                                                                                <i role="button" className={`bi ${showPassword ? 'bi-eye' : 'bi-eye-slash'}`} onClick={togglePasswordVisibility}></i>
+                                                                            </InputGroup.Text>
+                                                                        </InputGroup>
                                                                         <InputError message={errors.password} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
@@ -310,7 +340,6 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">City</InputLabel>
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">City</InputLabel>
                                                                         <DynamicSelect
                                                                             onChange={(value) => handleChange("city", value)}
                                                                             value={data.city}
@@ -335,6 +364,7 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                                         <InputError message={errors.province} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-3 d-flex align-items-center">
@@ -344,12 +374,12 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                                     <div className="product-img">
                                                                         {imagePreview ? (
                                                                             <div className="mb-15 text-center position-relative">
-                                                                                <img src={imagePreview} alt="Selected" className="w-100 h-100 rounded-circle" />
+                                                                                <img src={imagePreview} alt="Selected" className="avatar-xxxl rounded-circle" />
                                                                                 <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
 
                                                                             </div>
                                                                         ) : (
-                                                                            <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 w-100 h-100 text-center rounded-circle " />
+                                                                            <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 avatar-xxxl text-center rounded-circle " />
                                                                         )}
                                                                         <div className=" mb-20">
                                                                             <button
@@ -395,22 +425,8 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                                         <InputError message={errors.company_name} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Contact Person Designation</InputLabel>
-                                                                        <TextInput
-                                                                            id="designation"
-                                                                            type="text"
-                                                                            name="designation"
-                                                                            className="form-control"
-                                                                            value={data.designation}
-                                                                            onChange={(e) => handleChange("designation", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.designation} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-12 mb-3">
+
+                                                                {/* <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Short Bio</InputLabel>
                                                                         <TextInput
@@ -424,7 +440,7 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                                         />
                                                                         <InputError message={errors.short_description} className="mt-2 col-12" />
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
                                                                 <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
@@ -611,12 +627,12 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                                         <div className="product-img">
                                                                             {imagePreviewLogo ? (
                                                                                 <div className="mb-15 text-center position-relative">
-                                                                                    <img src={imagePreviewLogo} alt="Selected" className="w-100 h-100 text-center rounded-circle" />
+                                                                                    <img src={imagePreviewLogo} alt="Selected" className="avatar-xxxl text-center rounded-circle" />
                                                                                     <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImageLogo}></i>
 
                                                                                 </div>
                                                                             ) : (
-                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center w-100 h-100 rounded-circle" />
+                                                                                <img src="/assets/admin/images/noimage.webp" alt="No Image" className="mb-15 text-center avatar-xxxl rounded-circle" />
                                                                             )}
 
 
@@ -697,13 +713,13 @@ export default function Create({ auth, cities, provinces,featureLabel }) {
                                                                 role="button"
                                                                 onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
                                                             />
-                                                            
+
                                                         </div>
                                                     </div>
 
                                                 </div>
 
-                                                <div className="form-actions mt-10 col-lg-12 text-center">
+                                                <div className="form-actions mt-10 col-lg-12 text-left">
                                                     <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
                                                 </div>
                                             </div>

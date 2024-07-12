@@ -17,7 +17,7 @@ File: scss
   color: #ffffff; }
 .light-skin .main-header .navbar .nav > li > a:hover, .light-skin .main-header .navbar .nav > li > a:active, .light-skin .main-header .navbar .nav > li > a:focus {
   background-color: rgba(0, 0, 0, 0.03);
-  color: #4c95dd; }
+  color: #86a4c3ab; }
 .light-skin .main-header .navbar .nav .open > a {
   background-color: rgba(0, 0, 0, 0.05); }
   .light-skin .main-header .navbar .nav .open > a:hover, .light-skin .main-header .navbar .nav .open > a:focus {

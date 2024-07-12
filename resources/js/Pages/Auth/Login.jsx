@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {  useState,useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
@@ -14,6 +14,14 @@ export default function Login({ status, canResetPassword }) {
         password: '',
         remember: false,
     });
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+      };
+
 
     useEffect(() => {
         return () => {
@@ -55,12 +63,14 @@ export default function Login({ status, canResetPassword }) {
                             className="ti-lock"></i></span>
                         <TextInput 
                          id="password"
-                         type="password"
+                         type={showPassword ? 'text' : 'password'}
                          name="password"
                          value={data.password}
                          className=" form-control ps-15 bg-transparent"
                          autoComplete="current-password"
                          onChange={(e) => setData('password', e.target.value)}/>
+                          <span className="input-group-text  bg-transparent"><i role='button'
+                            className={`bi ${showPassword ? 'bi-eye' : 'bi-eye-slash'}`} onClick={togglePasswordVisibility}></i></span>
                         <InputError message={errors.password} className="mt-2 col-12" />
                     </div>
                 </div>

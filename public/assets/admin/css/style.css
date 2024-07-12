@@ -29789,6 +29789,7 @@ ul.panel-actions > li {
 .avatar-xxxl {
   width: 128px;
   height: 128px;
+  object-fit: cover;
   line-height: 128px;
   font-size: 1.857rem; }
 
@@ -32259,7 +32260,7 @@ input[type="color"] {
   padding-right: 20px; }
 
 .form-group label {
-  font-weight: 500; }
+  font-weight: 400; }
 .form-group.has-success .help-block {
   color: #01b075; }
 .form-group.has-success label {
@@ -32294,7 +32295,7 @@ input[type="color"] {
 .form-control, .form-select {
   border-radius: 10px;
   box-shadow: none;
-  border-color: #86a4c3;
+  border-color: #86a4c3ab;
   height: auto; }
   .form-control:focus, .form-select:focus {
     box-shadow: none; }
@@ -32338,16 +32339,16 @@ textarea.form-control {
 
 .input-group .input-group-addon {
   border-radius: 10px 0px 0px 10px;
-  border-color: #86a4c3;
+  border-color: #86a4c3ab;
   background-color: #ffffff; }
 .input-group .input-group-text {
-  border-color: #86a4c3;
+  border-color: #86a4c3ab;
   border-radius: 10px; }
 
 .input-group-addon {
   font-weight: 300;
   padding: .425rem .75rem;
-  border: 1px solid #86a4c3;
+  border: 1px solid #86a4c3ab;
   line-height: 1.25;
   color: #172b4c;
   text-align: center;
@@ -37901,7 +37902,7 @@ img.away, img.busy, img.offline, img.online {
   padding: 0px 8px !important;
 }
 .css-13cymwt-control{
-  border-color: #86a4c3 !important;
+  border-color: #86a4c3ab !important;
 }
 
 .modal-90w{

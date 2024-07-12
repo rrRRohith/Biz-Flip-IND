@@ -75,7 +75,7 @@ const ViewSeller = ({ collection, handleClose, onSubmit }) => {
                             <tbody>
                                 <tr>
                                     <td colSpan={2}>
-                                        <img src={collection.picture} className='wd-100 hd-100 me-3 rounded-circle' onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }} />
+                                        <img src={collection.picture} className='me-3 rounded-circle avatar-xxxl' onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }} />
                                     </td>
                                     <td colSpan={10}>
                                         <table className='border-0 '>
@@ -117,7 +117,7 @@ const ViewSeller = ({ collection, handleClose, onSubmit }) => {
 
                             </tbody>
                         </table>
-                        <div className=' p-4'>
+                        <div className='mt-20'>
                             <h4 className='fw-bold'><u>Company Details</u></h4>
                             <table className='border-0 '>
                                 <tbody>
