@@ -2,9 +2,11 @@ import { Link } from "@inertiajs/react";
 import { usePage } from '@inertiajs/react';
 import ProfileDropdown from '../Components/ProfileDropdown';
 import PermissionAllow from '@/Components/PermissionAllow';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const Header = ({ user }) => {
     const { sellertopmenu } = usePage().props;
+    const { notifications } = usePage().props
 
     return (
         <nav className="navbar seller-top-navbar navbar-expand-lg navbar-light bg-white border-bottom px-0 fixed-top d-none d-lg-block">
@@ -21,6 +23,41 @@ const Header = ({ user }) => {
                         <li class="nav-item ps-2">
                             <a class="fw-semibold btn btn-primary btn-sm" href="/">Home</a>
                         </li>
+                        <>
+                            {notifications.length > 0 && (
+                                <Dropdown>
+                                    <Dropdown.Toggle
+                                        as="a"
+                                        href="#"
+                                        className="nav-item ps-2 ms-2 position-relative"
+                                    >
+                                        <li className="dropdown notifications-menu">
+                                            <span className="label fw-bold label-primary seller-count">
+                                                {notifications.length}
+                                            </span>
+                                            <a
+                                                href="#"
+                                                className="waves-effect waves-light"
+                                                title="Notifications"
+                                            >
+                                                <span className="bi bi-bell fs-20"></span>
+                                            </a>
+                                        </li>
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu className="animated flipInX">
+                                        {notifications.map((notification, index) => (
+                                            <Dropdown.Item
+                                                key={index}
+                                                href={notification.redirection} 
+                                                title={notification.subject}
+                                            >
+                                                {truncateText(notification.subject, 20)}
+                                            </Dropdown.Item>
+                                        ))}
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            )}
+                        </>
                         <li class="nav-item ps-2 ms-2">
                             <div className="navbar-user">
                                 <div className="dropdown">

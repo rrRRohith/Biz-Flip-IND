@@ -26,6 +26,8 @@ export default function AdminHeader({ user, header, onSidebarToggle, handle, isF
         setOpenDropdown(openDropdown === menu ? null : menu);
     };
 
+    
+
     return (
         <>
             <header className="main-header me-4">

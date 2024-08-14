@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ticket\{MessageRequest, TicketRequest};
 use App\Http\Resources\TicketResource;
 use App\Http\Resources\TicketMessageResource;
+use App\Events\NewNotification;
 
 class TicketController extends Controller
 {
@@ -74,6 +75,10 @@ class TicketController extends Controller
                 'attachments' => $request->hasFile('attachments') ? $this->upload_files($request->file('attachments')) : null,
                 'user_id' => auth()->user()->id,
             ]);
+
+            event(new NewNotification(auth()->user()->id, $ticket->user_id, 'Support Ticket Updated', 'A support ticket as replied.', route('seller.tickets.index')));
+
+            
             return redirect()->route('admin.support-tickets.show', ['support_ticket' => $ticket->id])->withSuccess('Message added successfully.');
         }
         catch(\Exception $e){
@@ -93,6 +98,10 @@ class TicketController extends Controller
         $ticket = Ticket::whereStatus('open')->findOrfail($id);
         $ticket->status = 'solved';
         $ticket->save();
+
+        event(new NewNotification(auth()->user()->id, $ticket->user_id, 'Support Ticket Closed', 'A closed support ticket.', route('seller.tickets.index')));
+
+
         return redirect()->route('admin.support-tickets.index',)->withSuccess('Message added successfully.');
 
 

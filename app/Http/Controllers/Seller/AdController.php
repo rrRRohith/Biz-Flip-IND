@@ -11,6 +11,7 @@ use App\Http\Resources\{AdResource};
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Events\NewNotification;
 
 class AdController extends BaseController{
     public $user;
@@ -138,6 +139,9 @@ class AdController extends BaseController{
                 ]));
             }
 
+            event(new NewNotification(auth()->user()->id, 1, 'Your Post is Pending Stage', 'A post has been pending stage.', route('admin.ads.index')));
+
+
             return to_route('seller.ads.index')->with('success', 'Ad created successfully.');
         }
         catch(\Exception $e){
@@ -245,6 +249,9 @@ class AdController extends BaseController{
                 ]));
             }
 
+            event(new NewNotification(auth()->user()->id, 1, 'Your Post is Pending Stage', 'A post has been pending stage.', route('admin.ads.index')));
+
+            
             return to_route('seller.ads.index')->with('success', 'Ad updated successfully.');
         }
         catch(\Exception $e){

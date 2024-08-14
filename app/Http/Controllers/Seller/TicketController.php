@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use App\Http\Requests\ticket\{MessageRequest, TicketRequest};
 use Inertia\Inertia;
 use App\Http\Resources\{TicketMessageResource, TicketResource};
+use App\Events\NewNotification;
 
 class TicketController extends BaseController{
     public $user;
@@ -63,6 +64,10 @@ class TicketController extends BaseController{
             $ticket->messages()->create($request->only(['message']))->update([
                 'user_id' => $this->user->id,
             ]);
+
+            event(new NewNotification(auth()->user()->id, 1, 'New Support Ticket Created', 'A created new support ticket.', route('admin.support-tickets.index')));
+
+
             return to_route('seller.tickets.show', ['ticket' => $ticket->id])->with('success', 'Ticket created successfully.');
         }
         catch(\Exception $e){
@@ -103,6 +108,9 @@ class TicketController extends BaseController{
                 'user_id' => $this->user->id,
                 'attachments' => $request->attachments ? $this->upload_files('attachments') : null,
             ]);
+
+            event(new NewNotification(auth()->user()->id, 1, 'Support Ticket Resubmited', 'A Support Ticket has resubmited.', route('admin.support-tickets.index')));
+
             return to_route('seller.tickets.show', ['ticket' => $ticket->id]);
         }
         catch(\Exception $e){
