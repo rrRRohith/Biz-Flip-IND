@@ -4,7 +4,7 @@
 <div id="app">
     <div class="container-fluid w-100 d-flex align-items-center"
         style="
-      background-image: linear-gradient( #00000078, #00000024 ), url(https://bookly.indigitalapi.com/uploads/static/res/auth.webp);
+      background-image: linear-gradient( #00000078, #00000024 ), url(https://res.cloudinary.com/rr6/image/upload/v1724138709/auth_nczirt.webp);
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;">

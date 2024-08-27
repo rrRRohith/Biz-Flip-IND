@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="col-md-6"
-                style="background-image: url(https://bookly.indigitalapi.com/uploads/static/res/auth.webp);
+                style="background-image: url(https://res.cloudinary.com/rr6/image/upload/v1724138709/auth_nczirt.webp);
                 background-position: center center;
                 background-repeat: no-repeat;
                 background-size: cover;
