@@ -21,9 +21,9 @@ class BackupController extends Controller
     {
         //    
         $bannersList = Banner::query()->paginate(10);
-            
+                                
         return Inertia::render('Admin/Banner/Index',['bannersList' => BannerResource::collection($bannersList),'success' => session('success'),'error' => session('error')]);
-     
+                  
     }
 
 }
