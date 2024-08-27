@@ -17,7 +17,8 @@ class ProvinceController extends Controller
         public function index()
         {
             $provinceList = Province::query()->paginate(10);
-           
+            
+            // dd(ProvinceResource::collection($provinceList));
             return Inertia::render('Admin/Province/Index',['provinceList' => ProvinceResource::collection($provinceList),'success' => session('success'),'error' => session('error')]);
     
         }

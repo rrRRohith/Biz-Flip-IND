@@ -98,7 +98,7 @@ export default function Edit({ province_item, queryParams = null, auth, countrie
                                                 <div className="form-body">
                                                     <div className="row">
                                                         <div className="col-lg-9">
-                                                            <div className="row">
+                                                            <div className="row2">
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
@@ -129,7 +129,7 @@ export default function Edit({ province_item, queryParams = null, auth, countrie
                                                                         <InputError message={errors.code} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
+                                                                {/* <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Country</InputLabel>
                                                                         <DynamicSelect
@@ -140,8 +140,8 @@ export default function Edit({ province_item, queryParams = null, auth, countrie
                                                                         />
                                                                         <InputError message={errors.country} className="mt-2 col-12" />
                                                                     </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
+                                                                </div> */}
+                                                                {/* <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
                                                                         <SelectOption
@@ -152,7 +152,7 @@ export default function Edit({ province_item, queryParams = null, auth, countrie
                                                                         <InputError message={errors.position} className="mt-2 col-12" />
 
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">
@@ -177,7 +177,7 @@ export default function Edit({ province_item, queryParams = null, auth, countrie
                                                         <div className="col-lg-3">
                                                             <div className="row">
                                                                 <div className="col-md-12">
-                                                                    <div className="border rounded-4 p-3  text-center">
+                                                                    {/* <div className="border rounded-4 p-3  text-center">
                                                                         <h4 className="box-title text-center">Image</h4>
                                                                         <div className="product-img">
                                                                             {imagePreview ? (
@@ -208,7 +208,7 @@ export default function Edit({ province_item, queryParams = null, auth, countrie
                                                                             </div>
                                                                         </div>
 
-                                                                    </div>
+                                                                    </div> */}
                                                                 </div>
                                                             </div>
                                                         </div>

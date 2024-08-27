@@ -3847,16 +3847,16 @@
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep",
-            "version": "v1.20.1",
+            "version": "v1.20.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/staudenmeir/eloquent-has-many-deep.git",
-                "reference": "979108e70a0db274bbf0c3ee58f1b8e96f891d4d"
+                "reference": "edcce8d8559d9559c997c177de06eb4bc173956d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/979108e70a0db274bbf0c3ee58f1b8e96f891d4d",
-                "reference": "979108e70a0db274bbf0c3ee58f1b8e96f891d4d",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/edcce8d8559d9559c997c177de06eb4bc173956d",
+                "reference": "edcce8d8559d9559c997c177de06eb4bc173956d",
                 "shasum": ""
             },
             "require": {
@@ -3902,7 +3902,7 @@
             "description": "Laravel Eloquent HasManyThrough relationships with unlimited levels",
             "support": {
                 "issues": "https://github.com/staudenmeir/eloquent-has-many-deep/issues",
-                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.20.1"
+                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.20.2"
             },
             "funding": [
                 {
@@ -3910,7 +3910,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2024-05-25T10:02:04+00:00"
+            "time": "2024-07-12T22:08:11+00:00"
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep-contracts",
@@ -9107,5 +9107,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
