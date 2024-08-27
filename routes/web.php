@@ -37,8 +37,10 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'staff'             => StaffController::class,
         'business-category' => BusinessCategoryController::class,
         'app-settings'      => AppSettingsController::class,
+        'backups'           => BackupController::class,
         
     ]);
+
 
     Route::resource('/profile', ProfileController::class, [
         'only' => ['index', 'store']

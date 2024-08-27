@@ -233,6 +233,13 @@ export default function AdminSidebar() {
                                                         </Link>
                                                     </li>  
                                                 </PermissionAllow>
+                                                <PermissionAllow permission={'Role and Responsibilities'}>
+                                                    <li>
+                                                        <Link href={route('admin.backups.index')}>
+                                                            <i className="icon-Commit"></i>Backups
+                                                        </Link>
+                                                    </li>  
+                                                </PermissionAllow>
                                                
                                             </ul>
                                         )}

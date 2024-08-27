@@ -1,1 +1,0 @@
-import{g as t}from"./app-B5wC7NxF.js";import{r as p}from"./index-Chjiymov.js";import{_ as e}from"./setPrototypeOf-DgZC2w_0.js";var i=p();const f=t(i);function n(o,r){o.prototype=Object.create(r.prototype),o.prototype.constructor=o,e(o,r)}export{f as P,n as _};
