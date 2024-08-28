@@ -11,6 +11,8 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
+        "masbug/flysystem-google-drive-ext": "*",
+        "spatie/laravel-backup": "^9.0",
         "spatie/laravel-permission": "^6.7",
         "staudenmeir/eloquent-has-many-deep": "^1.20",
         "tightenco/ziggy": "^2.0"
