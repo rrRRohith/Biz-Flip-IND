@@ -88,7 +88,7 @@ class BackupToGoogleDrive extends Command
                 $zip->close();
     
                 // Upload to Google Drive
-                if (Storage::disk('google')->put(env('APP_NAME').$zipName, fopen($zipFile, 'r'))) {
+                if (Storage::disk('google')->put(env('APP_NAME').'/'.$zipName, fopen($zipFile, 'r'))) {
                     Log::info('Backup uploaded to Google Drive successfully.');
                 } else {
                     Log::error('Failed to upload backup to Google Drive.');
