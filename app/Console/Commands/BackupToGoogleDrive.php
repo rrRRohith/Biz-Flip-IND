@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Spatie\Backup\Tasks\Backup\BackupJobFactory;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
+use Illuminate\Support\Facades\Log;
 
 class BackupToGoogleDrive extends Command
 {
@@ -87,16 +88,16 @@ class BackupToGoogleDrive extends Command
                 $zip->close();
     
                 // Upload to Google Drive
-                if (Storage::disk('google')->put($zipName, fopen($zipFile, 'r'))) {
-                    \Log::info('Backup uploaded to Google Drive successfully.');
+                if (Storage::disk('google')->put(env('APP_NAME').$zipName, fopen($zipFile, 'r'))) {
+                    Log::info('Backup uploaded to Google Drive successfully.');
                 } else {
-                    \Log::error('Failed to upload backup to Google Drive.');
+                    Log::error('Failed to upload backup to Google Drive.');
                 }
             } else {
-                \Log::error('Failed to create zip file.');
+                Log::error('Failed to create zip file.');
             }
         } catch (\Exception $e) {
-            \Log::error('Failed to load Google Storage Driver: ' . $e->getMessage());
+            Log::error('Failed to load Google Storage Driver: ' . $e->getMessage());
         }
     }
 }
