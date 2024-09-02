@@ -24,32 +24,41 @@ class BackupController extends Controller
      */
     public function index()
     {
+        // Format the folder name for Google Drive
         $name = str_replace('_', '-', env('APP_NAME'));
-        $new_arr = Storage::disk('google')->allFiles($name);
 
+        // Get all files from Google Drive
+        $allFiles = Storage::disk('google')->allFiles($name);
+
+        // Arrays to store categorized files
         $dbs = [];
         $images = [];
 
-        foreach (array_reverse($new_arr) as $key => $value) {
-            $originalName = $value;
+        // Process each file
+        foreach (array_reverse($allFiles) as $key => $filePath) {
+            // Extract the file name and directory
+            $fileName = basename($filePath);
+            $directory = dirname($filePath);
 
-            if ($value == $name . '/' . $name . '_images_backup.zip') {
-                $newName = str_replace($name . '/' . $name . '_', '', $value);
-                $images[$key]['originalName'] = $originalName;
-                $images[$key]['name'] = $newName;
+            // Check if the file is in the 'images' folder
+            if (str_contains($directory, 'images')) {
+                // Process image backup files
+                $images[$key]['originalName'] = $filePath;
+                $images[$key]['name'] = $fileName;
             } else {
-                $newName = str_replace($name . '/', '', $value);
-                $dbs[$key]['originalName'] = $originalName;
-                $dbs[$key]['name'] = $newName;
+                // Process database backup files
+                $dbs[$key]['originalName'] = $filePath;
+                $dbs[$key]['name'] = $fileName;
             }
         }
 
-        // Ensure both are arrays
+        // Ensure both arrays are properly formatted
         return Inertia::render('Admin/Backup/Index', [
             'files' => array_values($dbs),
             'images' => array_values($images)
         ]);
     }
+
 
 
     public function updateDatabase(Request $request)
