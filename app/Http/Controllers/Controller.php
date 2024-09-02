@@ -17,8 +17,9 @@ class Controller extends BaseController{
      */
     public function __construct(){
         View::share('countries', \App\Models\Country::with(['provinces', 'provinces.cities'])->whereStatus(1)->with('provinces')->get());
-        View::share('provinces', \App\Models\Province::with('cities')->whereStatus(1)->get());
+        View::share('provinces', \App\Models\Province::with(['cities' => fn($q) => $q->orderBy('name')])->orderBy('name')->whereStatus(1)->get());
         View::share('ad_categories',  \App\Models\Category::whereStatus(1)->orderBy('position')->get());
+        View::share('cities', \App\Models\City::orderBy('name')->get());
         View::share('categories',  \App\Models\Category::whereStatus(1)->orderBy('position')->get());
         View::share('business_categories', \App\Models\BusinessCategory::whereStatus(1)->orderBy('position')->get());
     }
