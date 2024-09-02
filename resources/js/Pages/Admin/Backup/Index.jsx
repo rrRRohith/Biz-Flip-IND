@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useState } from 'react';
 import { Head, Link, useForm, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
@@ -12,23 +12,25 @@ export default function Index({ files = [], images = [], auth }) {
         db_name: '',
         image_name: ''
     });
-   
+
+    const [loading, setLoading] = useState(false);
+
     const handleRestoreDb = async (name) => {
-      
-       
+        setLoading(true);  // Start loading
+
         try {
             const options = {
                 url: route("admin.backups.update-db"),
                 method: 'POST',
                 headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json;charset=UTF-8'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
                 },
                 data: {
-                  db_name: name
+                    db_name: name
                 }
-              };
-       
+            };
+
             Swal.fire({
                 title: 'Are you sure you want to restore this Database?',
                 text: 'Once restored, old data cannot be recovered.',
@@ -39,37 +41,48 @@ export default function Index({ files = [], images = [], auth }) {
                 confirmButtonText: 'Yes, Restore it!',
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    await axios(options)
-                    .then(response => {
-                       
-                      if(response.status == 200){
-                        Swal.fire('Restored!', 'Database have been restored.', 'success');
-                      }
-                      else{
-                        Swal.fire('Error!', 'There was an error restoring the database.', 'error');
-                      }
-                    });
+
+                    try {
+                        await axios(options)
+                            .then(response => {
+
+                                if (response.status == 200) {
+                                    Swal.fire('Restored!', 'Database have been restored.', 'success');
+                                }
+                                else {
+                                    Swal.fire('Error!', 'There was an error restoring the database.', 'error');
+                                }
+                            });
+
+                    }
+                    catch (error) {
+                        setLoading(false);  // Stop loading
+                        Swal.fire('Error!', 'There was an error restored the images.', 'error');
+                    }
+                    finally {
+                        setLoading(false);  // Stop loading
+                    }
                 }
             });
-            
+
         } catch (error) {
             console.error('Error fetching data', error);
         }
     };
-    
+
     const handleRestoreImage = (name) => {
-       
+        setLoading(true);  // Start loading
         const options2 = {
             url: route("admin.backups.update-images"),
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json;charset=UTF-8'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
             },
             data: {
                 image_name: name
             }
-          };
+        };
 
         Swal.fire({
             title: 'Are you sure you want to restore this Images?',
@@ -81,21 +94,72 @@ export default function Index({ files = [], images = [], auth }) {
             confirmButtonText: 'Yes, Restore it!',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await axios(options2)
-                .then(response => {
-                    
-                  if(response.status){
-                    Swal.fire('Restored!', 'Images have been restored.', 'success');
-                  }
-                  else{
-                    Swal.fire('Error!', 'There was an error restoring the images.', 'error');
-                  }
-                });
-                
+                try {
+                    await axios(options2)
+                        .then(response => {
+
+                            if (response.status) {
+                                Swal.fire('Restored!', 'Images have been restored.', 'success');
+                            }
+                            else {
+                                Swal.fire('Error!', 'There was an error restoring the images.', 'error');
+                            }
+                        });
+                }
+                catch (error) {
+                    setLoading(false);  // Stop loading
+                    Swal.fire('Error!', 'There was an error restored the images.', 'error');
+                }
+                finally {
+                    setLoading(false);  // Stop loading
+                }
+
+
             }
         });
     };
-    
+
+
+    const handleDownload = async (name) => {
+        setLoading(true);  // Start loading
+        const options3 = {
+            url: route("admin.backups.download"),
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            responseType: 'blob', // Important for handling binary data
+            data: {
+                image_name: name
+            }
+        };
+
+        try {
+            const response = await axios(options3);
+
+            if (response.status === 200) {
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = name; // You can modify this to set the desired file name
+                link.click();
+                window.URL.revokeObjectURL(link.href);
+            } else {
+                Swal.fire('Error!', 'There was an error downloading the file.', 'error');
+            }
+        } catch (error) {
+            setLoading(false);  // Stop loading
+            Swal.fire('Error!', 'There was an error downloading the file.', 'error');
+        }
+        finally {
+            setLoading(false);  // Stop loading
+        }
+    };
+
+
+
+
     return (
         <Authenticated
             user={auth.user}
@@ -154,6 +218,9 @@ export default function Index({ files = [], images = [], auth }) {
                                                                         <span onClick={() => handleRestoreImage(image.originalName)} title='Restore' className="btn btn-transparent">
                                                                             <i className="bi bi-arrow-clockwise"></i>
                                                                         </span>
+                                                                        <span onClick={() => handleDownload(image.originalName)} title='Download' className="btn btn-transparent">
+                                                                            <i className="bi bi-download"></i>
+                                                                        </span>
                                                                     </PermissionAllow>
                                                                 </Td>
                                                             </Tr>
@@ -161,7 +228,7 @@ export default function Index({ files = [], images = [], auth }) {
                                                     </Tbody>
                                                 </Table>
                                             </div>
-                                            
+
                                             {/* Databases Table */}
                                             <div className="table-responsive rounded card-table">
                                                 <Table className="table border-no">
@@ -177,9 +244,13 @@ export default function Index({ files = [], images = [], auth }) {
                                                                 <Td>{file.name}</Td>
                                                                 <Td align='right'>
                                                                     <PermissionAllow permission={'Category Show'}>
-                                                                        <span onClick={() => handleRestoreDb(file.originalName)} title='Restore' className="btn btn-transparent">
+                                                                        {/* <span onClick={() => handleRestoreDb(file.originalName)} title='Restore' className="btn btn-transparent">
                                                                             <i className="bi bi-arrow-clockwise"></i>
+                                                                        </span> */}
+                                                                        <span onClick={() => handleDownload(file.originalName)} title='Download' className="btn btn-transparent">
+                                                                            <i className="bi bi-download"></i>
                                                                         </span>
+
                                                                     </PermissionAllow>
                                                                 </Td>
                                                             </Tr>
@@ -195,6 +266,7 @@ export default function Index({ files = [], images = [], auth }) {
                     </section>
                 </div>
             </div>
+            {loading && <div className="loader">Loading...</div>} 
         </Authenticated>
     );
 }

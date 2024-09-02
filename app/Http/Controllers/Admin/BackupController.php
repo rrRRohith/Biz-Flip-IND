@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BackupController extends Controller
 {
@@ -159,7 +161,7 @@ class BackupController extends Controller
 
             // Ensure the backup directory exists
             if (!is_dir(dirname($zipFile))) {
-                mkdir(dirname($zipFile), 0755, true);
+                mkdir(dirname($zipFile), 0777, true);
             }
 
             // Download the image zip file from Google disk
@@ -167,7 +169,7 @@ class BackupController extends Controller
             file_put_contents($zipFile, $fileContent);
 
             $extractPath = storage_path('app/images');
-            $destinationPath = storage_path('app'); // Destination directory for images
+
             $zip = new ZipArchive;
 
             if ($zip->open($zipFile) === TRUE) {
@@ -175,10 +177,7 @@ class BackupController extends Controller
                 $zip->extractTo($extractPath);
                 $zip->close();
 
-                // // Ensure the destination directory exists
-                if (!is_dir($destinationPath)) {
-                    mkdir($destinationPath, 0755, true);
-                }
+
                 // // Clean up: delete the temporary extraction directory
                 if (file_exists($zipFile)) {
                     unlink($zipFile);
@@ -194,5 +193,37 @@ class BackupController extends Controller
         }
     }
 
-    
+
+    public function download(Request $request)
+    {
+        $image_name = $request->image_name;
+
+        // Define the temporary location for the downloaded file
+        $zipFile = storage_path('app/backups/backupDownload.zip');
+
+        // Download the file from Google Drive to local storage
+        $fileContent = Storage::disk('google')->get($image_name);
+        file_put_contents($zipFile, $fileContent);
+
+        // Check if the file exists in the local storage
+        if (Storage::disk('local')->exists('backups/backupDownload.zip')) {
+            // Return the file as a downloadable stream response
+            return response()->stream(function () use ($zipFile) {
+                $stream = fopen($zipFile, 'r');
+                fpassthru($stream);
+                fclose($stream);
+
+                // Delete the file after streaming
+                if (file_exists($zipFile)) {
+                    unlink($zipFile);
+                }
+            }, 200, [
+                "Content-Type" => mime_content_type($zipFile),
+                "Content-Length" => filesize($zipFile),
+                "Content-Disposition" => "attachment; filename=\"" . basename($zipFile) . "\"",
+            ]);
+        } else {
+            abort(404, "The backup file doesn't exist.");
+        }
+    }
 }
