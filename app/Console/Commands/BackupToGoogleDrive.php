@@ -21,32 +21,8 @@ class BackupToGoogleDrive extends Command
     public function handle()
     {
         try {
-            // Extend storage with Google Drive
-            Storage::extend('google', function ($app, $config) {
-                $options = [];
-    
-                if (!empty($config['teamDriveId'] ?? null)) {
-                    $options['teamDriveId'] = $config['teamDriveId'];
-                }
-    
-                if (!empty($config['sharedFolderId'] ?? null)) {
-                    $options['sharedFolderId'] = $config['sharedFolderId'];
-                }
-    
-                $client = new \Google\Client();
-                $client->setClientId($config['clientId']);
-                $client->setClientSecret($config['clientSecret']);
-                $client->refreshToken($config['refreshToken']);
-    
-                $service = new \Google\Service\Drive($client);
-                $adapter = new \Masbug\Flysystem\GoogleDriveAdapter($service, $config['folder'] ?? '/', $options);
-                $driver = new \League\Flysystem\Filesystem($adapter);
-    
-                return new \Illuminate\Filesystem\FilesystemAdapter($driver, $adapter);
-            });
-    
-            // Path to the images folder inside the public directory
-            $folderPath = public_path('images');
+            // Path to the images folder inside the storage directory
+            $folderPath = storage_path('app/images');
             
             $zipName = env('APP_NAME').'_images_backup.zip';
             
@@ -56,7 +32,7 @@ class BackupToGoogleDrive extends Command
             // Ensure the directory exists
             $backupDir = dirname($zipFile);
             if (!is_dir($backupDir)) {
-                mkdir($backupDir, 0755, true); // Create directory if it does not exist
+                mkdir($backupDir, 0777, true); // Create directory if it does not exist
             }
     
             // Create a new ZipArchive instance
@@ -90,6 +66,14 @@ class BackupToGoogleDrive extends Command
                 // Upload to Google Drive
                 if (Storage::disk('google')->put(env('APP_NAME').'/'.$zipName, fopen($zipFile, 'r'))) {
                     Log::info('Backup uploaded to Google Drive successfully.');
+                    
+                    // Delete the local backup zip file after successful upload
+                    if (file_exists($zipFile)) {
+                        unlink($zipFile);
+                        Log::info('Local backup file deleted successfully.');
+                    } else {
+                        Log::warning('Local backup file not found for deletion.');
+                    }
                 } else {
                     Log::error('Failed to upload backup to Google Drive.');
                 }

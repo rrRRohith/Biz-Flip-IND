@@ -43,7 +43,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
 
     
     Route::get('backups', 'BackupController@index')->name('backups.index');
-    Route::post('backups/update-database', 'BackupController@updateDatabse')->name('backups.update-db');
+    Route::post('backups/update-database', 'BackupController@updateDatabase')->name('backups.update-db');
     Route::post('backups/update-images', 'BackupController@updateImages')->name('backups.update-images');
     
 

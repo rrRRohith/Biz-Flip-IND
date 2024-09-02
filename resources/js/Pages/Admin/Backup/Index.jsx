@@ -5,6 +5,7 @@ import PermissionAllow from '@/Components/PermissionAllow';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export default function Index({ files = [], images = [], auth }) {
     const { data, setData, post, errors, reset } = useForm({
@@ -12,34 +13,64 @@ export default function Index({ files = [], images = [], auth }) {
         image_name: ''
     });
    
-    const handleRestoreDb = (name) => {
-        setData('db_name', name);
-
-        Swal.fire({
-            title: 'Are you sure you want to restore this Database?',
-            text: 'Once restored, old data cannot be recovered.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, Restore it!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                post(route("admin.backups.update-db"), { 'db_name': name }, {
-                    onSuccess: () => {
-                        Swal.fire('Restored!', 'Database has been restored.', 'success');
-                    },
-                    onError: (errors) => {
-                        console.error(errors);
+    const handleRestoreDb = async (name) => {
+      
+       
+        try {
+            const options = {
+                url: route("admin.backups.update-db"),
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json;charset=UTF-8'
+                },
+                data: {
+                  db_name: name
+                }
+              };
+       
+            Swal.fire({
+                title: 'Are you sure you want to restore this Database?',
+                text: 'Once restored, old data cannot be recovered.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, Restore it!',
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    await axios(options)
+                    .then(response => {
+                       
+                      if(response.status == 200){
+                        Swal.fire('Restored!', 'Database have been restored.', 'success');
+                      }
+                      else{
                         Swal.fire('Error!', 'There was an error restoring the database.', 'error');
-                    },
-                });
-            }
-        });
+                      }
+                    });
+                }
+            });
+            
+        } catch (error) {
+            console.error('Error fetching data', error);
+        }
     };
     
     const handleRestoreImage = (name) => {
-        setData('image_name', name);
+       
+        const options2 = {
+            url: route("admin.backups.update-images"),
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json;charset=UTF-8'
+            },
+            data: {
+                image_name: name
+            }
+          };
+
         Swal.fire({
             title: 'Are you sure you want to restore this Images?',
             text: 'Once restored, old data cannot be recovered.',
@@ -48,17 +79,19 @@ export default function Index({ files = [], images = [], auth }) {
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Yes, Restore it!',
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                post(route("admin.backups.update-images"),{ [`image_name`]: name }, {
-                    onSuccess: () => {
-                        Swal.fire('Restored!', 'Images have been restored.', 'success');
-                    },
-                    onError: (errors) => {
-                        console.error(errors);
-                        Swal.fire('Error!', 'There was an error restoring the images.', 'error');
-                    },
+                await axios(options2)
+                .then(response => {
+                    
+                  if(response.status){
+                    Swal.fire('Restored!', 'Images have been restored.', 'success');
+                  }
+                  else{
+                    Swal.fire('Error!', 'There was an error restoring the images.', 'error');
+                  }
                 });
+                
             }
         });
     };
