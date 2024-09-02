@@ -11,8 +11,8 @@ import DynamicSelect from '@/Components/DynamicSelect';
 import Form from 'react-bootstrap/Form';
 import PermissionAllow from '@/Components/PermissionAllow';
 
-export default function Edit({ city_item, queryParams = null, auth, countries }) {
-    console.log(city_item)
+export default function Edit({ city_item, queryParams = null, auth, provinces }) {
+
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         name: city_item.name || '',
@@ -34,9 +34,9 @@ export default function Edit({ city_item, queryParams = null, auth, countries })
         }
 
         // Fetch provinces if a country is already selected
-        if (city_item.country) {
-            fetchProvinces(city_item.country_id);
-        }
+        // if (city_item.country) {
+        //     fetchProvinces(city_item.country_id);
+        // }
     }, [city_item.image, city_item.country]);
 
     const handleImageChange = (e) => {
@@ -63,32 +63,32 @@ export default function Edit({ city_item, queryParams = null, auth, countries })
     };
 
 
-    const [provinces, setProvinces] = useState([]);
-    const fetchProvinces = async (countryId) => {
-        if (!countryId) {
-            setProvinces([]);
-            return;
-        }
+    // const [provinces, setProvinces] = useState([]);
+    // const fetchProvinces = async (countryId) => {
+    //     if (!countryId) {
+    //         setProvinces([]);
+    //         return;
+    //     }
 
-        try {
-            const response = await fetch(`/admin/provinces/${countryId}`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.token}`,
-                },
-            });
-            const provincesData = await response.json();
-            setProvinces(provincesData);
-        } catch (error) {
-            console.error('Error fetching provinces:', error);
-        }
-    };
+    //     try {
+    //         const response = await fetch(`/admin/provinces/${countryId}`, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${auth.token}`,
+    //             },
+    //         });
+    //         const provincesData = await response.json();
+    //         setProvinces(provincesData);
+    //     } catch (error) {
+    //         console.error('Error fetching provinces:', error);
+    //     }
+    // };
 
-    const handleChange = (key, value) => {
-        setData(key, value);
-        if (key === 'country') {
-            fetchProvinces(value);
-        }
-    };
+    // const handleChange = (key, value) => {
+    //     setData(key, value);
+    //     if (key === 'country') {
+    //         fetchProvinces(value);
+    //     }
+    // };
 
     return (
         <Authenticated
@@ -144,7 +144,7 @@ export default function Edit({ city_item, queryParams = null, auth, countries })
                                                                         <InputError message={errors.name} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
+                                                                {/* <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Country</InputLabel>
                                                                         <DynamicSelect
@@ -155,7 +155,7 @@ export default function Edit({ city_item, queryParams = null, auth, countries })
                                                                         />
                                                                         <InputError message={errors.country} className="mt-2 col-12" />
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Province</InputLabel>
@@ -168,7 +168,7 @@ export default function Edit({ city_item, queryParams = null, auth, countries })
                                                                         <InputError message={errors.province} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
+                                                                {/* <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
                                                                         <SelectOption
@@ -179,7 +179,7 @@ export default function Edit({ city_item, queryParams = null, auth, countries })
                                                                         <InputError message={errors.position} className="mt-2 col-12" />
 
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">

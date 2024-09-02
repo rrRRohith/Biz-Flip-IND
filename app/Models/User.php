@@ -83,7 +83,7 @@ class User extends Authenticatable
     }
 
     public function getPictureUrlAttribute($picture){
-        return asset('images/'.$this->picture);
+        return asset($this->picture ? 'images/'.$this->picture : '/assets/admin/images/noimage.webp');
     }
 
     public function seller(){

@@ -15,12 +15,12 @@
                         <div class="d-flex align-items-center">
                             <div class="me-2">
                                 <img class="image-fit w-h-40 rounded-circle"
-                                    src="{{ $ad->seller->picture_url }}"
+                                    src="{{ $ad->seller->picture_url ?? '' }}"
                                     alt="" />
                             </div>
                             <div class="text-overflow">
                                 <div class="text-overflow">
-                                    {{ $ad->seller->name }}
+                                    {{ $ad->seller->name ?? '' }}
                                 </div>
                             </div>
                         </div>

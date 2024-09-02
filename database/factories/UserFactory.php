@@ -3,19 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Models\Seller;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
     /**
      * Define the model's default state.
      *
@@ -24,21 +21,55 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'firstname' => $this->faker->firstName,
+            'lastname' => $this->faker->lastName,
+            'email' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->phoneNumber,
+            'address' => $this->faker->address,
+            'postalcode' => $this->faker->postcode,
+            'city' => $this->faker->city,
+            'province' => $this->faker->state,
+            'country' => $this->faker->country,
+            'type' => $this->faker->word, // Replace with appropriate type values
+            'role_id' => $this->faker->numberBetween(1, 5), // Replace with appropriate role IDs
+            'parent_id' => null, // Or use a valid ID if needed
+            'picture' => $this->faker->imageUrl(),
+            'designation' => $this->faker->jobTitle,
+            'unique_code' => $this->faker->unique()->word,
+            'device_token_mobile' => $this->faker->sha256,
+            'device_token_desktop' => $this->faker->sha256,
+            'email_verified_at' => $this->faker->boolean ? Carbon::now() : null,
+            'password' => bcrypt('password'), // You might want to use Hash::make('password')
+            'status' => $this->faker->boolean,
             'remember_token' => Str::random(10),
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Define the model's default state with a related seller.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function unverified(): static
+    public function withSeller(): Factory
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->afterCreating(function (User $user) {
+            Seller::factory()->create(['user_id' => $user->id]);
+        });
+    }
+
+    /**
+     * Define the model's state with a valid parent_id.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withValidParent(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            // Ensure there is at least one user to reference
+            $parent = User::inRandomOrder()->first();
+            return [
+                'parent_id' => $parent ? $parent->id : null,
+            ];
+        });
     }
 }

@@ -81,6 +81,7 @@ export default function AdminSidebar() {
                                         </a>
                                         {openDropdown === 'locations' && (
                                             <ul className="treeview-menu">
+                                            {/*
                                                 <PermissionAllow permission={'Locations'}>
                                                     <li>
                                                         <Link href={route('admin.country.index')}>
@@ -88,10 +89,11 @@ export default function AdminSidebar() {
                                                         </Link>
                                                     </li>
                                                 </PermissionAllow>
+                                            */}
                                                 <PermissionAllow permission={'Locations'}>
                                                     <li>
                                                         <Link href={route('admin.province.index')}>
-                                                            <i className="icon-Commit"></i>Province
+                                                            <i className="icon-Commit"></i>Provinces
                                                         </Link>
                                                     </li>
                                                 </PermissionAllow>
@@ -99,7 +101,7 @@ export default function AdminSidebar() {
                                                 <PermissionAllow permission={'Locations'}>
                                                     <li>
                                                         <Link href={route('admin.city.index')}>
-                                                            <i className="icon-Commit"></i>City
+                                                            <i className="icon-Commit"></i>Cities
                                                         </Link>
                                                     </li> 
                                                 </PermissionAllow>
@@ -228,6 +230,13 @@ export default function AdminSidebar() {
                                                     <li>
                                                         <Link href={route('admin.role-responsibilities.index')}>
                                                             <i className="icon-Commit"></i>Role & Responsibilities
+                                                        </Link>
+                                                    </li>  
+                                                </PermissionAllow>
+                                                <PermissionAllow permission={'Role and Responsibilities'}>
+                                                    <li>
+                                                        <Link href={route('admin.backups.index')}>
+                                                            <i className="icon-Commit"></i>Backups
                                                         </Link>
                                                     </li>  
                                                 </PermissionAllow>

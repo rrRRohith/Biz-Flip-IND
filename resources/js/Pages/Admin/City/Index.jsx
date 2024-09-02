@@ -134,9 +134,9 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                                     <Thead>
                                                         <Tr>
                                                             <Th>#</Th>
-                                                            <Th>Image</Th>
                                                             <Th>Name</Th>
-                                                            <Th>Position</Th>
+                                                            <Th>Leads</Th>
+                                                            <Th>Ads</Th>
                                                             <Th>Status</Th>
                                                             <Th>Last Modified</Th>
                                                             <Th></Th>
@@ -155,10 +155,11 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                                                     />
                                                                     <span className='ms-3'>{city.name}</span>
                                                                 </td>
-                                                                <td>{city.position}</td>
-                                                                <td>{city.status}</td>
+                                                                <td>{city.leads.length}</td>
+                                                                <td>{city.ads.length}</td>
+                                                                <td><i className='badge badge-pill  badge-muted text-dark text-capitalize'>{city.status}</i></td>
                                                                 <td>{city.updated_at}</td>
-                                                                <td>
+                                                                <td className='text-end'>
                                                                     <PermissionAllow permission={'City Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.city.edit', city.id)}>
                                                                             <i className="bi bi-pencil"></i>

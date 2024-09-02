@@ -39,7 +39,7 @@ export default function Index({ provinceList, auth, success = null, error = null
             success={success}
             error={error}
         >
-            <Head title="Province List" />
+            <Head title="Provinces List" />
 
             {/* <!-- Content Wrapper. Contains page content --> */}
             <div className="content-wrapper me-4">
@@ -50,7 +50,7 @@ export default function Index({ provinceList, auth, success = null, error = null
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Province</h4>
+                                        <h4 className="page-title">Provinces</h4>
                                     </div>
                                 </div>
                             </div>
@@ -79,8 +79,10 @@ export default function Index({ provinceList, auth, success = null, error = null
                                                             <Th>#</Th>
                                                             <Th>Name</Th>
                                                             <Th>Code</Th>
-                                                            <Th>Country</Th>
-                                                            <Th>Position</Th>
+                                                            {/* <Th>Country</Th>
+                                                            <Th>Position</Th> */} 
+                                                            <Th>Leads</Th>
+                                                            <Th>Ads</Th>
                                                             <Th>Status</Th>
                                                             <Th>Last Modified</Th>
                                                             <Th></Th>
@@ -91,22 +93,26 @@ export default function Index({ provinceList, auth, success = null, error = null
                                                             <Tr key={province.id} className="hover-primary">
                                                                 <Td>{province.id}</Td>
                                                                 <Td>
-                                                                    <img
+                                                                 {/*
+                                                                  <img
                                                                         src={province.image}
                                                                         className='w-40 rounded-5 '
                                                                         alt={`${province.image} icon`}
                                                                         onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                                                     />
+                                                                 */} 
                                                                     <span className='ms-3'>
                                                                         {province.name}
                                                                     </span>
                                                                 </Td>
                                                                 <Td>{province.code}</Td>
-                                                                <Td>{province.country_name}</Td>
-                                                                <Td>{province.position}</Td>
-                                                                <Td>{province.status}</Td>
+                                                              {/*  <Td>{province.country_name}</Td>
+                                                                <Td>{province.position}</Td> */} 
+                                                                <Td>{province.leads.length}</Td>
+                                                                <Td>{province.ads.length}</Td>
+                                                                <Td><i className='badge badge-pill  badge-muted text-dark text-capitalize'>{province.status}</i> </Td>
                                                                 <Td>{province.updated_at}</Td>
-                                                                <Td>
+                                                                <Td className="text-end">
                                                                     <PermissionAllow permission={'Province Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.province.edit', province.id)}>
                                                                             <i className="bi bi-pencil"></i>

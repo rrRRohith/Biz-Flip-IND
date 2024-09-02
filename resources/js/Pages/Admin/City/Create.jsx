@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 import PermissionAllow from '@/Components/PermissionAllow';
 
 
-export default function Create({ auth, countries }) {
+export default function Create({ auth, provinces }) {
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         name: '',
@@ -46,31 +46,33 @@ export default function Create({ auth, countries }) {
         setImagePreview('');
     };
 
-    const handleChange = (key, value) => {
-        setData(key, value);
-        if (key === 'country') {
-            fetchProvinces(value);
-        }
-    };
-    const [provinces, setProvinces] = useState([]);
-    const fetchProvinces = async (countryId) => {
-        if (!countryId) {
-            setProvinces([]);
-            return;
-        }
+    // const handleChange = (key, value) => {
+    //     setData(key, value);
+    //     if (key === 'country') {
+    //         fetchProvinces(value);
+    //     }
+    // };
+    
 
-        try {
-            const response = await fetch(`/admin/provinces/${countryId}`, {
-                headers: {
-                    'Authorization': `Bearer ${auth.token}`,
-                },
-            });
-            const provincesData = await response.json();
-            setProvinces(provincesData);
-        } catch (error) {
-            console.error('Error fetching provinces:', error);
-        }
-    };
+    // const [provinces, setProvinces] = useState([]);
+    // const fetchProvinces = async (countryId) => {
+    //     if (!countryId) {
+    //         setProvinces([]);
+    //         return;
+    //     }
+
+    //     try {
+    //         const response = await fetch(`/admin/provinces/${countryId}`, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${auth.token}`,
+    //             },
+    //         });
+    //         const provincesData = await response.json();
+    //         setProvinces(provincesData);
+    //     } catch (error) {
+    //         console.error('Error fetching provinces:', error);
+    //     }
+    // };
 
     return (
         <Authenticated
@@ -109,9 +111,9 @@ export default function Create({ auth, countries }) {
                                             <form onSubmit={handleSubmit}>
                                                 <div className="form-body">
                                                     <div className="row">
-                                                        <div className="col-lg-9">
-                                                            <div className="row">
-                                                                <div className="col-md-6 mb-3">
+                                                        <div className="col-lg-6">
+                                                            <div className="row1">
+                                                                <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
                                                                         <TextInput
@@ -126,7 +128,7 @@ export default function Create({ auth, countries }) {
                                                                         <InputError message={errors.name} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
+                                                                {/* <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Country</InputLabel>
                                                                         <DynamicSelect
@@ -136,8 +138,8 @@ export default function Create({ auth, countries }) {
                                                                         />
                                                                         <InputError message={errors.country} className="mt-2 col-12" />
                                                                     </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
+                                                                </div> */}
+                                                                <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Province</InputLabel>
                                                                         <DynamicSelect
@@ -150,7 +152,7 @@ export default function Create({ auth, countries }) {
                                                                 </div>
 
 
-                                                                <div className="col-md-6 mb-3">
+                                                                {/* <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
                                                                         <SelectOption
@@ -160,7 +162,7 @@ export default function Create({ auth, countries }) {
                                                                         <InputError message={errors.position} className="mt-2 col-12" />
 
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-md-6">
@@ -182,7 +184,7 @@ export default function Create({ auth, countries }) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-3">
+                                                        <div className="col-lg-6">
                                                             <div className="row">
                                                                 <div className="col-md-12">
                                                                     <div className="border rounded-4 p-3  text-center">

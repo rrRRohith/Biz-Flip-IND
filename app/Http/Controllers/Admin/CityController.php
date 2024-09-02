@@ -39,9 +39,12 @@ class CityController extends Controller
          */
         public function create()
         {
-            $countries = Country::where('status',1)->select('id as value','name as label')->get();
-           
-            return Inertia::render('Admin/City/Create',['countries' => $countries]);
+            // $countries = Country::where('status',1)->select('id as value','name as label')->get();
+            $provinces = Province::where('country_id', 1)
+            ->where('status', 1)
+            ->select('id as value', 'name as label')
+            ->get();
+            return Inertia::render('Admin/City/Create',['provinces' => $provinces]);
         }
     
         /**
@@ -90,11 +93,14 @@ class CityController extends Controller
         public function edit($id)
         {
             //
-            $countries = Country::where('status',1)->select('id as value','name as label')->get();
-
+            // $countries = Country::where('status',1)->select('id as value','name as label')->get();
+            $provinces = Province::where('country_id', 1)
+            ->where('status', 1)
+            ->select('id as value', 'name as label')
+            ->get();
             $city = City::where('id',$id)->first();
           
-            return Inertia::render('Admin/City/Edit',['countries' => $countries, 'city_item' => new CityResource($city),'success' => session('success'),'error' => session('error')]);
+            return Inertia::render('Admin/City/Edit',['provinces' => $provinces, 'city_item' => new CityResource($city),'success' => session('success'),'error' => session('error')]);
     
         }
     
