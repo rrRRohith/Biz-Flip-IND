@@ -18,8 +18,11 @@
                                             name="bcategory" hidden type="radio">
                                         <label
                                             :class="['fw-semibold pb-2',
-                                            { 'selected-business-category text-primary': sharedState.bcategory ==
-                                                    'all' }]"
+                                                {
+                                                    'selected-business-category text-primary': sharedState.bcategory ==
+                                                        'all'
+                                                }
+                                            ]"
                                             role="button" for="bcategory__all">
                                             <div class="d-flex align-items-center">
                                                 <img class="me-2" width="20"
@@ -35,8 +38,11 @@
                                                 type="radio">
                                             <label
                                                 :class="['fw-semibold pb-2',
-                                                { 'selected-business-category text-primary': sharedState
-                                                        .bcategory == {{ $category->id }} }]"
+                                                    {
+                                                        'selected-business-category text-primary': sharedState
+                                                            .bcategory == {{ $category->id }}
+                                                    }
+                                                ]"
                                                 role="button" for="bcategory__{{ $category->id }}">
                                                 <div class="d-flex align-items-center">
                                                     <img class="me-2" width="20" src="{{ $category->icon_url }}"
@@ -64,8 +70,8 @@
                             <div class="fw-light text-muted">Industries</div>
                             <div>
                                 <div class="dropdown">
-                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedCategories }}
                                     </div>
                                     <ul class="dropdown-menu c-scroll border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
@@ -96,22 +102,28 @@
                             </div>
                         </div>
                         <div class="me-3 col">
-                            <div class="fw-light text-muted">Country</div>
+                            {{-- <div class="fw-light text-muted">Country</div> --}}
+                            <div class="fw-light text-muted">Location</div>
                             <div>
                                 <div class="dropdown">
-                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
+                                    {{-- <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         @{{ selectedCountry }}
+                                    </div> --}}
+                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @{{ selectedLocation }}
                                     </div>
                                     <ul class="dropdown-menu c-scroll border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                         aria-labelledby="dropdownMenuButton1">
-                                        <div class="">
+                                        <div class="d-none hidden" hidden>
                                             <span class="me-1">
                                                 <input type="radio" v-model="sharedState.country"
                                                     id="country__all_top" hidden name="country" value="all">
                                                 <label role="button"
                                                     :class="['btn rounded-4 border-0 btn-sm btn-light',
-                                                    { 'btn-dark': sharedState.country == 'all' }]"
+                                                        { 'btn-dark': sharedState.country == 'all' }
+                                                    ]"
                                                     for="country__all_top">All countries</label>
                                             </span>
                                             @foreach ($countries as $country)
@@ -121,38 +133,80 @@
                                                         value="{{ $country->id }}">
                                                     <label role="button"
                                                         :class="['btn rounded-4 border-0 btn-sm btn-light',
-                                                            { 'btn-dark': sharedState.country ==
-                                                                    '{{ $country->id }}' }]"
+                                                            {
+                                                                'btn-dark': sharedState.country ==
+                                                                    '{{ $country->id }}'
+                                                            }
+                                                        ]"
                                                         for="country__{{ $country->id }}_top">{{ $country->name }}</label>
                                                 </span>
                                             @endforeach
                                         </div>
                                         <div>
-                                            <div v-if="adProvinces.length > 0">
-                                                <div v-for="province in adProvinces">
-                                                    <div
-                                                        :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
-                                                            {
-                                                                'fw-semibold text-primary': sharedState.provinces[
-                                                                    'province__' + province.id]
-                                                            }
-                                                        ]">
-                                                        <div class="form-check p-0">
-                                                            <input hidden
-                                                                v-model="sharedState.provinces['province__' + province.id]"
-                                                                name="province[]" role="button"
-                                                                class="form-check-input shadow-none border border-gray border-1"
-                                                                :id="'province__' + province.id + '_' + 'top'"
-                                                                :value="province.name" type="checkbox" />
-                                                            <label role="button"
-                                                                class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
-                                                                :for="'province__' + province.id + '_' + 'top'">@{{ province.name }}</label>
+                                            <div @click="toggleShowCities"
+                                                class="text-muted px-3 d-flex align-items-center" role="button">
+                                                <span >
+                                                    <div v-if="sharedState.showCities"><i class="bi bi-arrow-left"></i> Cities</div>
+                                                    <div v-else>Provinces</div>
+                                                </span>
+                                            </div>
+                                            <div v-if="!sharedState.showCities">
+                                                <div v-if="adProvinces.length > 0">
+                                                    <div v-for="province in adProvinces">
+                                                        <div
+                                                            :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
+                                                                {
+                                                                    'fw-semibold text-primary': sharedState.provinces[
+                                                                        'province__' + province.id]
+                                                                }
+                                                            ]">
+                                                            <div class="form-check p-0">
+                                                                <input hidden
+                                                                    v-model="sharedState.provinces['province__' + province.id]"
+                                                                    name="province[]" role="button"
+                                                                    class="form-check-input shadow-none border border-gray border-1"
+                                                                    :id="'province__' + province.id + '_' + 'top'"
+                                                                    :value="province.name" type="checkbox" />
+                                                                <label role="button"
+                                                                    class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
+                                                                    :for="'province__' + province.id + '_' + 'top'">@{{ province.name }}</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div v-else class="small px-3">
+                                                    No provinces found
+                                                </div>
                                             </div>
-                                            <div v-else class="small">
-                                                No provinces found
+                                        </div>
+                                        <div>
+                                            <div v-if="sharedState.showCities">
+                                                <div v-if="adCities.length > 0">
+                                                    <div v-for="city in adCities">
+                                                        <div
+                                                            :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
+                                                                {
+                                                                    'fw-semibold text-primary': sharedState.cities[
+                                                                        'city__' + city.id]
+                                                                }
+                                                            ]">
+                                                            <div class="form-check p-0">
+                                                                <input hidden
+                                                                    v-model="sharedState.cities['city__' + city.id]"
+                                                                    name="city[]" role="button"
+                                                                    class="form-check-input shadow-none border border-gray border-1"
+                                                                    :id="'city__' + city.id + '_' + 'top'"
+                                                                    :value="city.name" type="checkbox" />
+                                                                <label role="button"
+                                                                    class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
+                                                                    :for="'city__' + city.id + '_' + 'top'">@{{ city.name }}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-else class="small px-3">
+                                                    No cities found
+                                                </div>
                                             </div>
                                         </div>
                                     </ul>
@@ -198,8 +252,9 @@
                             <div class="fw-light text-muted">Price</div>
                             <div>
                                 <div class="dropdown w-100">
-                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
-                                        class="priceRange" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div v-cloak class="text-overflow mxw-160" data-bs-auto-close="outside"
+                                        type="button" class="priceRange" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                         @{{ selectedPriceRange }}
                                     </div>
                                     <ul class="dropdown-menu c-scroll border-0 w-100 rounded-1 mt-3 shadow-sm p-2 priceDropDown"
@@ -330,21 +385,28 @@
                         </div>
                         <div
                             class="form-group mb-4 border-bottom-2 bg-white border-1 border rounded-1 pt-0 border-gray shadow-none p-2">
-                            <label for="search" class="text-primary small mb-1"><small>Country</small></label>
+                            {{-- <label for="search" class="text-primary small mb-1"><small>Country</small></label> --}}
+                            <label for="search" class="text-primary small mb-1"><small>Location</small></label>
                             <div class="dropdown">
-                                <div class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
+                                {{-- <div class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     @{{ selectedCountry }}
+                                </div> --}}
+                                <div class="text-overflow mxw-160" data-bs-auto-close="outside" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    @{{ selectedLocation }}
                                 </div>
                                 <ul class="dropdown-menu c-scroll border-0 p-2 mt-3 w-100 rounded-1 shadow-sm p-0 priceDropDown"
                                     aria-labelledby="dropdownMenuButton1">
-                                    <div class="">
+                                    <div class="hidden d-none" hidden>
                                         <span class="me-1">
                                             <input type="radio" v-model="sharedState.country" id="country__all_mob"
                                                 hidden name="country" value="all">
                                             <label role="button"
-                                                :class="['btn rounded-4 border-0 btn-sm btn-light', { 'btn-dark': sharedState
-                                                        .country == 'all' }]"
+                                                :class="['btn rounded-4 border-0 btn-sm btn-light', {
+                                                    'btn-dark': sharedState
+                                                        .country == 'all'
+                                                }]"
                                                 for="country__all_mob">All countries</label>
                                         </span>
                                         @foreach ($countries as $country)
@@ -354,31 +416,76 @@
                                                     value="{{ $country->id }}">
                                                 <label role="button"
                                                     :class="['btn rounded-4 border-0 btn-sm btn-light',
-                                                    { 'btn-dark': sharedState.country == '{{ $country->id }}' }]"
+                                                        { 'btn-dark': sharedState.country == '{{ $country->id }}' }
+                                                    ]"
                                                     for="country__{{ $country->id }}_mob">{{ $country->name }}</label>
                                             </span>
                                         @endforeach
                                     </div>
                                     <div>
-                                        <div v-for="province in adProvinces">
-                                            <div
-                                                :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
-                                                    {
-                                                        'fw-semibold text-primary': sharedState.provinces['province__' +
-                                                            province.id]
-                                                    }
-                                                ]">
-                                                <div class="form-check p-0">
-                                                    <input hidden
-                                                        v-model="sharedState.provinces['province__' + province.id]"
-                                                        name="province[]" role="button"
-                                                        class="form-check-input shadow-none border border-gray border-1"
-                                                        :id="'province__' + province.id + '_' + 'mob'"
-                                                        :value="province.name" type="checkbox" />
-                                                    <label role="button"
-                                                        class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
-                                                        :for="'province__' + province.id + '_' + 'mob'">@{{ province.name }}</label>
+                                        <div @click="toggleShowCities"
+                                            class="text-muted px-3 d-flex align-items-center" role="button">
+                                            <span >
+                                                <div v-if="sharedState.showCities"><i class="bi bi-arrow-left"></i> Cities</div>
+                                                <div v-else>Provinces</div>
+                                            </span>
+                                        </div>
+                                        <div v-if="!sharedState.showCities">
+                                            <div v-if="adProvinces.length > 0">
+                                                <div v-for="province in adProvinces">
+                                                    <div
+                                                        :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
+                                                            {
+                                                                'fw-semibold text-primary': sharedState.provinces[
+                                                                    'province__' + province.id]
+                                                            }
+                                                        ]">
+                                                        <div class="form-check p-0">
+                                                            <input hidden
+                                                                v-model="sharedState.provinces['province__' + province.id]"
+                                                                name="province[]" role="button"
+                                                                class="form-check-input shadow-none border border-gray border-1"
+                                                                :id="'province__' + province.id + '_' + 'mob'"
+                                                                :value="province.name" type="checkbox" />
+                                                            <label role="button"
+                                                                class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
+                                                                :for="'province__' + province.id + '_' + 'mob'">@{{ province.name }}</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            </div>
+                                            <div v-else class="small px-3">
+                                                No provinces found
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div v-if="sharedState.showCities">
+                                            <div v-if="adCities.length > 0">
+                                                <div v-for="city in adCities">
+                                                    <div
+                                                        :class="['form-group', 'mb-1', 'p-0', 'dropdown-item', 'rounded-1',
+                                                            {
+                                                                'fw-semibold text-primary': sharedState.cities[
+                                                                    'city__' + city.id]
+                                                            }
+                                                        ]">
+                                                        <div class="form-check p-0">
+                                                            <input hidden
+                                                                v-model="sharedState.cities['city__' + city.id]"
+                                                                name="city[]" role="button"
+                                                                class="form-check-input shadow-none border border-gray border-1"
+                                                                :id="'city__' + city.id + '_' + 'mob'"
+                                                                :value="city.name" type="checkbox" />
+                                                            <label role="button"
+                                                                class="form-check-label d-block w-100 px-3 py-1 mt-1 text-overflow"
+                                                                :for="'city__' + city.id + '_' + 'mob'">@{{ city.name }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-else class="small px-3">
+                                                No cities found
                                             </div>
                                         </div>
                                     </div>

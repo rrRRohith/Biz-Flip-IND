@@ -32,7 +32,7 @@ class AdController extends BaseController{
         $data = [
             'ads' => $ads,
             //'cities' => Ad::selectRaw("DISTINCT city as city")->pluck('city'),
-            'cities' => \App\Models\City::get(),
+            // 'cities' => \App\Models\City::get(),
             'request' => $request,
             'purposeOptions' => ['Rental','Lease','Sale'],
             'search_purposeOptions' => ['Rental','Lease','Sale'],

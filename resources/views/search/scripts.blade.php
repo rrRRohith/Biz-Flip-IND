@@ -3,7 +3,10 @@
     $filteredCategoriesNames = $filteredPurposesNames = [];
     foreach ($categories as $category) {
         $filteredCategories["category__{$category->id}"] = in_array($category->id, (array) $request->category);
-        $filteredAgentCategories["category__{$category->id}"] = in_array($category->id, (array) $request->agentCategory);
+        $filteredAgentCategories["category__{$category->id}"] = in_array(
+            $category->id,
+            (array) $request->agentCategory,
+        );
         $filteredCategoriesNames["category__{$category->id}"] = $category->name;
     }
     foreach ($purposeOptions as $key => $purpose) {
@@ -34,12 +37,13 @@
             createApp,
             ref,
             reactive,
-            computed
-        } = Vue
+            computed,
+            watch
+        } = Vue;
         let priceStart = '{{ $request->priceStart ?? 9999 }}';
-        let priceEnd = '{{ $request->priceEnd ??  9999999 }}';
-        let bcategory = '{{ $request->bcategory ?? "all"}}';
-        let country = '{{ $request->country ?? "all" }}';
+        let priceEnd = '{{ $request->priceEnd ?? 9999999 }}';
+        let bcategory = '{{ $request->bcategory ?? 'all' }}';
+        let country = '{{ $request->country ?? 'all' }}';
         const store = reactive({
             q: '{{ $request->q }}',
             aq: '{{ $request->aq }}',
@@ -48,18 +52,19 @@
             priceEnd: priceEnd,
             categories: @json($filteredCategories),
             agentcategories: @json($filteredAgentCategories),
-            agentAdCategories : @json($categories),
+            agentAdCategories: @json($categories),
             bcategory: bcategory,
             purposes: @json($filteredPurposes),
             cities: @json($filteredCities),
             provinces: @json($filteredProvinces),
             categoryLabels: @json($filteredCategoriesNames),
             purposeLabels: @json($filteredPurposesNames),
-            business_categories : @json($business_categories),
+            business_categories: @json($business_categories),
             countries: @json($countries),
             adProvinces: @json($provinces),
-            country : country,
+            country: country,
             adCities: @json($cities),
+            showCities: false,
         });
         const selectedCategories = computed(() => {
             return selectLabels(store.categories, store.categoryLabels, "Select industries");
@@ -82,7 +87,7 @@
         });
 
         const selectedCountry = computed(() => {
-            if(store.country == 'all'){
+            if (store.country == 'all') {
                 return 'All countries';
             }
 
@@ -90,16 +95,51 @@
             return country.name;
         });
 
+        const selectedLocation = computed(() => {
+            const selectedCities = Object.keys(store.cities)
+                .filter(key => store.cities[key])
+                .map(key => store.adCities.find(city => city.id === parseInt(key.replace('city__', '')))?.name)
+                .filter(name => name)
+                .join(', ');
+
+            if (selectedCities) {
+                return selectedCities;
+            }
+
+            const selectedProvinces = Object.keys(store.provinces)
+                .filter(key => store.provinces[key])
+                .map(key => store.adProvinces.find(province => province.id === parseInt(key.replace('province__',
+                    '')))?.name)
+                .filter(name => name)
+                .join(', ');
+
+            return selectedProvinces.length ? selectedProvinces : 'All locations';
+        });
+
         const adCategories = computed(() => {
-            if(store.bcategory == 'all'){
+            if (store.bcategory == 'all') {
                 return store.agentAdCategories;
             }
             const category = store.business_categories.find(item => item.id == store.bcategory);
             return category.ad_category_collection;
         });
 
+        // const adProvinces = computed(() => {
+        //     if(store.country == 'all'){
+        //         return store.adProvinces;
+        //     }
+        //     const country = store.countries.find(item => item.id == store.country);
+        //     return country.provinces;
+        // });
+
         const adProvinces = computed(() => {
-            if(store.country == 'all'){
+            // Check if any province is selected
+            const anyProvinceSelected = Object.values(store.provinces).includes(true);
+
+            // Update showCities based on selection
+            store.showCities = anyProvinceSelected;
+
+            if (store.country == 'all') {
                 return store.adProvinces;
             }
             const country = store.countries.find(item => item.id == store.country);
@@ -107,23 +147,27 @@
         });
 
         const adCities = computed(() => {
-            if((!Object.values(store.provinces).includes(true) && store.country != 'all') || (store.country != 'all')){
+            if ((!Object.values(store.provinces).includes(true) && store.country != 'all') || (store.country !=
+                    'all')) {
                 const country = store.countries.find(item => item.id == store.country);
                 return country.provinces.flatMap(province => province.cities);
-            }
-            else if(Object.values(store.provinces).includes(true) && store.country == 'all'){
-                return store.adProvinces.filter(province => store.provinces['province__' + province.id]).flatMap(province => province.cities);
-            }else if(Object.values(store.provinces).includes(true)){
+            } else if (Object.values(store.provinces).includes(true) && store.country == 'all') {
+                // store.showCities = true;
+                return store.adProvinces.filter(province => store.provinces['province__' + province.id]).flatMap(
+                    province => province.cities);
+            } else if (Object.values(store.provinces).includes(true)) {
                 const country = store.countries.find(item => item.id == store.country);
-                return country.provinces.filter(province => store.provinces['province__' + province.id]).flatMap(province => province.cities);
-            }else{
+                // store.showCities = true;
+                return country.provinces.filter(province => store.provinces['province__' + province.id]).flatMap(
+                    province => province.cities);
+            } else {
                 return store.adCities;
             }
-            
+
         });
 
         const selectedBcategory = computed(() => {
-            if(store.bcategory == 'all'){
+            if (store.bcategory == 'all') {
                 return "All";
             }
             const category = store.business_categories.find(item => item.id == store.bcategory);
@@ -137,12 +181,38 @@
         const showCity = (name) => {
             return name.toLowerCase().includes(searchCity.value.toLowerCase());
         };
+
+        const toggleShowCities = () => {
+            if (store.showCities) {
+                // If currently showing cities, switch to provinces
+                store.showCities = false;
+            } else {
+                // If currently showing provinces, only switch to cities if a province is selected
+                const anyProvinceSelected = Object.values(store.provinces).includes(true);
+                if (anyProvinceSelected) {
+                    store.showCities = true;
+                }
+            }
+        };
+
         createApp({
             setup() {
-                
+                const updateShowCities = () => {
+                    store.showCities = Object.values(store.provinces).includes(true);
+                };
+
+                watch(() => store.provinces, (newProvinces) => {
+                    const anyProvinceSelected = Object.values(newProvinces).includes(true);
+                    if (!anyProvinceSelected) {
+                        store.showCities = false;
+                    }
+                }, {
+                    deep: true
+                });
             },
             data() {
                 return {
+                    toggleShowCities,
                     sharedState: store,
                     selectedCategories,
                     selectedAgentCategories,
@@ -157,6 +227,7 @@
                     selectedCountry,
                     adProvinces,
                     adCities,
+                    selectedLocation
                 };
             },
         }).mount('#app')

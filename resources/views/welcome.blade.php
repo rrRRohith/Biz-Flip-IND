@@ -26,7 +26,7 @@
     'business_categories' => $business_categories,
     'purposeOptions' => $search_purposeOptions,
     'provinces' => $provinces,
-    'cities' => [],
+    'cities' => $cities,
     'request' => request(),
 ])
 @push('scripts')
