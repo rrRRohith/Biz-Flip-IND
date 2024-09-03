@@ -44,4 +44,8 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
 
     Route::get('/staffs/search', 'App\Http\Controllers\Seller\StaffController@search')->name('staffs.search');
     Route::resource('/staffs', App\Http\Controllers\Seller\StaffController::class);
+
+    Route::resource('/plans', App\Http\Controllers\Seller\PlanController::class, [
+        'only' => ['index', 'show', 'update']
+    ]);
 });

@@ -80,6 +80,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
 });
 
 Route::get('/', 'App\Http\Controllers\Controller@home')->name('index');
+Route::get('/pricing', 'App\Http\Controllers\Controller@pricing')->name('pricing');
 
 Route::get('/ads/map', 'App\Http\Controllers\AdController@map')->name('ads.map');
 Route::resource('/ads', App\Http\Controllers\AdController::class, [

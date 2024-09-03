@@ -74,6 +74,11 @@ const SideBar = ({ user }) => {
                                     </Link>
                                 </li>
                             </PermissionAllow>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/plans*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.plans.index')}>
+                                    <i class="bi bi-currency-dollar"></i> Plans
+                                </Link>
+                            </li>
                             <PermissionAllow permission="Staff Listing">
                                 {user.is_agent && (
                                     <li className={`nav-item rounded-0 rounded-lg-3 mb-2`}>
