@@ -4,6 +4,7 @@ use App\Http\Controllers\SetupController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 
 Route::get('/admin', function () {return Inertia::render('Admin/Dashboard');})->middleware(['auth', 'verified'])->name('admin');
@@ -75,50 +76,6 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::post('company-settings/email-config', 'CompanySettingsController@EmailConfig')->name('company-settings.email-config');
     Route::post('company-settings/social-links', 'CompanySettingsController@SocialLinks')->name('company-settings.social-link');
     Route::post('company-settings/seo', 'CompanySettingsController@Seo')->name('company-settings.seo');
-  
-
-
-    Route::get('/test-google-drive', function () {
-
-           
-            try {
-                // Step 1: Download the backup zip from Google Drive
-                $zipFile = storage_path('app/backups/backup.zip');
-
-                // Ensure the directory for storing the downloaded file exists
-                if (!is_dir(dirname($zipFile))) {
-                    mkdir(dirname($zipFile), 0755, true);
-                }
-
-                // Download the ZIP file from Google Drive
-
-                $fileContent = Storage::disk('google')->get('TAKE-IT-AND-GO-STAGE/'.'2024-08-28-00-00-32.zip');
-                file_put_contents($zipFile, $fileContent);
-
-            
-
-                // Step 2: Unzip the file
-                $extractPath = storage_path('app/backups/extracted');
-                $zip = new ZipArchive;
-
-                if ($zip->open($zipFile) === TRUE) {
-                    $zip->extractTo($extractPath);
-                    $zip->close();
-                    dd('Files extracted successfully.');
-                } else {
-                    dd('Failed to unzip the backup file.');
-                    return;
-                }
-
-        
-
-        
-
-            } catch (Exception $e) {
-                \Log::error('Failed to restore from Google Drive: ' . $e->getMessage());
-                $this->error('An error occurred during the restore process.');
-            }
-    });
 
 });
 

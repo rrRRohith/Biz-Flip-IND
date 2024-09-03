@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
 use ZipArchive;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -57,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
     
            
         } catch (\Exception $e) {
-            \Log::error('Failed to load Google Storage Driver: ' . $e->getMessage());
+            Log::error('Failed to load Google Storage Driver: ' . $e->getMessage());
         }
     }
 }

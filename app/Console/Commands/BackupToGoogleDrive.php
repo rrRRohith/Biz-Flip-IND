@@ -95,48 +95,44 @@ class BackupToGoogleDrive extends Command
      */
     protected function manageGoogleDriveBackups()
     {
+        $minimum_count = env('DRIVE_MAX_FILES') ?? 0;
         try {
-            // List files in the Google Drive directory
-            $files = Storage::disk('google')->files(env('APP_NAME'));
 
-            // Separate files into images and other backups
-            $imageFiles = [];
-            $otherFiles = [];
+            // Arrays to store categorized files
+        $dbs = [];
+        $images = [];
 
-            foreach ($files as $file) {
-                if (str_contains($file, 'images/')) {
-                    $imageFiles[] = $file;
-                } else {
-                    $otherFiles[] = $file;
-                }
+            // Format the folder name for Google Drive
+        $name = str_replace('_', '-', env('APP_NAME'));
+
+        // Get all files from Google Drive
+        $allFiles = Storage::disk('google')->allFiles($name);
+
+             // Process each file
+        foreach (array_reverse($allFiles) as $key => $filePath) {
+            // Extract the file name and directory
+            $fileName = basename($filePath);
+            $directory = dirname($filePath);
+
+            // Check if the file is in the 'images' folder
+            if (str_contains($directory, 'images')) {
+                // Process image backup files
+                $images[$key]['originalName'] = $filePath;
+            } else {
+                // Process database backup files
+                $dbs[$key]['originalName'] = $filePath;
+            }
+        }
+
+            $filesToDelete = array_slice($images, $minimum_count);
+            foreach ($filesToDelete as $file) {
+                Storage::disk('google')->delete($file);
             }
 
-            // Function to sort files by last modified time
-            $sortByLastModified = function ($files) {
-                usort($files, function ($a, $b) {
-                    return Storage::disk('google')->lastModified($b) - Storage::disk('google')->lastModified($a);
-                });
-                return $files;
-            };
 
-            // Sort and manage image files
-            $imageFiles = $sortByLastModified($imageFiles);
-            if (count($imageFiles) > 3) {
-                $filesToDelete = array_slice($imageFiles, 3);
-                foreach ($filesToDelete as $file) {
-                    Storage::disk('google')->delete($file);
-                    Log::info("Deleted old image backup file: $file from Google Drive.");
-                }
-            }
-
-            // Sort and manage other files
-            $otherFiles = $sortByLastModified($otherFiles);
-            if (count($otherFiles) > 3) {
-                $filesToDelete = array_slice($otherFiles, 3);
-                foreach ($filesToDelete as $file) {
-                    Storage::disk('google')->delete($file);
-                    Log::info("Deleted old backup file: $file from Google Drive.");
-                }
+            $filesToDbDelete = array_slice($dbs, $minimum_count);
+            foreach ($filesToDbDelete as $fileDb) {
+                Storage::disk('google')->delete($fileDb);
             }
         } catch (\Exception $e) {
             Log::error('Failed to manage Google Drive backups: ' . $e->getMessage());
