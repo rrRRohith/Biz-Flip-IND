@@ -18,4 +18,19 @@ class SubscriptionPlan extends Model
     public function getTotalAmountAttribute(){
         return $this->price + $this->tax_amount;
     }
+
+    public function getOrderArrayAttribute(){
+        return [
+            'subscription_plan_id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'features' => $this->features,
+            'price' => $this->price,
+            'tax_amount' => $this->tax_amount,
+            'total_amount' => $this->total_amount,
+            'ads' => $this->ads,
+            'duration' => $this->duration,
+            'expires_at' => \Carbon\Carbon::now()->addMonths($this->duration)->format('Y-m-d'),
+        ];
+    }
 }

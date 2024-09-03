@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('billing_addresses', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('subscription_order_id')->unsigned()->nullable();
-            $table->foreign('subscription_order_id')->references('id')->on('subscription_orders')->onDelete("cascade");
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->string('email','191')->nullable();

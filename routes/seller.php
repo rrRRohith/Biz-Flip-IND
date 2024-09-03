@@ -48,4 +48,7 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     Route::resource('/plans', App\Http\Controllers\Seller\PlanController::class, [
         'only' => ['index', 'show', 'update']
     ]);
+    Route::resource('/invoices', App\Http\Controllers\Seller\InvoiceController::class, [
+        'only' => ['index', 'show']
+    ]);
 });

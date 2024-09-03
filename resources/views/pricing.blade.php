@@ -29,7 +29,7 @@
                                         class="mt-5 btn-lg fs-6 btn btn-outline-dark shadow-none rounded-5 px-5 fw-semibold">Sign
                                         up for free</a>
                                 @else
-                                    <a class="mt-5 btn-lg fs-6 btn btn-dark shadow-none rounded-5 px-5 fw-semibold">Get
+                                    <a href="{{ route('seller.plans.show', ['plan' => $plan]) }}" class="mt-5 btn-lg fs-6 btn btn-dark shadow-none rounded-5 px-5 fw-semibold">Get
                                         started</a>
                                 @endif
                             </div>

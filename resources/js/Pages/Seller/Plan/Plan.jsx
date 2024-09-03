@@ -8,6 +8,68 @@ import { Inertia } from '@inertiajs/inertia';
 
 export default function Plan({ auth, plan, error, success, province_options, address }) {
 
+    // const [cardNumber, setCardNumber] = useState('');
+    // const [nameOnCard, setNameOnCard] = useState('');
+    // const [expirationDate, setExpirationDate] = useState('');
+
+    const validateCardNo = (value) => {
+        // Remove non-digit characters
+        let sanitizedValue = value.replace(/\D/g, '');
+
+        // Restrict to a maximum of 16 digits
+        if (sanitizedValue.length > 16) {
+            sanitizedValue = sanitizedValue.slice(0, 16);
+        }
+
+        return sanitizedValue;
+    };
+
+    const validateCardName = (value) => {
+        // Remove special characters
+        return value.replace(/[^A-Za-z\s]/g, '');
+    };
+
+    const validateExpiryDate = (value) => {
+        // Remove non-digit characters
+        let sanitizedValue = value.replace(/\D/g, '');
+
+        // Get the first two digits (month)
+        let firstTwoDigits = sanitizedValue.slice(0, 2);
+
+        // Ensure the month is valid
+        if (parseInt(firstTwoDigits) > 12) {
+            firstTwoDigits = '12';
+        }
+
+        // Get the last two digits (year)
+        let lastTwoDigits = sanitizedValue.slice(2, 4);
+
+        // Format the value with a slash
+        if (sanitizedValue.length > 2) {
+            sanitizedValue = firstTwoDigits + '/' + lastTwoDigits;
+        }
+
+        return sanitizedValue;
+    };
+
+    const handleCardNumberChange = (e) => {
+        const value = e.target.value;
+        const sanitizedValue = validateCardNo(value);
+        setData('card_number', sanitizedValue);
+    };
+
+    const handleNameOnCardChange = (e) => {
+        const value = e.target.value;
+        const sanitizedValue = validateCardName(value);
+        setData('card_name', sanitizedValue);
+    };
+
+    const handleExpirationDateChange = (e) => {
+        const value = e.target.value;
+        const sanitizedValue = validateExpiryDate(value);
+        setData('card_date', sanitizedValue);
+    };
+    
     const { data, setData, post, errors, reset } = useForm({
         firstname: address.firstname,
         lastname: address.lastname,
@@ -21,13 +83,13 @@ export default function Plan({ auth, plan, error, success, province_options, add
         card_date: '',
         card_cvv: '',
         card_number: '',
+        _method: 'PUT'
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        Inertia.put(route('seller.plans.update', plan.id), data, {
+        await post(route('seller.plans.update', plan.id), {
             preserveScroll: true,
-            // Additional options can be added here if needed
         });
     };
 
@@ -64,37 +126,37 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                                 <div className="col-sm-6 col-12">
                                                     <div className='mb-3'><label>First name</label>
                                                         <input value={data.firstname} onChange={(e) => handleChange("firstname", e.target.value)} type="text" placeholder="First name" className="form-control" />
-                                                        <InputError message={errors.card_name} />
+                                                        <InputError message={errors.firstname} />
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6 col-12">
                                                     <div className='mb-3'><label>Last name</label>
                                                         <input value={data.lastname} onChange={(e) => handleChange("lastname", e.target.value)} type="text" placeholder="Last name" className="form-control" />
-                                                        <InputError message={errors.card_name} />
+                                                        <InputError message={errors.lastname} />
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6 col-12">
                                                     <div className='mb-3'><label>Phone</label>
                                                         <input value={data.phone} onChange={(e) => handleChange("phone", e.target.value)} type="text" placeholder="Phone" className="form-control" />
-                                                        <InputError message={errors.card_name} />
+                                                        <InputError message={errors.phone} />
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6 col-12">
                                                     <div className='mb-3'><label>Email</label>
                                                         <input value={data.email} onChange={(e) => handleChange("email", e.target.value)} type="email" placeholder="Email" className="form-control" />
-                                                        <InputError message={errors.card_name} />
+                                                        <InputError message={errors.email} />
                                                     </div>
                                                 </div>
                                                 <div className="col-12">
                                                     <div className='mb-3'><label>Address</label>
                                                         <input value={data.address} onChange={(e) => handleChange("address", e.target.value)} placeholder="Address" className="form-control" />
-                                                        <InputError message={errors.card_name} />
+                                                        <InputError message={errors.address} />
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6 col-12">
                                                     <div className='mb-3'><label>City</label>
                                                         <input value={data.city} onChange={(e) => handleChange("city", e.target.value)} placeholder="City" className="form-control" />
-                                                        <InputError message={errors.card_name} />
+                                                        <InputError message={errors.city} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6 col-12">
@@ -106,7 +168,7 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                                 <div className="col-sm-6 col-12">
                                                     <div className='mb-3'><label>Postalcode</label>
                                                         <input value={data.postalcode} onChange={(e) => handleChange("postalcode", e.target.value)} placeholder="Postalcode" className="form-control" />
-                                                        <InputError message={errors.card_name} />
+                                                        <InputError message={errors.postalcode} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,23 +199,23 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                                     <img className='w-full' src="https://res.cloudinary.com/rr6/image/upload/v1725361095/cards_jokpdn.png" alt="" />
                                                 </div>
                                                 <div className='mb-3'><label>Name on card</label>
-                                                    <input value={data.card_name} onChange={(e) => handleChange("card_name", e.target.value)} type="text" placeholder="Name on card" className="form-control" />
+                                                    <input value={data.card_name} onChange={handleNameOnCardChange} type="text" placeholder="Name on card" className="form-control" />
                                                     <InputError message={errors.card_name} />
                                                 </div>
                                                 <div className='mb-3'><label>Card number</label>
-                                                    <input value={data.card_number} onChange={(e) => handleChange("card_number", e.target.value)} type="text" placeholder="Card number" className="form-control" />
+                                                    <input value={data.card_number} onChange={handleCardNumberChange} type="text" placeholder="Card number" className="form-control" />
                                                     <InputError message={errors.card_number} />
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-6 ">
                                                         <div><label>Exp date</label>
-                                                            <input value={data.card_date} onChange={(e) => handleChange("card_date", e.target.value)} type="text" placeholder="Exp date" className="form-control" />
+                                                            <input value={data.card_date} onChange={handleExpirationDateChange} type="text" placeholder="Exp date" className="form-control" />
                                                             <InputError message={errors.card_date} />
                                                         </div>
                                                     </div>
                                                     <div className="col-6">
                                                         <div><label>CVV</label>
-                                                            <input value={data.card_cvv} onChange={(e) => handleChange("card_cvv", e.target.value)} type="text" placeholder="CVV" className="form-control" />
+                                                            <input value={data.card_cvv} maxLength={4} onChange={(e) => handleChange("card_cvv", e.target.value)} type="text" placeholder="CVV" className="form-control" />
                                                             <InputError message={errors.card_cvv} />
                                                         </div>
                                                     </div>
