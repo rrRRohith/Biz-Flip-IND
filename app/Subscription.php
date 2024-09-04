@@ -20,7 +20,7 @@ trait Subscription{
         /**
          * Create billing address
          */
-        $subscription_order->billing_address()->create(
+        $billing_address = $subscription_order->billing_address()->create(
             $request->only([
                 'firstname',
                 'lastname',
@@ -32,6 +32,9 @@ trait Subscription{
                 'postalcode',
             ])
         );
+        $subscription_order->update([
+            'billing_address_id' => $billing_address->id,
+        ]);
         $subscription_order->refresh();
         return $subscription_order;
     }
