@@ -630,6 +630,40 @@ return $permissions = [
         "Section" => "Staff",
         "Type" => "Common"
     ],
-    
+    [
+        "Permissions" => "Invoice List",
+        "Section" => "Invoice",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Invoice View",
+        "Section" => "Invoice",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Plan Purchase",
+        "Section" => "Subscription",
+        "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Subscription List",
+        "Section" => "Subscription",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Subscription Create",
+        "Section" => "Subscription",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Subscription Edit",
+        "Section" => "Subscription",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Subscription Delete",
+        "Section" => "Subscription",
+        "Type" => "Admin"
+    ],
 ];
 ?>
