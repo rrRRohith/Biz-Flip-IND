@@ -106,7 +106,7 @@ export default function Index({ roleList, auth, success = null, error = null }) 
                                                                 <Link title='Edit' className='btn btn-transparent' href={route('admin.role-responsibilities.edit', role.id)}>
                                                                     <i className="bi bi-pencil"></i>
                                                                 </Link>
-                                                                {(role.name !== 'admin' && role.name !== 'seller') && (
+                                                                {(role.name !== 'admin' && role.name !== 'seller' && role.name !== 'customer') && (
                                                                     <button title='Delete' onClick={(e) => deleteRole(role)} className="btn btn-transparent border-0">
                                                                         <i className="bi bi-trash"></i>
                                                                     </button>

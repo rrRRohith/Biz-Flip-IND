@@ -105,7 +105,7 @@ class RoleController extends Controller
     
 
         $role = Role::where('id',$id)->first();
-        $role->name          = $request->name;	
+        $role->name          = in_array($role->name, ['customer', 'vendor', 'admin']) ? $role->name : $request->name;	
         $role->user_id       = auth()->user()->id;
         $role->guard_name    = 'web';
 
@@ -127,7 +127,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
-        $role = Role::where('id',$id)->first() ?? abort(404);
+        $role = Role::where('id',$id)->whereNotIn('name', ['customer', 'admin', 'seller'])->first() ?? abort(404);
         $role->delete();
         
         return to_route('admin.role-responsibilities.index')

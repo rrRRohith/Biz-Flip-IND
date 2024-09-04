@@ -9,6 +9,7 @@ import ReactDOMServer from 'react-dom/server';
 import Spinner from '@/Components/Spinner';
 import Modal from 'react-bootstrap/Modal';
 import Invoice from './Invoice';
+import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Index({ auth, invoices, current_invoice, newInvoice }) {
 
@@ -53,17 +54,19 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
     return (
         <>
             <Head title="Invoices" />
-            <Modal size="lg" show={show} onHide={handleClose} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>{title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Invoice invoice={mdata}></Invoice>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button onClick={handlePrint} className='btn btn-primary btn-sm text-overflow'>Print invoice</button>
-                </Modal.Footer>
-            </Modal>
+            <PermissionAllow permission="Invoice View">
+                <Modal size="lg" show={show} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{title}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Invoice invoice={mdata}></Invoice>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button onClick={handlePrint} className='btn btn-primary btn-sm text-overflow'>Print invoice</button>
+                    </Modal.Footer>
+                </Modal>
+            </PermissionAllow>
             <Wrapper user={auth.user}>
                 <main className="py-6">
                     <div className="container-fluid px-3 px-lg-6">
@@ -124,7 +127,9 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                                                                     <div>${invoice.total_amount}</div>
                                                                 </td>
                                                                 <td>
-                                                                    <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
+                                                                    <PermissionAllow permission="Invoice View">
+                                                                        <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
+                                                                    </PermissionAllow>
                                                                 </td>
                                                             </tr>
                                                         ))}

@@ -120,6 +120,10 @@ Route::get('/auth/seller', function () {
     return view('auth.seller');
 });
 
+Route::get('/auth/customer', function () {
+    return view('auth.customer');
+});
+
 
 Route::get('pending-review', function () {
     return view('auth.pendingReview');
@@ -127,6 +131,7 @@ Route::get('pending-review', function () {
 
 Route::post('/auth/seller', 'App\Http\Controllers\Auth\RegisteredUserController@seller');
 Route::post('/auth/agent', 'App\Http\Controllers\Auth\RegisteredUserController@agent');
+Route::post('/auth/customer', 'App\Http\Controllers\Auth\RegisteredUserController@customer');
 
 Route::get('/auth/agent', function () {
     return view('auth.agent');

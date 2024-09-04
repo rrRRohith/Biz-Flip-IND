@@ -24,6 +24,7 @@ class InvoiceController extends BaseController{
             $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
+        $this->middleware("can:Invoice List");
     }
     /**
      * Display a listing of the resource.
