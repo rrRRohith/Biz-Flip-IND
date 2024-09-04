@@ -48,7 +48,10 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     Route::resource('/plans', App\Http\Controllers\Seller\PlanController::class, [
         'only' => ['index', 'show', 'update']
     ]);
+
+    Route::get('/invoices/search', 'App\Http\Controllers\Seller\InvoiceController@search')->name('invoices.search');
     Route::resource('/invoices', App\Http\Controllers\Seller\InvoiceController::class, [
         'only' => ['index', 'show']
     ]);
+    
 });

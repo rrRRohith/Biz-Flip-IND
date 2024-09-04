@@ -86,7 +86,7 @@ export default function Leads({ auth, leads, ads, categories }) {
                                 <div className="card">
                                     <div className="card-header border-bottom">
                                     <div className="d-flex d-lg-none align-items-center">
-                                            <div onClick={(e) => setShowFilters(!showFilters)} className="d-lg-none btn btn-secondary text-overflow">Filters {showFilters ? (<i class="bi bi-chevron-compact-up"></i>) : (<i class="bi bi-chevron-compact-down"></i>)}</div>
+                                            <div onClick={(e) => setShowFilters(!showFilters)} className="d-lg-none btn btn-secondary text-overflow">Filters {showFilters ? (<i className="bi bi-chevron-compact-up"></i>) : (<i className="bi bi-chevron-compact-down"></i>)}</div>
                                         </div>
                                         <div className={showFilters ? 'd-lg-block' : 'd-none d-lg-block'}>
                                             <div className='row align-items-center mt-4 mt-lg-0'>

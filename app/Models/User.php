@@ -163,4 +163,12 @@ class User extends Authenticatable
     public function subscription_orders(){
         return $this->hasMany(SubscriptionOrder::class, 'seller_id', 'id');
     }
+
+    public function current_subscription(){
+        return $this->hasOne(SubscriptionOrder::class, 'seller_id', 'id')->where('expires_at', '>', now())->latest();
+    }
+
+    public function getRemainingAdsAttribute(){
+        return $this->current_subscription->remaining_ads ?? 0;
+    }
 }

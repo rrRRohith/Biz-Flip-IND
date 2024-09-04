@@ -20,8 +20,8 @@ const Header = ({ user }) => {
                 </PermissionAllow>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                        <li class="nav-item ps-2">
-                            <a class="fw-semibold btn btn-primary btn-sm" href="/">Home</a>
+                        <li className="nav-item ps-2">
+                            <a className="fw-semibold btn btn-primary btn-sm" href="/">Home</a>
                         </li>
                         <>
                             {notifications.length > 0 && (
@@ -58,7 +58,7 @@ const Header = ({ user }) => {
                                 </Dropdown>
                             )}
                         </>
-                        <li class="nav-item ps-2 ms-2">
+                        <li className="nav-item ps-2 ms-2">
                             <div className="navbar-user">
                                 <div className="dropdown">
                                     <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

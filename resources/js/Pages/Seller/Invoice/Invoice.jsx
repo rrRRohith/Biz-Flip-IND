@@ -1,29 +1,83 @@
-import AuthenticatedLayout from '@/Layouts/Authenticated';
-import { Head, Link, router, useForm } from '@inertiajs/react';
-import Wrapper from '../layout/Wrapper';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import React, { useState } from 'react';
-import axios from 'axios';
-import ReactDOMServer from 'react-dom/server';
-import Spinner from '@/Components/Spinner';
-
-export default function Invoice({ auth }) {
+export default function Invoice({ invoice }) {
     return (
         <>
-            <Head title="Invoices" />
-            <Wrapper user={auth.user}>
-                <main className="py-6">
-                    <div className="container-fluid px-3 px-lg-6">
-                        <div className="vstack gap-6 m-auto">
-                            <div className="text-xl font-bold">Invoice</div>
-                            <div>
-                                
-                            </div>
-                        </div>
+            <style>
+                {`
+          @media print {
+            /* Hide everything by default */
+            body * {
+              visibility: hidden;
+            }
+            
+            /* Make only the print area visible */
+            .invoiceContainer, .invoiceContainer * {
+              visibility: visible;
+            }
+            .invoiceContainer {
+              position: fixed;
+              padding:40px 20px;
+              left: 0;
+              top: 0;
+              width: 100%;
+            }
+          }
+        `}
+            </style>
+            <div className="invoiceContainer">
+                <div className="row align-items-top mb-5">
+                    <div className="col-3 me-auto">
+                        <img src="/logo.png" alt="..." />
                     </div>
-                </main>
-            </Wrapper>
+                    <div className="col-9 ms-auto text-end">
+                        <h1>INVOICE</h1>
+                        <div>Date {invoice.invoice_date}</div>
+                    </div>
+                </div>
+                <div className="my-5 row">
+                    <div className="col-6">
+                        <div className="font-bolder">BILL TO</div>
+                        <div>{invoice.address.firstname} {invoice.address.lastname}</div>
+                        <div>{invoice.address.address}, {invoice.address.city}</div>
+                        <div>{invoice.address.province}, {invoice.address.postalcode}</div>
+                    </div>
+                    <div className="col-6 text-end">
+                        <div className="">Invoice no. <strong>#{invoice.invoice_no}</strong></div>
+                        <div className="">Date. <strong>{invoice.invoice_date}</strong></div>
+                        <div className="">Subscription tenure. <strong>{invoice.invoice_date}</strong> to <strong>{invoice.expire_date}</strong></div>
+                    </div>
+                </div>
+                <div className="font-bolder">INVOICE SUMMERY</div>
+                <div className="mb-5">
+                    <table className="table w-full table-bordered">
+                        <tr>
+                            <th className="font-bold py-2 border-top-0">
+                                Description
+                            </th>
+                            <th className="font-bold text-end py-2 border-top-0">
+                                Price
+                            </th>
+                        </tr>
+                        <tr>
+                            <td className="py-2 border-bot">
+                                {invoice.name}
+                                <br />
+                                {invoice.ads} ads | ${invoice.price}/ {invoice.duration} month
+                            </td>
+                            <td className="text-end py-2">
+                                ${invoice.price}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div className="text-end text-lg">
+                    <div className="">Sub total. <strong>${invoice.price}</strong></div>
+                    <div className="">Tax amount. <strong>${invoice.tax_amount}</strong></div>
+                    <div className="">Grand total. <strong>${invoice.total_amount}</strong></div>
+                </div>
+                <div className="my-5 small">
+                    Thank you for your subscription! We appreciate your continued support and look forward to providing you with excellent service.
+                </div>
+            </div>
         </>
     );
 }

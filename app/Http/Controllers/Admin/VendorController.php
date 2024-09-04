@@ -20,7 +20,8 @@ class VendorController extends Controller
 {
 
     private $user;
-
+    use \App\Subscription;
+    
     public function __construct(Request $request)
     {
         $this->middleware('auth');
@@ -109,6 +110,14 @@ class VendorController extends Controller
             $user->password     = Hash::make($request->password ?? 12345678);
             $user->status       = $request->status;
             $user->save();
+
+            try {
+                if($defaultPlan == \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+                    $this->subscribeToPlan($request, $defaultPlan, $user);
+                }
+            } catch (\Exception $e) {
+                
+            }
 
             $seller                     = new Seller();
             $seller->user_id            = $user->id;

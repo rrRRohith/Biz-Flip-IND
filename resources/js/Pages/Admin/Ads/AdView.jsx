@@ -23,7 +23,7 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
                                      
          },
          
-        { title: 'More Information', content:   `<table class="table">
+        { title: 'More Information', content:   `<table className="table">
                                                     <tr>
                                                         <th>
                                                         Addess

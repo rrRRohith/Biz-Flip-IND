@@ -3,7 +3,7 @@ import InputError from '@/Components/InputError';
 export default function AdFranchise({ data, errors, handleChange }) {
     return (
         <>
-            <div class="mb-5"><h4>Franchise details</h4></div>
+            <div className="mb-5"><h4>Franchise details</h4></div>
             <div className="row g-5 mb-5">
                 <div className="col-12">
                     <div className="font-bold text-dark">Franchise Units</div>

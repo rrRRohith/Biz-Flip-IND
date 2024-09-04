@@ -177,14 +177,14 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                             </div>
                                         </div>
                                         <div className='col-sm-5 col-12'>
-                                            <div class="card rounded-3 py-4 mb-5">
-                                                <div class="card-body text-center">
-                                                    <h5 class="card-title font-bolder">{plan.name}</h5>
-                                                    <div class="text-primary mb-3">
-                                                        <h4 class="card-title text-primary">${plan.price} <small>/ {plan.duration} month</small> </h4>
+                                            <div className="card rounded-3 py-4 mb-5">
+                                                <div className="card-body text-center">
+                                                    <h5 className="card-title font-bolder">{plan.name}</h5>
+                                                    <div className="text-primary mb-3">
+                                                        <h4 className="card-title text-primary">${plan.price} <small>/ {plan.duration} month</small> </h4>
                                                     </div>
 
-                                                    <p class="card-text mb-3">{plan.description}</p>
+                                                    <p className="card-text mb-3">{plan.description}</p>
                                                 </div>
                                             </div>
                                             <div className="mb-5">
@@ -221,7 +221,7 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn d-block btn-primary w-full">Pay <span className="font-bolder">${plan.total_amount}</span> </button>
+                                            <button type="submit" className="btn d-block btn-primary w-full">Pay <span className="font-bolder">${plan.total_amount}</span> </button>
                                         </div>
                                         <div className='col-sm-6 col-12'>
 

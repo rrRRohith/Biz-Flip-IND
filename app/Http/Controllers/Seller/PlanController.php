@@ -66,7 +66,7 @@ class PlanController extends BaseController{
         try{
             $subscription = $this->subscribeToPlan($request, $plan, $this->seller);
             \DB::commit();
-            return redirect()->route('seller.invoices.index', ['invoice' => $subscription])->with('success', "Thank you, your subscription has been completed.");
+            return redirect()->route('seller.invoices.show', ['invoice' => $subscription])->with('success', "Thank you, your subscription has been completed.");
             
         }
         catch(\Exception $e){

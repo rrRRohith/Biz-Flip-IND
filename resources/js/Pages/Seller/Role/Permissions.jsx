@@ -1,5 +1,4 @@
 export default function ({ permissions }) {
-    console.log(permissions);
     return (
         <>
             {Object.keys(permissions).map((key) => (

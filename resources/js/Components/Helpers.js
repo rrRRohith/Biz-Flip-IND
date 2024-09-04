@@ -57,5 +57,5 @@ export function statusIcon(status = 0) {
         title = "Pending";
     }
 
-    return `<span role="button" class="bi `+Icn+`" title='`+ title +`'></span>`;
+    return `<span role="button" className="bi `+Icn+`" title='`+ title +`'></span>`;
 }

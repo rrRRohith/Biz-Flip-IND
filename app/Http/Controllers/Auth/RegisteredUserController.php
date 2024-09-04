@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
+    use \App\Subscription;
     /**
      * Display the registration view.
      */
@@ -63,6 +64,14 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
         $user->assignRole(2);
+
+        try {
+            if($defaultPlan == \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+                $this->subscribeToPlan($request, $defaultPlan, $user);
+            }
+        } catch (\Exception $e) {
+            
+        }
 
         try {
             event(new Registered($user));

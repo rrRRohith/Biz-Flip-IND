@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\LeadEnquiry;
 use Inertia\Inertia;
+use App\Http\Resources\{InvoiceResource};
 
 class InvoiceController extends BaseController{
     public $user;
@@ -31,8 +32,14 @@ class InvoiceController extends BaseController{
      */
     public function index(Request $request){
         return Inertia::render('Seller/Invoice/Index', [
-            'invoices' => collect([]),
+            'current_invoice' => $this->seller->current_subscription ? new InvoiceResource($this->seller->current_subscription) : null,
+            'invoices' => InvoiceResource::collection($this->seller->subscription_orders()->latest()->get()),
+            'newInvoice' => $request->invoice,
         ]);
+    }
+
+    public function search(Request $request){
+        return response()->json(InvoiceResource::collection($this->seller->subscription_orders()->search($request)->latest()->get()));
     }
 
      /**
@@ -42,9 +49,7 @@ class InvoiceController extends BaseController{
      * @param Role $role
      */
     public function show(Request $request, \App\Models\SubscriptionOrder $invoice){
-        //$this->seller->subscription_orders()->findOrFail($invoice->id);
-        return Inertia::render('Seller/Invoice/Invoice', [
-            'invoice' => $invoice,
-        ]);
+        $this->seller->subscription_orders()->findOrFail($invoice->id);
+        return $this->index($request);
     }
 }

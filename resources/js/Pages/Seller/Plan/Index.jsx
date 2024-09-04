@@ -22,18 +22,18 @@ export default function Index({ auth, plans }) {
                                         <>
                                             {plans.map((plan) => (
                                                 <>
-                                                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-                                                        <div class="card rounded-3 py-4">
-                                                            <div class="card-body text-center">
-                                                                <h5 class="card-title font-bolder">{plan.name}</h5>
-                                                                <div class="text-primary mb-3">
-                                                                    <h4 class="card-title text-primary">${plan.price} <small>/ {plan.duration} month</small> </h4>
+                                                    <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                                                        <div className="card rounded-3 py-4">
+                                                            <div className="card-body text-center">
+                                                                <h5 className="card-title font-bolder">{plan.name}</h5>
+                                                                <div className="text-primary mb-3">
+                                                                    <h4 className="card-title text-primary">${plan.price} <small>/ {plan.duration} month</small> </h4>
                                                                 </div>
 
-                                                                <p class="card-text mb-3">{plan.description}</p>
+                                                                <p className="card-text mb-3">{plan.description}</p>
                                                                 <div>{plan.features}</div>
                                                                 <Link className="btn btn-primary mt-5 btn-sm text-overflow" href={route('seller.plans.show', plan.id)}>
-                                                                    Purchase {plan.name} <i class="bi bi-arrow-right"></i>
+                                                                    Purchase {plan.name} <i className="bi bi-arrow-right"></i>
                                                                 </Link>
                                                             </div>
                                                         </div>

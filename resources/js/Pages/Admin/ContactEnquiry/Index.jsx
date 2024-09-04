@@ -236,7 +236,7 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
             const response = await axios.get(route("admin.contact_show", lead.id));
            
             const dataVal = `
-                <table class="table fw-700">
+                <table className="table fw-700">
                     <tbody>
                         <tr><td><strong>Name</strong></td><td>:</td><td>${response.data.firstname} ${response.data.lastname}</td></tr>
                         <tr><td><strong>Email</strong></td><td>:</td><td>${response.data.email}</td></tr>
@@ -256,7 +256,7 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
         try {
             const response = await axios.get(route("admin.propery_lead_show", inquiry.id));
             const dataVal = `
-                <table class="table fw-700">
+                <table className="table fw-700">
                     <tbody>
                         <tr><td><strong>Name</strong></td><td>:</td><td>${response.data.firstname} ${response.data.lastname}</td></tr>
                         <tr><td><strong>Email</strong></td><td>:</td><td>${response.data.email}</td></tr>
