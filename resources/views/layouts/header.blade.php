@@ -21,6 +21,10 @@
                         <li class="nav-item">
                             <a class="nav-link p-2 fw-semibold" href="/seller">Dashboard</a>
                         </li>
+                    @elseif(auth()->user()->type == 'customer')
+                        <li class="nav-item">
+                            <a class="nav-link p-2 fw-semibold" href="/customer">Dashboard</a>
+                        </li>
                     @endif
                 @else
                     <li class="nav-item">

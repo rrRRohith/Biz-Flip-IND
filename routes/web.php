@@ -149,9 +149,9 @@ Route::get('import-permissions', function () {
 
 Route::post('uploadExcel', [SetupController::class, 'upload'])->name('uploadPermissions');
 
-
 require __DIR__.'/auth.php';
 require __DIR__.'/seller.php';
+
 
 // Route::get('/login', function () {
 //     return view('auth.login');
