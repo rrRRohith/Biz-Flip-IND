@@ -66,11 +66,14 @@ class RegisteredUserController extends Controller
         $user->assignRole(2);
 
         try {
-            if($defaultPlan == \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+            if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
                 $this->subscribeToPlan($request, $defaultPlan, $user);
+                try {
+                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
+                } catch (\Exception $e) {}
             }
         } catch (\Exception $e) {
-            
+            dd($e);
         }
 
         try {
@@ -99,6 +102,17 @@ class RegisteredUserController extends Controller
         try {
             event(new Registered($user));
         } catch (\Exception $th) {}
+
+        try {
+            if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+                $this->subscribeToPlan($request, $defaultPlan, $user);
+                try {
+                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
+                } catch (\Exception $e) {}
+            }
+        } catch (\Exception $e) {
+            dd($e);
+        }
 
         $seller = \App\Models\Seller::create($request->only(['company_name', 'description', 'address', 'city', 'postalcode', 'province']));
         $seller->update([

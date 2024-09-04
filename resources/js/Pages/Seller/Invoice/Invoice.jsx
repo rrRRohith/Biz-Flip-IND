@@ -37,8 +37,18 @@ export default function Invoice({ invoice }) {
                     <div className="col-6">
                         <div className="font-bolder">BILL TO</div>
                         <div>{invoice.address.firstname} {invoice.address.lastname}</div>
-                        <div>{invoice.address.address}, {invoice.address.city}</div>
-                        <div>{invoice.address.province}, {invoice.address.postalcode}</div>
+                        {invoice.address.address ? (
+                            <>
+                                <div>{invoice.address.address}, {invoice.address.city}</div>
+                                <div>{invoice.address.province}, {invoice.address.postalcode}</div>
+                            </>
+                        ) : (
+                            <>
+                                <div>{invoice.address.phone}</div>
+                                <div>{invoice.address.email}</div>
+                            </>
+                        )}
+
                     </div>
                     <div className="col-6 text-end">
                         <div className="">Invoice no. <strong>#{invoice.invoice_no}</strong></div>
