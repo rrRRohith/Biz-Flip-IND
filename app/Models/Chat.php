@@ -31,18 +31,18 @@ class Chat extends Model
     }
 
     public function getContactNameAttribute(){
-        if($this->seller_id == auth()->user()->id){
-            $this->customer->name;
-        }else{
+        if($this->customer_id == auth()->user()->id){
             return $this->seller->name;
+        }else{
+            return $this->customer->name;
         }
     }
 
     public function getContactImageAttribute(){
-        if($this->seller_id == auth()->user()->id){
-            $this->customer->picture_url;
-        }else{
+        if($this->customer_id == auth()->user()->id){
             return $this->seller->picture_url;
+        }else{
+            return $this->customer->picture_url; 
         }
     }
 

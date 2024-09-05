@@ -53,5 +53,8 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     Route::resource('/invoices', App\Http\Controllers\Seller\InvoiceController::class, [
         'only' => ['index', 'show']
     ]);
-    
+
+    Route::resource('/chats', App\Http\Controllers\Seller\ChatController::class, [
+        'only' => ['index', 'show', 'update']
+    ]);
 });

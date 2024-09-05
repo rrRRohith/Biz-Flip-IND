@@ -9,7 +9,7 @@ export default function Dashboard({ auth, chats, chat, messages }) {
         <>
             <Head title="Messages" />
             <Wrapper className="position-relative" user={auth.user}>
-                <Chat chats={chats} chat={chat} messages={messages}></Chat>
+                <Chat chats={chats} chat={chat} messages={messages} user={auth.user}></Chat>
             </Wrapper>  
         </>
     );

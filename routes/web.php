@@ -175,7 +175,6 @@ Route::group(['middleware' => ['userType:customer','auth', 'verified'], 'prefix'
 
     Route::get('/chats/{chat}', 'App\Http\Controllers\Customer\ChatController@show')->name('chats.show');
     Route::put('/chats/{chat}', 'App\Http\Controllers\Customer\ChatController@update')->name('chats.update');
-
 });
 
 

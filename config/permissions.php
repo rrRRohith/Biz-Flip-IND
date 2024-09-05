@@ -665,5 +665,10 @@ return $permissions = [
         "Section" => "Subscription",
         "Type" => "Admin"
     ],
+    [
+        "Permissions" => "Messages",
+        "Section" => "Messages",
+        "Type" => "Common"
+    ],
 ];
 ?>

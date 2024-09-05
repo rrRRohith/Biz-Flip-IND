@@ -2,7 +2,7 @@ import InputError from "@/Components/InputError";
 import React, { useState, useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Message({ chat, messages }) {
+export default function Message({ chat, messages, user }) {
     const { data, setData, post, errors, reset } = useForm({
         message: '',
         _method: 'PUT'
@@ -16,7 +16,7 @@ export default function Message({ chat, messages }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route("customer.chats.update", chat.id), {
+        await post(route(user.type == 'customer' ? "customer.chats.update" : "seller.chats.update", chat.id), {
             preserveScroll: true,
             onSuccess: () => {
                 reset('message');

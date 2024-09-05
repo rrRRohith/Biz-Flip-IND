@@ -70,6 +70,7 @@ class StaffController extends BaseController{
                 $staff->update([
                     'type' => 'seller staff',
                     'password' => Hash::make($request->password),
+                    'status' => '1',
                 ]);
             }
 

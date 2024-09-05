@@ -176,6 +176,9 @@ class User extends Authenticatable
         if($this->type == 'customer'){
             return $this->hasMany(Chat::class, 'customer_id', 'id');
         }else{
+            if($this->employer()->exists()){
+                return $this->hasMany(Chat::class, 'seller_id', 'parent_id');
+            }
             return $this->hasMany(Chat::class, 'seller_id', 'id');
         }
     }

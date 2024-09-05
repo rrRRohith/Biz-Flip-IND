@@ -2,15 +2,15 @@ import { Link } from "@inertiajs/react";
 import Contacts from "./Contacts";
 import Message from "./Message";
 
-export default function Chat({ chats, chat, messages }) {
+export default function Chat({ chats, chat, messages, user }) {
     return (
         <>
             <div className='d-flex flex-column flex-lg-row h-lg-full bg-white'>
-                <Contacts chats={chats}></Contacts>
+                <Contacts user={user} chats={chats}></Contacts>
                 <div className="w-full position-relative">
                     {chat ? (
                         <>
-                            <Message chat={chat} messages={messages}></Message>
+                            <Message user={user} chat={chat} messages={messages}></Message>
                         </>
                     ) : (
                         <>
