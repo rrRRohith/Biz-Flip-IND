@@ -149,6 +149,22 @@ Route::get('import-permissions', function () {
 
 Route::post('uploadExcel', [SetupController::class, 'upload'])->name('uploadPermissions');
 
+
+Route::group(['middleware' => ['userType:customer','auth', 'verified'], 'prefix'=>'customer', 'as' => 'customer.','namespace' => 'App\Http\Controllers\Customer'], function(){
+    
+    Route::get('/', 'App\Http\Controllers\Customer\Controller@dashboard')->name('index');
+
+    Route::resource('/profile', App\Http\Controllers\Customer\ProfileController::class, [
+        'only' => ['index', 'store']
+    ])->parameters([
+        'profiles' => 'profile'
+    ]);
+    Route::get('/password', 'App\Http\Controllers\Customer\ProfileController@password')->name('password.index');
+    Route::post('/password', 'App\Http\Controllers\Customer\ProfileController@changePassword')->name('password.store');
+
+});
+
+
 require __DIR__.'/auth.php';
 require __DIR__.'/seller.php';
 

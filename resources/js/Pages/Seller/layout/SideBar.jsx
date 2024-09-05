@@ -121,7 +121,7 @@ const SideBar = ({ user }) => {
                             </li>
                             <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/password') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.password.index')}>
-                                    <i className="bi bi-person"></i> Security
+                                <i class="bi bi-shield-lock"></i> Security
                                 </Link>
                             </li>
                             <PermissionAllow permission="Settings">
