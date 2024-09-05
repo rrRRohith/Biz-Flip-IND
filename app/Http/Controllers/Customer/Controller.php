@@ -17,7 +17,6 @@ use DB;
 
 class Controller extends BaseController{
     public $user;
-    public $seller;
     use \App\Helper\Upload;
     /**
      * Create a new controller instance.
@@ -29,16 +28,7 @@ class Controller extends BaseController{
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
 			$this->user = auth()->user();
-            $this->seller = $this->user->employer ? : $this->user;
             return $next($request);
         });
-    }
-    /**
-     * Display a listing of the resource.
-     * 
-     * @param Request $request
-     */
-    public function dashboard(Request $request){
-        return Inertia::render('Customer/Dashboard');
     }
 }

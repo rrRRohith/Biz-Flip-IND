@@ -11,7 +11,7 @@ const Wrapper = ({ success, error, children, user }) => {
                 <div className="d-flex flex-column flex-lg-row h-lg-full bg-white">
                     <SideBar user={user}></SideBar>
                     <div className="mt-0 mt-lg-5 py-0 pt-lg-5 flex-grow-1">
-                        <div className="mt-0 mt-lg-5 py-0 pt-lg-5 pb-lg-5">
+                        <div className="mt-0 mt-lg-5 py-0 pt-lg-5 pb-lg-5 position-relative">
                             {children}
                         </div>
                     </div>

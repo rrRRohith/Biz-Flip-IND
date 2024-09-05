@@ -1,15 +1,15 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head, Link } from '@inertiajs/react';
-import Wrapper from './layout/Wrapper';
-import Contacts from './Chat/Contacts';
-import Chat from './Chat/Chat';
+import Wrapper from '../layout/Wrapper';
+import Chat from './Chat';
 
-export default function Dashboard({ auth, chats }) {
+
+export default function Dashboard({ auth, chats, chat, messages }) {
     return (
         <>
             <Head title="Messages" />
             <Wrapper className="position-relative" user={auth.user}>
-                <Chat chats={chats}></Chat>
+                <Chat chats={chats} chat={chat} messages={messages}></Chat>
             </Wrapper>  
         </>
     );

@@ -52,7 +52,7 @@ const SideBar = ({ user }) => {
                             <div className="text-center text-md font-bold mt-3">{user.firstname} {user.lastname}</div>
                         </div>
                         <ul className="navbar-nav p-0 px-lg-3">
-                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/customer') ? 'bg-gray-100' : ''}`}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/customer') || urlMatches(path, '/customer/chats*') ? 'bg-gray-100' : ''}`}>
                                 <Link className='nav-link text-md rounded-0 rounded-lg-3' href={route('customer.index')}>
                                 <i class="bi bi-chat-left-dots"></i> Messages
                                 </Link>

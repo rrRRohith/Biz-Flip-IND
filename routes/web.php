@@ -163,7 +163,7 @@ Route::post('uploadExcel', [SetupController::class, 'upload'])->name('uploadPerm
 
 Route::group(['middleware' => ['userType:customer','auth', 'verified'], 'prefix'=>'customer', 'as' => 'customer.','namespace' => 'App\Http\Controllers\Customer'], function(){
     
-    Route::get('/', 'App\Http\Controllers\Customer\Controller@dashboard')->name('index');
+    Route::get('/', 'App\Http\Controllers\Customer\ChatController@index')->name('index');
 
     Route::resource('/profile', App\Http\Controllers\Customer\ProfileController::class, [
         'only' => ['index', 'store']
@@ -172,6 +172,9 @@ Route::group(['middleware' => ['userType:customer','auth', 'verified'], 'prefix'
     ]);
     Route::get('/password', 'App\Http\Controllers\Customer\ProfileController@password')->name('password.index');
     Route::post('/password', 'App\Http\Controllers\Customer\ProfileController@changePassword')->name('password.store');
+
+    Route::get('/chats/{chat}', 'App\Http\Controllers\Customer\ChatController@show')->name('chats.show');
+    Route::put('/chats/{chat}', 'App\Http\Controllers\Customer\ChatController@update')->name('chats.update');
 
 });
 

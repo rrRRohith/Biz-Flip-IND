@@ -289,3 +289,28 @@ iframe.listframe {
     font-size: 1.5em;
     color: #007bff;
 }
+
+
+.navbar-vertical.navbar-expand-lg.show.contacts {
+    min-width: 320px;
+}
+
+.navbar-vertical.contacts {
+    z-index: 1 !important;
+}
+
+img.avatar {
+    min-width: 2.875rem !important;
+}
+
+.noresults {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (min-width: 992px) {
+    .contacts.h-lg-screen {
+        height: calc(100vh - 88px) !important;
+    }
+}
