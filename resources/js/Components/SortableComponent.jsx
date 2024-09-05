@@ -185,7 +185,7 @@ const SortableComponent = ({ items, onDragEnd, onAddItem, onAddChildItem, onDele
           )}
         </Droppable>
       </DragDropContext>
-      <span role='button' class="bi bi-plus-circle"  onClick={onAddItem} style={{position: 'absolute',left: '60px'}}>Add Item</span>
+      <span role='button' className="bi bi-plus-circle"  onClick={onAddItem} style={{position: 'absolute',left: '60px'}}>Add Item</span>
      
     </div>
   );

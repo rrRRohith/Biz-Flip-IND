@@ -31,7 +31,7 @@ export default function Edit({ role, permissionsList, queryParams = null, auth }
         setData(key, value);
     };
 
-    const isReadOnly = role.name === 'admin' || role.name === 'seller';
+    const isReadOnly = role.name === 'admin' || role.name === 'seller' || role.name === 'customer';
 
     const handleCheckboxChange = (permissionId) => {
         let updatedPermissions;

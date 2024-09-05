@@ -52,6 +52,7 @@ class Controller extends BaseController{
                 'views' => $views,
                 'view_lead_ratio' => $view_lead_ratio,
             ],
+            'current_invoice' => $this->seller->current_subscription,
             'ads' => AdResource::collection($this->seller->ads()->withCount('views')->orderBy('views_count', 'desc')->get()),
             'tickets' => TicketResource::collection($this->seller->tickets()->latest()->limit(5)->get()),
             'leads' => LeadResource::collection($this->seller->leads()->latest()->limit(5)->get()),

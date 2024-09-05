@@ -19,7 +19,7 @@ class AdRequest extends FormRequest
         $validationFactory->extend(
             'images',
             function($attribute, $value, $parameters){
-                return count($this->images) + count($this->uploaded_images) >= 3;
+                return count($this->images ?? []) + count($this->uploaded_images ?? []) >= 3;
             },
             'Please upload atleast 3 images for your ad.'
         );

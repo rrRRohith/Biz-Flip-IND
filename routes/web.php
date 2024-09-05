@@ -91,6 +91,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
 });
 
 Route::get('/', 'App\Http\Controllers\Controller@home')->name('index');
+Route::get('/pricing', 'App\Http\Controllers\Controller@pricing')->name('pricing');
 
 Route::get('/ads/map', 'App\Http\Controllers\AdController@map')->name('ads.map');
 Route::resource('/ads', App\Http\Controllers\AdController::class, [
@@ -130,6 +131,10 @@ Route::get('/auth/seller', function () {
     return view('auth.seller');
 });
 
+Route::get('/auth/customer', function () {
+    return view('auth.customer');
+});
+
 
 Route::get('pending-review', function () {
     return view('auth.pendingReview');
@@ -137,6 +142,7 @@ Route::get('pending-review', function () {
 
 Route::post('/auth/seller', 'App\Http\Controllers\Auth\RegisteredUserController@seller');
 Route::post('/auth/agent', 'App\Http\Controllers\Auth\RegisteredUserController@agent');
+Route::post('/auth/customer', 'App\Http\Controllers\Auth\RegisteredUserController@customer');
 
 Route::get('/auth/agent', function () {
     return view('auth.agent');
@@ -154,9 +160,9 @@ Route::get('import-permissions', function () {
 
 Route::post('uploadExcel', [SetupController::class, 'upload'])->name('uploadPermissions');
 
-
 require __DIR__.'/auth.php';
 require __DIR__.'/seller.php';
+
 
 // Route::get('/login', function () {
 //     return view('auth.login');

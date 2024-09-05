@@ -159,4 +159,16 @@ class User extends Authenticatable
     public function getIsAgentAttribute() : bool{
         return (bool) ($this->employer()->exists() ? $this->employer->seller()->exists() :  $this->seller()->exists());
     }
+
+    public function subscription_orders(){
+        return $this->hasMany(SubscriptionOrder::class, 'seller_id', 'id');
+    }
+
+    public function current_subscription(){
+        return $this->hasOne(SubscriptionOrder::class, 'seller_id', 'id')->where('expires_at', '>', now())->latest();
+    }
+
+    public function getRemainingAdsAttribute(){
+        return $this->current_subscription->remaining_ads ?? 0;
+    }
 }

@@ -86,7 +86,7 @@ export default function Ads({ auth, ads, categories, industries }) {
                                 <div className="card">
                                     <div className="card-header border-bottom">
                                         <div className="d-flex d-lg-none align-items-center">
-                                            <div onClick={(e) => setShowFilters(!showFilters)} className="d-lg-none btn btn-secondary text-overflow">Filters {showFilters ? (<i class="bi bi-chevron-compact-up"></i>) : (<i class="bi bi-chevron-compact-down"></i>)}</div>
+                                            <div onClick={(e) => setShowFilters(!showFilters)} className="d-lg-none btn btn-secondary text-overflow">Filters {showFilters ? (<i className="bi bi-chevron-compact-up"></i>) : (<i className="bi bi-chevron-compact-down"></i>)}</div>
 
                                             <PermissionAllow permission="Ad Create">
                                                 <div className="ms-auto">

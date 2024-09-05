@@ -57,6 +57,9 @@ class AdController extends BaseController{
      * Show the form for creating a new resource.
      */
     public function create(){
+        if(!$this->seller->remaining_ads){
+            return redirect()->route('seller.plans.index')->withError('Please purchase a plan to continue.');
+        }
         return Inertia::render('Seller/AdForm', [
             'categories_options' => Category::selectRaw("id as value, name as label")->get()->toArray(),
             'business_categories_options' => BusinessCategory::selectRaw("id as value, name as label, business_categories.*")->get()->toArray(),
@@ -72,7 +75,7 @@ class AdController extends BaseController{
      * @param AdRequest $request
      */
     public function store(AdRequest $request){
-        
+        abort_if(!$this->seller->remaining_ads, 403, 'Please purchase a subscription plan to list new ads.');
         try{
             $ad = $this->seller->ads()->create($request->only(
                 'has_commission', 
@@ -138,6 +141,11 @@ class AdController extends BaseController{
                     'territories',
                 ]));
             }
+
+            /**
+             * Attach the ad to current invoice
+             */
+            $this->seller->current_subscription->ads_posted()->attach($ad->id);
 
             event(new NewNotification(auth()->user()->id, 1, 'Your Post is Pending Stage', 'A post has been pending stage.', route('admin.ads.index')));
 

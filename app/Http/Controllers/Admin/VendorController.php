@@ -20,7 +20,8 @@ class VendorController extends Controller
 {
 
     private $user;
-
+    use \App\Subscription;
+    
     public function __construct(Request $request)
     {
         $this->middleware('auth');
@@ -109,6 +110,17 @@ class VendorController extends Controller
             $user->password     = Hash::make($request->password ?? 12345678);
             $user->status       = $request->status;
             $user->save();
+
+            try {
+                if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+                    $this->subscribeToPlan($request, $defaultPlan, $user);
+                    try {
+                        event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
+                    } catch (\Exception $e) {}
+                }
+            } catch (\Exception $e) {
+                
+            }
 
             $seller                     = new Seller();
             $seller->user_id            = $user->id;

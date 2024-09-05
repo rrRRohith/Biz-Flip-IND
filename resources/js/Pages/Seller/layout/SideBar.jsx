@@ -33,7 +33,7 @@ const SideBar = ({ user }) => {
                         </PermissionAllow>
                     </div>
                     <div className='ms-auto me-3 d-lg-none'>
-                        <a class="fw-semibold btn btn-primary btn-sm" href="/">Home</a>
+                        <a className="fw-semibold btn btn-primary btn-sm" href="/">Home</a>
                     </div>
                     <div className="navbar-user d-lg-none">
                         <div className="dropdown">
@@ -73,6 +73,20 @@ const SideBar = ({ user }) => {
                                         <i className="bi bi-house-check"></i> Leads
                                     </Link>
                                 </li>
+                            </PermissionAllow>
+                            <PermissionAllow permission="Plan Purchase">
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/plans*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.plans.index')}>
+                                    <i className="bi bi-currency-dollar"></i> Plans
+                                </Link>
+                            </li>
+                            </PermissionAllow>
+                            <PermissionAllow permission="Invoice List">
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/invoices*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.invoices.index')}>
+                                    <i className="bi bi-receipt"></i> Invoices
+                                </Link>
+                            </li>
                             </PermissionAllow>
                             <PermissionAllow permission="Staff Listing">
                                 {user.is_agent && (

@@ -103,7 +103,7 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
         try {
             const response = await axios.get(route("admin.propery_lead_show", lead.id));
 
-            const dataVal = `   <table class="table fw-700">
+            const dataVal = `   <table className="table fw-700">
                                     <tbody>
                                     <tr>
                                         <td><strong>Name</strong></td>
@@ -146,7 +146,7 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
         try {
             const response = await axios.get(route("admin.contact_show", inquiry.id));
         
-            const dataVal = `   <table class="table fw-700">
+            const dataVal = `   <table className="table fw-700">
                                     <tbody>
                                     <tr>
                                         <td><strong>Name</strong></td>

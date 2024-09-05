@@ -59,4 +59,10 @@ class Controller extends BaseController{
         return view('page')->withPage($page);
     }
 
+    public function pricing(){
+        return view('pricing')->withPlans(
+            \App\Models\SubscriptionPlan::when(auth()->check(), fn($q) => $q->where('default', '0'))->
+            whereStatus('1')->whereVisibility('1')->orderBy('price')->get()
+        );
+    }
 }

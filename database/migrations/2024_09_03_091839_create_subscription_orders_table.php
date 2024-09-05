@@ -22,12 +22,16 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->longText('features')->nullable();
             $table->float('price')->nullable();
+            $table->float('tax_amount')->nullable();
+            $table->float('total_amount')->nullable();
             $table->bigInteger('ads')->nullable();
             $table->bigInteger('duration')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->mediumText('payment_ref')->nullable();
             $table->mediumText('payment_id')->nullable();
             $table->mediumText('payment_method')->nullable();
+            $table->bigInteger('billing_address_id')->unsigned()->nullable();
+            $table->foreign('billing_address_id')->references('id')->on('billing_addresses')->onDelete("set null");
             $table->timestamps();
         });
     }
