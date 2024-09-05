@@ -60,7 +60,7 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                     <div className="d-flex align-items-center">
                                         <div>
                                             <div className="d-flex align-items-center">
-                                                <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></label>
+                                                <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }} alt="..." src={imagePreview} /></label>
                                                 <div className="ms-4"><span className="h4 d-block mb-0">{data.firstname} {data.lastname}</span>
                                                 <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Change image</label>
                                                 </div>

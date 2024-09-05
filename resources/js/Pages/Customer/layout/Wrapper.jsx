@@ -1,5 +1,7 @@
-import SideBar from "./SideBar";
-import Header from "./Header";
+// import SideBar from "./SideBar";
+import { default as CustomerSideBar } from "@/Pages/Customer/layout/SideBar";
+import { default as SellerSideBar } from "@/Pages/Seller/layout/SideBar";
+import Header from "@/Pages/Seller/layout/Header";
 import ToastNotification from '@/Components/ToastNotification';
 
 const Wrapper = ({ success, error, children, user }) => {
@@ -9,7 +11,12 @@ const Wrapper = ({ success, error, children, user }) => {
             <Header user={user}></Header>
             <div className="">
                 <div className="d-flex flex-column flex-lg-row h-lg-full bg-white">
-                    <SideBar user={user}></SideBar>
+                    {user.type == 'customer' ? (
+                        <CustomerSideBar user={user}></CustomerSideBar>
+                    ) : (
+                        <SellerSideBar user={user}></SellerSideBar>
+                    )}
+
                     <div className="mt-0 mt-lg-5 py-0 pt-lg-5 flex-grow-1">
                         <div className="mt-0 mt-lg-5 py-0 pt-lg-5 pb-lg-5 position-relative">
                             {children}
