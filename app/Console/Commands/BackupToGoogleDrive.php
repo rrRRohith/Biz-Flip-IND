@@ -64,9 +64,9 @@ class BackupToGoogleDrive extends Command
 
                 // Close the zip file
                 $zip->close();
-
+                $name = str_replace('_', '-', env('APP_NAME'));
                 // Upload to Google Drive
-                if (Storage::disk('google')->put(env('APP_NAME') . '/images/' . $zipName, fopen($zipFile, 'r'))) {
+                if (Storage::disk('google')->put($name . '/images/' . $zipName, fopen($zipFile, 'r'))) {
                     Log::info('Backup uploaded to Google Drive successfully.');
 
                     // Delete the local backup zip file after successful upload

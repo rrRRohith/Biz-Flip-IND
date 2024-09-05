@@ -8,7 +8,7 @@ import InputError from "@/Components/InputError";
 import PermissionAllow from "@/Components/PermissionAllow";
 
 export default function Profile({ user, queryParams = null, auth, success, error }) {
-    console.log(auth)
+ 
     const { data, setData, post, errors, reset } = useForm({
         picture: '',
         firstname: user.firstname,
