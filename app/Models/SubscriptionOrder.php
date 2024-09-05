@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class SubscriptionOrder extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
+
+    public function seller(){
+        return $this->hasOne(User::class,'id','seller_id');
+=======
     protected $appends = ['remaining_ads'];
     protected $fillable = [
         'subscription_plan_id',
@@ -47,5 +52,6 @@ class SubscriptionOrder extends Model
 
     public function ads_posted(){
         return $this->belongsToMany(Ad::class, 'subscription_order_ads', 'subscription_order_id', 'ad_id');
+>>>>>>> da924c100140b4b231689bb268562d6ef36aff51
     }
 }

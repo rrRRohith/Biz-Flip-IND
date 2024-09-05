@@ -136,6 +136,15 @@ export default function AdminSidebar() {
                                     </li>
 
                                 </PermissionAllow>
+                                <PermissionAllow permission={'Subscribers'}>
+                                    <li>
+                                        <Link href={route('admin.subscription.index')}>
+                                            <i className="bi bi-cash-coin" title="Subscription plans"></i>
+                                            <span>Subscription plans</span>
+                                        </Link>
+                                    </li>
+
+                                </PermissionAllow>
                                 <PermissionAllow permission={'Collections'}>
                                     <li className={`treeview ${openDropdown === 'collections' ? 'active' : ''}`}>
                                         <a href="#" onClick={() => handleToggle('collections')}>

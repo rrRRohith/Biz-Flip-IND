@@ -48,7 +48,18 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::post('backups/update-images', 'BackupController@updateImages')->name('backups.update-images');
     Route::post('backups/download', 'BackupController@download')->name('backups.download');
     
+    Route::get('subscription-plans', 'SubscriptionPlansController@plans')->name('subscription.index');
+    Route::post('subscription-plans', 'SubscriptionPlansController@plansStore')->name('subscription.create');
+    Route::get('subscription-plans/{id}', 'SubscriptionPlansController@plansEdit')->name('subscription.edit');
+    Route::post('subscription-plans/{id}', 'SubscriptionPlansController@plansUpdate')->name('subscription.update');
+    Route::post('subscription-plans/{id}/delete', 'SubscriptionPlansController@plansDelete')->name('subscription.delete');
 
+
+    
+    Route::get('subscribed-agents', 'SubscriptionPlansController@subscribedAgents')->name('subscription.subscribed-agents');
+    Route::post('free-plan-agents', 'SubscriptionPlansController@freePlanAgents')->name('subscription.free-plan-agents');
+    Route::get('subscription-invoices', 'SubscriptionPlansController@subscriptionInvoices')->name('subscription.subscription-invoices');
+    Route::post('subscription-invoices/{id}', 'SubscriptionPlansController@subscriptionInvoicesShow')->name('subscription.subscription-invoices.show');
 
 
     Route::resource('/profile', ProfileController::class, [
