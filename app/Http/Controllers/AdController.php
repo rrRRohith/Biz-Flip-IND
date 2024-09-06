@@ -85,7 +85,10 @@ class AdController extends BaseController{
                 'message' => $request->message,
             ]]);
         }
-
+        if($ad->wasRecentlyCreated){
+            $this->sellerLeadReceived($ad->seller, $ad, $request);
+        }
+        
         return response()->json([
             'success' => true,
             'message' => __("Your message sent successfully.")

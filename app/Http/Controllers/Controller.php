@@ -10,7 +10,7 @@ use View;
 
 class Controller extends BaseController{
     use AuthorizesRequests, ValidatesRequests;
-
+    use \App\Emails;
     /**
      * Create a new controller instance.
      * @return void
@@ -41,6 +41,7 @@ class Controller extends BaseController{
 
     public function contact(ContactRequest $request){
         \App\Models\ContactEnquiry::create($request->validated());
+        $this->adminContactReceived($request);
         return response()->json([
             'success' => true,
             'message' => __("Your message sent successfully.")

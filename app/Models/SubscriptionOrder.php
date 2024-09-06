@@ -10,6 +10,13 @@ class SubscriptionOrder extends Model
 {
     use HasFactory;
     protected $appends = ['remaining_ads'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'expires_at' => 'datetime',
+        'update_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'subscription_plan_id',
         'name',

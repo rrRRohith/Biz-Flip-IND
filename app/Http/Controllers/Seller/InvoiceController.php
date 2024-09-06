@@ -32,6 +32,7 @@ class InvoiceController extends BaseController{
      * @param Request $request
      */
     public function index(Request $request){
+        
         return Inertia::render('Seller/Invoice/Index', [
             'current_invoice' => $this->seller->current_subscription ? new InvoiceResource($this->seller->current_subscription) : null,
             'invoices' => InvoiceResource::collection($this->seller->subscription_orders()->latest()->get()),

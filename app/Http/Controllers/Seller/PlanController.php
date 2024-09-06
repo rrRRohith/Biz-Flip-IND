@@ -66,6 +66,7 @@ class PlanController extends BaseController{
         \DB::beginTransaction();
         try{
             $subscription = $this->subscribeToPlan($request, $plan, $this->seller);
+            $this->subscriptionOrder($subscription);
             try {
                 event(new \App\Events\NewNotification(1, $this->seller->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
                 event(new \App\Events\NewNotification($this->seller->id, 1, 'Subscription plan purchased by seller.', 'Subscription plan purchased by seller.', route('admin.subscription.subscription-invoices')));
