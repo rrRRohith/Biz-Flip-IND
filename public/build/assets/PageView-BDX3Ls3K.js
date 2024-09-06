@@ -1,1 +1,0 @@
-import{j as e}from"./app-B4EEK66x.js";const t=({collection:s,handleClose:n})=>e.jsx("div",{className:"col-lg-12",children:e.jsx("div",{dangerouslySetInnerHTML:{__html:s.content}})}),a=t;export{a as default};
