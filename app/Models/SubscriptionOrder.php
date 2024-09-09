@@ -31,7 +31,9 @@ class SubscriptionOrder extends Model
         'invoice_no',
         'payment_ref',
         'payment_id',
-        'billing_address_id'
+        'billing_address_id',
+        'expire_alert_at',
+        'expired_alert_at',
     ];
 
     public function billing_address(){

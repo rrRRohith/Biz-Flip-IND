@@ -6,6 +6,53 @@ use App\Models\{User, Ad, SubscriptionOrder};
 use Illuminate\Http\Request;
 
 trait Emails{
+    public function adApproved(Ad $ad){
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'name' => $ad->seller->name,
+            'to' => $ad->seller->email,
+            'subject' => __("Ad :title approved", ['title' => $ad->title]),
+            'contents' => view('email.adApproved')->withAd($ad)->render(),
+        ]));
+    }
+
+    public function adPendingReview(Ad $ad){
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'name' => $ad->seller->name,
+            'to' => $ad->seller->email,
+            'subject' => __("Ad :title is awaiting review", ['title' => $ad->title]),
+            'contents' => view('email.adPendingReviewSeller')->withAd($ad)->render(),
+        ]));
+
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'to' => env('ADMIN_EMAIL'),
+            'subject' => __("Ad :title is awaiting review", ['title' => $ad->title]),
+            'contents' => view('email.adPendingReviewAdmin')->withAd($ad)->render(),
+        ]));
+    }
+
+    public function subscriptionOrderExpired(SubscriptionOrder $order){
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'name' => $order->seller->name,
+            'to' => $order->seller->email,
+            'subject' => __("Subscription :plan expired", ['plan' => $order->name]),
+            'contents' => view('email.subscriptionOrderExpired')->withOrder($order)->render(),
+        ]));
+    }
+
+    public function subscriptionOrderExpiring(SubscriptionOrder $order){
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'name' => $order->seller->name,
+            'to' => $order->seller->email,
+            'subject' => __("Subscription :plan expiring soon", ['plan' => $order->name]),
+            'contents' => view('email.subscriptionOrderExpiring')->withOrder($order)->render(),
+        ]));
+    }
+
     public function subscriptionOrder(SubscriptionOrder $order){
         self::email(new Email([
 		    'emailClass' => 'DefaultMail',
