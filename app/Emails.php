@@ -2,10 +2,48 @@
 
 namespace App;
 use App\Jobs\Email;
-use App\Models\{User, Ad, SubscriptionOrder};
+use App\Models\{User, Ad, SubscriptionOrder, Ticket};
 use Illuminate\Http\Request;
 
 trait Emails{
+    public function accountCreated(User $user){
+        if($user->status == '0'){
+            self::email(new Email([
+                'emailClass' => 'DefaultMail',
+                'to' => env('ADMIN_EMAIL'),
+                'subject' => __("New User Registration Awaiting Approval"),
+                'contents' => view('email.accountCreatedAdmin')->withUser($user)->render(),
+            ]));
+        }
+
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'name' => $user->name,
+            'to' => $user->email,
+            'subject' => __("Account created"),
+            'contents' => view('email.accountCreated')->withUser($user)->render(),
+        ]));
+    }
+
+    public function accountApproved(User $user){
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'name' => $user->name,
+            'to' => $user->email,
+            'subject' => __("Account approved"),
+            'contents' => view('email.accountApproved')->withUser($user)->render(),
+        ]));
+    }
+
+    public function ticketCreated(Ticket $ticket){
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'to' => env('ADMIN_EMAIL'),
+            'subject' => __("New ticket($ticket->priority) opened by {$ticket->user->name}"),
+			'contents' => view('email.ticketAdmin')->withTicket($ticket)->render(),
+        ]));
+    }
+
     public function adApproved(Ad $ad){
         self::email(new Email([
 		    'emailClass' => 'DefaultMail',

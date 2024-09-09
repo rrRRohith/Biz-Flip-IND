@@ -66,8 +66,8 @@ class TicketController extends BaseController{
             ]);
 
             event(new NewNotification(auth()->user()->id, 1, 'New Support Ticket Created', 'A created new support ticket.', route('admin.support-tickets.index')));
-
-
+            $this->ticketCreated($ticket);
+            
             return to_route('seller.tickets.show', ['ticket' => $ticket->id])->with('success', 'Ticket created successfully.');
         }
         catch(\Exception $e){
@@ -83,7 +83,6 @@ class TicketController extends BaseController{
      */
     public function show(Request $request, Ticket $ticket){
         $this->seller->tickets()->findOrfail($ticket->id);
-
         $messages = $ticket->messages()->get();
         
         return Inertia::render('Seller/Ticket/Ticket',[
