@@ -14,10 +14,13 @@ const Header = ({ user }) => {
                 <button className="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" />
                 </button>
-                <PermissionAllow permission="Ad Create">
-                    <Link className="btn btn-primary btn-sm text-overflow" href={route('seller.ads.create')}>Place an ad
-                    </Link>
-                </PermissionAllow>
+                { user.type !== 'customer' &&
+                    <PermissionAllow permission="Ad Create">
+                        <Link className="btn btn-primary btn-sm text-overflow" href={route('seller.ads.create')}>Place an ad
+                        </Link>
+                    </PermissionAllow>
+                 }
+               
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                         <li className="nav-item ps-2">
