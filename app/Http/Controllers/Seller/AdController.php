@@ -148,7 +148,9 @@ class AdController extends BaseController{
             $this->seller->current_subscription->ads_posted()->attach($ad->id);
 
             event(new NewNotification(auth()->user()->id, 1, 'Your Post is Pending Stage', 'A post has been pending stage.', route('admin.ads.index')));
-
+            if($ad->status == '0'){
+                $this->adPendingReview($ad);
+            }
 
             return to_route('seller.ads.index')->with('success', 'Ad created successfully.');
         }

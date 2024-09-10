@@ -59,6 +59,18 @@ class AgentController extends BaseController{
         $agent->leads()->firstOrCreate(
             $request->only('email', 'phone'), $request->only('firstname', 'lastname', 'message')
         );
+
+        if(auth()->check() && auth()->user()->type == 'customer'){
+            $chat = $agent->chats()->firstOrCreate([
+                'customer_id' => auth()->user()->id,
+            ]);
+
+            $chat->messages()->create([
+                'user_id' => auth()->user()->id,
+                'message' => $request->message,
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'message' => __("Your message sent successfully.")

@@ -171,4 +171,15 @@ class User extends Authenticatable
     public function getRemainingAdsAttribute(){
         return $this->current_subscription->remaining_ads ?? 0;
     }
+
+    public function chats(){
+        if($this->type == 'customer'){
+            return $this->hasMany(Chat::class, 'customer_id', 'id');
+        }else{
+            if($this->employer()->exists()){
+                return $this->hasMany(Chat::class, 'seller_id', 'parent_id');
+            }
+            return $this->hasMany(Chat::class, 'seller_id', 'id');
+        }
+    }
 }

@@ -43,6 +43,12 @@ class AuthenticatedSessionController extends Controller
             // return redirect()->intended(route('seller.index', absolute: false));
         }
 
+        else if(auth()->user()->type == 'customer'){
+            $redirect =  redirect()->intended(route('customer.index', absolute: false));
+            return Inertia::location($redirect);
+            // return redirect()->intended(route('customer.index', absolute: false));
+        }
+
     }
 
     /**

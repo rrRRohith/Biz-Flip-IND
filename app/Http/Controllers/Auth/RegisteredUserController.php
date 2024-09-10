@@ -67,6 +67,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
         try {
             event(new Registered($user));
+            $this->accountCreated($user);
         } catch (\Exception $th) {}
 
         return response()->json([
@@ -91,6 +92,7 @@ class RegisteredUserController extends Controller
         $user->assignRole(2);
 
         try {
+            $this->accountCreated($user);
             if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
                 $this->subscribeToPlan($request, $defaultPlan, $user);
                 try {
@@ -125,6 +127,7 @@ class RegisteredUserController extends Controller
         $user->assignRole(2);
 
         try {
+            $this->accountCreated($user);
             event(new Registered($user));
         } catch (\Exception $th) {}
 

@@ -27,6 +27,10 @@ class UserType{
                 abort_if(!in_array($currentType, ['admin', 'admin staff']), 403, "You are logged in as {$currentType} and trying to access {$type} area.");
             break;
 
+            case "customer" :
+                abort_if(!in_array($currentType, ['customer']), 403, "You are logged in as {$currentType} and trying to access {$type} area.");
+            break;
+
             case "seller" :
             case "seller staff" :
                 if(auth()->user()->status != '1'){

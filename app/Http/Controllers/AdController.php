@@ -71,6 +71,24 @@ class AdController extends BaseController{
         )->update([
             'seller_id' => $ad->seller_id,
         ]);
+
+        if(auth()->check() && auth()->user()->type == 'customer'){
+            $chat = $ad->seller->chats()->firstOrCreate([
+                'customer_id' => auth()->user()->id,
+            ]);
+
+            $chat->messages()->createMany([[
+                'user_id' => auth()->user()->id,
+                'message' => "Hi, can you please provide more details about {$ad->title}?",
+            ],[
+                'user_id' => auth()->user()->id,
+                'message' => $request->message,
+            ]]);
+        }
+        if($ad->wasRecentlyCreated){
+            $this->sellerLeadReceived($ad->seller, $ad, $request);
+        }
+        
         return response()->json([
             'success' => true,
             'message' => __("Your message sent successfully.")

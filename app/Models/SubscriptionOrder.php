@@ -10,6 +10,13 @@ class SubscriptionOrder extends Model
 {
     use HasFactory;
     protected $appends = ['remaining_ads'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'expires_at' => 'datetime',
+        'update_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'subscription_plan_id',
         'name',
@@ -24,7 +31,9 @@ class SubscriptionOrder extends Model
         'invoice_no',
         'payment_ref',
         'payment_id',
-        'billing_address_id'
+        'billing_address_id',
+        'expire_alert_at',
+        'expired_alert_at',
     ];
 
     public function billing_address(){

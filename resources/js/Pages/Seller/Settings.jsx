@@ -59,7 +59,6 @@ export default function Settings({ seller, auth, success, error, province_option
         email: seller.email,
         phone: seller.phone,
         employee: seller.employee,
-        address: seller.address,
         short_description: seller.short_description,
         description: seller.description,
         website: seller.website,

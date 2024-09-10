@@ -112,6 +112,7 @@ class VendorController extends Controller
             $user->save();
 
             try {
+                $this->accountCreated($user);
                 if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
                     $this->subscribeToPlan($request, $defaultPlan, $user);
                     try {
@@ -323,6 +324,7 @@ class VendorController extends Controller
                 event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Pending Stage', 'A account has been pending stage.', route('seller.index')));
             }
             else if($request->status == '1'){
+                $this->accountApproved($user);
                 event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Approved', 'A account has been approved.', route('seller.index')));
     
             }

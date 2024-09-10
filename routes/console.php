@@ -9,4 +9,5 @@ Artisan::command('inspire', function () {
     $this->command('backup:google')->hourly();
 })->purpose('Display an inspiring quote')->hourly();
 
- 
+Schedule::command('app:subscription-expire-alert')->daily();
+Schedule::command('queue:work --stop-when-empty')->everyMinute();
