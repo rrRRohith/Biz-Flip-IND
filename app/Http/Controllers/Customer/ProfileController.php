@@ -45,8 +45,8 @@ class ProfileController extends Controller{
                     Storage::disk('images')->delete($this->user->picture);
                 }
                 $picture = $request->picture;
-                $pictureName = Str::random(20) . '.' . $picture->getClientOriginalExtension();
-                $picturePath = $picture->storeAs('avatars', $pictureName, 'images');
+                $picturePath = $this->uploadFile($picture, 'avatars');
+                
                 $this->user->update([
                     'picture' => $picturePath,
                 ]);

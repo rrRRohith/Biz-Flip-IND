@@ -58,8 +58,7 @@ class SettingsController extends Controller{
                     Storage::disk('images')->delete($seller->logo);
                 }
                 $logo = $request->logo;
-                $logoName = Str::random(20) . '.' . $logo->getClientOriginalExtension();
-                $logoPath = $logo->storeAs('logos', $logoName, 'images');
+                $logoPath = $this->uploadFile($logo, 'logos');
                 $seller->update([
                     'logo' => $logoPath,
                 ]);

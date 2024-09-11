@@ -225,7 +225,7 @@ class AdController extends BaseController{
                 );
             }
 
-            $ad->images()->whereNotIn('image', $request->uploaded_images ? : [])->get()->each(function($image){
+            $ad->images()->whereNotIn('image', $request->existing_images ? : [])->get()->each(function($image){
                 Storage::disk(env('UPLOAD_CHANNEL'))->delete($image->image);
                 $image->forceDelete();
             });

@@ -71,6 +71,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
         commission: ad ? ad.commission : '',
         images: [],
         uploaded_images: ad ? ad.images : [],
+        existing_images: ad ? ad.existing_images : [],
         seo_title: ad ? ad.seo_title : '',
         seo_keywords: ad ? ad.seo_keywords : '',
         seo_description: ad ? ad.seo_description : '',
@@ -186,6 +187,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
             ...prevData,
             uploaded_images: prevData.uploaded_images.filter((_, i) => i !== index),
         }));
+        setData('existing_images', uploaded_images);
     }
 
     const changeAdCategories = (value) => {
