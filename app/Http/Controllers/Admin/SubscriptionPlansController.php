@@ -6,7 +6,7 @@ use App\Models\{SubscriptionPlan,SubscriptionOrder};
 use Illuminate\Http\Request;
 use App\Http\Requests\Subscription\StoreSubscriptionRequest;
 use App\Http\Requests\Subscription\UpdateSubscriptioRequest;
-use App\Http\Resources\{SubscriptionPlanResource,SubscriptionOrderResource};
+use App\Http\Resources\{SubscriptionPlanResource,SubscriptionOrderResource,InvoiceResource};
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -23,14 +23,11 @@ class SubscriptionPlansController extends Controller
         $freePlanAgents     = SubscriptionOrder::orderBy('id','desc')->paginate(30);
         $invoices           = SubscriptionOrder::orderBy('id','desc')->paginate(30);
         
-       
-        
-
         return Inertia::render('Admin/Subscription/Plans', [
             'plans' => SubscriptionPlanResource::collection($plans),
             'subscribedAgents' => SubscriptionOrderResource::collection($subscribedAgents),
             'freePlanAgents' => SubscriptionOrderResource::collection($freePlanAgents),
-            'invoices' => SubscriptionOrderResource::collection($invoices)
+            'invoices' => InvoiceResource::collection($invoices)
         ]);
     }
 
@@ -95,27 +92,5 @@ class SubscriptionPlansController extends Controller
             return $e->getMessage();
         }
     }
-
-    public function subscribedAgents(Request $request){
-        $agents = SubscriptionOrder::groupBy('seller_id')->query()->paginate(30);
-        return Inertia::render('Admin/Subscription/Plans',['plans' => SubscriptionOrderResource::collection($agents)]);
-    }
-    
-    public function freePlanAgents(Request $request){
-        $agents = SubscriptionOrder::groupBy('seller_id')->where('price',0)->query()->paginate(30);
-        return Inertia::render('Admin/Subscription/Plans',['plans' => SubscriptionOrderResource::collection($agents)]);
-    }
-
-    public function subscriptionInvoices(Request $request){
-        $invoices = SubscriptionOrder::orderBy('desc')->query()->paginate(30);
-        return Inertia::render('Admin/Subscription/Plans',['plans' => SubscriptionOrderResource::collection($invoices)]);
-    }
-
-    public function subscriptionInvoicesShow($id){
-        $invoice = SubscriptionOrder::orderBy('desc')->query()->paginate(30);
-        return Inertia::render('Admin/Subscription/Plans',['plans' => new SubscriptionOrderResource($invoice)]);
-    }
-
-
 
 }

@@ -32,7 +32,7 @@ class InvoiceResource extends JsonResource
             'payment_ref' => $this->payment_ref,
             'payment_id' => $this->payment_id,
             'payment_method' => $this->payment_method,
-            'created_at' => $this->created_at,
+            'created_at' => \Carbon\Carbon::parse($this->created_at)->format('d M y'),
             'updated_at' => $this->updated_at,
             'invoice_date' => \Carbon\Carbon::parse($this->created_at)->format('d M y'),
             'expire_date' => \Carbon\Carbon::parse($this->expires_at)->format('d M y'),
