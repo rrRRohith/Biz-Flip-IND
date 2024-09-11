@@ -54,19 +54,19 @@ export default function AdminSidebar() {
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Ads'}>
                                     <li className={`treeview ${openDropdown === 'ads' ? 'active' : ''}`}>
-                                        <a  href={route('admin.ads.index')}>
+                                        <Link  href={route('admin.ads.index')}>
                                             <i className="bi bi-badge-ad" title="ads"></i>
                                             <span>Ads</span>
-                                        </a>
+                                        </Link>
                                     </li>
 
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Leads'}>
                                     <li className={`treeview ${openDropdown === 'leads' ? 'active' : ''}`}>
-                                        <a href={route('admin.leads')} onClick={() => handleToggle('leads')}>
+                                        <Link href={route('admin.leads')} onClick={() => handleToggle('leads')}>
                                             <i className="bi bi-at" title="Leads"></i>
                                             <span>Leads</span>
-                                        </a>
+                                        </Link>
                                     </li>
 
                                 </PermissionAllow>

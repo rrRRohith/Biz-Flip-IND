@@ -24,9 +24,9 @@ export default function SlickSlider({ images = [], slidesToShow = 4  , dots = fa
                             <div className="pe-20">
                                 <img
                                     role="button"
-                                    src={window.getImageAsset(image)}
+                                    src={image}
                                     className="img-fluid rounded15 mb-15"
-                                    alt={window.getImageAsset(image)}
+                                    alt={image}
                                     onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
                                 />
                                 <h6></h6>

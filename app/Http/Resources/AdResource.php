@@ -60,6 +60,7 @@ class AdResource extends JsonResource
             'features_ids' => $this->features->pluck('id'),
             'images' => $this->images->pluck('image_url')->toArray(),
             'main_picture' => $this->image_url,
+            'image_url' => $this->image_url,
             'seo_title' => $this->seo_title,
             'seo_keywords' => $this->seo_keywords,
             'seo_description' => $this->seo_description,

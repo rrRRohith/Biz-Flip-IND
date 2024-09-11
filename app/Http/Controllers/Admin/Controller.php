@@ -106,7 +106,7 @@ class Controller extends BaseController
         $adsListing = $adsList->flatMap(function ($ad) {
             return $ad->images->map(function ($image) use ($ad) {
                 return [
-                    'image' => $image->image,
+                    'image' => $image->image_url,
                     'title' => $ad->title,
                     'slug' => $ad->slug,
                 ];
