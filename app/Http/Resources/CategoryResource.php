@@ -24,7 +24,7 @@ class CategoryResource extends JsonResource
             'description'   => $this->description,
             'position'      => $this->position,
             'status'        => $this->status,
-            'icon'          => $this->icon  ? asset('images/'.$this->icon) : '/assets/admin/images/noimage.webp',
+            'icon'          => $this->icon_url,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
             'selected_items'  => $this->selectedItms->pluck('business_category_id'),

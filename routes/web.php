@@ -7,6 +7,13 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 
 
+// Route::get('buckets', function(){
+//     $disk = 's3';
+//     $heroImage = Storage::get('hero.png');
+//     $uploadedPath = Storage::disk($disk)->put('hero.png', $heroImage);
+//     return Storage::disk($disk)->url($uploadedPath);
+// });
+
 Route::get('/admin', function () {return Inertia::render('Admin/Dashboard');})->middleware(['auth', 'verified'])->name('admin');
 
 Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>'admin', 'as' => 'admin.','namespace' => 'App\Http\Controllers\Admin'], function(){

@@ -52,10 +52,8 @@ class SellerResource extends JsonResource
             'country'       => $this->country,
             'position'      => $this->seller->position,
             'designation'   => $this->designation ?? null,
-            'picture'       => $this->picture  ?
-                                asset('images/'.$this->picture) : '/assets/admin/images/noimage.webp',
-            'logo'          => $this->seller->logo && !(str_starts_with($this->seller->logo, 'http')) ?
-                                asset('images/'.$this->seller->logo) : '/assets/admin/images/noimage.webp',
+            'picture'       => $this->picture ? image_url($this->picture) : asset('/assets/admin/images/noimage.webp'),
+            'logo'          => $this->seller ? image_url($this->seller->logo) : asset('/assets/admin/images/noimage.webp'),
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
             'availableDays' => $this->seller->availableDays,

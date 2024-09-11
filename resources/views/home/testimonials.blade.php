@@ -21,7 +21,7 @@
                                     <div class="border-0 card shadow-sm rounded-1 bg-white h-100">
                                         <div class="card-body">
                                             <div class="d-flex align-items-center mb-3">
-                                                <img class="rounded-circle shadow-sm w-h-60 me-2 border border-2 border-light image-fit" src="{{ asset('images/'.$testimonial->image) }}" alt="">
+                                                <img class="rounded-circle shadow-sm w-h-60 me-2 border border-2 border-light image-fit" src="{{ image_url($testimonial->image) }}" alt="">
                                                 <div>
                                                     <div class="fw-semibold fs-5">{{ $testimonial->name }}</div>
                                                     <div class="">{{ $testimonial->designation }}, {{ $testimonial->company_name }}</div>

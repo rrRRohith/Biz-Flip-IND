@@ -24,8 +24,7 @@ class FeatureLabelResource extends JsonResource
             'color'          => $this->color,
             'priority'      => $this->priority,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'icon'          => $this->icon  ?
-                                asset('images/'.$this->icon) : '/assets/admin/images/noimage.webp',
+            'icon'          => null,
             'created_at'    => (new Carbon($this->created_at)),
             'updated_at'    => (new Carbon($this->updated_at)),
         ];

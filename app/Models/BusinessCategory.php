@@ -15,7 +15,8 @@ class BusinessCategory extends Model
     ];
 
     public function getIconUrlAttribute(){
-        return asset('images/'.$this->icon);
+        return image_url($this->icon);
+        //return asset('images/'.$this->icon);
     }
     
     public function selectedItms(){

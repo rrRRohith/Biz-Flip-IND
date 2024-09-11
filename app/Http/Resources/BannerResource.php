@@ -23,10 +23,8 @@ class BannerResource extends JsonResource
             'redirection'   =>  $this->redirection,
             'type'          =>  $this->type,
             'new_window'    =>  $this->new_window,
-            'picture_desktop'=> $this->picture_desktop && !(str_starts_with($this->picture_desktop, 'http')) ?
-                                asset('images/'.$this->picture_desktop) :  '/assets/admin/images/noimage.webp',
-            'picture_mobile'=>  $this->picture_mobile && !(str_starts_with($this->picture_mobile, 'http')) ?
-                                 asset('images/'.$this->picture_mobile) : '/assets/admin/images/noimage.webp',
+            'picture_desktop'=>  $this->picture_desktop ? image_url($this->picture_desktop) : asset('/assets/admin/images/noimage.webp'),
+            'picture_mobile'=>  $this->picture_mobile ? image_url($this->picture_mobile) : asset('/assets/admin/images/noimage.webp'),
             'position'      =>  $this->position,
             'status'        =>  $this->status == 1 ? 'Published' : 'Draft',
             'created_at'    =>  (new Carbon($this->created_at))->format('h:i a, d M'),

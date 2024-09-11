@@ -43,6 +43,7 @@ class Seller extends Model
     }
 
     public function getLogoUrlAttribute($logo){
-        return asset('images/'.$this->logo);
+        return image_url($this->logo);
+        // return asset('images/'.$this->logo);
     }
 }

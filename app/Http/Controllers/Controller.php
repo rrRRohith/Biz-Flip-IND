@@ -11,6 +11,7 @@ use View;
 class Controller extends BaseController{
     use AuthorizesRequests, ValidatesRequests;
     use \App\Emails;
+    use \App\Helper\Upload;
     /**
      * Create a new controller instance.
      * @return void

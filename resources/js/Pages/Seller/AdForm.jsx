@@ -396,7 +396,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                                             <div key={index} className="col-xl-2 col-lg-3 col-md-4 col-6 mb-3">
 
                                                                 <div className='position-relative'>
-                                                                    <img className="ad-image shadow-sm rounded-input pointer-events-none" src={`/images/${image}`} />
+                                                                    <img className="ad-image shadow-sm rounded-input pointer-events-none" src={image} />
                                                                     <div className="position-absolute p-1 top-0 end-0">
                                                                         <div onClick={() => removeUploadedImage(index)} role='button' className="d-flex align-items-center w-h-30  bg-white border border-2 text-dark rounded-circle">
                                                                             <i className="bi bi-trash m-auto"></i>

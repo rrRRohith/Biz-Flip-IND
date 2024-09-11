@@ -26,8 +26,7 @@ class ProvinceResource extends JsonResource
             'country_name'  => $this->country->name ?? null,
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'enabled' : 'Draft',
-            'image'         => $this->image  ?
-                                asset('images/'.$this->image) : '/assets/admin/images/noimage.webp',
+            'image'         => null,
             'ads'           => $this->ads,
             'leads'         => $this->leads,
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),

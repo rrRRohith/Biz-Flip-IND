@@ -43,3 +43,10 @@ function menu(string $slug){
 function footer_menu_category(){
     return \App\Models\BusinessCategory::orderBy('position')->limit(4)->get();
 }
+
+function image_url($image){
+    if(env('UPLOAD_CHANNEL') == 's3'){
+        return env('AWS_S3_URL').'/'.$image;
+    }
+    return asset('images/'.$image);
+}

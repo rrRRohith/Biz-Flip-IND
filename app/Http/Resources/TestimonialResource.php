@@ -25,8 +25,7 @@ class TestimonialResource extends JsonResource
             'message'       => $this->message,
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'image'         => $this->image  ?
-                                asset('images/'.$this->image) : '/assets/admin/images/noimage.webp',
+            'image'         => $this->image  ? image_url($this->image) : asset('/assets/admin/images/noimage.webp'),
             'created_at'    => (new Carbon($this->created_at)),
             'updated_at'    => (new Carbon($this->updated_at)),
           

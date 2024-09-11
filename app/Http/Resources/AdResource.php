@@ -58,9 +58,8 @@ class AdResource extends JsonResource
             'features' => $this->features()->selectRaw("features.id as value, name as label")->get()->toArray(),
             'facilities_ids' => $this->facilities->pluck('id'),
             'features_ids' => $this->features->pluck('id'),
-            'images' => $this->images->pluck('image')->toArray(),
-            'main_picture' => $this->images->pluck('image')->first() && !(str_starts_with($this->images->pluck('image')->first(), 'http')) ?
-                                 asset('images/'.$this->images->pluck('image')->first()) : '/assets/admin/images/noimage.webp',
+            'images' => $this->images->pluck('image_url')->toArray(),
+            'main_picture' => $this->image_url,
             'seo_title' => $this->seo_title,
             'seo_keywords' => $this->seo_keywords,
             'seo_description' => $this->seo_description,

@@ -19,10 +19,8 @@ class AppSettingsResource extends JsonResource
     {
         									
         return [
-            'splash_screen'         => $this->splash_screen ?? '' && !(str_starts_with($this->splash_screen ?? '', 'http')) ?
-                                        asset('images/'.$this->splash_screen ?? '') : $this->splash_screen ?? '/assets/admin/images/noimage.webp',
-            'app_background'        =>  $this->app_background ?? '' && !(str_starts_with($this->app_background ?? '', 'http')) ?
-                                        asset('images/'.$this->app_background ?? '') : $this->app_background ?? '/assets/admin/images/noimage.webp',
+            'splash_screen'=>  $this->splash_screen ? image_url($this->splash_screen) : asset('/assets/admin/images/noimage.webp'),
+            'app_background'=>  $this->app_background ? image_url($this->app_background) : asset('/assets/admin/images/noimage.webp'),
             'apiKey'	            => $this->apiKey ?? '',
             'authDomain'	        => $this->authDomain ?? '',
             'databaseURL'	        => $this->databaseURL ?? '',

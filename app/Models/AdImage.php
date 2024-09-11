@@ -17,6 +17,7 @@ class AdImage extends Model
     ];
 
     public function getImageUrlAttribute(){
-        return asset('images/'.$this->image);
+        return image_url($this->image);
+        //return asset('images/'.$this->image);
     }
 }
