@@ -43,7 +43,7 @@ class BannerController extends Controller
         //
         if ($request->picture_desktop) {
             $imagePath = $this->uploadFile(file : $request->picture_desktop, path : 'banners');
-
+        }
         
         if ($request->picture_mobile) {
             $imagePath2 = $this->uploadFile(file : $request->picture_mobile, path : 'banners');
