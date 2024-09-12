@@ -78,16 +78,12 @@ class VendorController extends Controller
    
 
         if ($request->has('picture') && $request->picture) {
-            $picture = $request->picture;
-            $imgName = Str::random(20) . '.' . $picture->getClientOriginalExtension();
-            $imgPath = $picture->storeAs('avatars', $imgName, 'images');
+            $imgPath = $this->uploadFile(file : $request->picture, path : 'avatars', maxHeight : 200, maxWidth : 200, ratio: '1:1');
         }
 
         
         if ($request->has('logo') && $request->logo) {
-            $logo = $request->logo;
-            $imgName2 = Str::random(20) . '.' . $logo->getClientOriginalExtension();
-            $imgPath2 = $logo->storeAs('logo', $imgName2, 'images');
+            $imgPath2 = $this->uploadFile(file : $request->logo, path : 'logo', maxHeight : 200, maxWidth : 200, ratio: '1:1');
         }
 
         try {
@@ -245,14 +241,11 @@ class VendorController extends Controller
                 $user->password     =  Hash::make($request->password);
             }
 
-            $image = $request->picture;
-            if ($image) {
+            if ($request->picture) {
                 if (($user->picture) && ($user->picture != null)) {
                     Storage::disk('images')->delete($user->picture);
                 }
-                $imageName          = Str::random(20) . '.' . $image->getClientOriginalExtension();
-                $imagePath          = $image->storeAs('avatars', $imageName, 'images');
-                $user->picture      = $imagePath ?? null;
+                $user->picture = $this->uploadFile(file : $request->picture, path : 'avatars', maxHeight : 200, maxWidth : 200, ratio: '1:1');
             }
 
             
@@ -277,14 +270,11 @@ class VendorController extends Controller
             $seller->has_public_view    =  $request->has('public_profile_on') && $request->public_profile_on ? 1 : 0;
             $seller->position           = $request->position;
 
-            $logo = $request->logo;
-            if ($logo) {
+            if ($request->logo) {
                 if (($seller->logo) && ($seller->logo != null) ) {
                     Storage::disk('images')->delete($seller->logo);
                 }
-                $imageName      = Str::random(20) . '.' . $logo->getClientOriginalExtension();
-                $imagePath      = $logo->storeAs('logo', $imageName, 'images');
-                $seller->logo   = $imagePath ?? null;
+                $seller->logo = $this->uploadFile(file : $request->logo, path : 'logo', maxHeight : 200, maxWidth : 200, ratio: '1:1');
             }
             $seller->save();
 

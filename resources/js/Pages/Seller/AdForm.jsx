@@ -187,7 +187,10 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
             ...prevData,
             uploaded_images: prevData.uploaded_images.filter((_, i) => i !== index),
         }));
-        setData('existing_images', uploaded_images);
+        setData((prevData) => ({
+            ...prevData,
+            existing_images: prevData.existing_images.filter((_, i) => i !== index),
+        }));
     }
 
     const changeAdCategories = (value) => {

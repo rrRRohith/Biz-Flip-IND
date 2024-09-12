@@ -41,9 +41,8 @@ class ProfileController extends Controller{
                 if ($this->user->picture && $this->user->picture != 'default') {
                     Storage::disk('images')->delete($this->user->picture);
                 }
-                $picture = $request->picture;
-                $pictureName = Str::random(20) . '.' . $picture->getClientOriginalExtension();
-                $picturePath = $picture->storeAs('avatars', $pictureName, 'images');
+                $picturePath = $this->uploadFile(file : $request->picture, path : 'avatars', maxHeight : 200, maxWidth : 200, ratio: '1:1');
+                
                 $this->user->update([
                     'picture' => $picturePath,
                 ]);

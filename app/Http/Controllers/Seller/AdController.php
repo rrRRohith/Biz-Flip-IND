@@ -111,7 +111,7 @@ class AdController extends BaseController{
                 );
             }
 
-            $uploadedImages = $this->uploadFiles($request->images, 'ads');
+            $uploadedImages = $this->uploadFiles($request->images, 'ads', ratio: '16:9');
             if(count($uploadedImages)){
                 foreach($uploadedImages as $image){
                     $ad->images()->create([
@@ -230,7 +230,7 @@ class AdController extends BaseController{
                 $image->forceDelete();
             });
 
-            $uploadedImages = $this->uploadFiles($request->images, 'ads');
+            $uploadedImages = $this->uploadFiles($request->images, 'ads', ratio: '16:9');
 
             if(count($uploadedImages)){
                 foreach($uploadedImages as $image){

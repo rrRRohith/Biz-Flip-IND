@@ -44,9 +44,7 @@ class TestimonialController extends Controller
         $image =$request->image ?? null;
    
         if ($image) {
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('testimonial', $imageName, 'images');
-         
+            $imagePath  = $this->uploadFile(file : $image, path : 'testimonial', maxHeight : 200, maxWidth : 200, ratio: '1:1');
         }
 
         $new                = new Testimonial();
@@ -116,9 +114,7 @@ class TestimonialController extends Controller
             if ($testimonial->image) {
                 Storage::disk('images')->delete($testimonial->image);
             }
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('testimonial', $imageName, 'images');
-            $testimonial->image  = $imagePath;
+            $testimonial->image  = $this->uploadFile(file : $image, path : 'testimonial', maxHeight : 200, maxWidth : 200, ratio: '1:1');
         }
 
         $testimonial->name          = $request->name;

@@ -44,9 +44,7 @@ class FacilityController extends Controller
         $image =$request->image ?? null;
    
         if ($image) {
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('facilities', $imageName, 'images');
-         
+            $imagePath = $this->uploadFile(file : $image, path : 'facilities', maxHeight : 100, maxWidth : 100, ratio: '1:1');
         }
         $new        = new Facility();
         $new->name  = $request->facility_name;
@@ -113,9 +111,7 @@ class FacilityController extends Controller
             if ($facility->icon) {
                 Storage::disk('images')->delete($facility->icon);
             }
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('facilities', $imageName, 'images');
-            $facility->icon  = $imagePath;
+            $facility->icon = $this->uploadFile(file : $image, path : 'facilities', maxHeight : 100, maxWidth : 100, ratio: '1:1');
         }
 
         $facility->name  = $request->facility_name;

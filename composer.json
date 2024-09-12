@@ -8,6 +8,7 @@
         "php": "^8.2",
         "google/apiclient": "^2.17",
         "inertiajs/inertia-laravel": "^1.0",
+        "intervention/image": "^2.6",
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",

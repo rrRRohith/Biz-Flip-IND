@@ -45,7 +45,7 @@ class FeaturesController extends Controller
    
         if ($image) {
             $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('features', $imageName, 'images');
+            $imagePath = $this->uploadFile(file : $image, path : 'features', maxHeight : 100, maxWidth : 100, ratio: '1:1');
          
         }
         $new        = new Features();
@@ -113,9 +113,8 @@ class FeaturesController extends Controller
             if ($features->icon) {
                 Storage::disk('images')->delete($features->icon);
             }
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('features', $imageName, 'images');
-            $features->icon  = $imagePath;
+            
+            $features->icon = $this->uploadFile(file : $image, path : 'features', maxHeight : 100, maxWidth : 100, ratio: '1:1');
         }
 
         $features->name  = $request->feature_name;

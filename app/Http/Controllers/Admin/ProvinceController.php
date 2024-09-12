@@ -39,19 +39,9 @@ class ProvinceController extends Controller
         public function store(StoreProvinceRequest $request)
         {
             //
-           
-            /** @var $image \Illuminate\Http\UploadedFile */
-            $image =$request->image ?? null;
-       
-            if ($image) {
-                $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-                $imagePath = $image->storeAs('province', $imageName, 'images');
-             
-            }
             $new        = new Province();
             $new->name  = $request->name;
             $new->slug  = Str::slug($request->name);
-            $new->image  = $imagePath ?? null;
             $new->country_id  = $request->country;
             $new->position=$request->position;
             $new->status= $request->status;
@@ -95,26 +85,6 @@ class ProvinceController extends Controller
             //
             $province = Province::where('id',$id)->first() ?? abort(404);
             $data = $request->validated();
-            $image = $data['image'] ?? null;
-    
-    
-            // Handle image removal
-            if ($request->remove_image) {
-                if ($province->image) {
-                    Storage::disk('images')->delete($province->image);
-                    $province->image = null;
-                }
-            }
-    
-            if ($image) {
-                if ($province->image) {
-                    Storage::disk('images')->delete($province->image);
-                }
-                $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-                $imagePath = $image->storeAs('province', $imageName, 'images');
-                $province->image  = $imagePath ?? null;
-            }
-    
             $province->name  = $request->name;
             $province->slug  = Str::slug($request->name);
           

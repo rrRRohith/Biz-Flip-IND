@@ -52,20 +52,9 @@ class CityController extends Controller
          */
         public function store(StoreCityRequest $request)
         {
-            //
-           
-            /** @var $image \Illuminate\Http\UploadedFile */
-            $image =$request->image ?? null;
-       
-            if ($image) {
-                $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-                $imagePath = $image->storeAs('city', $imageName, 'images');
-             
-            }
             $new        = new City();
             $new->name  = $request->name;
             $new->slug  = Str::slug($request->name);
-            $new->image  = $imagePath ?? null;
             $new->province_id  = $request->province;
             $new->position=$request->position;
             $new->status= $request->status;
@@ -112,25 +101,6 @@ class CityController extends Controller
             //
             $city = City::where('id',$id)->first() ?? abort(404);
             $data = $request->validated();
-            $image = $data['image'] ?? null;
-    
-    
-            // Handle image removal
-            if ($request->remove_image) {
-                if ($city->image) {
-                    Storage::disk('images')->delete($city->image);
-                    $city->image = null;
-                }
-            }
-    
-            if ($image) {
-                if ($city->image) {
-                    Storage::disk('images')->delete($city->image);
-                }
-                $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-                $imagePath = $image->storeAs('city', $imageName, 'images');
-                $city->image  = $imagePath  ?? null;
-            }
     
             $city->name  = $request->name;
             $city->slug  = Str::slug($request->name);

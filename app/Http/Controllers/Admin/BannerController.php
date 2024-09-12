@@ -43,13 +43,11 @@ class BannerController extends Controller
         //
 
         if ($request->picture_desktop) {
-            $imageName = Str::random(20) . '.' . $request->picture_desktop->getClientOriginalExtension();
-            $imagePath = $request->picture_desktop->storeAs('banners', $imageName, 'images');
+            $imagePath = $this->uploadFile(file : $request->picture_desktop, path : 'banners');
         }
         
         if ($request->picture_mobile) {
-            $imageName2 = Str::random(20) . '.' . $request->picture_mobile->getClientOriginalExtension();
-            $imagePath2 = $request->picture_mobile->storeAs('banners', $imageName2, 'images');
+            $imagePath2 = $this->uploadFile(file : $request->picture_mobile, path : 'banners');
         }
         $new                = new Banner();
         $new->title         = $request->title;	
@@ -113,9 +111,7 @@ class BannerController extends Controller
             if ($banner->picture_desktop) {
                 Storage::disk('images')->delete($banner->picture_desktop);
             }
-            $imageName = Str::random(20) . '.' . $request->picture_desktop->getClientOriginalExtension();
-            $imagePath = $request->picture_desktop->storeAs('banners', $imageName, 'images');
-            $banner->picture_desktop  = $imagePath;
+            $banner->picture_desktop  = $this->uploadFile(file : $request->picture_desktop, path : 'banners');
         }
 
 
@@ -131,9 +127,7 @@ class BannerController extends Controller
             if ($banner->picture_mobile) {
                 Storage::disk('images')->delete($banner->picture_mobile);
             }
-            $imageName = Str::random(20) . '.' . $request->picture_mobile->getClientOriginalExtension();
-            $imagePath = $request->picture_mobile->storeAs('banners', $imageName, 'images');
-            $banner->picture_mobile  = $imagePath;
+            $banner->picture_mobile  = $this->uploadFile(file : $request->picture_mobile, path : 'banners');
         }
 
         $banner->title         = $request->title;	

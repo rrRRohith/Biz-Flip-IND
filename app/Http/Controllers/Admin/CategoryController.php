@@ -56,9 +56,7 @@ class CategoryController extends Controller
         $image =$request->image ?? null;
    
         if ($image) {
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('categories', $imageName, 'images');
-         
+            $imagePath = $this->uploadFile(file : $image, path : 'categories', maxHeight : 200, maxWidth : 200, ratio: '1:1');
         }
         $new        = new Category();
         $new->name  = $request->category_name;
@@ -136,9 +134,7 @@ class CategoryController extends Controller
             if ($category->icon) {
                 Storage::disk('images')->delete($category->icon);
             }
-            $imageName          = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath          = $image->storeAs('categories', $imageName, 'images');
-            $category->icon     = $imagePath;
+            $category->icon     = $this->uploadFile(file : $image, path : 'categories', maxHeight : 200, maxWidth : 200, ratio: '1:1');
         }
 
         $category->name         = $request->category_name;

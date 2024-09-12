@@ -14,7 +14,7 @@ use DB;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
-
+    use \App\Helper\Upload;
     public function dashboard()
     {
 

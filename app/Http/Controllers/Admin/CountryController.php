@@ -35,21 +35,11 @@ class CountryController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
-        //
-        
-        /** @var $image \Illuminate\Http\UploadedFile */
-        $image =$request->image ?? null;
-   
-        if ($image) {
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('country', $imageName, 'images');
-         
-        }
+
         $new        = new Country();
         $new->name  = $request->name;
         $new->code  = $request->code;
         $new->slug  = Str::slug($request->name);
-        $new->image  = $imagePath ?? null;
       
         $new->position=$request->position;
         $new->status= $request->status;
@@ -95,25 +85,6 @@ class CountryController extends Controller
 
         $country = Country::where('id',$id)->first() ?? abort(404);
         $data = $request->validated();
-        $image = $data['image'] ?? null;
-
-
-        // Handle image removal
-        if ($request->remove_image) {
-            if ($country->image) {
-                Storage::disk('images')->delete($country->image);
-                $country->image = null;
-            }
-        }
-
-        if ($image) {
-            if ($country->image) {
-                Storage::disk('images')->delete($country->image);
-            }
-            $imageName = Str::random(20) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('country', $imageName, 'images');
-            $country->image  = $imagePath ?? null;
-        }
 
         $country->name  = $request->name;
         $country->slug  = Str::slug($request->name);

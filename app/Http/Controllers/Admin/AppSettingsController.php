@@ -39,9 +39,7 @@ class AppSettingsController extends Controller
             if ($app_settings->splash_screen) {
                 Storage::disk('images')->delete($app_settings->splash_screen);
             }
-            $imageName = Str::random(20) . '.' . $request->splash_screen->getClientOriginalExtension();
-            $imagePath = $request->splash_screen->storeAs('app_settings', $imageName, 'images');
-            $app_settings->splash_screen  = $imagePath;
+            $app_settings->splash_screen  = $this->uploadFile(file : $request->splash_screen, path : 'app_settings');
         }
            // Handle image removal
            if ($request->remove_image2) {
@@ -55,9 +53,7 @@ class AppSettingsController extends Controller
             if ($app_settings->app_background) {
                 Storage::disk('images')->delete($app_settings->app_background);
             }
-            $imageName = Str::random(20) . '.' . $request->app_background->getClientOriginalExtension();
-            $imagePath = $request->app_background->storeAs('app_settings', $imageName, 'images');
-            $app_settings->app_background  = $imagePath;
+            $app_settings->app_background  = $this->uploadFile(file : $request->app_background, path : 'app_settings');
         }
 
         $app_settings->apiKey = $request->apiKey;
