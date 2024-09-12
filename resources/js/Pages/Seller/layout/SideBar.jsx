@@ -74,7 +74,7 @@ const SideBar = ({ user }) => {
                                     </Link>
                                 </li>
                             </PermissionAllow>
-                            <PermissionAllow permission="Plan Purchase">
+                            {/* <PermissionAllow permission="Plan Purchase">
                                 <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/plans*') ? 'bg-gray-100' : ''}`}>
                                     <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.plans.index')}>
                                         <i className="bi bi-currency-dollar"></i> Plans
@@ -87,7 +87,7 @@ const SideBar = ({ user }) => {
                                         <i className="bi bi-receipt"></i> Invoices
                                     </Link>
                                 </li>
-                            </PermissionAllow>
+                            </PermissionAllow> */}
                             <PermissionAllow permission="Messages">
                                 <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/chats*') ? 'bg-gray-100' : ''}`}>
                                     <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.chats.index')}>
@@ -121,7 +121,7 @@ const SideBar = ({ user }) => {
                                     </Link>
                                 </li>
                             </PermissionAllow>
-                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
+                            {/* <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.profile.index')}>
                                     <i className="bi bi-person"></i> Profile
                                 </Link>
@@ -130,7 +130,7 @@ const SideBar = ({ user }) => {
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.password.index')}>
                                     <i class="bi bi-shield-lock"></i> Security
                                 </Link>
-                            </li>
+                            </li> */}
                             <PermissionAllow permission="Settings">
                                 {user.is_agent && (
                                     <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/settings*') ? 'bg-gray-100' : ''}`}>

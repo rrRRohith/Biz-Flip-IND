@@ -55,6 +55,9 @@ export default function Profile({ user, queryParams = null, auth, success, error
                     <div className="container px-3 px-lg-6">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Your profile settings</div>
+                            <div>
+                            Update your profile information easily. Change your picture and contact details.
+                            </div>
                             <div className="card rounded-input">
                                 <div className="card-body">
                                     <div className="d-flex align-items-center">

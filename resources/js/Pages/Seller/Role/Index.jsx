@@ -69,6 +69,7 @@ export default function Index({ auth, roles }) {
                     <div className="container-fluid px-3 px-lg-6">
                         <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Staff roles</div>
+                            <div>Manage staff roles and permissions. Create new roles, assign permissions, and view role details.</div>
                             <div>
                                 <div className="card">
                                     <div className="card-header border-bottom">

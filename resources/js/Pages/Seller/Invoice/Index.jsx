@@ -73,6 +73,9 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                         <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Invoices</div>
                             <div>
+                            View and manage your invoices easily. See your subscription details, track your billing history, and download invoices for record-keeping.
+                            </div>
+                            <div>
                                 {current_invoice && (
                                     <>
                                         <div className="alert alert-success mb-5">
