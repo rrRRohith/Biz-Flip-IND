@@ -69,11 +69,11 @@ export default function Index({ customersList, auth}) {
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Full Name</th>
+                                                            <th>Full Name </th>
                                                             <th>Email</th>
                                                             <th>Phone</th>
                                                             <th>Last Modified</th>
-                                                            <th></th>
+                                                            <th>     </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
