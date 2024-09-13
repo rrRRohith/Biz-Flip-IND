@@ -35,6 +35,7 @@ export default function Password({ user, queryParams = null, auth, success, erro
                     <div className="container px-3 px-lg-6">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Change your password</div>
+                            <div>Update your password for enhanced security.</div>
                             <div>
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-5 mt-5">

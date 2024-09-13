@@ -4,7 +4,7 @@ import Wrapper from '../layout/Wrapper';
 import React, { useState } from 'react';
 import Spinner from '@/Components/Spinner';
 
-export default function Index({ auth, plans }) {
+export default function Index({ auth, plans, can_purchase }) {
 
 
     return (
@@ -14,16 +14,27 @@ export default function Index({ auth, plans }) {
                 <main className="py-6">
                     <div className="container-fluid px-3 px-lg-6">
                         <div className="vstack gap-6 m-auto">
-                            
+
                             <div className="container">
-                            <div className="text-xl font-bold">Plans</div>
-                                <div className="row justify-content-center">
-                                    {plans.length ? (
+                                <div className="text-xl font-bold">Choose the Perfect Ad Subscription Plan for Your Needs</div>
+                                <div className='mb-3'>
+                                    Maximize your reach with our tailored ad subscription plans designed to suit businesses of all sizes. Whether you're looking to promote occasionally or need a consistent presence, our plans offer the flexibility and value to ensure your ads make an impact.
+                                </div>
+                                
+                                <div className='alert alert-warning'>
+                                    You can only purchase a new plan once the usage of your current plan has been fully exhausted.
+                                </div>
+                                <div className="row mt-10 justify-content-center">
+                                    {plans.data.length ? (
                                         <>
-                                            {plans.map((plan) => (
+                                            {plans.data.map((plan) => (
                                                 <>
                                                     <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-                                                        <div className="card rounded-3 py-4">
+                                                        <div className={plan.current_plan ? 'card position-relative rounded-3 h-full py-4 border-primary' : 'card position-relative rounded-3 py-4'}>
+                                                            {plan.current_plan && (
+                                                                <span className="position-absolute top-0 end-0 p-1">
+                                                                    <span className='bg-secondary p-1 text-white rounded-sm small'>Current plan <i class="bi bi-exclamation-circle"></i></span></span>
+                                                            )}
                                                             <div className="card-body text-center">
                                                                 <h5 className="card-title font-bolder">{plan.name}</h5>
                                                                 <div className="text-primary mb-3">
@@ -32,9 +43,20 @@ export default function Index({ auth, plans }) {
 
                                                                 <p className="card-text mb-3">{plan.description}</p>
                                                                 <div>{plan.features}</div>
-                                                                <Link className="btn btn-primary mt-5 btn-sm text-overflow" href={route('seller.plans.show', plan.id)}>
-                                                                    Purchase {plan.name} <i className="bi bi-arrow-right"></i>
-                                                                </Link>
+                                                                {plan.default != '1' && (
+                                                                    <>
+                                                                        {can_purchase ? (
+                                                                            <Link className="btn btn-primary mt-5 btn-sm text-overflow" href={route('seller.plans.show', plan.id)}>
+                                                                                Purchase {plan.name} <i className="bi bi-arrow-right"></i>
+                                                                            </Link>
+                                                                        ) : (
+                                                                            <button className="btn btn-primary mt-5 btn-sm text-overflow" disabled>
+                                                                                Purchase {plan.name} <i className="bi bi-arrow-right"></i>
+                                                                            </button>
+                                                                        )}
+
+                                                                    </>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>

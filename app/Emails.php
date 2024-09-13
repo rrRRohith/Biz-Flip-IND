@@ -130,6 +130,18 @@ trait Emails{
             'reply_to' => $request->email,
         ]));
     }
+
+    public function customerLeadResponded(\App\Models\LeadEnquiry $lead){
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'to' => $lead->email,
+            'subject' => __("Your inquiry has been responded"),
+            'name' =>  __(":firstname :lastname", ['firstname' => $lead->firstname, 'lastname' => $lead->lastname]),
+            'contents' => view('email.customerLeadResponded')->withLead($lead)->render(),
+            'reply_name' => $lead->seller->name,
+            'reply_to' => $lead->seller->email,
+        ]));
+    }
     /**
      * Dispatch email job
      * @param Email $mail

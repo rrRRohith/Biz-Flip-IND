@@ -82,6 +82,7 @@ export default function Ads({ auth, ads, categories, industries }) {
                     <div className="container-fluid px-3 px-lg-6">
                         <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Ads</div>
+                            <div>Manage and track your ads effectively. Easily search, filter, and view detailed information about your campaigns, and monitor their performance.</div>
                             <div>
                                 <div className="card">
                                     <div className="card-header border-bottom">

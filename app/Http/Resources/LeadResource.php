@@ -36,6 +36,8 @@ class LeadResource extends JsonResource
             'status'        => $this->status,
             'date_text' => \Carbon\Carbon::parse($this->created_at)->format('D d M, h:i a'),
             'attender' => $this->attender->name ?? null, 
+            'response' => $this->response,
+            'chat_id' => $this->chat_id,
         ];
     }
 }

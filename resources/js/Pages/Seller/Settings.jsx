@@ -134,6 +134,7 @@ export default function Settings({ seller, auth, success, error, province_option
                     <div className="container px-3 px-lg-6">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Your business settings</div>
+                            <div>Manage your business information easily. Update your profile, contact details, and company description.</div>
                             <div className="card rounded-input">
                                 <div className="card-body">
                                     <div className="d-flex align-items-center">

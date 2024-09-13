@@ -69,6 +69,7 @@ class AdController extends BaseController{
         $ad->leads()->firstOrCreate(
             $request->only('email', 'phone'), $request->only('firstname', 'lastname', 'message')
         )->update([
+            'customer_id' => auth()->user()->id,
             'seller_id' => $ad->seller_id,
         ]);
 
@@ -84,6 +85,10 @@ class AdController extends BaseController{
                 'user_id' => auth()->user()->id,
                 'message' => $request->message,
             ]]);
+
+            $lead->update([
+                'chat_id' => $chat->id,
+            ]);
         }
         if($ad->wasRecentlyCreated){
             $this->sellerLeadReceived($ad->seller, $ad, $request);

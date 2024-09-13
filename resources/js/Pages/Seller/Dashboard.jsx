@@ -14,6 +14,9 @@ export default function Dashboard({ auth, data, leads, tickets, ads, current_inv
             <Wrapper user={auth.user}>
                 <main className="py-6">
                     <div className="container-fluid px-3 px-lg-6">
+                        <div className="mb-10">
+                            Track the performance of your ads, including daily views and leads, and view detailed metrics like lead-to-view ratios. Manage your active subscriptions and monitor your most viewed ads and recent leads.
+                        </div>
                         {current_invoice ? (
                             <>
                                 <div className="alert alert-success mb-5">
@@ -22,9 +25,9 @@ export default function Dashboard({ auth, data, leads, tickets, ads, current_inv
                             </>
                         ) : (
                             <>
-                            <div className="alert alert-danger mb-5">
+                                <div className="alert alert-danger mb-5">
                                     You dont have any active subscriptions. Please <Link href={route('seller.plans.index')}>purchase </Link>
-                                     new plan to create new ads.
+                                    new plan to create new ads.
                                 </div>
                             </>
                         )}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\LeadEnquiry;
 use Inertia\Inertia;
+use App\Http\Resources\{SellerPlanResource};
 
 class PlanController extends BaseController{
     public $user;
@@ -33,7 +34,8 @@ class PlanController extends BaseController{
      */
     public function index(Request $request){
         return Inertia::render('Seller/Plan/Index', [
-            'plans' => \App\Models\SubscriptionPlan::whereDefault('0')->whereStatus('1')->whereVisibility('1')->orderBy('price')->get(),
+            'can_purchase' => $this->seller->remaining_ads ? false : true,
+            'plans' => SellerPlanResource::collection(\App\Models\SubscriptionPlan::whereStatus('1')->whereVisibility('1')->orderBy('price')->get()),
         ]);
     }
 
@@ -44,6 +46,7 @@ class PlanController extends BaseController{
      * @param Role $role
      */
     public function show(Request $request, \App\Models\SubscriptionPlan $plan){
+        abort_if($this->seller->remaining_ads, 403, 'You still have unused ad benefits. Be sure to take advantage of them before making a new purchase.');
         \App\Models\SubscriptionPlan::whereDefault('0')->whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);
         return Inertia::render('Seller/Plan/Plan', [
             'address' => [
@@ -62,6 +65,7 @@ class PlanController extends BaseController{
     }
 
     public function update(\App\Http\Requests\PlanPurchaseRequest $request, \App\Models\SubscriptionPlan $plan){
+        abort_if($this->seller->remaining_ads, 403, 'You still have unused ad benefits. Be sure to take advantage of them before making a new purchase.');
         \App\Models\SubscriptionPlan::whereDefault('0')->whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);
         \DB::beginTransaction();
         try{

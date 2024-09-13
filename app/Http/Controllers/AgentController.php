@@ -58,7 +58,9 @@ class AgentController extends BaseController{
         $agent = User::sellers()->findOrfail($agent->user_id);
         $agent->leads()->firstOrCreate(
             $request->only('email', 'phone'), $request->only('firstname', 'lastname', 'message')
-        );
+        )->update([
+            'customer_id' => auth()->user()->id,
+        ]);
 
         if(auth()->check() && auth()->user()->type == 'customer'){
             $chat = $agent->chats()->firstOrCreate([
@@ -69,8 +71,11 @@ class AgentController extends BaseController{
                 'user_id' => auth()->user()->id,
                 'message' => $request->message,
             ]);
-        }
 
+            $lead->update([
+                'chat_id' => $chat->id,
+            ]);
+        }
         return response()->json([
             'success' => true,
             'message' => __("Your message sent successfully.")

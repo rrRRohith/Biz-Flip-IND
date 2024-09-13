@@ -34,6 +34,9 @@ export default function Index({ auth, tickets }) {
                     <div className="container-fluid px-3 px-lg-6">
                         <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Support tickets</div>
+                            <div className="">
+                                Stay informed and in control of your support requests. Easily create new tickets, track their status, search for past cases, and prioritize urgent issues. Our user-friendly interface makes it simple to communicate with our support team and receive timely assistance.
+                            </div>
                             <div>
                                 <div className="card">
                                     <div className="card-header border-bottom">
@@ -45,11 +48,11 @@ export default function Index({ auth, tickets }) {
                                                 <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral me-2"><i className="bi bi-search"></i></button>
                                             </div>
                                             <PermissionAllow permission="Support Ticket Create">
-                                            <div className="ms-auto">
-                                                <Link className="btn btn-primary text-overflow" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i>
-                                                    <span className="d-none d-md-inline">Open ticket</span>
-                                                </Link>
-                                            </div>
+                                                <div className="ms-auto">
+                                                    <Link className="btn btn-primary text-overflow" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i>
+                                                        <span className="d-none d-md-inline">Open ticket</span>
+                                                    </Link>
+                                                </div>
                                             </PermissionAllow>
                                         </div>
                                     </div>

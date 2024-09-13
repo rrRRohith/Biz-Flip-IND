@@ -51,7 +51,7 @@ class SubscriptionOrder extends Model
     }
 
     public function getRemainingAdsAttribute(){
-        return $this->ads - $this->ads_posted()->count();
+        return max($this->ads - $this->ads_posted()->withTrashed()->count(), 0);
     }
 
     public function ads_posted(){

@@ -51,6 +51,9 @@ export default function Index({ auth, staffs }) {
                         <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Staffs</div>
                             <div>
+                                Manage your staff members easily. Search, view, and edit staff information.
+                            </div>
+                            <div>
                                 <div className="card">
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">

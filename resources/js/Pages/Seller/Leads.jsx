@@ -83,6 +83,9 @@ export default function Leads({ auth, leads, ads, categories }) {
                         <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Leads</div>
                             <div>
+                            Manage and track your potential customers effectively. Easily search, filter, and view detailed information about your leads, and monitor their progress through the sales pipeline.
+                            </div>
+                            <div>
                                 <div className="card">
                                     <div className="card-header border-bottom">
                                     <div className="d-flex d-lg-none align-items-center">
