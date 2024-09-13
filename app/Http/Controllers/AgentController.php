@@ -59,7 +59,7 @@ class AgentController extends BaseController{
         $agent->leads()->firstOrCreate(
             $request->only('email', 'phone'), $request->only('firstname', 'lastname', 'message')
         )->update([
-            'customer_id' => auth()->user()->id,
+            'customer_id' => auth()->user()->id ?? null,
         ]);
 
         if(auth()->check() && auth()->user()->type == 'customer'){
