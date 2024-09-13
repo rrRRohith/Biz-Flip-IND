@@ -14,7 +14,7 @@ class LeadEnquiry extends Model
      use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['seller_id', 'status', 'attender_id', 'firstname', 'email', 'phone', 'lastname', 'message'];
+    protected $fillable = ['seller_id', 'status', 'attender_id', 'firstname', 'email', 'phone', 'lastname', 'message', 'response', 'customer_id', 'chat_id'];
 
     public function ad(){
         return $this->belongsTo(Ad::class, 'ad_id', 'id');

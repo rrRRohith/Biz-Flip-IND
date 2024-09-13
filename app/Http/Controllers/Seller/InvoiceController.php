@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\LeadEnquiry;
 use Inertia\Inertia;
 use App\Http\Resources\{InvoiceResource};
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvoiceController extends BaseController{
     public $user;
@@ -48,10 +49,34 @@ class InvoiceController extends BaseController{
      * Show the specified resource.
      * 
      * @param Request $request
-     * @param Role $role
+     * @param \App\Models\SubscriptionOrder $invoice
      */
     public function show(Request $request, \App\Models\SubscriptionOrder $invoice){
         $this->seller->subscription_orders()->findOrFail($invoice->id);
         return $this->index($request);
+    }
+
+    /**
+     * Show the specified resource.
+     * 
+     * @param Request $request
+     * @param \App\Models\SubscriptionOrder $invoice
+     */
+    public function download(Request $request, \App\Models\SubscriptionOrder $invoice){
+        $this->seller->subscription_orders()->findOrFail($invoice->id);
+        $pdf = Pdf::loadView('pdf.orderInvoice', compact('invoice'));
+        return $pdf->download("Invoice_{$invoice->invoice_no}.pdf");
+    }
+
+    /**
+     * Show the specified resource.
+     * 
+     * @param Request $request
+     * @param \App\Models\SubscriptionOrder $invoice
+     */
+    public function print(Request $request, \App\Models\SubscriptionOrder $invoice){
+        $this->seller->subscription_orders()->findOrFail($invoice->id);
+        $pdf = Pdf::loadView('pdf.orderInvoice', compact('invoice'));
+        return $pdf->stream("Invoice_{$invoice->invoice_no}.pdf");
     }
 }

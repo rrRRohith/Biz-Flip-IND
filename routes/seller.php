@@ -21,6 +21,7 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
         'only' => ['index', 'update', 'destroy']
     ]);
     
+    Route::put('/leads/{lead}/respond', 'App\Http\Controllers\Seller\LeadController@respond')->name('leads.respond');
 
     Route::resource('/profile', App\Http\Controllers\Seller\ProfileController::class, [
         'only' => ['index', 'store']
@@ -53,6 +54,8 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     Route::resource('/invoices', App\Http\Controllers\Seller\InvoiceController::class, [
         'only' => ['index', 'show']
     ]);
+    Route::get('/invoices/{invoice}/download', 'App\Http\Controllers\Seller\InvoiceController@download')->name('invoices.download');
+    Route::get('/invoices/{invoice}/print', 'App\Http\Controllers\Seller\InvoiceController@print')->name('invoices.print');
 
     Route::resource('/chats', App\Http\Controllers\Seller\ChatController::class, [
         'only' => ['index', 'show', 'update']

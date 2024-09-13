@@ -31,18 +31,19 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
     const [show, setShow] = useState(false);
     const [mdata, setmData] = useState(null);
     const [title, setTitle] = useState("Invoice");
+    const [invoiceId, setInvoiceId] = useState("");
 
     const handleClose = () => setShow(false);
 
     const showInvoice = async (invoice) => {
         setmData(invoice);
-        setTitle('Invoice #' + invoice.invoice_no)
+        setTitle('Invoice #' + invoice.invoice_no);
+        setInvoiceId(invoice.id);
         setShow(true);
     }
 
     useEffect(() => {
         if (newInvoice) {
-            console.log('newInvoice detected:', newInvoice);
             showInvoice(newInvoice);
         }
     }, [newInvoice]);
@@ -63,7 +64,8 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                         <Invoice invoice={mdata}></Invoice>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button onClick={handlePrint} className='btn btn-primary btn-sm text-overflow'>Print invoice</button>
+                        <a target='_blank' href={route('seller.invoices.print', invoiceId)} className='btn btn-primary btn-sm text-overflow'>Print <i className="bi bi-printer"></i></a>
+                        <a target='_blank' href={route('seller.invoices.download', invoiceId)} className='btn btn-primary btn-sm text-overflow'>Download <i className="bi bi-download"></i></a>
                     </Modal.Footer>
                 </Modal>
             </PermissionAllow>
@@ -110,28 +112,29 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                                                 {invoiceData.length ? (
                                                     <>
                                                         {invoiceData.map((invoice) => (
-                                                            <tr onClick={(e) => showInvoice(invoice)} key={invoice.id}>
-                                                                <td>
+                                                            <tr key={invoice.id}>
+                                                                <td onClick={(e) => showInvoice(invoice)}>
                                                                     #{invoice.invoice_no}
                                                                 </td>
-                                                                <td>
+                                                                <td onClick={(e) => showInvoice(invoice)}>
                                                                     <div>{invoice.name}</div>
                                                                     <div className="small">
                                                                         ${invoice.price} <small>/ {invoice.duration} month</small>
                                                                     </div>
                                                                 </td>
-                                                                <td>
+                                                                <td onClick={(e) => showInvoice(invoice)}>
                                                                     <div>{invoice.invoice_date}</div>
                                                                 </td>
-                                                                <td>
+                                                                <td onClick={(e) => showInvoice(invoice)}>
                                                                     <div>{invoice.expire_date}</div>
                                                                 </td>
-                                                                <td>
+                                                                <td onClick={(e) => showInvoice(invoice)}>
                                                                     <div>${invoice.total_amount}</div>
                                                                 </td>
                                                                 <td>
                                                                     <PermissionAllow permission="Invoice View">
-                                                                        <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
+                                                                        <button onClick={(e) => showInvoice(invoice)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
+                                                                        <a target='_blank' href={route('seller.invoices.download', invoice.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-download"></i></a>
                                                                     </PermissionAllow>
                                                                 </td>
                                                             </tr>
