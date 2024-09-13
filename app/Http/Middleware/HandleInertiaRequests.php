@@ -51,6 +51,7 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $this->errors(),
             ],
+            'captcha_validation_disable' => env('CAPTCHA_VALIDATION_DISABLE', false),
             'notifications' => $request->user() ? DashboardNotification::where('recipient_id', $request->user()->id)->whereNull('read_at')->get() : [],
         ];
     }

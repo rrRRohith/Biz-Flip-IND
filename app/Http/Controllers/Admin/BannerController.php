@@ -57,7 +57,7 @@ class BannerController extends Controller
         $new->picture_desktop = $imagePath ?? null;
         $new->picture_mobile= $imagePath2  ?? null;
         $new->position      = $request->position;
-        $new->status        = $request->status;
+        $new->status        = isset($request->status) ? 1 :0;
         try{
             $new->save();			
             return to_route('admin.banners.index')->with('success', 'Banner was created.');
@@ -136,7 +136,7 @@ class BannerController extends Controller
         $banner->new_window    = $request->new_window;	
   
         $banner->position      = $request->position;
-        $banner->status        = $request->status;
+        $banner->status        = isset($request->status) ? 1 :0;
         try{
             $banner->save();			
             return to_route('admin.banners.index')->with('success', 'Banner was updated.');

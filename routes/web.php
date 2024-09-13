@@ -5,7 +5,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use Mews\Captcha\Captcha;
 
+Route::get('captcha', [Captcha::class, 'create'])->name('captcha.create');
 
 // Route::get('buckets', function(){
 //     $disk = 's3';

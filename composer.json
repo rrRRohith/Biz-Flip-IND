@@ -15,6 +15,7 @@
         "league/flysystem-aws-s3-v3": "^3.28",
         "maatwebsite/excel": "^3.1",
         "masbug/flysystem-google-drive-ext": "*",
+        "mews/captcha": "^3.3",
         "spatie/laravel-backup": "^9.0",
         "spatie/laravel-permission": "^6.7",
         "staudenmeir/eloquent-has-many-deep": "^1.20",

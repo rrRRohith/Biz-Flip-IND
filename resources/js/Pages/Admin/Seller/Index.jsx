@@ -230,11 +230,10 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                 <Table className="table border-no" id="example1">
                                     <Thead>
                                         <Tr>
-                                            <Th>#</Th>
-                                            <Th>Name</Th>
+                                            {/* <Th>#</Th> */}
+                                            <Th>Full Name</Th>
                                             <Th>Email</Th>
                                             <Th>Mobile Number</Th>
-                                            <Th>Company Name</Th>
                                             <Th>Designation</Th>
                                             <Th className='text-center'>Status</Th>
                                             <Th>Last Modified</Th>
@@ -244,18 +243,26 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                     <Tbody>
                                         {displayList.slice(startIdx, endIdx).map((vendor) => (
                                             <Tr key={vendor.id} className="hover-primary">
-                                                <Td valign="middle">{vendor.id}</Td>
-                                                <Td valign="middle"  onClick={() => handleShow(vendor)} >
+                                                {/* <Td valign="middle">{vendor.id}</Td> */}
+                                                <Td valign="middle" className="d-flex" onClick={() => handleShow(vendor)} >
                                                     <img
                                                         src={vendor.picture}
                                                         className='w-30 h-30 me-3 rounded-circle'
                                                         alt={`${vendor.picture} icon`}
                                                         onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                    /> <span>{vendor.full_name}</span>
+                                                    />
+                                                    <div>
+         
+                                                    {vendor.company_name != '' && (
+                                                       <>
+                                                        <span className="text-fw-bold">{vendor.company_name}</span><br />
+                                                       </>
+                                                    )}
+                                                        <i>{vendor.full_name}</i>
+                                                    </div>
                                                 </Td>
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.email}</Td>
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.phone}</Td>
-                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.company_name}</Td>
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.designation}</Td>
                                                 <Td  onClick={() => handleShow(vendor)}  className='text-center'>
                                                     <div dangerouslySetInnerHTML={{ __html: window.statusIcon(vendor.status) }} />

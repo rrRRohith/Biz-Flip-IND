@@ -234,6 +234,39 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
 
                                                             <h4 className="col-lg-12 pb-30"><u>Contact Person </u></h4>
                                                             <div className="row">
+                                                            <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Company Name</InputLabel>
+                                                                        <TextInput
+                                                                            id="company_name"
+                                                                            type="text"
+                                                                            name="company_name"
+                                                                            className="form-control"
+                                                                            value={data.company_name}
+                                                                            onChange={(e) => handleChange("company_name", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.company_name} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Designation</InputLabel>
+                                                                        <TextInput
+                                                                            id="designation"
+                                                                            type="text"
+                                                                            name="designation"
+                                                                            className="form-control"
+                                                                            value={data.designation}
+                                                                            onChange={(e) => handleChange("designation", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.designation} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                              
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">First Name</InputLabel>
@@ -287,6 +320,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                         <TextInput
                                                                             id="phone"
                                                                             type="text"
+                                                                            maxlength="10"
                                                                             name="phone"
                                                                             className="form-control"
                                                                             value={data.phone}
@@ -297,21 +331,6 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Designation</InputLabel>
-                                                                        <TextInput
-                                                                            id="designation"
-                                                                            type="text"
-                                                                            name="designation"
-                                                                            className="form-control"
-                                                                            value={data.designation}
-                                                                            onChange={(e) => handleChange("designation", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.designation} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
 
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
@@ -356,6 +375,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                             id="postalcode"
                                                                             type="text"
                                                                             name="postalcode"
+                                                                            maxlength="8"
                                                                             className="form-control"
                                                                             value={data.postalcode}
                                                                             onChange={(e) => handleChange("postalcode", e.target.value)}
@@ -364,7 +384,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                         <InputError message={errors.postalcode} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-6 mb-3">
+                                                                <div className="col-md-3 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">City</InputLabel>
                                                                         <DynamicSelect
@@ -379,7 +399,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="col-md-6 mb-3">
+                                                                <div className="col-md-3 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Province</InputLabel>
                                                                         <DynamicSelect
@@ -390,6 +410,84 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                             defaultValue={data.province}
                                                                         />
                                                                         <InputError message={errors.province} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                  
+                                                                <div className="col-md-12 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
+                                                                        <textarea
+                                                                            id="description"
+                                                                            type="text"
+                                                                            name="description"
+                                                                            className="form-control"
+                                                                            rows={5}
+                                                                            value={data.description}
+                                                                            onChange={(e) => handleChange("description", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.description} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Latitude</InputLabel>
+                                                                        <TextInput
+                                                                            id="lat"
+                                                                            type="text"
+                                                                            name="lat"
+                                                                            className="form-control"
+                                                                            value={data.lat}
+                                                                            onChange={(e) => handleChange("lat", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.lat} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Longtitude</InputLabel>
+                                                                        <TextInput
+                                                                            id="long"
+                                                                            type="text"
+                                                                            name="long"
+                                                                            className="form-control"
+                                                                            value={data.long}
+                                                                            onChange={(e) => handleChange("long", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.long} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Website</InputLabel>
+                                                                        <TextInput
+                                                                            id="website"
+                                                                            type="text"
+                                                                            name="website"
+                                                                            className="form-control"
+                                                                            value={data.website}
+                                                                            onChange={(e) => handleChange("website", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.website} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
+                                                                        <Select
+                                                                            onChange={(e) => { handleChange('business_type', e.value) }}
+                                                                            defaultValue={{ value: data.business_type, label: data.business_type }}
+                                                                            name="business_type"
+                                                                            options={businessTypes.map(type => ({ value: type.id, label: type.label }))}
+                                                                        />
+                                                                        <InputError message={errors.business_type} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -428,213 +526,8 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                     </div>
 
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-12">
-                                                    <div className="row">
-                                                        <div className="col-lg-9">
-                                                            <div className="row">
-                                                                <h4 className="col-lg-12 pb-30"><u>Company Information</u></h4>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Company Name</InputLabel>
-                                                                        <TextInput
-                                                                            id="company_name"
-                                                                            type="text"
-                                                                            name="company_name"
-                                                                            className="form-control"
-                                                                            value={data.company_name}
-                                                                            onChange={(e) => handleChange("company_name", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.company_name} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
 
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Description</InputLabel>
-                                                                        <textarea
-                                                                            id="description"
-                                                                            type="text"
-                                                                            name="description"
-                                                                            className="form-control"
-                                                                            rows={5}
-                                                                            value={data.description}
-                                                                            onChange={(e) => handleChange("description", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.description} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Full Address</InputLabel>
-                                                                        <TextInput
-                                                                            id="full_address"
-                                                                            type="text"
-                                                                            name="full_address"
-                                                                            className="form-control"
-                                                                            value={data.full_address}
-                                                                            onChange={(e) => handleChange("full_address", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.full_address} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Latitude</InputLabel>
-                                                                        <TextInput
-                                                                            id="lat"
-                                                                            type="text"
-                                                                            name="lat"
-                                                                            className="form-control"
-                                                                            value={data.lat}
-                                                                            onChange={(e) => handleChange("lat", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.lat} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Longtitude</InputLabel>
-                                                                        <TextInput
-                                                                            id="long"
-                                                                            type="text"
-                                                                            name="long"
-                                                                            className="form-control"
-                                                                            value={data.long}
-                                                                            onChange={(e) => handleChange("long", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.long} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Company Email</InputLabel>
-                                                                        <TextInput
-                                                                            id="company_email"
-                                                                            type="text"
-                                                                            name="company_email"
-                                                                            className="form-control"
-                                                                            value={data.company_email}
-                                                                            onChange={(e) => handleChange("company_email", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.company_email} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Company Phone No</InputLabel>
-                                                                        <TextInput
-                                                                            id="company_phone"
-                                                                            type="text"
-                                                                            name="company_phone"
-                                                                            className="form-control"
-                                                                            value={data.company_phone}
-                                                                            onChange={(e) => handleChange("company_phone", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.company_phone} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Alternative Emails</InputLabel>
-                                                                        <TextInput
-                                                                            id="alt_email"
-                                                                            type="text"
-                                                                            name="alt_email"
-                                                                            className="form-control"
-                                                                            value={data.alt_email}
-                                                                            onChange={(e) => handleChange("alt_email", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.alt_email} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Alternative Phone No`s</InputLabel>
-                                                                        <TextInput
-                                                                            id="alt_phone"
-                                                                            type="text"
-                                                                            name="alt_phone"
-                                                                            className="form-control"
-                                                                            value={data.alt_phone}
-                                                                            onChange={(e) => handleChange("alt_phone", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.alt_phone} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Website</InputLabel>
-                                                                        <TextInput
-                                                                            id="website"
-                                                                            type="text"
-                                                                            name="website"
-                                                                            className="form-control"
-                                                                            value={data.website}
-                                                                            onChange={(e) => handleChange("website", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.website} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">No Employees</InputLabel>
-                                                                        <Select onChange={(e) => { handleChange('employee', e) }} defaultValue={{ value: data.employee, label: data.employee }} name="employee" options={employee_options}></Select>
-                                                                        <InputError message={errors.employee} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Business Type</InputLabel>
-                                                                        <Select
-                                                                            onChange={(e) => { handleChange('business_type', e.value) }}
-                                                                            defaultValue={{ value: data.business_type, label: data.business_type }}
-                                                                            name="business_type"
-                                                                            options={businessTypes.map(type => ({ value: type.id, label: type.label }))}
-                                                                        />
-                                                                        <InputError message={errors.business_type} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Feature Label</InputLabel>
-                                                                        <DynamicSelect
-                                                                            onChange={(value) => handleChange("featureLabel", value)}
-                                                                            value={data.featureLabel}
-                                                                            options={featureLabel}
-                                                                            name="featureLabel"
-                                                                            defaultValue={data.featureLabelName}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-
-
-
-
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-lg-3 ">
-                                                            <div className="row">
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="border bg-gray-100 rounded10 p-3  text-center">
+                                                                <div className="border bg-gray-100 rounded10 p-3 mt-10 text-center">
                                                                         <h4 className="box-title text-center">Logo</h4>
                                                                         <div className="product-img">
                                                                             {imagePreviewLogo ? (
@@ -668,6 +561,124 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                         </div>
 
                                                                     </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-lg-12">
+                                                    <div className="row d-none">
+                                                        <div className="col-lg-9">
+                                                            <div className="row">
+                                                                <h4 className="col-lg-12 pb-30"><u>Company Information</u></h4>
+                                                              
+
+                                                                <div className="col-md-12 mb-3 d-none">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Full Address</InputLabel>
+                                                                        <TextInput
+                                                                            id="full_address"
+                                                                            type="text"
+                                                                            name="full_address"
+                                                                            className="form-control"
+                                                                            value={data.full_address}
+                                                                            onChange={(e) => handleChange("full_address", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.full_address} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div className="col-md-6 mb-3 d-none">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Company Email</InputLabel>
+                                                                        <TextInput
+                                                                            id="company_email"
+                                                                            type="text"
+                                                                            name="company_email"
+                                                                            className="form-control"
+                                                                            value={data.company_email}
+                                                                            onChange={(e) => handleChange("company_email", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.company_email} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3 d-none">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Company Phone No</InputLabel>
+                                                                        <TextInput
+                                                                            id="company_phone"
+                                                                            type="text"
+                                                                            name="company_phone"
+                                                                            className="form-control"
+                                                                            value={data.company_phone}
+                                                                            onChange={(e) => handleChange("company_phone", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.company_phone} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="col-md-6 mb-3 d-none">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Alternative Emails</InputLabel>
+                                                                        <TextInput
+                                                                            id="alt_email"
+                                                                            type="text"
+                                                                            name="alt_email"
+                                                                            className="form-control"
+                                                                            value={data.alt_email}
+                                                                            onChange={(e) => handleChange("alt_email", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.alt_email} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3 d-none">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Alternative Phone No`s</InputLabel>
+                                                                        <TextInput
+                                                                            id="alt_phone"
+                                                                            type="text"
+                                                                            name="alt_phone"
+                                                                            className="form-control"
+                                                                            value={data.alt_phone}
+                                                                            onChange={(e) => handleChange("alt_phone", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.alt_phone} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3 d-none">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">No Employees</InputLabel>
+                                                                        <Select onChange={(e) => { handleChange('employee', e) }} defaultValue={{ value: data.employee, label: data.employee }} name="employee" options={employee_options}></Select>
+                                                                        <InputError message={errors.employee} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3 d-none">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Feature Label</InputLabel>
+                                                                        <DynamicSelect
+                                                                            onChange={(value) => handleChange("featureLabel", value)}
+                                                                            value={data.featureLabel}
+                                                                            options={featureLabel}
+                                                                            name="featureLabel"
+                                                                            defaultValue={data.featureLabelName}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-3 ">
+                                                            <div className="row">
+                                                                <div className="col-md-12 mb-3">
+                                                                  
                                                                 </div>
                                                                 <div className="col-md-12 mb-3">
 

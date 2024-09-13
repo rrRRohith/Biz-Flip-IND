@@ -188,7 +188,7 @@ export default function Index({ categoryList, auth }) {
                                                             <table className="table border-no " id="example1" {...provided.droppableProps} ref={provided.innerRef}>
                                                                 <thead>
                                                                     <tr>
-                                                                        <th></th>
+                                                                        <th>Move Position</th>
                                                                         <th>Name</th>
                                                                         <th className='text-center'>Status</th>
                                                                         <th className='text-center'>Last Modified</th>

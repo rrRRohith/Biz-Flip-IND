@@ -243,6 +243,39 @@ img.ad-image {
     top: 2px;
 }
 
+.hr-text:before {
+    content: "";
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+.hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    text-align: center;
+    height: 1.5em;
+    opacity: 0.5;
+}
+hr.hr-text {
+    background-color: transparent;
+}
+
+.hr-text:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: #777777;
+    padding: 0 0.5em;
+    line-height: 1.5em;
+    color: var(--bs-gray);
+    background-color: var(--bs-light);
+}
+
 .tree ul > li:last-child::after {
     height: 8px;
 }
@@ -280,7 +313,6 @@ iframe.listframe {
     min-height: 50vh;
 }
 
-
 .loader {
     position: fixed;
     top: 50%;
@@ -289,7 +321,6 @@ iframe.listframe {
     font-size: 1.5em;
     color: #007bff;
 }
-
 
 .navbar-vertical.navbar-expand-lg.show.contacts {
     min-width: 320px;

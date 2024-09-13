@@ -18,7 +18,7 @@ const ViewCategory = ({ collection, handleClose }) => {
                         <div className='col-lg-12'>
                             <div className='row'>
                                 <div className='col-lg-2'>
-                                    <img src={collection.icon} className='wd-100 me-3 rounded-circle' onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }} />
+                                    <img src={collection.icon} className='wd-100 me-3 ' onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }} />
                                 </div>
                                 <div className='col-lg-10'>
                                     <h3 className="mb-2 fw-bold">{collection.name}</h3>

@@ -20,7 +20,7 @@ class SellerStoreRequest extends FormRequest
             'firstname'     => ['required'],
             'lastname'      => ['required'],
             'email'         => ['required','email','max:255',Rule::unique('users'),'email'],
-            'phone'         => ['required','max:10'],
+            'phone'         => ['required','max:10','unique:users,phone'],
             'address'       => ['required'],
             'password'      => ['required','min:8'],
             'postalcode'    => ['required'],
