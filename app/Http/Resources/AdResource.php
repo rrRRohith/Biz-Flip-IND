@@ -25,7 +25,9 @@ class AdResource extends JsonResource
             'city' => $this->city,
             'slug' => $this->slug,
             'price' => $this->price,
+            'price_max' => $this->price_max,
             'price_text' => number_format($this->price, 2),
+            'price_max_text' => number_format($this->price_max, 2),
             'status' => $this->status,
             'unique_code' => $this->unique_code,
             'date_text' => \Carbon\Carbon::parse($this->created_at)->format('h:i a, d M'),
@@ -70,7 +72,8 @@ class AdResource extends JsonResource
             'total_leads' => $this->leads()->count(),
             'total_views' => $this->views()->count(),
             'created_at'  => $this->created_at,
-            'updated_at'  => $this->update_at,
+            'updated_at'  => $this->updated_at,
+            'ad_type' => $this->ad_type,
         ];
     }
 }

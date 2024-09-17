@@ -19,7 +19,7 @@ class AdRequest extends FormRequest
         $validationFactory->extend(
             'images',
             function($attribute, $value, $parameters){
-                return count($this->images ?? []) + count($this->uploaded_images ?? []) >= 3;
+                return $this->ad_type == 'wanted' || (count($this->images ?? []) + count($this->uploaded_images ?? []) >= 3);
             },
             'Please upload atleast 3 images for your ad.'
         );
@@ -36,6 +36,7 @@ class AdRequest extends FormRequest
         $rules = [
             'title' => 'required|max:256|string',
             'price' => 'required|numeric|min:0',
+            'price_max' => 'required_if:ad_type,wanted|numeric|gt:price',
             'images' => 'array|images',
             'uploaded_images' => 'array',
             'description' => 'required|string',
@@ -47,13 +48,13 @@ class AdRequest extends FormRequest
             // 'features.*' => 'exists:features,id',
             // 'facilities' => 'required|array',
             // 'facilities.*' => 'exists:facilities,id',
-            'address' => 'required|max:256|string',
+            'address' => 'required_if:ad_type,sale|max:256|string|nullable',
             'city' => 'required|max:256|string',
             'postalcode' => 'required|max:10|string',
             'province' => 'required|exists:provinces,name',
-            'lat' => 'required|max:256|string',
-            'lng' => 'required|max:256|string',
-            'map_link' => 'required|max:256|string',
+            'lat' => 'required_if:ad_type,sale|max:256|string|nullable',
+            'lng' => 'required_if:ad_type,sale|max:256|string|nullable',
+            'map_link' => 'required_if:ad_type,sale|max:256|string|nullable',
             'status' => 'required|in:0,1',
             'has_negotiable' => 'required|in:0,1',
             'has_commission' => 'required|in:0,1',
@@ -62,9 +63,10 @@ class AdRequest extends FormRequest
             'seo_title' => 'sometimes|nullable|max:256|string',
             'seo_tags' => 'sometimes|nullable|max:256|string',
             'seo_description' => 'sometimes|nullable|max:256|string',
+            'ad_type' => 'required|in:sale,wanted'
         ];
 
-        if($businessCategory->slug == 'franchise'){
+        if(($businessCategory->slug ?? null) == 'franchise'){
             $rules = array_merge($rules, [
                 'territories' => 'required|string',
                 'franchising_since' => 'required|string',

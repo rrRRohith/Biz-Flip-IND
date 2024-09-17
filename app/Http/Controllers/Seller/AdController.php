@@ -97,6 +97,8 @@ class AdController extends BaseController{
                 'seo_title',
                 'seo_keywords',
                 'seo_description',
+                'ad_type',
+                'price_max',
             ));
             $ad->update([
                 'unique_code' => $this->seller->unique_code.$ad->id,
@@ -207,6 +209,8 @@ class AdController extends BaseController{
                 'seo_title',
                 'seo_keywords',
                 'seo_description',
+                'ad_type',
+                'price_max',
             ));
             $ad->update([
                 'unique_code' => $this->seller->unique_code.$ad->id,

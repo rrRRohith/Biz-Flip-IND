@@ -43,6 +43,8 @@ class Ad extends Model
         'seo_keywords',
         'seo_description',
         'status',
+        'ad_type',
+        'price_max'
     ];
 
     

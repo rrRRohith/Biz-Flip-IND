@@ -50,6 +50,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
         _method: ad ? "PUT" : 'POST',
         title: ad ? ad.title : '',
         price: ad ? ad.price : '',
+        price_max: ad ? ad.price_max : '',
         space: ad ? ad.space : '',
         description: ad ? ad.description : '',
         property_type: ad ? ad.property_type : '',
@@ -86,7 +87,9 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
         total_investment: ad && ad.franchise ? ad.franchise.total_investment : '',
         in_business_since: ad && ad.franchise ? ad.franchise.in_business_since : '',
         franchising_since: ad && ad.franchise ? ad.franchise.franchising_since : '',
-        territories: ad && ad.franchise ? ad.franchise.territories : ''
+        territories: ad && ad.franchise ? ad.franchise.territories : '',
+        ad_type: ad && ad.ad_type ? ad.ad_type : 'sale',
+
     });
 
     const handleChange = (key, value) => {
@@ -217,6 +220,42 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                             </div>
                             <div>
                                 <form onSubmit={handleSubmit}>
+                                    {!ad && (
+                                        <>
+                                            <div className="mb-5">
+                                                <h4>Ad type</h4>
+                                                <p>Choose the type of ad you want to post. Select <strong>Sale</strong> if you're offering something for sale, lease, or rent. If you're looking to buy or are seeking something, select <strong>Wanted</strong></p>
+                                            </div>
+                                            <div className="row mb-4">
+                                                <div className="col-6">
+                                                    <div onClick={(e) => { setData('ad_type', 'sale') }} className={"card p-2 rounded-input " + (data.ad_type === 'sale' ? 'border-primary' : '')} role='button'>
+                                                        <div className="card-body p-4 text-center position-relative">
+                                                            {data.ad_type == 'sale' && (
+                                                                <div className="text-primary text-lg text-primary position-absolute top-0 end-0">
+                                                                    <i class="bi bi-check-circle"></i>
+                                                                </div>
+                                                            )}
+                                                            <h4 className={(data.ad_type === 'sale' ? 'text-primary' : '')}>Sale</h4>
+                                                            <div>List your ad as for sale</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-6">
+                                                    <div onClick={(e) => { setData('ad_type', 'wanted') }} className={"card rounded-input p-2 " + (data.ad_type === 'wanted' ? 'border-primary' : '')} role='button'>
+                                                        <div className="card-body p-4 text-center position-relative">
+                                                            {data.ad_type == 'wanted' && (
+                                                                <div className="text-primary text-lg text-primary position-absolute top-0 end-0">
+                                                                    <i class="bi bi-check-circle"></i>
+                                                                </div>
+                                                            )}
+                                                            <h4 className={(data.ad_type === 'wanted' ? 'text-primary' : '')}>Wanted</h4>
+                                                            <div>List your ad as for sale</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
                                     <div className="mb-5">
                                         <h4>Basic details</h4>
                                     </div>
@@ -233,34 +272,64 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                                 <InputError message={errors.title} />
                                             </div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <div><label>Price</label>
-                                                <input value={data.price} onChange={(e) => { handleChange('price', e.target.value) }} type="text" placeholder="Price" className="form-control" />
-                                                <InputError message={errors.price} />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Space/Length/Area</label>
-                                                <input value={data.space} onChange={(e) => { handleChange('space', e.target.value) }} type="text" placeholder="Space/Length/Area" className="form-control" />
-                                                <InputError message={errors.space} />
-                                            </div>
-                                        </div>
-                                        <div className="col-12">
-                                            <div className="form-check form-check-lg">
-                                                <input checked={data.has_negotiable == 1} onClick={(e) => handleChange('has_negotiable', e.target.checked ? 1 : 0)} role="button" className="form-check-input shadow-none border border-gray border-1 cursor-pointer" type="checkbox" defaultValue="true" id="has_negotiable" />
-                                                <label role="button" className="mt-1" htmlFor="has_negotiable">Is your price negotiable?</label>
-                                            </div>
-                                            <div className="text-muted small">Is your price negotiable?.</div>
-                                            <InputError message={errors.has_negotiable} />
-                                        </div>
-                                        <div className="col-12">
-                                            <div className="form-check form-check-lg">
-                                                <input checked={data.has_commission == 1} onClick={(e) => handleChange('has_commission', e.target.checked ? 1 : 0)} role="button" className="form-check-input shadow-none border border-gray border-1 cursor-pointer" type="checkbox" defaultValue="true" id="has_commission" />
-                                                <label role="button" className="mt-1" htmlFor="has_commission">Have commission?</label>
-                                            </div>
-                                            <div className="text-muted small">Do you have extra commission from buyer?.</div>
-                                            <InputError message={errors.has_commission} />
-                                        </div>
+                                        {data.ad_type == 'sale' ? (
+                                            <>
+                                                <div className="col-md-6">
+                                                    <div><label>Price</label>
+                                                        <input value={data.price} onChange={(e) => { handleChange('price', e.target.value) }} type="text" placeholder="Price" className="form-control" />
+                                                        <InputError message={errors.price} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div><label>Space/Length/Area</label>
+                                                        <input value={data.space} onChange={(e) => { handleChange('space', e.target.value) }} type="text" placeholder="Space/Length/Area" className="form-control" />
+                                                        <InputError message={errors.space} />
+                                                    </div>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="col-md-4">
+                                                    <div><label>Price min</label>
+                                                        <input value={data.price} onChange={(e) => { handleChange('price', e.target.value) }} type="text" placeholder="Price min" className="form-control" />
+                                                        <InputError message={errors.price} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <div><label>Price max</label>
+                                                        <input value={data.price_max} onChange={(e) => { handleChange('price_max', e.target.value) }} type="text" placeholder="Price max" className="form-control" />
+                                                        <InputError message={errors.price_max} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <div><label>Space/Length/Area</label>
+                                                        <input value={data.space} onChange={(e) => { handleChange('space', e.target.value) }} type="text" placeholder="Space/Length/Area" className="form-control" />
+                                                        <InputError message={errors.space} />
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+
+                                        {data.ad_type == 'sale' && (
+                                            <>
+                                                <div className="col-12">
+                                                    <div className="form-check form-check-lg">
+                                                        <input checked={data.has_negotiable == 1} onClick={(e) => handleChange('has_negotiable', e.target.checked ? 1 : 0)} role="button" className="form-check-input shadow-none border border-gray border-1 cursor-pointer" type="checkbox" defaultValue="true" id="has_negotiable" />
+                                                        <label role="button" className="mt-1" htmlFor="has_negotiable">Is your price negotiable?</label>
+                                                    </div>
+                                                    <div className="text-muted small">Is your price negotiable?.</div>
+                                                    <InputError message={errors.has_negotiable} />
+                                                </div>
+                                                <div className="col-12">
+                                                    <div className="form-check form-check-lg">
+                                                        <input checked={data.has_commission == 1} onClick={(e) => handleChange('has_commission', e.target.checked ? 1 : 0)} role="button" className="form-check-input shadow-none border border-gray border-1 cursor-pointer" type="checkbox" defaultValue="true" id="has_commission" />
+                                                        <label role="button" className="mt-1" htmlFor="has_commission">Have commission?</label>
+                                                    </div>
+                                                    <div className="text-muted small">Do you have extra commission from buyer?.</div>
+                                                    <InputError message={errors.has_commission} />
+                                                </div>
+                                            </>
+                                        )}
                                         {data.has_commission == 1 && (
                                             <>
                                                 <div className="col-md-6">
@@ -325,15 +394,23 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                         </>
                                     )}
                                     <div className="mb-5">
-                                        <h4>Address</h4>
+                                        {data.ad_type == 'sale' ? (
+                                            <h4>Address</h4>
+                                        ) : (
+                                            <h4>Prefered Location</h4>
+                                        )}
+
                                     </div>
                                     <div className="row g-5 mb-5">
-                                        <div className="col-md-6">
-                                            <div><label>Address</label>
-                                                <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Address" className="form-control" />
-                                                <InputError message={errors.address} />
+                                        {data.ad_type == 'sale' && (
+                                            <div className="col-md-6">
+                                                <div><label>Address</label>
+                                                    <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Address" className="form-control" />
+                                                    <InputError message={errors.address} />
+                                                </div>
                                             </div>
-                                        </div>
+                                        )}
+
                                         <div className="col-md-6">
                                             <div><label>City</label>
                                                 <input value={data.city} onChange={(e) => { handleChange('city', e.target.value) }} type="text" placeholder="City" className="form-control" />
@@ -352,24 +429,28 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                                 <InputError message={errors.province} />
                                             </div>
                                         </div>
-                                        <div className="col-md-12">
-                                            <div><label>Map link</label>
-                                                <input value={data.map_link} onChange={(e) => { handleChange('map_link', e.target.value) }} type="text" placeholder="Map link" className="form-control" />
-                                                <InputError message={errors.map_link} />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Latitude</label>
-                                                <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="text" placeholder="Latitude" className="form-control" />
-                                                <InputError message={errors.lat} />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div><label>Longitude</label>
-                                                <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="text" placeholder="Longitude" className="form-control" />
-                                                <InputError message={errors.lng} />
-                                            </div>
-                                        </div>
+                                        {data.ad_type == 'sale' && (
+                                            <>
+                                                <div className="col-md-12">
+                                                    <div><label>Map link</label>
+                                                        <input value={data.map_link} onChange={(e) => { handleChange('map_link', e.target.value) }} type="text" placeholder="Map link" className="form-control" />
+                                                        <InputError message={errors.map_link} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div><label>Latitude</label>
+                                                        <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="text" placeholder="Latitude" className="form-control" />
+                                                        <InputError message={errors.lat} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div><label>Longitude</label>
+                                                        <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="text" placeholder="Longitude" className="form-control" />
+                                                        <InputError message={errors.lng} />
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
                                     </div>
                                     <hr />
                                     <div className="mb-5">
@@ -472,9 +553,9 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                         <div className="col-12">
                                             <div className="form-check form-check-lg">
                                                 <input checked={data.status == 1} onClick={(e) => handleChange('status', e.target.checked ? 1 : 0)} role="button" className="form-check-input shadow-none border border-gray border-1 cursor-pointer" type="checkbox" name="publish_property" defaultValue="true" id="publish_property" />
-                                                <label role="button" className="mt-1" htmlFor="publish_property">Publish property</label>
+                                                <label role="button" className="mt-1" htmlFor="publish_property">Publish ad</label>
                                             </div>
-                                            <div className="text-muted small">Your property will not visible to your clients if not published.</div>
+                                            <div className="text-muted small">Your ad will not visible to your clients if not published.</div>
                                             <InputError message={errors.status} />
                                         </div>
                                         <div className="col-12 text-end">
