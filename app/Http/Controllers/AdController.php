@@ -70,7 +70,7 @@ class AdController extends BaseController{
             $request->only('email', 'phone'), $request->only('firstname', 'lastname', 'message')
         );
 
-        $lead->update()->update([
+        $lead->update([
             'customer_id' => auth()->user()->id ?? null,
             'seller_id' => $ad->seller_id,
         ]);
