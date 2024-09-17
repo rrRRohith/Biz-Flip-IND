@@ -56,9 +56,11 @@ class AgentController extends BaseController{
 
     public function update(LeadRequest $request, \App\Models\Seller $agent){
         $agent = User::sellers()->findOrfail($agent->user_id);
-        $agent->leads()->firstOrCreate(
+        $lead = $agent->leads()->firstOrCreate(
             $request->only('email', 'phone'), $request->only('firstname', 'lastname', 'message')
-        )->update([
+        );
+        
+        $lead->update([
             'customer_id' => auth()->user()->id ?? null,
         ]);
 

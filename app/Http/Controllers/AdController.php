@@ -66,9 +66,11 @@ class AdController extends BaseController{
     }
 
     public function update(LeadRequest $request, Ad $ad){
-        $ad->leads()->firstOrCreate(
+        $lead = $ad->leads()->firstOrCreate(
             $request->only('email', 'phone'), $request->only('firstname', 'lastname', 'message')
-        )->update([
+        );
+
+        $lead->update()->update([
             'customer_id' => auth()->user()->id ?? null,
             'seller_id' => $ad->seller_id,
         ]);

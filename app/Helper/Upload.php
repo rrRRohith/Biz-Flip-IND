@@ -30,7 +30,8 @@ trait Upload{
     public function uploadFile($file, string $path, int $maxWidth = null, int $maxHeight = null, string $ratio = null){
         try {
             return $this->pushFIle($file, $path, $maxWidth, $maxHeight, $ratio);
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
         return null;
     }
 
