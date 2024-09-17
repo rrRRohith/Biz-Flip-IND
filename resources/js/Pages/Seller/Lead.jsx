@@ -82,9 +82,9 @@ export default function ({ lead, attendLead, sold }) {
                     <tr>
                         <td>
                             Status.
-                        </td>
+                        </td>attendLead
                         <td>
-                            <LeadStatusBtn sold={sold} lead={lead}></LeadStatusBtn>
+                            <LeadStatusBtn attendLead={attendLead} sold={sold} lead={lead}></LeadStatusBtn>
                         </td>
                     </tr>
                     {lead.attender && (
