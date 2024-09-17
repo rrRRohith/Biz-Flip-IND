@@ -28,6 +28,9 @@
                                     <a href="{{ url('/auth') }}"
                                         class="mt-5 btn-lg fs-6 btn btn-outline-dark shadow-none rounded-5 px-5 fw-semibold">Sign
                                         up for free</a>
+                                @elseif(auth()->check() && $plan->default == '1')
+                                    <button @disabled(true) href="#"
+                                class="mt-5 btn-lg fs-6 btn btn-outline-dark shadow-none rounded-5 px-5 fw-semibold">Not available</button>
                                 @else
                                     <a href="{{ route('seller.plans.show', ['plan' => $plan]) }}" class="mt-5 btn-lg fs-6 btn btn-dark shadow-none rounded-5 px-5 fw-semibold">Get
                                         started</a>
