@@ -1,0 +1,173 @@
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+:root {
+    --app-font: "Mulish", sans-serif;
+}
+
+body {
+    font-family: var(--app-font) !important;
+}
+
+.navbar-brand img {
+    max-width: 150px !important;
+    height: unset !important;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1em !important;
+}
+
+a.navbar-brand.top {
+    opacity: 0;
+    pointer-events: none;
+}
+
+nav#navbarVertical {
+    z-index: 1049;
+}
+
+.w-h-50 {
+    width: 50px;
+    height: 50px;
+}
+
+.w-h-60 {
+    width: 60px;
+    height: 60px;
+}
+
+.w-h-70 {
+    width: 70px;
+    height: 70px;
+}
+
+.image-fit {
+    object-fit: cover;
+    object-position: center center Im !important;
+}
+
+.avatar-big {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+@media only screen and (min-width: 992px) {
+    nav#navbarVertical {
+        position: sticky;
+        top: 0;
+    }
+}
+
+
+@media only screen and (max-width: 992px) {
+    .dropdown-menu.profile-dropdown {
+        border-radius: 0px;
+        top: 68px;
+        right: -12px !important;
+        height: calc(100vh - 84px);
+        overflow-y: auto;
+    }
+}
+
+
+
+.table thead th,
+.table td {
+    font-size: unset;
+    text-transform: unset;
+}
+
+
+.form-control,
+.form-select,
+.btn,
+.card {
+    border-width: 2px;
+}
+
+.form-control:focus {
+    -webkit-box-shadow: inset 0 1px 1px rgba(31, 45, 61, .075), 0 0 20px rgba(110, 0, 255, .1);
+    box-shadow: inset 0 1px 1px rgba(31, 45, 61, .075), 0 0 20px rgba(110, 0, 255, .1);
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: .25em;
+}
+
+.form-check .form-check-input {
+    float: left;
+    margin-left: -1.5em;
+}
+
+.form-check-lg input {
+    zoom: 1.4;
+}
+
+.form-check-lg {
+    padding-left: 2em !important;
+}
+
+.rounded-input {
+    border-radius: .375rem;
+}
+
+.dropdown-menu {
+    font-size: unset !important;
+}
+
+.form-check-input:checked[type=radio] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23FFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+
+
+.avatar img {
+    border-radius: inherit;
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+}
+
+.avatar {
+    object-fit: cover;
+}
+
+.ck.ck-content.ck-editor__editable {
+    min-height: 300px;
+    /* Set your desired height */
+}
+
+
+.mw-200 {
+    max-width: 200px !important;
+}
+
+.navbar-vertical.navbar-expand-lg.show {
+    min-width: 270px;
+}
+
+/* .seller-top-navbar{
+    margin-left: 270px;
+} */
+
+.whitespace-wrap,
+.table td.whitespace-wrap {
+    white-space: unset !important;
+}
+
+.rs-picker-input-group.rs-input-group.rs-input-group-inside {
+    height: 48px !important;
+    border-width: 2px;
+    box-shadow: none !important;
+    border-color: #e7eaf0 !important;
+}
+
+.rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus,
+.rs-input-group:focus-within {
+    border-color: var(--x-primary) !important;
+    border-color: var(--x-primary) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}

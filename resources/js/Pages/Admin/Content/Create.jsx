@@ -1,0 +1,225 @@
+// Create.jsx
+
+import React, { useState, useRef, useEffect } from "react";
+import { Head, Link, useForm } from "@inertiajs/react";
+import Authenticated from '@/Layouts/AdminAuthenticated';
+import InputError from '@/Components/InputError';
+import TextInput from '@/Components/TextInput';
+import InputLabel from '@/Components/InputLabel';
+import RadioButtonLabel from '@/Components/RadioButtonLabel';
+import EmailEditor from 'react-email-editor';
+import PermissionAllow from "@/Components/PermissionAllow";
+import DynamicSelect from "@/Components/DynamicSelect";
+import Form from 'react-bootstrap/Form';
+
+
+export default function Create({ auth,imageList }) {
+  const images = Object.entries(imageList).map(([key, value]) => ({
+    value: key,
+    label: value
+  }));
+
+  const [editorDesign, setEditorDesign] = useState(null);
+  const { data, setData, post, errors, reset } = useForm({
+    title: '',
+    status: 1,
+    seo_title: '',
+    seo_keywords: '',
+    seo_description: '',
+    image: '',
+    pageContent: ''
+  });
+
+
+  const handleChange = (key, value) => {
+    setData(key, value);
+  };
+
+
+  const emailEditorRef = useRef(null);
+
+
+  useEffect(() => {
+    setData('pageContent', editorDesign);
+  }, [editorDesign]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    post(route('admin.content-page.store'));
+  };
+
+  const onDesignChange = () => {
+    emailEditorRef.current.editor.exportHtml((data3) => {
+      const { design, html } = data3;
+      setEditorDesign({
+          design : design,
+          html : html,
+      });
+    });
+  };
+
+
+  return (
+    <Authenticated
+      user={auth.user}
+      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Content Page/Create</h2>}
+    >
+      <Head title="Content Page Create" />
+      <div className="content-wrapper me-4">
+        <div className="container-full">
+          <div className="content-header">
+            <div className='row'>
+              <div className='col-lg-6'>
+                <div className="d-flex flex-column">
+                  <h4 className="page-title"> Create Content Page</h4>
+                  <div className="d-inline-block align-items-center mt-2">
+                    <nav>
+                      <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
+                        <PermissionAllow permission={'Content Pages Listing'}>
+                        <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Content Page</Link></li>
+                        </PermissionAllow>
+                        <li className="breadcrumb-item active" aria-current="page">Create</li>
+                      </ol>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+              <div className='col-lg-6'></div>
+            </div>
+          </div>
+
+          <section className="content">
+            <div className="row">
+              <div className="col-12">
+                <div className="box">
+                  <div className="box-body">
+                    <PermissionAllow permission={'Content Page Create'} message={true}>
+                      <form onSubmit={handleSubmit}>
+                        <div className="form-body">
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="row">
+                                <div className="col-md-6 mb-3">
+                                  <div className="form-group">
+                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Title</InputLabel>
+                                    <TextInput
+                                      id="title"
+                                      type="text"
+                                      name="title"
+                                      className="form-control"
+                                      value={data.title}
+                                      onChange={(e) => handleChange("title", e.target.value)}
+                                      autoComplete="off"
+                                    />
+                                    <InputError message={errors.title} className="mt-2 col-12" />
+                                  </div>
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <div className="form-group">
+                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Page Top Image</InputLabel>
+                                        <DynamicSelect
+                                            onChange={(value) => handleChange("image", value)}
+                                            value={data.image}
+                                            options={images}
+                                            name="image"
+                                        />
+                                        <InputError message={errors.image} className="mt-2 col-12" />
+
+                                    </div>
+                                </div>
+                                
+                                <div className="col-md-6 mb-3">
+                                  <div className="form-group">
+                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Title</InputLabel>
+                                    <TextInput
+                                      id="seo_title"
+                                      type="text"
+                                      name="seo_title"
+                                      className="form-control"
+                                      value={data.seo_title}
+                                      onChange={(e) => handleChange("seo_title", e.target.value)}
+                                      autoComplete="off"
+                                    />
+                                    <InputError message={errors.seo_title} className="mt-2 col-12" />
+                                  </div>
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                  <div className="form-group">
+                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Keywords</InputLabel>
+                                    <TextInput
+                                      id="seo_keywords"
+                                      type="text"
+                                      name="seo_keywords"
+                                      className="form-control"
+                                      value={data.seo_keywords}
+                                      onChange={(e) => handleChange("seo_keywords", e.target.value)}
+                                      autoComplete="off"
+                                    />
+                                    <InputError message={errors.seo_keywords} className="mt-2 col-12" />
+                                  </div>
+                                </div>
+                                <div className="col-md-12 mb-3">
+                                  <div className="form-group">
+                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Description</InputLabel>
+                                    <TextInput
+                                      id="seo_description"
+                                      type="text"
+                                      name="seo_description"
+                                      className="form-control"
+                                      value={data.seo_description}
+                                      onChange={(e) => handleChange("seo_description", e.target.value)}
+                                      autoComplete="off"
+                                    />
+                                    <InputError message={errors.seo_description} className="mt-2 col-12" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="form-group">
+                                <InputLabel className="fw-700 fs-16 form-label form-label">Content</InputLabel>
+                                <InputError message={errors.pageContent} className="mt-2 col-12" />
+                                <EmailEditor ref={emailEditorRef}  onLoad={() => {
+                                  emailEditorRef.current.editor.addEventListener('design:updated', onDesignChange);
+                                }} />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row">
+                              <div className="col-md-6">
+                                  <div className="form-group ps-3 ">
+                                      <label className="fw-700  form-label">Status</label>
+                                      <Form.Check
+                                          type="switch"
+                                          id="custom-switch"
+                                          name="status"
+                                          label="Publish"
+                                          role="button"
+                                          checked={data.status === 1}
+                                          onChange={(e) => handleChange('status', e.target.checked ? 1 : 0)}
+
+                                      />
+                                      <InputError message={errors.status} className="mt-2 col-12" />
+
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="form-actions mt-3 text-center">
+                            <button type="submit" className="btn btn-primary me-2">Save</button>
+                          </div>
+                        </div>
+                      </form>
+                    </PermissionAllow>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </Authenticated>
+  );
+}
