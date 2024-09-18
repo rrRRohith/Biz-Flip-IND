@@ -60,7 +60,7 @@ export default function ProfileDropdown({ user }) {
                             <i className="bi bi-people me-3"></i>Staffs </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Role and Responsibilities Listing">
-                        <Link className="dropdown-item" href="/seller/roles">
+                        <Link className="dropdown-item" href="/seller/staffs/roles">
                             <i class="bi bi-person-gear me-3"></i>Staff roles </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Settings">

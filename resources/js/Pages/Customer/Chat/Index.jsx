@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head, Link } from '@inertiajs/react';
-import Wrapper from '../layout/Wrapper';
+import Wrapper from '@/Pages/Seller/layout/Wrapper';
 import Chat from './Chat';
 
 

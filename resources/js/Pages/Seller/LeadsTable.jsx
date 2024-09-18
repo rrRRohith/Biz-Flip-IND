@@ -53,12 +53,12 @@ export default function ({ leads, confirmDelete, minimal = false, searchResult }
                         <tr>
                             {!minimal && (
                                 <>
-                                <th scope="col">Client</th>
-                                <th>
-                                    <PermissionAllow permission="Ad Lead Show">
-                                        <th scope="col">Message</th>
-                                    </PermissionAllow>
-                                </th>
+                                    <th scope="col">Client</th>
+                                    <th>
+                                        <PermissionAllow permission="Ad Lead Show">
+                                            <th scope="col">Message</th>
+                                        </PermissionAllow>
+                                    </th>
                                 </>
                             )}
                             <th scope="col">Ad</th>
@@ -80,39 +80,45 @@ export default function ({ leads, confirmDelete, minimal = false, searchResult }
                                 {leads.map((lead) => (
                                     <tr key={lead.id} >
                                         {!minimal && (
-                                        <>
-                                        <td onClick={(e) => showLead(lead)}>
-                                            <div>
-                                                {lead.firstname} {lead.lastname}
-                                            </div>
-                                        </td>
-                                        <PermissionAllow permission="Ad Lead Show">
-                                        <td className='text-overflow mw-200' onClick={(e) => showLead(lead)}>
-                                            {lead.message}
-                                        </td>
-                                    </PermissionAllow>
-                                        </>
+                                            <>
+                                                <td onClick={(e) => showLead(lead)}>
+                                                    <div>
+                                                        {lead.firstname} {lead.lastname}
+                                                    </div>
+                                                </td>
+                                                <PermissionAllow permission="Ad Lead Show">
+                                                    <td className='text-overflow mw-200' onClick={(e) => showLead(lead)}>
+                                                        {lead.message}
+                                                    </td>
+                                                </PermissionAllow>
+                                            </>
                                         )}
                                         <td onClick={(e) => showLead(lead)}>
-                                            <div>
+                                            <div className="text-overflow w-40">
                                                 {lead.ad.title}
                                             </div>
                                             {!minimal && (
-                                            <div className="small text-muted">
-                                                {lead.ad.city}
-                                            </div>
+                                                <div className="small text-muted">
+                                                    {lead.ad.city}
+                                                </div>
                                             )}
                                         </td>
                                         <td onClick={(e) => showLead(lead)}>
-                                            {lead.date_text}
+                                            <div className="text-overflow w-40">
+                                                {lead.date_text}
+                                            </div>
+
                                         </td>
                                         {!minimal && (
                                             <>
                                                 <td onClick={(e) => showLead(lead)}>
-                                                        {lead.email}
+                                                    <div className="text-overflow w-40">
+                                                    {lead.email}
+                                                    </div>
+                                                    
                                                 </td>
                                                 <td onClick={(e) => showLead(lead)}>
-                                                        {lead.phone}
+                                                    {lead.phone}
                                                 </td>
                                             </>
                                         )}
@@ -124,9 +130,9 @@ export default function ({ leads, confirmDelete, minimal = false, searchResult }
                                                 <button onClick={(e) => showLead(lead)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
                                             </PermissionAllow>
                                             {!minimal && (
-                                            <PermissionAllow permission="Ad Lead Edit">
-                                                <button onClick={(e) => confirmDelete(lead.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
-                                            </PermissionAllow>
+                                                <PermissionAllow permission="Ad Lead Edit">
+                                                    <button onClick={(e) => confirmDelete(lead.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                </PermissionAllow>
                                             )}
                                         </td>
                                     </tr>
