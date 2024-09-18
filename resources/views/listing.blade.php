@@ -27,7 +27,11 @@
             <div class="col-lg-8 mb-4 m-lg-0">
                 <div>
                     <h1 class="fs-2 fw-semibold">{{ $ad->title }}</h1>
+                    @if($ad->ad_type == 'wanted')
+                    <div class="fs-5 fw-semibold">${{ number_format($ad->price) }} - ${{ number_format($ad->price_max) }}</div>
+                    @else
                     <div class="fs-5 fw-semibold">${{ number_format($ad->price) }}</div>
+                    @endif
                     @if ($ad->is_franchise)
                         @include('franchise')
                     @endif
@@ -111,6 +115,7 @@
                 <div class="mt-4">
                     {!! $ad->description !!}
                 </div>
+                @if($ad->ad_type == 'sale')
                 <div class='mt-4 mb-4 not-embed'>
                     <div class="fw-semibold mb-3 fs-5">
                         Locate {{ $ad->title }}
@@ -118,6 +123,7 @@
                     <iframe class="w-100 rounded-1 mh-400px"
                         src= "https://maps.google.com/maps?q={{ $ad->lat }},{{ $ad->lng }}&hl=es;z=14&output=embed"></iframe>
                 </div>
+                @endif
                 <div class="mb-4 not-embed">
                     <a role="button" data-url="{{ request()->url() }}" data-title="{{ $ad->title }}"
                         class='share btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>

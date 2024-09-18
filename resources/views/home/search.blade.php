@@ -5,10 +5,10 @@
             Search over 1000s of places nearby you.
         </div>
     </div>
+    <form action="{{ route('ads.index') }}" class="position-relative">
     <div class="d-none d-md-block">
-        <div class="card border-0 rounded-4 mw-1100 m-auto w-100">
-            <div class="card-body w-100 p-3 sideFilters">
-                <form action="{{ route('ads.index') }}" class="position-relative">
+        <div class="card border-0 rounded-4 mw-1100 m-auto w-100 mainFilter">
+            <div class="card-body w-100 p-3 sideFilters ">
                     @if ($business_categories->count())
                         <div class="position-absolute business-categories z-1 w-100">
                             <div class="bg-white w-fit-content m-auto shadow-sm p-2 pb-0 px-3 rounded-2">
@@ -276,10 +276,31 @@
                             <i class="bi bi-search m-auto"></i>
                         </button>
                     </div>
-                </form>
+                
+            </div>
+        </div>
+        <div class="w-auto d-flex mt-2">
+            <div class="d-flex bg-white p-1 algin-items-center rounded-4">
+                <div class="">
+                    <input v-model="sharedState.type" hidden type="radio" id="type_sale" name="type" value="sale">
+                    <label for="type_sale" :class="['btn', 'rounded-4', 'btn-sm', 'border-0',
+                    {
+                        'btn-dark': sharedState.type == 'sale'
+                    }
+                ]" for="">Sale</label>
+                </div>
+                <div class="">
+                    <input v-model="sharedState.type" hidden type="radio" id="type_wanted" name="type" value="wanted">
+                    <label for="type_wanted" :class="['btn', 'rounded-4', 'btn-sm', 'border-0',
+                    {
+                        'btn-dark': sharedState.type == 'wanted'
+                    }
+                ]" for="">Wanted</label>
+                </div>
             </div>
         </div>
     </div>
+    </form>
     <div class="d-md-none">
         <div role="button" class="card border-0 mw-500 m-auto w-100 rounded-4" data-bs-toggle="modal"
             data-bs-target="#searchModal">
@@ -546,6 +567,28 @@
                                                 class="range-slider__input" />
                                         </div>
                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input v-model="sharedState.type" hidden type="radio" id="type_sale_mob" name="type" value="sale">
+                                    <label for="type_sale_mob" :class="['btn text-center w-100 border-0 py-2 rounded-1',
+                                    {
+                                        'btn-dark': sharedState.type == 'sale',
+                                        'bg-white': sharedState.type != 'sale'
+                                    }
+                                ]" for="">Sale</label>
+                                </div>
+                                <div class="col-6">
+                                    <input v-model="sharedState.type" hidden type="radio" id="type_wanted_mob" name="type" value="wanted">
+                                    <label for="type_wanted_mob" :class="['btn text-center w-100 border-0 py-2 rounded-1',
+                                    {
+                                        'btn-dark': sharedState.type == 'wanted',
+                                        'bg-white': sharedState.type != 'wanted',
+                                    }
+                                ]" for="">Wanted</label>
                                 </div>
                             </div>
                         </div>

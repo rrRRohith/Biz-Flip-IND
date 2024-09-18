@@ -44,9 +44,11 @@
         let priceEnd = '{{ $request->priceEnd ?? 9999999 }}';
         let bcategory = '{{ $request->bcategory ?? 'all' }}';
         let country = '{{ $request->country ?? 'all' }}';
+        let adType = '{{ $request->type ?? 'sale' }}';
         const store = reactive({
             q: '{{ $request->q }}',
             aq: '{{ $request->aq }}',
+            type:adType,
             listingType: '{{ $request->listingType }}',
             priceStart: priceStart,
             priceEnd: priceEnd,

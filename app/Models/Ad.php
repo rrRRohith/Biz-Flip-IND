@@ -101,7 +101,8 @@ class Ad extends Model
             return $q->where(fn($q) => $q->where('title', 'LIKE', "%{$request->q}%")
             ->orWhere('address', 'LIKE', "%{$request->q}%")
             ->orWhere('city', 'LIKE', "%{$request->q}%"));
-        });
+        })->when($request->type == 'wanted', fn($q) => $q->wanted())
+        ->when($request->type == 'sale', fn($q) => $q->sale());
     }
 
     public function scopeAgent_search($q, Request $request){
@@ -146,5 +147,13 @@ class Ad extends Model
 
     public function getIsFranchiseAttribute(){
         return ($this->business_category->slug ?? null) == 'franchise' && $this->franchise()->exists();
+    }
+
+    public function scopeWanted($q){
+        return $q->whereAdType('wanted');
+    }
+
+    public function scopeSale($q){
+        return $q->whereAdType('sale');
     }
 }

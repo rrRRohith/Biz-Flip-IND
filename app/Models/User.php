@@ -76,7 +76,7 @@ class User extends Authenticatable
 
     public function scopeSellers($q)
     {
-        return $q->whereType('seller')->whereHas('seller');
+        return $q->whereType('seller')->whereHas('seller', fn($q) => $q->whereHasPublicView(1));
     }
 
     public function getPictureAttribute($picture){

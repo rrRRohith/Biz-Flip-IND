@@ -871,3 +871,7 @@ body.embeded .not-embed {
 .embeded .container {
   max-width: 100%;
 }
+
+/* .card.mainFilter {
+  border-bottom-left-radius: 0px !important;
+} */
