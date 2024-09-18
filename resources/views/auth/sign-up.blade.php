@@ -112,7 +112,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Phone</label>
                                                 <input x-mask="(999) 999-9999" form="authForm" name="phone" type="text" autocomplete="off"
-                                                    placeholder='' autocomplete="off" maxlength="14"
+                                                    placeholder='Enter your phone' autocomplete="off" maxlength="14"
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
