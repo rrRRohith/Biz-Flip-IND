@@ -49,7 +49,7 @@ const socials = [
     { id: 'linkedin', label: 'Linkedin' },
 ];
 
-export default function SettingsForm({ seller, province_options }) {
+export default function SettingsFormMininal({ seller, province_options, handleClose }) {
     const [checkedDays, setCheckedDays] = useState(seller.days);
     const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
 
@@ -106,7 +106,7 @@ export default function SettingsForm({ seller, province_options }) {
         }), {
             preserveScroll: true,
             onSuccess: () => {
-
+                handleClose(false);
             },
         });
     };
@@ -242,73 +242,10 @@ export default function SettingsForm({ seller, province_options }) {
                             <InputError message={errors.phone} />
                         </div>
                     </div>
-                    <div className="mb-5">
-                        <h4>Office working days</h4>
-                    </div>
-                    <div className="card mb-5 rounded-input">
-                        <div className="card-body">
-                            <div className="">
-                                {days.map((day) => (
-                                    <div key={day.id} className="form-check form-check-lg">
-                                        <input
-                                            role="button"
-                                            className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
-                                            type="checkbox"
-                                            id={`office_${day.id}`}
-                                            checked={checkedDays[day.id]}
-                                            onChange={() => handleCheckboxChange(day.id)}
-                                        />
-                                        <label role="button" className="mt-1" htmlFor={`office_${day.id}`}>
-                                            {day.label} {checkedDays[day.id] ? <span className="text-success">(opened)</span> : <span className="text-danger">(closed)</span>}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="mb-5">
-                        <h4>Social media</h4>
-                    </div>
-                    <div>
-                        <table>
-                            {socials.map((social) => (
-                                <tr key={social.id}>
-                                    <td>
-                                        <div className="me-2">
-                                            <div className="form-check form-check-lg">
-                                                <input
-                                                    role="button"
-                                                    className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
-                                                    type="checkbox"
-                                                    id={`social_${social.id}`}
-                                                    checked={checkedSocials[social.id]}
-                                                    onChange={() => handleSocialCheckboxChange(social.id)}
-                                                />
-                                                <label role="button" className="mt-1" htmlFor={`social_${social.id}`}>
-                                                    {social.label}
-
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <small>Set your {social.label} page link</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        {checkedSocials[social.id] && (
-                                            <div>
-                                                <input value={data[social.id]} onChange={(e) => { handleChange(social.id, e.target.value) }} type="text" placeholder={`${social.label} page`} className="form-control" />
-                                            </div>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                        </table>
-                    </div>
                     <div className="row g-5">
 
                         <div className="col-12 text-end">
-                            <button type="button" className="btn btn-neutral me-2">Cancel</button>
+                            <button onClick={handleClose} type="button" className="btn btn-neutral me-2">Cancel</button>
                             <button type="submit" className="btn btn-primary">Save changes</button></div>
                     </div>
                 </form>

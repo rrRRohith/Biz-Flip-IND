@@ -51,6 +51,7 @@ class SettingsController extends Controller{
             $seller->update($request->validated());
             $seller->update([
                 'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
+                'has_public_view' => 1,
             ]);
 
             if ($request->has('logo') && $request->logo) {
@@ -76,7 +77,7 @@ class SettingsController extends Controller{
                 ]);
             }
 
-            return to_route('seller.settings.index')->with('success', 'Settings updated successfully.');
+            return redirect()->back()->with('success', 'Settings updated successfully.');
         }
         catch(Exception $e){
             return $e->getMessage();

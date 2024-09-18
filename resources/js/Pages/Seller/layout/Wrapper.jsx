@@ -1,29 +1,10 @@
 import SideBar from "./SideBar";
 import Header from "./Header";
 import ToastNotification from '@/Components/ToastNotification';
-import { usePage } from '@inertiajs/react'
-import Modal from 'react-bootstrap/Modal';
-import React, { useState } from 'react';
-import SettingsForm from "../SettingsForm";
 
-const Wrapper = ({ success, error, children, user}) => {
-    // const { showAgentForm } = usePage().props;
-    const { showAgentForm } = true;
-    const [show, setShow] = useState(true);
-    const handleClose = () => setShow(false);
+const Wrapper = ({ success, error, children, user }) => {
     return (
         <>
-            {showAgentForm && (
-                <Modal size="lg" show={show} onHide={handleClose} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Hello</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body className='p-0'>
-                        <SettingsForm seller={seller} province_options={province_options}></SettingsForm>
-                    </Modal.Body>
-                </Modal>
-            )}
-
             <ToastNotification success={success} error={error} />
             <Header user={user}></Header>
             <div className="">

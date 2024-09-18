@@ -6,10 +6,28 @@ import PermissionAllow from '@/Components/PermissionAllow';
 import Tickets from './Ticket/Tickets';
 import AdsTable from './AdsTable';
 import Graphs from './Graphs';
+import Modal from 'react-bootstrap/Modal';
+import React, { useState } from 'react';
+import SettingsForm from './SettingsForm';
+import SettingsFormMininal from './SettingsFormMininal';
 
-export default function Dashboard({ auth, data, leads, tickets, ads, current_invoice, seller, province_options }) {
+export default function Dashboard({ showAgentForm, auth, data, leads, tickets, ads, current_invoice, seller, province_options }) {
+    const [show, setShow] = useState(true);
+    const handleClose = () => setShow(false);
+
     return (
         <>
+            {showAgentForm && (
+                <Modal size="lg" backdrop="static" keyboard={false} show={show} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Hello</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <SettingsFormMininal handleClose={handleClose} seller={seller} province_options={province_options}></SettingsFormMininal>
+                    </Modal.Body>
+                </Modal>
+            )}
+
             <Head title="Dashboard" />
             <Wrapper user={auth.user}>
                 <main className="py-6">

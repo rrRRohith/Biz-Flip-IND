@@ -46,6 +46,12 @@ class Controller extends BaseController{
         
         $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) max(($views / $leads), 1) : 1)) : 0;
         
+        $showAgentForm = !$this->seller->last_login;
+        if(!$this->seller->last_login){
+            $this->seller->update([
+                'last_login' => now(),
+            ]);
+        }
         return Inertia::render('Seller/Dashboard', [
             'data' => [
                 'ads' => $this->seller->ads()->count(),
@@ -57,7 +63,7 @@ class Controller extends BaseController{
             'ads' => AdResource::collection($this->seller->ads()->withCount('views')->orderBy('views_count', 'desc')->get()),
             'tickets' => TicketResource::collection($this->seller->tickets()->latest()->limit(5)->get()),
             'leads' => LeadResource::collection($this->seller->leads()->latest()->limit(5)->get()),
-
+            'showAgentForm' => $showAgentForm,
             'seller' => new SellerSettingsResource($this->seller),
             'province_options' => \App\Models\Province::selectRaw("name as value, name as label")->orderBy('name')->get()->toArray(),
         ]);
