@@ -156,6 +156,13 @@ $(function () {
  * @returns 
  */
 const makeError = function (data = null, $form = null) {
+    
+    if ($form.attr('data-errorcallback')) {
+        let callbackName = $form.attr('data-errorcallback');
+        if (typeof window[callbackName] === 'function') {
+            window[callbackName](data);
+        }
+    }
     if (data && data.responseJSON) {
         return handleAPIErrors(data.responseJSON, $form);
     }
@@ -166,6 +173,7 @@ const makeError = function (data = null, $form = null) {
             window.location.href = data.redirect;
         }
     }
+    
 
 }
 
