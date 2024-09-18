@@ -115,8 +115,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Phone</label>
-                                                <input form="authForm" name="phone" type="text" autocomplete="off"
-                                                    placeholder='' autocomplete="off" maxlength="10"
+                                                <input x-mask="(999) 999-9999" form="authForm" name="phone" type="text" autocomplete="off"
+                                                    placeholder='' autocomplete="off" maxlength="14"
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -155,7 +155,7 @@
                                         <div class="col-md-6" x-show="accountType == 'agent'">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Postal code</label>
-                                                <input form="authForm" maxlength="7" name="postalcode" type="text" autocomplete="off"
+                                                <input form="authForm" x-mask="999 9999" maxlength="8" name="postalcode" type="text" autocomplete="off"
                                                     placeholder=''
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
