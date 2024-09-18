@@ -8,7 +8,6 @@ import AdsTable from './AdsTable';
 import Graphs from './Graphs';
 import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
-import SettingsForm from './SettingsForm';
 import SettingsFormMininal from './SettingsFormMininal';
 
 export default function Dashboard({ showAgentForm, auth, data, leads, tickets, ads, current_invoice, seller, province_options }) {
