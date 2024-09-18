@@ -30,7 +30,7 @@
                             </div>
 
 
-                            <form action="" data-callback="registered" id="authForm" method="post"
+                            <form action="" data-errorcallback="refreshCaptcha" data-callback="registered" id="authForm" method="post"
                                 class="ajax hide">
                                 @csrf
                                 <div class="fs-6 fw-sembold mb-2">Your account information</div>
