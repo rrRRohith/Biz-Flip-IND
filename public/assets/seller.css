@@ -61,19 +61,6 @@ nav#navbarVertical {
     }
 }
 
-
-@media only screen and (max-width: 992px) {
-    .dropdown-menu.profile-dropdown {
-        border-radius: 0px;
-        top: 68px;
-        right: -12px !important;
-        height: calc(100vh - 84px);
-        overflow-y: auto;
-    }
-}
-
-
-
 .table thead th,
 .table td {
     font-size: unset;
@@ -148,12 +135,11 @@ nav#navbarVertical {
     min-width: 270px;
 }
 
-/* .seller-top-navbar{
+.seller-top-navbar{
     margin-left: 270px;
-} */
+}
 
-.whitespace-wrap,
-.table td.whitespace-wrap {
+.whitespace-wrap, .table td.whitespace-wrap {
     white-space: unset !important;
 }
 
@@ -164,8 +150,7 @@ nav#navbarVertical {
     border-color: #e7eaf0 !important;
 }
 
-.rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus,
-.rs-input-group:focus-within {
+.rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus, .rs-input-group:focus-within {
     border-color: var(--x-primary) !important;
     border-color: var(--x-primary) !important;
     box-shadow: none !important;
