@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-md-3 mb-3 mb-md-3">
                     <div class='mb-4 mw-200'>
-                        <img src="https://res.cloudinary.com/rr6/image/upload/v1716203422/unnamed_1_l0br9p.png"
+                        <img src="/logo.png"
                             class='w-100' alt="">
                     </div>
                     <div class='fw-semibold fs-4 mb-4'>

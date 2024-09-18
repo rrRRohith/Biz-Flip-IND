@@ -2,12 +2,8 @@
 @section('content')
     @push('styles')
         <style>
-            .acc_type {
-                cursor: pointer;
-            }
 
             .acc_type.active {
-                border: 1px solid #0000 !important;
                 background: #c1afaf3c;
                 color: #282626;
             }
@@ -42,7 +38,7 @@
                                     <div class="row">
                                         <div class="col-lg-6">
 
-                                            <div @click="accountType = 'individual';removeClass();"
+                                            <div role="button" @click="accountType = 'individual';removeClass();"
                                                 :class="{ 'active': accountType === 'individual' }"
                                                 class="card border-0 rounded-4 shadow-sm mb-4 acc_type">
                                                 <div class="card-body px-xl-5 px-md-4 ">
@@ -60,7 +56,7 @@
                                         </div>
                                         <div class="col-lg-6">
 
-                                            <div @click="accountType = 'agent';removeClass();"
+                                            <div role="button" @click="accountType = 'agent';removeClass();"
                                                 :class="{ 'active': accountType === 'agent' }"
                                                 class="card border-0 rounded-4 shadow-sm mb-4 acc_type">
                                                 <div class="card-body px-xl-5 px-md-4">
@@ -85,7 +81,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Business name</label>
                                                 <input form="authForm" name="company_name" type="text" autocomplete="off"
-                                                    placeholder=''
+                                                    placeholder='Your business name'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -100,7 +96,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">First name</label>
                                                 <input form="authForm" name="firstname" type="text" autocomplete="off"
-                                                    placeholder=''
+                                                    placeholder='Your first name'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -108,7 +104,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Last name</label>
                                                 <input form="authForm" name="lastname" type="text" autocomplete="off"
-                                                    placeholder=''
+                                                    placeholder='Your last name'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -116,7 +112,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Phone</label>
                                                 <input form="authForm" name="phone" type="text" autocomplete="off"
-                                                    placeholder='' autocomplete="off" maxlength="10"
+                                                    placeholder='Your phone number' autocomplete="off" maxlength="10"
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -124,7 +120,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Email</label>
                                                 <input form="authForm"  autocomplete="off"  name="email" type="email"
-                                                    placeholder=''
+                                                    placeholder='Your email address'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -132,7 +128,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Password</label>
                                                 <input form="authForm" autocomplete="new-password" name="password" type="password"
-                                                    placeholder=''
+                                                    placeholder='Set your password'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -140,7 +136,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Address</label>
                                                 <input form="authForm" name="address" type="text" autocomplete="off"
-                                                    placeholder=''
+                                                    placeholder='Your address'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -148,7 +144,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">City</label>
                                                 <input form="authForm" name="city" type="text" autocomplete="off"
-                                                    placeholder=''
+                                                    placeholder='Your city'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -156,7 +152,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Postal code</label>
                                                 <input form="authForm" maxlength="7" name="postalcode" type="text" autocomplete="off"
-                                                    placeholder=''
+                                                    placeholder='Your postalcode'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -164,7 +160,7 @@
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Province</label>
                                                 <input form="authForm" name="province" type="text" autocomplete="off"
-                                                    placeholder=''
+                                                    placeholder='Your province'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
