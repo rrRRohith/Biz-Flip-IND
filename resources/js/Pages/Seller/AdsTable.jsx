@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
 
 export default function ({ ads, confirmDelete, minimal = false, searchResult }) {
-    const adStatus = (ad, status) => {
+    const adStatus = (ad, status) =>{
         router.put(route("seller.ads.status", ad.id), {
             status: status,
         });
@@ -16,10 +16,10 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
     const [title, setTitle] = useState('');
     const [adsource, setSource] = useState('');
     const showAd = (ad) => {
-        setSource(route('ads.show', ad.slug) + '?embed=true');
+        setSource(route('ads.show', ad.slug)+'?embed=true');
         setTitle(ad.title);
         setShow(true);
-
+        
     }
     const handleClose = () => setShow(false);
     return (
@@ -66,11 +66,9 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                 {ads.map((ad) => (
                                     <tr>
                                         <td onClick={(e) => showAd(ad)}>
-                                            <div className="text-overflow w-40">
-                                                {ad.title}
-                                            </div>
+                                            {ad.title}
                                             {!minimal && (
-                                                <div className="text-overflow w-40">
+                                                <div>
                                                     <small>{ad.city}</small>
                                                 </div>
                                             )}
@@ -83,18 +81,13 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                                         <small>{ad.city}</small>
                                                     </div>
                                                 </td> */}
-                                                <td onClick={(e) => showAd(ad)}>
-                                                    <div className="text-overflow w-24">
-                                                        {ad.category.label}
-                                                    </div>
-
+                                                <td  onClick={(e) => showAd(ad)}>
+                                                    {ad.category.label}
                                                 </td>
-                                                <td onClick={(e) => showAd(ad)}>
-                                                    <div className="text-overflow w-24">
-                                                        {ad.business_category.label}
-                                                    </div>
+                                                <td  onClick={(e) => showAd(ad)}>
+                                                    {ad.business_category.label}
                                                 </td>
-                                                <td onClick={(e) => showAd(ad)}>
+                                                <td  onClick={(e) => showAd(ad)}>
                                                     ${ad.price_text}
                                                 </td>
                                             </>
@@ -102,7 +95,7 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                         <td>
                                             <div><Link className="text-decoration-none" href={route('seller.leads.index', { ad: ad.id })}>{ad.total_leads} leads</Link></div>
                                         </td>
-                                        <td onClick={(e) => showAd(ad)}>
+                                        <td  onClick={(e) => showAd(ad)}>
                                             {ad.total_views} views
                                         </td>
                                         {!minimal && (

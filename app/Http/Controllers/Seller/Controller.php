@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\{LeadResource};
 use App\Http\Resources\{TicketMessageResource, TicketResource};
 use DB;
-use App\Http\Resources\SellerSettingsResource;
 
 class Controller extends BaseController{
     public $user;

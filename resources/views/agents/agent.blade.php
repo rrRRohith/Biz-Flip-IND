@@ -12,7 +12,7 @@
         <div class="my-5 w-100">
             @include('home.search')
         </div>
-    </div>
+    </div>     
     <div class="container mt-5">
         <ul class="breadcrumb">
             <li class="pe-1">

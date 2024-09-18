@@ -141,6 +141,7 @@ const SideBar = ({ user }) => {
                                 )}
 
                             </PermissionAllow>
+
                             <li className="nav-item rounded-0 rounded-lg-3 mb-2">
                                 <Link className="nav-link text-md rounded-0 rounded-lg-3" onClick={handleClick}>
                                     <i className="bi bi-power"></i> Logout

@@ -1,8 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/Authenticated';
 import { Head, Link } from '@inertiajs/react';
-// import Wrapper from '../layout/Wrapper';
+import Wrapper from '../layout/Wrapper';
 import Chat from './Chat';
-import Wrapper from '@/Pages/Seller/layout/Wrapper';
+
 
 export default function Dashboard({ auth, chats, chat, messages }) {
     return (

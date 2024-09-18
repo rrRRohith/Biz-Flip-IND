@@ -31,10 +31,10 @@
                         <a class="nav-link p-2 fw-semibold" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link p-2 fw-semibold" href="/auth/customer">Register</a>
+                        <a class="nav-link p-2 fw-semibold" href="/sign-up">Sign up</a>
                     </li>
                     <li class="nav-item ps-2">
-                        <a class="fw-semibold btn btn-dark btn-sm" href="/auth">Advertise with us</a>
+                        <a class="fw-semibold btn btn-dark btn-sm" href="/sign-up">Advertise with us</a>
                     </li>
                     @endif
                 </ul>
