@@ -7,7 +7,7 @@ import Tickets from './Ticket/Tickets';
 import AdsTable from './AdsTable';
 import Graphs from './Graphs';
 
-export default function Dashboard({ auth, data, leads, tickets, ads, current_invoice, seller, province_options }) {
+export default function Dashboard({ auth, data, leads, tickets, ads, current_invoice }) {
     return (
         <>
             <Head title="Dashboard" />

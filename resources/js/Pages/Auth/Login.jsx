@@ -144,18 +144,18 @@ export default function Login({ status, canResetPassword }) {
                         </div>
                     </div>
                 </div>
-            </form>
-
+            </form>    
+      
                 <div className="flex  items-center text-center mt-4">
                     <hr />
                     <h6  className='text-bold text-center mt-15'>No account yet? Get started for free!</h6>
                     <div class="mt-25">
                     <a
-                        href={'/auth/customer'}
+                        href={'/sign-up'}
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >Sign Up for customers
-                    </a>
-                        <hr class="hr-text mb-4 mt-4" size="1" data-content="OR" />
+                    >Sign Up 
+                    </a>       
+                        {/* <hr class="hr-text mb-4 mt-4" size="1" data-content="OR" />
                         
                         <div class="text-center">
                         <a
@@ -163,7 +163,7 @@ export default function Login({ status, canResetPassword }) {
                         className="mt-3 underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >Register for Advertiser
                     </a>
-                        </div>
+                        </div> */}
                     </div>
                    
                     <br />

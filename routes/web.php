@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Storage;
 use Mews\Captcha\Captcha;
 
 Route::get('captcha', [Captcha::class, 'create'])->name('captcha.create');
-
+Route::get('/refresh-captcha', function() {
+    return response()->json(['captcha' => captcha_img()]);
+});
 // Route::get('buckets', function(){
 //     $disk = 's3';
 //     $heroImage = Storage::get('hero.png');
@@ -133,6 +135,14 @@ Route::get('/contact', function () {
 });
 Route::post('/contact', 'App\Http\Controllers\Controller@contact')->name('contact.store');
 Route::post('/subscribe', 'App\Http\Controllers\Controller@subscribe')->name('subscribe.store');
+
+
+Route::get('/sign-up', function () {
+    return view('auth.sign-up');
+});
+
+Route::post('/sign-up', 'App\Http\Controllers\Auth\RegisteredUserController@register');
+
 
 Route::get('/auth', function () {
     return view('auth.index');

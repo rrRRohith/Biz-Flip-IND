@@ -15,7 +15,7 @@ export default function Index({ auth, plans, can_purchase }) {
                     <div className="container-fluid px-3 px-lg-6">
                         <div className="vstack gap-6 m-auto">
 
-                            <div className="container p-0">
+                            <div className="container">
                                 <div className="text-xl font-bold">Choose the Perfect Ad Subscription Plan for Your Needs</div>
                                 <div className='mb-3'>
                                     Maximize your reach with our tailored ad subscription plans designed to suit businesses of all sizes. Whether you're looking to promote occasionally or need a consistent presence, our plans offer the flexibility and value to ensure your ads make an impact.

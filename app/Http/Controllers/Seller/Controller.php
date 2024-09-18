@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\{LeadResource};
 use App\Http\Resources\{TicketMessageResource, TicketResource};
 use DB;
-use App\Http\Resources\SellerSettingsResource;
 
 class Controller extends BaseController{
     public $user;
@@ -57,9 +56,6 @@ class Controller extends BaseController{
             'ads' => AdResource::collection($this->seller->ads()->withCount('views')->orderBy('views_count', 'desc')->get()),
             'tickets' => TicketResource::collection($this->seller->tickets()->latest()->limit(5)->get()),
             'leads' => LeadResource::collection($this->seller->leads()->latest()->limit(5)->get()),
-
-            'seller' => new SellerSettingsResource($this->seller),
-            'province_options' => \App\Models\Province::selectRaw("name as value, name as label")->orderBy('name')->get()->toArray(),
         ]);
     }
 

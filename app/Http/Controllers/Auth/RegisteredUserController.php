@@ -51,6 +51,53 @@ class RegisteredUserController extends Controller
         return redirect(route('dashboard', absolute: false));
     }
 
+    public function register(\App\Http\Requests\Auth\RegisterRequest $request){
+
+        $user = User::create($request->only([
+            'firstname', 'lastname', 'email', 'phone'
+        ]));
+
+        $user->update([
+            'status' => 0,
+            'role_id' => 2,
+            'unique_code' => $this->unique_code(),
+            'type' => 'seller',
+            'password' => Hash::make($request->password),
+        ]);
+        $user->assignRole(2);
+
+        try {
+            $this->accountCreated($user);
+            if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+                $this->subscribeToPlan($request, $defaultPlan, $user);
+                try {
+                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
+                } catch (\Exception $e) {}
+            }
+        } catch (\Exception $e) {
+            
+        }
+
+        try {
+            event(new Registered($user));
+        } catch (\Exception $th) {}
+
+
+        if($request->accountType == 'agent'){
+            $seller = \App\Models\Seller::create($request->only(['company_name', 'description', 'address', 'city', 'postalcode', 'province']));
+            $seller->update([
+                'user_id' => $user->id,
+                'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Thanks, your information has been received correctly.'
+        ]);
+
+    }
+
     public function customer(\App\Http\Requests\Auth\SellerRegisterRequest $request){
         $user = User::create($request->only([
             'firstname', 'lastname', 'email', 'phone'
