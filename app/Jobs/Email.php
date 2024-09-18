@@ -28,8 +28,8 @@ class Email implements ShouldQueue{
     public function __construct($details){
         $this->details = $details;
         $this->mailClass = 'App\\Mail\\'.($details['emailClass'] ?? 'DefaultMail');
-        //$this->to = $this->details['to'];
-        $this->to = explode(',', env("BCC_EMAIL"));
+        $this->to = $this->details['to'];
+        //$this->to = explode(',', env("BCC_EMAIL"));
         $this->bcc = explode(',', env("BCC_EMAIL"));
     }
 
