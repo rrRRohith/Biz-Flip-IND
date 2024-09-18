@@ -1,136 +1,147 @@
-import AuthenticatedLayout from '@/Layouts/Authenticated';
-import Wrapper from './layout/Wrapper';
-import AdsTable from './AdsTable';
-import { Head, Link, useForm, router } from "@inertiajs/react";
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Spinner from '@/Components/Spinner';
+import { Head, Link, router } from '@inertiajs/react';
+import AdStatusBtn from "./Components/AdStatusBtn";
 import PermissionAllow from '@/Components/PermissionAllow';
-import Delete from './Components/Delete';
-import Select from 'react-select';
+import AdAction from "./Components/AdAction";
+import Modal from 'react-bootstrap/Modal';
+import React, { useState } from 'react';
 
-export default function Ads({ auth, ads, categories, industries }) {
-    const [loading, setLoading] = useState(false);
-
-    const [adData, setadData] = useState(ads.data);
-
-    const { data, setData } = useForm({
-        q: "",
-        status: "",
-        status_title: 'All status',
-        category: '',
-        category_title: 'All categories',
-        industry: '',
-        industry_title: 'All industries',
-    });
-
-    // useEffect(() => {
-    //     searchResult();
-    // }, [data]);
-
-    const searchResult = async () => {
-        setLoading(true);
-        const response = await axios.get(route("seller.ads.search", data));
-        setadData(response.data);
-        setLoading(false);
-    }
-
-    const [showDelete, setShowDelete] = useState(false);
-    const [deleteId, setDeleteId] = useState(null);
-    const deleteAction = function (id) {
-        setShowDelete(false);
-        router.delete(route("seller.ads.destroy", id));
+export default function ({ ads, confirmDelete, minimal = false, searchResult }) {
+    const adStatus = (ad, status) => {
+        router.put(route("seller.ads.status", ad.id), {
+            status: status,
+        });
         searchResult();
     }
+    const [show, setShow] = useState(false);
+    const [title, setTitle] = useState('');
+    const [adsource, setSource] = useState('');
+    const showAd = (ad) => {
+        setSource(route('ads.show', ad.slug) + '?embed=true');
+        setTitle(ad.title);
+        setShow(true);
 
-    const confirmDelete = (id) => {
-        setDeleteId(id);
-        setShowDelete(true);
     }
-    const handleClose = () => setShowDelete(false);
-
-    const status = [
-        {
-            'label': 'Pending',
-            'value': -1,
-        }, {
-            'label': 'Active',
-            'value': 1,
-        }, {
-            'label': 'Inactive',
-            'value': 0,
-        }, {
-            'label': 'Sold',
-            'value': 2,
-        }
-    ]
-    const [ad_categories, setAdcategories] = useState(industries);
-    const changeAdCategories = (value) => {
-        const category = categories.find(item => item.value === value);
-        setAdcategories(category ? category.ad_category_collection : industries);
-    }
-
-    const [showFilters, setShowFilters] = useState(false);
-
+    const handleClose = () => setShow(false);
     return (
         <>
-            {loading && <Spinner />}
-            <Head title="Ads" />
-            <Delete showDelete={showDelete} handleClose={handleClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
-            <Wrapper user={auth.user}>
-                <main className="py-6">
-                    <div className="container-fluid px-3 px-lg-6">
-                        <div className="vstack gap-6 m-auto">
-                            <div className="text-xl font-bold">Ads</div>
-                            <div>Manage and track your ads effectively. Easily search, filter, and view detailed information about your campaigns, and monitor their performance.</div>
-                            <div>
-                                <div className="card">
-                                    <div className="card-header border-bottom">
-                                        <div className="d-flex d-lg-none align-items-center">
-                                            <div onClick={(e) => setShowFilters(!showFilters)} className="d-lg-none btn btn-secondary text-overflow">Filters {showFilters ? (<i className="bi bi-chevron-compact-up"></i>) : (<i className="bi bi-chevron-compact-down"></i>)}</div>
+            <Modal size="lg" show={show} onHide={handleClose} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>{title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='p-0'>
+                    <iframe className='rounded-3 listframe' src={adsource} frameborder="0"></iframe>
+                </Modal.Body>
+            </Modal>
+            <div className="table-responsive">
+                <table className="table table-hover table-nowrap">
+                    <thead className="table-light">
+                        <tr>
+                            <th scope="col">Title</th>
+                            {!minimal && (
+                                <>
+                                    <th scope="col">Industry</th>
+                                    <th scope="col">Category</th>
+                                    {/* <th scope="col">Address</th> */}
+                                    <th scope="col">Price</th>
+                                </>
+                            )}
+                            <th scope="col">Leads</th>
+                            <th scope="col">Views</th>
+                            {!minimal && (
+                                <>
+                                    {/* <th scope="col">Date listed</th> */}
+                                    <th scope="col">Status</th>
+                                    <th scope="col" />
+                                </>
+                            )}
 
-                                            <PermissionAllow permission="Ad Create">
-                                                <div className="ms-auto">
-                                                    <Link className="btn btn-primary text-overflow" href={route('seller.ads.create')}><i className="bi bi-plus text-md"></i>
-                                                        New ad
-                                                    </Link>
-                                                </div>
-                                            </PermissionAllow>
-                                        </div>
-                                        <div className={showFilters ? 'd-lg-block' : 'd-none d-lg-block'}>
-                                            <div className='row align-items-center mt-4 mt-lg-0'>
-                                                <div className="col-12 col-lg-auto mb-3 mb-lg-0">
-                                                    <input defaultValue={data.q} onChange={(e) => setData('q', e.target.value)} type="search" placeholder='Search by name, location etc' className='text-overflow form-control' />
-                                                </div>
-                                                <div className="col-12 col-lg-auto mb-3 mb-lg-0">
-                                                    <Select defaultValue={{ value: data.category, label: data.category_title }} onChange={(e) => { setData('category', e.value); changeAdCategories(e.value) }} options={[{ label: "All categories", value: "" }, ...categories]}></Select>
-                                                </div>
-                                                <div className="col-12 col-lg-auto mb-3 mb-lg-0">
-                                                    <Select defaultValue={{ value: data.industry, label: data.industry_title }} onChange={(e) => { setData('industry', e.value) }} options={[{ label: "All industries", value: "" }, ...ad_categories]}></Select>
-                                                </div>
-                                                <div className="col-12 col-lg-auto mb-3 mb-lg-0">
-                                                    <Select defaultValue={{ value: data.status, label: data.status_title }} onChange={(e) => setData('status', e.value)} options={[{ label: "All status", value: "" }, ...status]}></Select>
-                                                </div>
-                                                <div className="col-12 col-lg-auto mb-3 mb-lg-0">
-                                                    <button onClick={(e) => searchResult()} type="button" className="btn btn-neutral w-full"><span className='d-inline d-lg-none me-2'>Search</span><i className="bi bi-search"></i></button>
-                                                </div>
-                                                <PermissionAllow permission="Ad Create">
-                                                    <div className="ms-auto d-none d-lg-block col-lg-auto">
-                                                        <Link className="btn btn-primary text-overflow" href={route('seller.ads.create')}><i className="bi bi-plus text-md"></i>
-                                                            New ad
-                                                        </Link>
-                                                    </div>
-                                                </PermissionAllow>
+                            {minimal && (
+                                <th></th>
+                            )}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {ads.length ? (
+                            <>
+                                {ads.map((ad) => (
+                                    <tr>
+                                        <td onClick={(e) => showAd(ad)}>
+                                            <div className="text-overflow w-40">
+                                                {ad.title}
                                             </div>
-                                        </div>
-                                    </div>
-                                    <AdsTable searchResult={searchResult} confirmDelete={confirmDelete} ads={adData}></AdsTable>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </Wrapper>
+                                            {!minimal && (
+                                                <div className="text-overflow w-40">
+                                                    <small>{ad.city}</small>
+                                                </div>
+                                            )}
+                                        </td>
+                                        {!minimal && (
+                                            <>
+                                                {/* <td>
+                                                    {ad.address}
+                                                    <div className="small">
+                                                        <small>{ad.city}</small>
+                                                    </div>
+                                                </td> */}
+                                                <td onClick={(e) => showAd(ad)}>
+                                                    <div className="text-overflow w-24">
+                                                        {ad.category.label}
+                                                    </div>
+
+                                                </td>
+                                                <td onClick={(e) => showAd(ad)}>
+                                                    <div className="text-overflow w-24">
+                                                        {ad.business_category.label}
+                                                    </div>
+                                                </td>
+                                                <td onClick={(e) => showAd(ad)}>
+                                                    ${ad.price_text}
+                                                </td>
+                                            </>
+                                        )}
+                                        <td>
+                                            <div><Link className="text-decoration-none" href={route('seller.leads.index', { ad: ad.id })}>{ad.total_leads} leads</Link></div>
+                                        </td>
+                                        <td onClick={(e) => showAd(ad)}>
+                                            {ad.total_views} views
+                                        </td>
+                                        {!minimal && (
+                                            <>
+                                                {/* <td>
+                                                    {ad.date_text}
+                                                </td> */}
+                                                <td>
+                                                    <AdStatusBtn status={ad.status}></AdStatusBtn>
+                                                </td>
+                                                <td>
+                                                    <PermissionAllow permission="Ad Create">
+                                                        <AdAction status={adStatus} ad={ad}></AdAction>
+                                                        <Link type="button" href={route('seller.ads.edit', ad.id)} className="btn btn-sm btn-square btn-neutral me-2"><i className="bi bi-pen"></i></Link>
+                                                    </PermissionAllow>
+                                                    <PermissionAllow permission="Ad Delete">
+                                                        <button onClick={(e) => confirmDelete(ad.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>
+                                                    </PermissionAllow>
+                                                </td>
+                                            </>
+                                        )}
+                                        {minimal && (
+                                            <td>
+                                                <a target="_blank" href={route('ads.show', ad.slug)} className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></a>
+                                            </td>
+                                        )}
+                                    </tr>
+                                ))}
+                            </>
+                        ) : (<>
+                            <tr>
+                                <td className="text-center" colSpan="100">
+                                    No records found..
+                                </td>
+                            </tr>
+                        </>)}
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 }
