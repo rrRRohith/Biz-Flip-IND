@@ -30,6 +30,7 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
+
         if($this->accountType == 'individual'){
             return [
                 'password' => 'required|string',
@@ -70,5 +71,13 @@ class RegisterRequest extends FormRequest
             'captcha.required' => 'please enter valid code',
             'captcha.captcha' => 'captcha code invalid, refresh captcha'
         ];
+    }
+
+
+    public function getValidatorInstance(){
+        $this->merge([
+            'phone' => str_replace('-','',filter_var($this->phone, FILTER_SANITIZE_NUMBER_INT)),
+        ]);
+        return parent::getValidatorInstance();
     }
 }
