@@ -33,7 +33,7 @@
                             <form action="" data-errorcallback="refreshCaptcha" data-callback="registered" id="authForm" method="post"
                                 class="ajax hide">
                                 @csrf
-                                <div class="fs-6 fw-sembold mb-2">Your account information</div>
+                                <div class="fs-6 fw-sembold mb-2">I am an</div>
                                 <div class="col-lg-12" x-data="{ accountType: 'individual' }">
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -47,7 +47,7 @@
                                                             <div class="fs-6 fw-semibold">
                                                                 <input type="radio" class="me-3" id="individual"
                                                                     value="individual" x-model="accountType">
-                                                                Individual Account
+                                                                Individual
                                                             </div>
                                                         </div>
                                                     </div>
@@ -65,7 +65,7 @@
 
                                                             <div class="fs-6 fw-semibold">
                                                                 <input type="radio" class="me-3" id="agent"
-                                                                    value="agent" x-model="accountType">Agent Account
+                                                                    value="agent" x-model="accountType">Agent
                                                             </div>
                                                         </div>
                                                     </div>
