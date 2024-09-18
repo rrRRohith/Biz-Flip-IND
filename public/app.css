@@ -272,8 +272,9 @@ textarea {
   color: var(--bs-primary);
   font-size: small;
   left: 13px;
-  top: 5px;
+  top: -9px;
   font-weight: 500;
+  background-color: #fff;
 }
 
 .form-group {
@@ -284,7 +285,7 @@ textarea {
 .label-top select.form-control,
 .label-top textarea.form-control,
 .label-top.element-container {
-  padding-top: 1.75em !important;
+  padding-top: 1em !important;
 }
 
 input.p-none,
