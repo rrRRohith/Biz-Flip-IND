@@ -345,3 +345,9 @@ img.avatar {
         height: calc(100vh - 88px) !important;
     }
 }
+
+@media (min-width: 1400px) {
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 1480px !important;
+    }
+}
