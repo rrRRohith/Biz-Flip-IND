@@ -72,6 +72,7 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                             {!minimal && (
                                                 <div className="text-overflow w-40">
                                                     <small>{ad.city}</small>
+                                                    <small className='btn btn-sm small p-0 bg-warning text-white py-0 px-1 text-capitalize ms-2 text-xs'>{ad.ad_type}</small>
                                                 </div>
                                             )}
                                         </td>
@@ -94,8 +95,13 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                                         {ad.business_category.label}
                                                     </div>
                                                 </td>
-                                                <td onClick={(e) => showAd(ad)}>
-                                                    ${ad.price_text}
+                                                <td className="text-overflow w-24 text-end" onClick={(e) => showAd(ad)}>
+                                                    {ad.ad_type == 'sale' ?  (
+                                                        <>${ad.price_text}</>
+                                                    ) : (
+                                                        <> <span className="small">from.</span> ${ad.price_text}</>
+                                                    )}
+                                                    
                                                 </td>
                                             </>
                                         )}

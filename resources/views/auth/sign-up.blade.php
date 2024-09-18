@@ -206,7 +206,7 @@
                                 </div>
                                 <div class="mb-1">We received your request to become a verified seller on
                                     {{ env('APP_NAME') }}. We are minutes away from verifying your information and
-                                    granting approval.</div>
+                                    granting approval. Meantime please verify your email address using the link we sent to your eamil address.</div>
                                 <div class="fw-semibold">Thanks for choosing {{ env('APP_NAME') }}</div>
                                 <div class="text-center mt-4">
                                     <a href="/" class="btn rounded-1 border-0 m-auto btn-dark px-5">Go home</a>
