@@ -205,7 +205,7 @@
                                                 id="subscribe_news" />
                                             <label role="button" class="form-check-label mt-1"
                                                 for="subscribe_news">
-                                                Subscribe to our latest news and updates
+                                                Don't miss out. Subscribe now to receive exclusive content and updates.
                                             </label>
                                         </div>
                                     </div>
