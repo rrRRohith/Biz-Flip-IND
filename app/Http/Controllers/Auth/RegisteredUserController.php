@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\{User,NewsSubscriber};
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -91,6 +91,13 @@ class RegisteredUserController extends Controller
             ]);
         }
 
+        if(isset($request->subscribe_news)){
+            NewsSubscriber::updateOrCreate(
+                ['email_id' => $request->email],
+                ['firstname' => $request->firstname, 'lastname' => $request->lastname],
+            );
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Thanks, your information has been received correctly.'
@@ -115,7 +122,7 @@ class RegisteredUserController extends Controller
         try {
             $this->accountCreated($user);
         } catch (\Exception $th) {
-            dd($e);
+            dd($th);
         }
 
         return response()->json([

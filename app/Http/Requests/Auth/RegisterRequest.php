@@ -33,30 +33,32 @@ class RegisterRequest extends FormRequest
 
         if($this->accountType == 'individual'){
             return [
-                'password' => 'required|string',
+                'password' => 'required|confirmed|min:6',
                 'agree_terms_and_conditions' => 'required',
                 'firstname' => ['required', 'string', 'max:255'],
                 'lastname' => ['required', 'string', 'max:255'],
-                'phone' => ['required', 'numeric', 'digits:10'],
+                'phone' => ['required', 'numeric', 'digits:10','unique:users,phone'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)],
                 'captcha' => 'required|captcha',
+                'password_confirmation' => 'required'
             ];
         }
         else if($this->accountType == 'agent'){
             return [
-                'company_name' => ['required', 'string', 'max:255'],
-                'description' => ['required', 'string'],
-                'address' => 'required|max:256|string',
-                'city' => 'required|max:256|string',
-                'postalcode' => 'required|max:10|string',
-                'province' => 'required|exists:provinces,name',
-                'password' => 'required|string',
+                'company_name' => ['nullable', 'string', 'max:255'],
+                'description' => ['nullable', 'string'],
+                'address' => 'nullable|max:256|string',
+                'city' => 'nullable|max:256|string',
+                'postalcode' => 'nullable|max:10|string',
+                'province' => 'nullable|exists:provinces,name',
+                'password' => 'required|confirmed|min:6',
                 'agree_terms_and_conditions' => 'required',
                 'firstname' => ['required', 'string', 'max:255'],
                 'lastname' => ['required', 'string', 'max:255'],
-                'phone' => ['required', 'numeric', 'digits:10'],
+                'phone' => ['required', 'numeric', 'digits:10','unique:users,phone'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)],
                 'captcha' => 'required|captcha',
+                'password_confirmation' => 'required'
             ];
         }
         else{
