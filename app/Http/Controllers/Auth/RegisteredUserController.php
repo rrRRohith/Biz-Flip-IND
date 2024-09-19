@@ -123,7 +123,6 @@ class RegisteredUserController extends Controller
         try {
             $this->accountCreated($user);
         } catch (\Exception $th) {
-            dd($th);
         }
 
         return response()->json([
