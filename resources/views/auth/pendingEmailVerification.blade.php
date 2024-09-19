@@ -11,7 +11,7 @@
                 @if(!session('message'))
                 <a href="/verify-email-pending" data-method="post" class="btn rounded-1 border-0 m-auto btn-light px-5"><i class="bi bi-arrow-clockwise"></i> Resend email</a>
                 @endif
-                <a data-method="post" href="/verify-email-pending" class="btn rounded-1 border-0 m-auto btn-dark px-5"><i class="bi bi-power"></i> Logout</a>
+                <a data-method="post" href="/logout" class="btn rounded-1 border-0 m-auto btn-dark px-5"><i class="bi bi-power"></i> Logout</a>
             </div>
         </div>
     </div>

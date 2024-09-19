@@ -52,17 +52,26 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
         let filtered;
         if (key === 'ApprovedSellers') {
             filtered = vendorsList.data.filter(vendor =>
-                vendor.full_name.toLowerCase().includes(value.toLowerCase())
+                (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.full_name?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.email?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.phone?.toLowerCase().includes(value.toLowerCase()))
             );
             setFilteredVendors(filtered);
         } else if (key === 'PendingApproval') {
             filtered = pendingVendorsList.data.filter(vendor =>
-                vendor.full_name.toLowerCase().includes(value.toLowerCase())
+                (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.full_name?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.email?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.phone?.toLowerCase().includes(value.toLowerCase()))
             );
             setFilteredPendingVendors(filtered);
         } else if (key === 'SuspendedSellers') {
             filtered = suspendedVendorsList.data.filter(vendor =>
-                vendor.full_name.toLowerCase().includes(value.toLowerCase())
+                (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.full_name?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.email?.toLowerCase().includes(value.toLowerCase()) ||
+                vendor.phone?.toLowerCase().includes(value.toLowerCase()))
             );
             setFilteredSuspendedVendors(filtered);
         }
