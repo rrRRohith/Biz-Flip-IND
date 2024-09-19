@@ -2,7 +2,6 @@
 @section('content')
     @push('styles')
         <style>
-
             .acc_type.active {
                 background: #c1afaf3c;
                 color: #282626;
@@ -30,8 +29,8 @@
                             </div>
 
 
-                            <form action="" data-errorcallback="refreshCaptcha" data-callback="registered" id="authForm" method="post"
-                                class="ajax hide">
+                            <form action="" data-errorcallback="refreshCaptcha" data-callback="registered"
+                                id="authForm" method="post" class="ajax hide">
                                 @csrf
                                 <div class="fs-6 fw-sembold mb-2">I am an</div>
                                 <div class="col-lg-12" x-data="{ accountType: 'individual' }">
@@ -62,7 +61,6 @@
                                                 <div class="card-body px-xl-5 px-md-4">
                                                     <div class="d-flex align-items-center">
                                                         <div>
-
                                                             <div class="fs-6 fw-semibold">
                                                                 <input type="radio" class="me-3" id="agent"
                                                                     value="agent" x-model="accountType">Agent
@@ -77,26 +75,39 @@
 
                                     {{-- //common user details --}}
                                     <div class="row">
-                                        <div class="col-md-12" x-show="accountType == 'agent'">
+                                        <div class="col-md-12">
                                             <div class="form-group label-top mb-4">
-                                                <label class="fw-semibold">Business name</label>
-                                                <input form="authForm" name="company_name" type="text" autocomplete="off"
-                                                    placeholder='Your business name'
+                                                <label class="fw-semibold">Email</label>
+                                                <input form="authForm" autocomplete="off" name="email" type="email"
+                                                    placeholder='Your email address'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
-                                        <div class="col-12" x-show="accountType == 'agent'">
+
+                                        <div class="col-md-6">
                                             <div class="form-group label-top mb-4">
-                                                <label class="fw-semibold">Description</label>
-                                                <textarea form="authForm" name="description" autocomplete="off" type="text" placeholder='Tell us about your business'
-                                                    class="form-control border-1 border rounded-1 border-gray shadow-none"></textarea>
+                                                <label class="fw-semibold">Password</label>
+                                                <input form="authForm" autocomplete="new-password" name="password"
+                                                    type="password" placeholder='Set your password'
+                                                    class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group label-top mb-4">
+                                                <label class="fw-semibold">Confirm Password</label>
+                                                <input form="authForm" 
+                                                    name="password_confirmation" autocomplete="new-password" type="password"
+                                                    placeholder='Set your password'
+                                                    class="form-control border-1 border rounded-1 border-gray shadow-none" />
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">First name</label>
-                                                <input form="authForm" name="firstname" type="text" autocomplete="off"
-                                                    placeholder='Your first name'
+                                                <input form="authForm" name="firstname" type="text"
+                                                    autocomplete="off" placeholder='Your first name'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
@@ -108,77 +119,97 @@
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Phone</label>
-                                                <input x-mask="(999) 999-9999" form="authForm" name="phone" type="text" autocomplete="off"
-                                                    placeholder='Enter your phone' autocomplete="off" maxlength="14"
+                                                <input x-mask="(999) 999-9999" form="authForm" name="phone"
+                                                    type="text" autocomplete="off" placeholder='Enter your phone'
+                                                    autocomplete="off" maxlength="14"
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12" x-show="accountType == 'agent'">
                                             <div class="form-group label-top mb-4">
-                                                <label class="fw-semibold">Email</label>
-                                                <input form="authForm"  autocomplete="off"  name="email" type="email"
-                                                    placeholder='Your email address'
+                                                <label class="fw-semibold">Business name</label>
+                                                <input form="authForm" name="company_name" type="text"
+                                                    autocomplete="off" placeholder='Your business name'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-12" x-show="accountType == 'agent'">
                                             <div class="form-group label-top mb-4">
-                                                <label class="fw-semibold">Password</label>
-                                                <input form="authForm" autocomplete="new-password" name="password" type="password"
-                                                    placeholder='Set your password'
-                                                    class="form-control border-1 border rounded-1 border-gray shadow-none" />
+                                                <label class="fw-semibold">Description</label>
+                                                <textarea form="authForm" name="description" autocomplete="off" type="text"
+                                                    placeholder='Tell us about your business' class="form-control border-1 border rounded-1 border-gray shadow-none"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-6" x-show="accountType == 'agent'">
+
+                                        <div class="col-md-12" x-show="accountType == 'agent'">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Address</label>
-                                                <input form="authForm" name="address" type="text" autocomplete="off"
-                                                    placeholder='Your address'
+                                                <input form="authForm" name="address" type="text"
+                                                    autocomplete="off" placeholder='Your address'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
-                                        <div class="col-md-6" x-show="accountType == 'agent'">
+                                        <div class="col-md-4" x-show="accountType == 'agent'">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">City</label>
-                                                <input form="authForm" name="city" type="text" autocomplete="off"
-                                                    placeholder='Your city'
+                                                <input form="authForm" name="city" type="text"
+                                                    autocomplete="off" placeholder='Your city'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
-                                        <div class="col-md-6" x-show="accountType == 'agent'">
+                                        <div class="col-md-4" x-show="accountType == 'agent'">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Postal code</label>
-                                                <input form="authForm" x-mask="999 9999" maxlength="8" name="postalcode" type="text" autocomplete="off"
+                                                <input form="authForm" x-mask="999 9999" maxlength="8"
+                                                    name="postalcode" type="text" autocomplete="off"
                                                     placeholder=''
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
-                                        <div class="col-md-6" x-show="accountType == 'agent'">
+                                        <div class="col-md-4" x-show="accountType == 'agent'">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Province</label>
-                                                <input form="authForm" name="province" type="text" autocomplete="off"
-                                                    placeholder='Your province'
+                                                <input form="authForm" name="province" type="text"
+                                                    autocomplete="off" placeholder='Your province'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
                                     </div>
-                                   
-                                        <div class="row g-3 align-items-center">
-                                            <div class="form-group  input-group mb-3 col-lg-12">
-                                                <span class="input-group-text bi bi-question-circle" id="basic-addon1"></span>
-                                                <input form="authForm"  autocomplete="off" placeholder="Enter captcha code" type="text" name="captcha" id="captcha" class="form-control">
-                                                <span class="input-group-text captchaImg" id="basic-addon2">
-                                                    <img  src="{{ captcha_src() }}" alt="captcha">
-                                                </span>
-                                                <span class="input-group-text me-2" id="basic-addon3">
-                                                    <span id="passwordHelpInline" role="button" @click="refreshCaptcha()" class=" bi bi-arrow-clockwise fw-bold"></span>
-                                                </span>
-                                            </div>
-                                      </div>
-                                      <div class="form-group mb-4">
+
+                                    <div class="row g-3 align-items-center">
+                                        <div class="form-group  input-group mb-3 col-lg-12">
+                                            <span class="input-group-text bi bi-question-circle"
+                                                id="basic-addon1"></span>
+                                            <input form="authForm" autocomplete="off"
+                                                placeholder="Enter captcha code" type="text" name="captcha"
+                                                id="captcha" class="form-control">
+                                            <span class="input-group-text captchaImg" id="basic-addon2">
+                                                <img src="{{ captcha_src() }}" alt="captcha">
+                                            </span>
+                                            <span class="input-group-text me-2" id="basic-addon3">
+                                                <span id="passwordHelpInline" role="button"
+                                                    @click="refreshCaptcha()"
+                                                    class=" bi bi-arrow-clockwise fw-bold"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mb-4">
+                                        <div class="form-check form-check-lg">
+                                            <input form="authForm" role="button"
+                                                class="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                type="checkbox" name="subscribe_news" value="true"
+                                                id="subscribe_news" />
+                                            <label role="button" class="form-check-label mt-1"
+                                                for="subscribe_news">
+                                                Add a checkbox Subscribe to our news
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4">
                                         <div class="form-check form-check-lg">
                                             <input form="authForm" role="button"
                                                 class="form-check-input shadow-none border border-gray border-1 cursor-pointer"
@@ -206,7 +237,8 @@
                                 </div>
                                 <div class="mb-1">We received your request to become a verified seller on
                                     {{ env('APP_NAME') }}. We are minutes away from verifying your information and
-                                    granting approval. Meantime please verify your email address using the link we sent to your eamil address.</div>
+                                    granting approval. Meantime please verify your email address using the link we sent
+                                    to your eamil address.</div>
                                 <div class="fw-semibold">Thanks for choosing {{ env('APP_NAME') }}</div>
                                 <div class="text-center mt-4">
                                     <a href="/" class="btn rounded-1 border-0 m-auto btn-dark px-5">Go home</a>
@@ -236,22 +268,21 @@
 @endsection
 @push('scripts')
 <script>
+    function removeClass() {
+        var elements = document.getElementsByClassName('form-group');
 
-        function removeClass() {
-            var elements = document.getElementsByClassName('form-group');
-        
-            // Loop through all elements and remove the 'error' class
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].classList.remove('error');
-            }
+        // Loop through all elements and remove the 'error' class
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove('error');
         }
+    }
 
     function registered(response) {
         $('.hide').remove();
         $('.registered').show();
     }
 
-  
+
     function refreshCaptcha() {
         fetch('/refresh-captcha')
             .then(response => response.json())
