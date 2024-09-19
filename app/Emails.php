@@ -6,6 +6,16 @@ use App\Models\{User, Ad, SubscriptionOrder, Ticket};
 use Illuminate\Http\Request;
 
 trait Emails{
+    public function verifyEmail(User $user, string $link){
+        self::email(new Email([
+			'emailClass' => 'DefaultMail',
+			'to' => $user,
+			'subject' => __('Verify email address'),
+			'name' => $user->name,
+			'contents' => view('email.verify')->withLink($link)->render(),
+		]));
+    }
+
     public function accountCreated(User $user){
         if($user->status == '0'){
             self::email(new Email([

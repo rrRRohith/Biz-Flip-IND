@@ -7,9 +7,12 @@ use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
 use ZipArchive;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
+    use \App\Emails;
     /**
      * Register any application services.
      */
@@ -26,6 +29,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        // Override the email notification for verifying email
+        VerifyEmail::toMailUsing(function ($notifiable){        
+            $verifyUrl = URL::temporarySignedRoute('verification.verify',
+            \Illuminate\Support\Carbon::now()->addMinutes(\Illuminate\Support\Facades\Config::get('auth.verification.expire', 60)),
+            [
+                'id' => $notifiable->getKey(),
+                'hash' => sha1($notifiable->getEmailForVerification()),
+            ]);
+            return $this->verifyEmail($notifiable, $verifyUrl);
+        });
+
         $this->loadGoogleStorageDriver();
     }
 

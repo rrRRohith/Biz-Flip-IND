@@ -67,7 +67,7 @@ class RegisteredUserController extends Controller
         $user->assignRole(2);
 
         try {
-            $this->accountCreated($user);
+            // $this->accountCreated($user);
             if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
                 $this->subscribeToPlan($request, $defaultPlan, $user);
                 try {

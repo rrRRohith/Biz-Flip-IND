@@ -35,13 +35,23 @@ Route::middleware('guest')->group(function () {
                 ->name('password.store');
 });
 
+Route::get('verify-email-pending', function () {
+    return view('auth.pendingEmailVerification');
+});
+
+Route::post('verify-email-pending', [VerifyEmailController::class, 'resendEmail'])->middleware(['auth', 'throttle:1,1']);
+
+Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, 'verify'])
+                // ->middleware(['signed', 'throttle:6,1'])
+                ->name('verification.verify');
+
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
 
-    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
-                ->middleware(['signed', 'throttle:6,1'])
-                ->name('verification.verify');
+    // Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
+    //             ->middleware(['signed', 'throttle:6,1'])
+    //             ->name('verification.verify');
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')

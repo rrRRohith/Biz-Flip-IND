@@ -1,6 +1,6 @@
 @extends('layouts.wrapper')
 @section('contents')
-@section('title', 'Pending review')
+@section('title', 'Email verified')
 <div class="my-5 py-5">
     <div class="container mt-5 pt-5 text-center">
         <div class="my-5">
