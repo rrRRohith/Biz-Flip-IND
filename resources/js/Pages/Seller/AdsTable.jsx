@@ -72,7 +72,12 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                             {!minimal && (
                                                 <div className="text-overflow w-40">
                                                     <small>{ad.city}</small>
-                                                    <small className='btn btn-sm small p-0 bg-warning text-white py-0 px-1 text-capitalize ms-2 text-xs'>{ad.ad_type}</small>
+                                                    {ad.ad_type == 'sale' ? (
+                                                        <small className='btn btn-sm small p-0 bg-primary text-white py-0 px-1 text-capitalize ms-2 text-xs'>{ad.ad_type}</small>
+                                                    ) : (
+                                                        <small className='btn btn-sm small p-0 bg-info text-white py-0 px-1 text-capitalize ms-2 text-xs'>{ad.ad_type}</small>
+                                                    )}
+                                                    
                                                 </div>
                                             )}
                                         </td>

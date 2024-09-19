@@ -87,7 +87,7 @@ class RegisteredUserController extends Controller
             $seller = \App\Models\Seller::create($request->only(['company_name', 'description', 'address', 'city', 'postalcode', 'province']));
             $seller->update([
                 'user_id' => $user->id,
-                'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
+                'slug' => $seller->company_name ? Str::slug($seller->company_name.'-'.Str::random(4)) : null,
             ]);
         }
 
@@ -100,6 +100,7 @@ class RegisteredUserController extends Controller
 
         return response()->json([
             'success' => true,
+            'name' => $user->name,
             'message' => 'Thanks, your information has been received correctly.'
         ]);
 
