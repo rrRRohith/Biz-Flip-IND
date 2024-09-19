@@ -55,18 +55,22 @@ export default function ProfileDropdown({ user }) {
                         <Link className="dropdown-item" href="/seller/tickets">
                             <i className="bi bi-headset me-3"></i>Support tickets </Link>
                     </PermissionAllow>
-                    <PermissionAllow permission="Staff Listing">
-                        <Link className="dropdown-item" href="/seller/staffs">
-                            <i className="bi bi-people me-3"></i>Staffs </Link>
-                    </PermissionAllow>
-                    <PermissionAllow permission="Role and Responsibilities Listing">
-                        <Link className="dropdown-item" href="/seller/staffs/roles">
-                            <i class="bi bi-person-gear me-3"></i>Staff roles </Link>
-                    </PermissionAllow>
-                    <PermissionAllow permission="Settings">
-                        <Link className="dropdown-item" href="/seller/settings">
-                            <i className="bi bi-gear me-3" />Settings </Link>
-                    </PermissionAllow>
+                    {user.is_agent && (
+                        <>
+                            <PermissionAllow permission="Staff Listing">
+                                <Link className="dropdown-item" href="/seller/staffs">
+                                    <i className="bi bi-people me-3"></i>Staffs </Link>
+                            </PermissionAllow>
+                            <PermissionAllow permission="Role and Responsibilities Listing">
+                                <Link className="dropdown-item" href="/seller/staffs/roles">
+                                    <i class="bi bi-person-gear me-3"></i>Staff roles </Link>
+                            </PermissionAllow>
+                            <PermissionAllow permission="Settings">
+                                <Link className="dropdown-item" href="/seller/settings">
+                                    <i className="bi bi-gear me-3" />Settings </Link>
+                            </PermissionAllow>
+                        </>
+                    )}
                     <div className="dropdown-divider" />
                     <Link className="dropdown-item" onClick={handleClick}>
                         <i className="bi bi-box-arrow-left me-3" />Logout </Link>

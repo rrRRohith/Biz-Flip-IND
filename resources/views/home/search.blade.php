@@ -1,12 +1,34 @@
 <div class="m-auto mw-1100 w-100">
-    <div class="mb-4 @if ($business_categories->count()) mb-5 @endif text-center">
-        <h1 class="fs-1 fw-semibold text-white">Find Businesses for Sale</h1>
-        <div class="text-light">
+    <div class="mb-2 @if ($business_categories->count()) mb-4 @endif text-center">
+        <h1 class="fs-1 fw-semibold text-white">Find a Business</h1>
+        {{-- <div class="text-light">
             Search over 1000s of places nearby you.
-        </div>
+        </div> --}}
     </div>
     <form action="{{ route('ads.index') }}" class="position-relative">
     <div class="d-none d-md-block">
+        <div class="w-auto d-flex mt-0 mx-auto mb-4">
+            <div class="d-flex m-auto mb-3 p-1 bg-white algin-items-center rounded-2">
+                <div class="">
+                    <input v-model="sharedState.type" hidden type="radio" id="type_sale" name="type" value="sale">
+                    <label for="type_sale" :class="['btn rounded-2 px-3 border-0',
+                    {
+                        'btn-dark': sharedState.type == 'sale',
+                        'bg-white': sharedState.type != 'sale'
+                    }
+                ]" for="">For Sale</label>
+                </div>
+                <div class="">
+                    <input v-model="sharedState.type" hidden type="radio" id="type_wanted" name="type" value="wanted">
+                    <label for="type_wanted" :class="['btn rounded-2 border-0 px-3 ms-2',
+                    {
+                        'btn-dark': sharedState.type == 'wanted',
+                        'bg-white': sharedState.type != 'wanted'
+                    }
+                ]" for="">For Buy</label>
+                </div>
+            </div>
+        </div>
         <div class="card border-0 rounded-4 mw-1100 m-auto w-100 mainFilter">
             <div class="card-body w-100 p-3 sideFilters ">
                     @if ($business_categories->count())
@@ -279,7 +301,7 @@
                 
             </div>
         </div>
-        <div class="w-auto d-flex mt-2">
+        {{-- <div class="w-auto d-flex mt-2">
             <div class="d-flex bg-white p-1 algin-items-center rounded-4">
                 <div class="">
                     <input v-model="sharedState.type" hidden type="radio" id="type_sale" name="type" value="sale">
@@ -298,7 +320,7 @@
                 ]" for="">Wanted</label>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     </form>
     <div class="d-md-none">
