@@ -226,15 +226,25 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                 <div className="box">
                     <div className="box-body">
                         <PermissionAllow permission={'Categories Listing'} message="true">
-                            <div className="mb-3 col-lg-4">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Search by name..."
-                                    value={searchQuery}
-                                    onChange={handleSearch}
-                                />
+                            <div className='row'>
+                                <div className="mb-3 col-lg-4">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Search by name,company name,phone or email"
+                                        value={searchQuery}
+                                        onChange={handleSearch}
+                                    />
+                                </div>
+                                <div className="mb-3 col-lg-2">
+                                    <select name="" className='form-control'>
+                                        <option value={'all'}>All</option>
+                                        <option value={'agent'}>Agent</option>
+                                        <option value={'individual'}>Individual</option>
+                                    </select>
+                                </div>
                             </div>
+                           
                             <div className="table-responsive rounded card-table">
                                 <Table className="table border-no" id="example1">
                                     <Thead>
