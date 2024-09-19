@@ -48,7 +48,7 @@ export default function AdminSidebar() {
                                     <li className="">
                                         <Link href={route('admin.sellers.index')} title="Categories">
                                             <i className="bi bi-person-check"></i>
-                                            <span>Sellers</span>
+                                            <span>Users</span>
                                         </Link>
                                     </li>
                                 </PermissionAllow>
@@ -136,7 +136,7 @@ export default function AdminSidebar() {
                                     </li>
 
                                 </PermissionAllow>
-                                <PermissionAllow permission={'Subscribers'}>
+                                {/* <PermissionAllow permission={'Subscribers'}>
                                     <li>
                                         <Link href={route('admin.customers.index')}>
                                             <i className="bi bi-person-vcard" title="Subscribers"></i>
@@ -144,7 +144,7 @@ export default function AdminSidebar() {
                                         </Link>
                                     </li>
 
-                                </PermissionAllow>
+                                </PermissionAllow> */}
                                 <PermissionAllow permission={'Subscribers'}>
                                     <li>
                                         <Link href={route('admin.subscription.index')}>

@@ -52,7 +52,8 @@ class StaffController extends BaseController
             if($request->has('password') && $request->password){
                 $staff->update([
                     'password' => Hash::make($request->password),
-                    'type' => 'admin-staff'
+                    'type' => 'admin-staff',
+                    'email_verified_at' => now(),
                 ]);
             }
 

@@ -54,7 +54,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
 
 
     
-    Route::get('customers', 'CustomerController@index')->name('customers.index');
+    // Route::get('customers', 'CustomerController@index')->name('customers.index');
     
     Route::get('backups', 'BackupController@index')->name('backups.index');
     Route::post('backups/update-database', 'BackupController@updateDatabase')->name('backups.update-db');
@@ -179,21 +179,21 @@ Route::get('import-permissions', function () {
 Route::post('uploadExcel', [SetupController::class, 'upload'])->name('uploadPermissions');
 
 
-Route::group(['middleware' => ['userType:customer','auth', 'verified'], 'prefix'=>'customer', 'as' => 'customer.','namespace' => 'App\Http\Controllers\Customer'], function(){
+// Route::group(['middleware' => ['userType:customer','auth', 'verified'], 'prefix'=>'customer', 'as' => 'customer.','namespace' => 'App\Http\Controllers\Customer'], function(){
     
-    Route::get('/', 'App\Http\Controllers\Customer\ChatController@index')->name('index');
+//     Route::get('/', 'App\Http\Controllers\Customer\ChatController@index')->name('index');
 
-    Route::resource('/profile', App\Http\Controllers\Customer\ProfileController::class, [
-        'only' => ['index', 'store']
-    ])->parameters([
-        'profiles' => 'profile'
-    ]);
-    Route::get('/password', 'App\Http\Controllers\Customer\ProfileController@password')->name('password.index');
-    Route::post('/password', 'App\Http\Controllers\Customer\ProfileController@changePassword')->name('password.store');
+//     Route::resource('/profile', App\Http\Controllers\Customer\ProfileController::class, [
+//         'only' => ['index', 'store']
+//     ])->parameters([
+//         'profiles' => 'profile'
+//     ]);
+//     Route::get('/password', 'App\Http\Controllers\Customer\ProfileController@password')->name('password.index');
+//     Route::post('/password', 'App\Http\Controllers\Customer\ProfileController@changePassword')->name('password.store');
 
-    Route::get('/chats/{chat}', 'App\Http\Controllers\Customer\ChatController@show')->name('chats.show');
-    Route::put('/chats/{chat}', 'App\Http\Controllers\Customer\ChatController@update')->name('chats.update');
-});
+//     Route::get('/chats/{chat}', 'App\Http\Controllers\Customer\ChatController@show')->name('chats.show');
+//     Route::put('/chats/{chat}', 'App\Http\Controllers\Customer\ChatController@update')->name('chats.update');
+// });
 
 
 require __DIR__.'/auth.php';

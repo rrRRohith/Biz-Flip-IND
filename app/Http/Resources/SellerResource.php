@@ -21,7 +21,7 @@ class SellerResource extends JsonResource
 
         return [
             'id'           => $this->id,
-        	'user_id'       => $this->seller->user_id,	
+        	'user_id'       => $this->id,	
             'short_description' => $this->seller->short_description,	
             'description'   => $this->seller->description,	
             'logo'          => $this->seller->logo,	
@@ -57,6 +57,7 @@ class SellerResource extends JsonResource
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
             'availableDays' => $this->seller->availableDays,
+            'is_agent' => $this->seller()->exists(),
           
         ];
     }

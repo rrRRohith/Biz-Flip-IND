@@ -22,7 +22,7 @@ class VendorResource extends JsonResource
 
         return [
             'id'           => $this->id,
-        	'user_id'       => $this->seller->user_id ?? null,	
+        	'user_id'       => $this->id ?? null,	
             'short_description' => $this->seller->short_description  ?? null,	
             'description'   => $this->seller->description  ?? null,	
             'logo'          => $this->seller->logo ?? null,	
@@ -61,7 +61,7 @@ class VendorResource extends JsonResource
             'created_at'    => $this->created_at ?? null,	
             'updated_at'    => $this->updated_at ?? null,	
             'availableDays' => $this->seller->availableDays ?? null,
-          
+            'is_agent' => $this->seller()->exists(),
         ];
     }
 }

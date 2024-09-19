@@ -139,7 +139,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                         onSelect={(k) => setKey(k)}
                         className=""
                     >
-                        <Tab eventKey="ApprovedSellers" title="Approved Sellers">
+                        <Tab eventKey="ApprovedSellers" title="Approved Users">
                             <VendorTable
                                 displayList={displayList}
                                 startIdx={startIdx}
@@ -178,7 +178,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 handleSearch={handleSearch}
                             />
                         </Tab>
-                        <Tab eventKey="SuspendedSellers" title="Suspended Sellers">
+                        <Tab eventKey="SuspendedSellers" title="Suspended Users">
                             <VendorTable
                                 displayList={displayList}
                                 startIdx={startIdx}
