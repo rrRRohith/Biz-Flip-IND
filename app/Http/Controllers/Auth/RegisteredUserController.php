@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
         ]));
 
         $user->update([
-            'status' => 0,
+            'status' => 1, // auto approves users for now
             'role_id' => 2,
             'unique_code' => $this->unique_code(),
             'type' => 'seller',
