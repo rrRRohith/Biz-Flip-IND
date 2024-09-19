@@ -156,7 +156,6 @@ Route::get('/auth/customer', function () {
     return view('auth.customer');
 });
 
-
 Route::get('pending-review', function () {
     return view('auth.pendingReview');
 });
@@ -168,8 +167,6 @@ Route::post('/auth/customer', 'App\Http\Controllers\Auth\RegisteredUserControlle
 Route::get('/auth/agent', function () {
     return view('auth.agent');
 });
-
-
 
 Route::get('import-permissions', function () {
     return '<form action="' . route('uploadPermissions') . '" method="POST" enctype="multipart/form-data">
