@@ -601,7 +601,7 @@
                                         'btn-dark': sharedState.type == 'sale',
                                         'bg-white': sharedState.type != 'sale'
                                     }
-                                ]" for="">Sale</label>
+                                ]" for="">For Sale</label>
                                 </div>
                                 <div class="col-6">
                                     <input v-model="sharedState.type" hidden type="radio" id="type_wanted_mob" name="type" value="wanted">
@@ -610,7 +610,7 @@
                                         'btn-dark': sharedState.type == 'wanted',
                                         'bg-white': sharedState.type != 'wanted',
                                     }
-                                ]" for="">Wanted</label>
+                                ]" for="">For Buy</label>
                                 </div>
                             </div>
                         </div>
