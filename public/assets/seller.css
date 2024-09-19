@@ -135,9 +135,9 @@ nav#navbarVertical {
     min-width: 270px;
 }
 
-.seller-top-navbar{
+/* .seller-top-navbar{
     margin-left: 270px;
-}
+} */
 
 .whitespace-wrap, .table td.whitespace-wrap {
     white-space: unset !important;
