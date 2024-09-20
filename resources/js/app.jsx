@@ -49,7 +49,6 @@ createInertiaApp({
                 </React.Fragment>
             );
         };
-
         root.render(<AppWrapper {...props} />);
     },
     progress: false,
