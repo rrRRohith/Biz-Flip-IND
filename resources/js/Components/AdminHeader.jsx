@@ -30,7 +30,7 @@ export default function AdminHeader({ user, header, onSidebarToggle, handle, isF
 
     return (
         <>
-            <header className="main-header me-4">
+            <header className="main-header ">
                 <div className=''>
                     <div className="d-flex align-items-center logo-box justify-content-start">
                         <a href="#" onClick={onSidebarToggle}
