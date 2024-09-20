@@ -9,6 +9,7 @@ use ZipArchive;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use URL;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->loadGoogleStorageDriver();
+        View::share('provinces', \App\Models\Province::orderBy('name')->whereStatus(1)->get());
     }
 
     private function loadGoogleStorageDriver(string $driverName = 'google')

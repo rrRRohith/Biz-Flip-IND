@@ -140,9 +140,7 @@ Route::get('/listing', function () {
 });
 
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::get('/contact', 'App\Http\Controllers\Controller@contactShow')->name('contact.index');
 Route::post('/contact', 'App\Http\Controllers\Controller@contact')->name('contact.store');
 Route::post('/subscribe', 'App\Http\Controllers\Controller@subscribe')->name('subscribe.store');
 
@@ -154,17 +152,17 @@ Route::get('/sign-up', function () {
 Route::post('/sign-up', 'App\Http\Controllers\Auth\RegisteredUserController@register');
 
 
-Route::get('/auth', function () {
-    return view('auth.index');
-});
+// Route::get('/auth', function () {
+//     return view('auth.index');
+// });
 
-Route::get('/auth/seller', function () {
-    return view('auth.seller');
-});
+// Route::get('/auth/seller', function () {
+//     return view('auth.seller');
+// });
 
-Route::get('/auth/customer', function () {
-    return view('auth.customer');
-});
+// Route::get('/auth/customer', function () {
+//     return view('auth.customer');
+// });
 
 Route::get('pending-review', function () {
     return view('auth.pendingReview');
@@ -174,9 +172,9 @@ Route::post('/auth/seller', 'App\Http\Controllers\Auth\RegisteredUserController@
 Route::post('/auth/agent', 'App\Http\Controllers\Auth\RegisteredUserController@agent');
 Route::post('/auth/customer', 'App\Http\Controllers\Auth\RegisteredUserController@customer');
 
-Route::get('/auth/agent', function () {
-    return view('auth.agent');
-});
+// Route::get('/auth/agent', function () {
+//     return view('auth.agent');
+// });
 
 Route::get('import-permissions', function () {
     return '<form action="' . route('uploadPermissions') . '" method="POST" enctype="multipart/form-data">

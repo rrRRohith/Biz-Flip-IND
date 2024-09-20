@@ -836,9 +836,12 @@ ul.dropdown-menu {
 
 ul.dropdown-menu {
   max-width: 300px;
-  min-width: 240px;
+  min-width: 200px;
 }
-
+hr.light {
+  border-color: #a7a7a7 !important;
+  margin: 10px 0px;
+}
 .mt--200 {
   margin-top: -200px;
 }
@@ -851,7 +854,11 @@ ul.dropdown-menu {
 button.franchise-button {
   background: var(--bs-gray-300) !important;
 }
-
+.dropdown-item.active, .dropdown-item:active {
+  color: var(--bs-dropdown-link-active-color);
+  text-decoration: none;
+  background-color: var(--bs-dark) !important;
+}
 button.franchise-button::after {
   opacity: 0;
   display: none;
@@ -883,4 +890,10 @@ body.embeded .not-embed {
   .modal-lg, .modal-xl {
       --bs-modal-width: 600px !important;
   }
+}
+
+img.header-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover !important;
 }

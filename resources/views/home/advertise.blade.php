@@ -14,7 +14,7 @@
     background-repeat: no-repeat;">
             <div class="py-5 px-3">
                 <div class="text-center">
-                    <a class="fw-semibold btn btn-dark btn-sm" href="/auth">Advertise with us</a>
+                    <a class="fw-semibold btn btn-dark btn-sm" href="/account/ads/create">Advertise with us</a>
                     <h1 class="mt-4 mb-4">10X Your Business Growth!</h1>
                     <div class="fw-bold text-muted">Connecting Business Sellers & Buyers Since 1998</div>
                 </div>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <a class="fw-semibold btn btn-warning btn-lg mt-5" href="/auth">Advertise with us <i
+                    <a class="fw-semibold btn btn-warning btn-lg mt-5" href="/account/ads/create">Advertise with us <i
                             class="bi bi-arrow-right"></i></a>
                 </div>
             </div>

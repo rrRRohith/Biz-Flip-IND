@@ -40,6 +40,10 @@ class Controller extends BaseController{
         ]);
     }
 
+    public function contactShow(){
+        return view('contact');
+    }
+
     public function contact(ContactRequest $request){
         \App\Models\ContactEnquiry::create($request->validated());
         $this->adminContactReceived($request);

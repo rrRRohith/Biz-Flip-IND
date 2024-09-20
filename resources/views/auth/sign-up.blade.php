@@ -8,7 +8,7 @@
 <div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <div class='p-3 p-sm-5 mh-100vh'>
                     <a href="/" class='fs-3 text-dark text-decoration-none fw-semibold'><i
                             class="bi bi-arrow-left"></i></a>
@@ -16,13 +16,6 @@
                         @include('auth.signUpForm')
                     </div>
                 </div>
-            </div>
-            <div class="col-md-5"
-                style="background-image: url(https://res.cloudinary.com/rr6/image/upload/v1724138709/auth_nczirt.webp);
-                background-position: center center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-attachment: fixed;">
             </div>
         </div>
     </div>

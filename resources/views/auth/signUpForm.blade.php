@@ -1,4 +1,9 @@
 <div>
+    @if(!isset($modal))
+    <div class="text-center mb-5">
+        <img class="m-auto" width="240" src="/logo.png" alt="{{ env('APP_NAME') }}">
+    </div>
+    @endif
     <div class="hide">
         <div class="fs-3 fw-semibold text-center">
             Register your account
