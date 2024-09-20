@@ -52,6 +52,10 @@ class AdRequest extends FormRequest
             'city' => 'required|max:256|string',
             'postalcode' => 'required|max:10|string',
             'province' => 'required|exists:provinces,name',
+            // 'lat' => 'sometimes|max:256|string|nullable',
+            // 'lng' => 'sometimes|max:256|string|nullable',
+            // 'map_link' => 'sometimes|max:256|string|nullable',
+
             'lat' => 'required_if:ad_type,sale|max:256|string|nullable',
             'lng' => 'required_if:ad_type,sale|max:256|string|nullable',
             'map_link' => 'required_if:ad_type,sale|max:256|string|nullable',
