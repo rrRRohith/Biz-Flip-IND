@@ -23,7 +23,8 @@ class FacilityResource extends JsonResource
             'slug'          => $this->slug,
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'icon'          => $this->icon  ? image_url($this->icon) :asset('/assets/admin/images/noimage.webp'),
+            // 'icon'          => $this->icon  ? image_url($this->icon) :asset('/assets/admin/images/noimage.webp'),
+            'icon'          => $this->icon,
             'created_at'    => (new Carbon($this->created_at)),
             'updated_at'    => (new Carbon($this->updated_at)),
           

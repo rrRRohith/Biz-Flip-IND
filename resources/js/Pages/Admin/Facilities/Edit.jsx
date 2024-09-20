@@ -20,6 +20,7 @@ export default function Create({ facility_item, queryParams = null, auth }) {
         status: facility_item.status = 'published' ? 1 : 0 || 1,
         position: facility_item.position || '', _method: "PUT",
         remove_image: false,
+        icon : facility_item.icon
     });
 
     const [imagePreview, setImagePreview] = useState('');
@@ -101,7 +102,7 @@ export default function Create({ facility_item, queryParams = null, auth }) {
                                                     <div className="row">
                                                         <div className="col-lg-9">
                                                             <div className="row">
-                                                                <div className="col-md-12 mb-3">
+                                                                <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Name</InputLabel>
                                                                         <TextInput
@@ -116,7 +117,25 @@ export default function Create({ facility_item, queryParams = null, auth }) {
                                                                         <InputError message={errors.facility_name} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-12 mb-3">
+                                                                <div className="col-md-6 mb-3">
+                                                                    <div className="form-group">
+                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Icon 
+                                                                            <span className="ms-5 text-danger"> (<a href="https://icons.getbootstrap.com/" className="text-danger" target="_nw">Get from icon name</a>)</span>
+                                                                        </InputLabel>
+                                                                        
+                                                                        <TextInput
+                                                                            id="icon-name"
+                                                                            type="text"
+                                                                            name="icon"
+                                                                            className="form-control"
+                                                                            value={data.icon}
+                                                                            onChange={(e) => handleChange("icon", e.target.value)}
+                                                                            autoComplete="off"
+                                                                        />
+                                                                        <InputError message={errors.icon} className="mt-2 col-12" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Position</InputLabel>
                                                                         <SelectOption
@@ -149,7 +168,7 @@ export default function Create({ facility_item, queryParams = null, auth }) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-3">
+                                                        <div className="col-lg-3 d-none">
                                                             <div className="row">
                                                                 <div className="col-md-12">
                                                                     <div className="border rounded-4 p-3  text-center">

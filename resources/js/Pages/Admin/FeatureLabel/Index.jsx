@@ -87,10 +87,11 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                         </Tr>
                                                     </Thead>
                                                     <Tbody>
-                                                        {labelList.data.map((label) => (
+                                                        {labelList.data.map((label,index) => (
                                                             <Tr key={label.id} className="hover-primary">
-                                                                <Td>{label.id}</Td>
-                                                                <Td>{label.name}</Td>
+                                                                <Td>{index+1}</Td>
+                                                                <Td> <i className={`${feature.icon} bi  w-40 rounded-5`}></i>
+                                                                    {label.name}</Td>
                                                                 <Td><div style={{ backgroundColor: label.color,width:"20px",height:"20px" }}></div></Td>
                                                                 <Td>{label.priority}</Td>
                                                                 <Td>{label.status}</Td>
