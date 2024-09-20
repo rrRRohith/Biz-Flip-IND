@@ -22,7 +22,7 @@ export default function Contacts({ chats, user }) {
                                 <>
                                     {chats.map((chat) => (
                                         <li className={`nav-item rounded-0 mb-2 ${urlMatches(path, user.type == 'customer' ? '/customer/chats/' : '/seller/chats/' +chat.id) ? 'bg-gray-100' : ''}`}>
-                                            <Link href={route(user.type == 'customer' ? 'customer.chats.show' : 'seller.chats.show', chat.id)} className="nav-link text-md rounded-0">
+                                            <Link href={route(user.type == 'customer' ? 'customer.chats.show' : 'account.chats.show', chat.id)} className="nav-link text-md rounded-0">
                                                 <div className="d-flex align-items-center w-full">
                                                     <div className="me-2">
                                                         <img alt="Image Placeholder" src={chat.contact_image} class="avatar avatar- rounded-circle" />

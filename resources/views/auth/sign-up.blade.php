@@ -1,12 +1,7 @@
 @extends('layouts.wrapper', ['bodyClass' => 'bg-light'])
 @section('content')
     @push('styles')
-        <style>
-            .acc_type.active {
-                background: #c1afaf3c;
-                color: #282626;
-            }
-        </style>
+        
     @endpush
 
 @section('title', 'Sign up')
@@ -38,13 +33,17 @@
                                         <div class="col-lg-6">
 
                                             <div role="button" @click="accountType = 'individual';removeClass();"
-                                                :class="{ 'active': accountType === 'individual' }"
-                                                class="card border-0 rounded-4 shadow-sm mb-4 acc_type">
-                                                <div class="card-body px-xl-5 px-md-4 ">
+                                                :class="{ 'active border-primary': accountType === 'individual' }"
+                                                :class="{ 'border-white': accountType != 'individual' }"
+                                                class="card border-2 rounded-1 shadow-none mb-4 acc_type">
+                                                <div class="card-body px-xl-5 px-md-4 position-relative">
+                                                    <div x-show="accountType == 'individual'" class="position-absolute top-0 end-0 p-1">
+                                                        <i class="bi text-primary bi-check-circle fs-5"></i>
+                                                    </div>
                                                     <div class="d-flex align-items-center">
                                                         <div>
                                                             <div class="fs-6 fw-semibold">
-                                                                <input type="radio" class="me-3" id="individual"
+                                                                <input hidden type="radio" class="me-3" id="individual"
                                                                     value="individual" x-model="accountType">
                                                                 Individual
                                                             </div>
@@ -56,13 +55,17 @@
                                         <div class="col-lg-6">
 
                                             <div role="button" @click="accountType = 'agent';removeClass();"
-                                                :class="{ 'active': accountType === 'agent' }"
-                                                class="card border-0 rounded-4 shadow-sm mb-4 acc_type">
-                                                <div class="card-body px-xl-5 px-md-4">
+                                                :class="{ 'active border-primary': accountType === 'agent' }"
+                                                :class="{ 'border-white': accountType != 'agent' }"
+                                                class="card border-2 rounded-1 shadow-none mb-4 acc_type">
+                                                <div class="card-body px-xl-5 px-md-4 position-relative">
+                                                    <div x-show="accountType == 'agent'" class="position-absolute top-0 end-0 p-1">
+                                                        <i class="bi text-primary bi-check-circle fs-5"></i>
+                                                    </div>
                                                     <div class="d-flex align-items-center">
                                                         <div>
                                                             <div class="fs-6 fw-semibold">
-                                                                <input type="radio" class="me-3" id="agent"
+                                                                <input hidden type="radio" class="me-3" id="agent"
                                                                     value="agent" x-model="accountType">Agent
                                                             </div>
                                                         </div>
@@ -206,7 +209,7 @@
                                     <div class="form-group mb-4">
                                         <div class="form-check form-check-lg">
                                             <input form="authForm" role="button"
-                                                class="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                class="form-check-input light shadow-none border border-gray border-1 cursor-pointer"
                                                 type="checkbox" name="subscribe_news" value="true"
                                                 id="subscribe_news" />
                                             <label role="button" class="form-check-label mt-1"
@@ -218,7 +221,7 @@
                                     <div class="form-group mb-4">
                                         <div class="form-check form-check-lg">
                                             <input form="authForm" role="button"
-                                                class="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                class="form-check-input light shadow-none border border-gray border-1 cursor-pointer"
                                                 type="checkbox" name="agree_terms_and_conditions" value="true"
                                                 id="agree_terms_and_conditions" />
                                             <label role="button" class="form-check-label mt-1"

@@ -118,7 +118,7 @@ main.wrapper {
   background-color: var(--bs-light);
 }
 
-.form-check-lg input {
+.form-check-lg.light input {
   background-color: var(--bs-light);
 }
 
@@ -268,13 +268,15 @@ textarea {
 }
 
 .label-top label {
-  position: absolute;
-  color: var(--bs-primary);
-  font-size: small;
-  left: 13px;
-  top: 2px;
-  font-weight: 500;
+  /* position: absolute; */
+  color: var(--bs-dark);
+  opacity: .5;
+  font-size: medium;
+  /* left: 13px;
+  top: 2px; */
+  font-weight: 400 !important;
   /* background-color: #fff; */
+  margin-bottom: 4px;
 }
 
 .form-group {
@@ -285,7 +287,8 @@ textarea {
 .label-top select.form-control,
 .label-top textarea.form-control,
 .label-top.element-container {
-  padding-top: 1.25em !important;
+  padding-top: .75em !important;
+  padding-bottom: .75em !important;
 }
 
 input.p-none,
