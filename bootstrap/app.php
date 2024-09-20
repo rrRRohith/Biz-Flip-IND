@@ -41,7 +41,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 $content['body'] = request()->all();
                 $content['ip'] = request()->ip();
                 \App\Emails::sendError($content);
-                // $this->sendError($content);
             }
         });
     })->create();
