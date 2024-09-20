@@ -878,3 +878,9 @@ body.embeded .not-embed {
 /* .card.mainFilter {
   border-bottom-left-radius: 0px !important;
 } */
+
+@media (min-width: 992px) {
+  .modal-lg, .modal-xl {
+      --bs-modal-width: 600px !important;
+  }
+}

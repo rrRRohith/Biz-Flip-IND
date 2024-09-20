@@ -1,8 +1,7 @@
 <nav class="not-embed navbar navbar-expand-lg py-3 px-0 navbar-light bg-white fixed-top shadow-sm">
     <div class="container">
         <a class="navbar-brand py-1" href="/">
-            <img src="/logo.png"
-                alt="{{ env('APP_NAME') }}">
+            <img src="/logo.png" alt="{{ env('APP_NAME') }}">
         </a>
         <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -28,16 +27,21 @@
                     @endif
                 @else
                     <li class="nav-item">
-                        <a class="nav-link p-2 fw-semibold" href="/login">Login</a>
+                        <a data-bs-toggle="modal" data-bs-target="#loginModal" class="nav-link p-2 fw-semibold"
+                            href="/login">Login</a>
                     </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link p-2 fw-semibold" href="/sign-up">Sign up</a>
                     </li> --}}
                     <li class="nav-item ps-2">
-                        <a class="fw-semibold btn btn-dark btn-sm" href="/sign-up">Register</a>
+                        <a data-bs-toggle="modal" data-bs-target="#registerModal" class="fw-semibold btn btn-dark btn-sm"
+                            href="/sign-up">Register</a>
                     </li>
                     @endif
                 </ul>
             </div>
         </div>
     </nav>
+    @guest
+    @include('layouts.authModal')
+    @endif
