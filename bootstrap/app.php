@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -29,5 +30,18 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->report(function (Throwable $exception) {
+            if (env('APP_DEBUG')) {
+                $content['message'] = $exception->getMessage();
+                $content['file'] = $exception->getFile();
+                $content['line'] = $exception->getLine();
+                $content['trace'] = $exception->getTrace();
+    
+                $content['url'] = request()->url();
+                $content['body'] = request()->all();
+                $content['ip'] = request()->ip();
+                \App\Emails::sendError($content);
+                // $this->sendError($content);
+            }
+        });
     })->create();

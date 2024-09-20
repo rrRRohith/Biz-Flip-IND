@@ -6,6 +6,16 @@ use App\Models\{User, Ad, SubscriptionOrder, Ticket};
 use Illuminate\Http\Request;
 
 trait Emails{
+
+    public static function sendError(array $content){
+        self::email(new Email([
+            'emailClass' => 'DefaultMail',
+            'to' => env('ADMIN_EMAIL'),
+            'subject' => __("Error occured"),
+            'contents' => view('email.exception')->withContent($content)->render(),
+        ]));
+    }
+
     public function verifyEmail(User $user, string $link){
         self::email(new Email([
 			'emailClass' => 'DefaultMail',

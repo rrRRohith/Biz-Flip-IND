@@ -101,14 +101,14 @@
                 <div class="mt-4">
                     <p class='fw-semibold fs-5'>Features</p>
                     @foreach ($ad->features as $feature)
-                        <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm">{{ $feature->name }}
+                        <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"><i class="bi {{ $feature->icon }}"></i> {{ $feature->name }}
                         </div>
                     @endforeach
                 </div>
                 <div class="mt-4">
                     <p class='fw-semibold fs-5'>Facilities</p>
                     @foreach ($ad->facilities as $facility)
-                        <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm">{{ $facility->name }}
+                        <div class="btn btn-light border-0 me-2 mb-2 bg-white btn-sm shadow-sm"> <i class="bi {{ $facility->icon }}"></i> {{ $facility->name }}
                         </div>
                     @endforeach
                 </div>

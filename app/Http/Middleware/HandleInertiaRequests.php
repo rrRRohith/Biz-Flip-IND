@@ -61,7 +61,7 @@ class HandleInertiaRequests extends Middleware
             return request()->session()->get('error');
         }
         else if(request()->session()->get('errors')){
-            return "Ops there are some problems";
+            return "Oops! There are issues with the form submission. Please ensure all fields are correctly filled.";
         }
 
         return null;

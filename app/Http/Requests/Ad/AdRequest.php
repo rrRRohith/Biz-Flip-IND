@@ -66,7 +66,7 @@ class AdRequest extends FormRequest
             'ad_type' => 'required|in:sale,wanted'
         ];
 
-        if(($businessCategory->slug ?? null) == 'franchise'){
+        if(($businessCategory->slug ?? null) == 'franchise' && $this->ad_type == 'sale'){
             $rules = array_merge($rules, [
                 'territories' => 'required|string',
                 'franchising_since' => 'required|string',

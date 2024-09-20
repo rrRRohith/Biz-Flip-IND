@@ -388,7 +388,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                         </div>
                                     </div>
                                     <hr />
-                                    {isFranchise && (
+                                    {isFranchise && data.ad_type == 'sale' && (
                                         <>
                                             <AdFranchise handleChange={handleChange} data={data} errors={errors}></AdFranchise>
                                         </>
