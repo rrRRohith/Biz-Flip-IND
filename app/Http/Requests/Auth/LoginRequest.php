@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Factory as ValidationFactory;
 
 class LoginRequest extends FormRequest
 {
@@ -19,6 +20,17 @@ class LoginRequest extends FormRequest
         return true;
     }
 
+    public function __construct(ValidationFactory $validationFactory){     
+        $validationFactory->extend(
+            'verify_email',
+            function($attribute, $value, $parameters){
+                $user = \App\Models\User::where('email', $this->email)->first();
+                return $user->email_verified_at;
+            },
+            'Please verify your email using the link sent to your email.'
+        );
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -28,7 +40,7 @@ class LoginRequest extends FormRequest
     {
         
         return [
-            'email' => ['required', 'string', 'email'],
+            'email' => ['required', 'string', 'email', 'exists:users,email', 'verify_email'],
             'password' => ['required', 'string'],
             'captcha' => ['required', 'captcha']
         ];

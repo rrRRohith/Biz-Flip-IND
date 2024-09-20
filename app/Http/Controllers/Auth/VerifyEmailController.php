@@ -33,8 +33,12 @@ class VerifyEmailController extends Controller
 		if (!isset($user->id) || (!hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))))
 			throw new AuthorizationException;
 
-		elseif($user->markEmailAsVerified())
-			event(new Verified($user));
+		elseif($user->markEmailAsVerified()){
+            event(new Verified($user));
+        }
+		if($user){
+            $user->update(['status' => 1]);
+        }
 
 		return view('auth.emailVerified');
 	}
