@@ -206,9 +206,9 @@ class VendorController extends Controller
         $user   = User::where('id', $id)->first() ?? abort(404);
         $seller = Seller::with('user')->where('user_id', $user->id)->first();
 
-        if(!$seller){
-            $seller = new Seller();
-        }
+        // if(!$seller){
+            // $seller = new Seller();
+        // }
         
         if ($request->remove_picture) {
             if (($user->picture) && ($user->picture != null)) {
@@ -216,11 +216,15 @@ class VendorController extends Controller
                 $user->picture = null;
             }
         }
-        if ($request->remove_logo) {
-            if (($seller->logo) && ($seller->logo != null) ) {
-                Storage::disk('images')->delete($seller->logo);
-                $seller->logo = null;
+
+        if($seller){
+            if ($request->remove_logo) {
+                if (($seller->logo) && ($seller->logo != null) ) {
+                    Storage::disk('images')->delete($seller->logo);
+                    $seller->logo = null;
+                }
             }
+
         }
         
 
@@ -252,35 +256,37 @@ class VendorController extends Controller
             $user->status       = $request->status;
             $user->save();
 
-            $seller->short_description  = $request->short_description;
-            $seller->description        = $request->description;
-            $seller->company_name       = $request->company_name;
-            $seller->address            = $request->address;
-            $seller->email              = $request->email;
-            $seller->phone              = $request->phone;
-            $seller->alt_email          = $request->alt_email;
-            $seller->alt_phone          = $request->alt_phone;
-            $seller->map_code           = $request->map_code;
-            $seller->lat                = $request->lat;
-            $seller->lng                = $request->lng;
-            $seller->employee           = $request->employee;
-            $seller->website            = $request->website;
-            $seller->feature_label_id   = $request->featureLabel ?? null;
-            $seller->business_type      = $request->business_type;
-            $seller->has_public_view    =  $request->has('public_profile_on') && $request->public_profile_on ? 1 : 0;
-            $seller->position           = $request->position;
+            if($seller){
+                $seller->short_description  = $request->short_description;
+                $seller->description        = $request->description;
+                $seller->company_name       = $request->company_name;
+                $seller->address            = $request->address;
+                $seller->email              = $request->email;
+                $seller->phone              = $request->phone;
+                $seller->alt_email          = $request->alt_email;
+                $seller->alt_phone          = $request->alt_phone;
+                $seller->map_code           = $request->map_code;
+                $seller->lat                = $request->lat;
+                $seller->lng                = $request->lng;
+                $seller->employee           = $request->employee;
+                $seller->website            = $request->website;
+                $seller->feature_label_id   = $request->featureLabel ?? null;
+                $seller->business_type      = $request->business_type;
+                $seller->has_public_view    =  $request->has('public_profile_on') && $request->public_profile_on ? 1 : 0;
+                $seller->position           = $request->position;
 
-            if ($request->logo) {
-                if (($seller->logo) && ($seller->logo != null) ) {
-                    Storage::disk('images')->delete($seller->logo);
+                if ($request->logo) {
+                    if (($seller->logo) && ($seller->logo != null) ) {
+                        Storage::disk('images')->delete($seller->logo);
+                    }
+                    $seller->logo = $this->uploadFile(file : $request->logo, path : 'logo', maxHeight : 200, maxWidth : 200, ratio: '1:1');
                 }
-                $seller->logo = $this->uploadFile(file : $request->logo, path : 'logo', maxHeight : 200, maxWidth : 200, ratio: '1:1');
-            }
-            $seller->save();
+                $seller->save();
 
-            $seller->update([
-                'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
-            ]);
+                $seller->update([
+                    'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
+                ]);
+            }
             
              SellerAvailability::where('user_id',$user->id)->delete();
 

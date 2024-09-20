@@ -171,21 +171,21 @@ export default function Create({ auth, cities, provinces, featureLabel }) {
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Seller/Create</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">User/Create</h2>}
         >
-            <Head title="Seller Create" />
+            <Head title="User Create" />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Create Seller</h4>
+                                    <h4 className="page-title"> Create User</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
-                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.sellers.index')}>Sellers</Link></li>
+                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.sellers.index')}>Users</Link></li>
                                                 <li className="breadcrumb-item active" aria-current="page">Create</li>
                                             </ol>
                                         </nav>

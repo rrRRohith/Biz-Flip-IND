@@ -16,6 +16,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     const itemsPerPage = 20;
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery2, setSearchQuery2] = useState('all');
     const [filteredVendors, setFilteredVendors] = useState(vendorsList.data);
     const [filteredPendingVendors, setFilteredPendingVendors] = useState(pendingVendorsList.data);
     const [filteredSuspendedVendors, setFilteredSuspendedVendors] = useState(suspendedVendorsList.data);
@@ -78,8 +79,64 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
         setCurrentPage(1);
     };
 
+    const handleSearchType = (e) => {
+      
+        const value2 = e.target.value;
+        setSearchQuery2(value2);
+        let filtered2;
+        
+        if (key === 'ApprovedSellers') {
+            if(value2 == 'agent'){
+                filtered2 = vendorsList.data.filter(vendor =>
+                    vendor.is_agent === true
+                );
+            }
+            else if(value2 == 'individual'){
+                filtered2 = vendorsList.data.filter(vendor =>
+                    vendor.is_agent == false
+                );
+            }
+            else{
+                filtered2 = vendorsList.data;
+            }
+            
+            setFilteredVendors(filtered2);
+        } else if (key === 'PendingApproval') {
+            if(value2 == 'agent'){
+                filtered2 = vendorsList.data.filter(vendor =>
+                    vendor.is_agent == true
+                );
+            }
+            else if(value2 == 'individual'){
+                filtered2 = vendorsList.data.filter(vendor =>
+                    vendor.is_agent == false
+                );
+            }
+            else{
+                filtered2 = vendorsList.data;
+            }
+            setFilteredPendingVendors(filtered2);
+        } else if (key === 'SuspendedSellers') {
+            if(value2 == 'agent'){
+                filtered2 = vendorsList.data.filter(vendor =>
+                    vendor.is_agent == true
+                );
+            }
+            else if(value2 == 'individual'){
+                filtered2 = vendorsList.data.filter(vendor =>
+                    vendor.is_agent == false
+                );
+            }
+            else{
+                filtered2 = vendorsList.data;
+            }
+            setFilteredSuspendedVendors(filtered2);
+        }
+        setCurrentPage(1);
+    };
+
     const getDisplayList = () => {
-        if (searchQuery.length > 0) {
+        if (searchQuery.length > 0 || searchQuery2.length >0) {
             if (key === 'ApprovedSellers') {
                 return filteredVendors;
             } else if (key === 'PendingApproval') {
@@ -121,7 +178,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
 
     return (
         <Authenticated user={auth.user}>
-            <Head title="Sellers List" />
+            <Head title="Users List" />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
@@ -129,7 +186,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Sellers Listing</h4>
+                                        <h4 className="page-title">Users Listing</h4>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +205,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                         onSelect={(k) => setKey(k)}
                         className=""
                     >
-                        <Tab eventKey="ApprovedSellers" title="Approved Users">
+                        <Tab eventKey="ApprovedSellers" title="Active Users">
                             <VendorTable
                                 displayList={displayList}
                                 startIdx={startIdx}
@@ -160,12 +217,29 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 handleShow={handleShow}
                                 searchQuery={searchQuery}
                                 handleSearch={handleSearch}
+                                handleSearchType={handleSearchType}
                             />
                         </Tab>
-                        {/* <Tab eventKey="PendingApproval" title={`Pending Approval (${pendingVendorsList.data.length})`}> */}
-                        <Tab eventKey="PendingApproval" title={
+                     
+                        <Tab eventKey="SuspendedSellers" title="Suspended">
+                            <VendorTable
+                                displayList={displayList}
+                                startIdx={startIdx}
+                                endIdx={endIdx}
+                                deleteVendor={deleteVendor}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                                itemsPerPage={itemsPerPage}
+                                handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
+                                handleSearchType={handleSearchType}
+                            />
+                        </Tab>
+                           {/* <Tab eventKey="PendingApproval" title={`Pending Approval (${pendingVendorsList.data.length})`}> */}
+                           <Tab eventKey="PendingApproval" title={
                             <>
-                                <span>Pending Approval</span> 
+                                <span>Unverified</span> 
                                 {pendingVendorsList.data.length > 0 && (
                                     <span className="pending-approval-count">
                                         {pendingVendorsList.data.length}
@@ -185,20 +259,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 handleShow={handleShow}
                                 searchQuery={searchQuery}
                                 handleSearch={handleSearch}
-                            />
-                        </Tab>
-                        <Tab eventKey="SuspendedSellers" title="Suspended Users">
-                            <VendorTable
-                                displayList={displayList}
-                                startIdx={startIdx}
-                                endIdx={endIdx}
-                                deleteVendor={deleteVendor}
-                                handlePageChange={handlePageChange}
-                                currentPage={currentPage}
-                                itemsPerPage={itemsPerPage}
-                                handleShow={handleShow}
-                                searchQuery={searchQuery}
-                                handleSearch={handleSearch}
+                                handleSearchType={handleSearchType}
                             />
                         </Tab>
                     </Tabs>
@@ -219,7 +280,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     );
 }
 
-const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch }) => (
+const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch,handleSearchType }) => (
     <section className="content2">
         <div className="row">
             <div className="col-12">
@@ -237,10 +298,11 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                     />
                                 </div>
                                 <div className="mb-3 col-lg-2">
-                                    <select name="" className='form-control'>
+                                    <select name="" className='form-control'  onChange={handleSearchType}>
                                         <option value={'all'}>All</option>
                                         <option value={'agent'}>Agent</option>
                                         <option value={'individual'}>Individual</option>
+                                      
                                     </select>
                                 </div>
                             </div>
@@ -254,8 +316,10 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                             <Th>Email</Th>
                                             <Th>Mobile Number</Th>
                                             <Th>Designation</Th>
-                                            <Th className='text-center'>Status</Th>
-                                            <Th>Last Modified</Th>
+                                            <Th>Subscription</Th>
+                                            <Th>Ads</Th>
+                                            <Th>Started at</Th>
+                                            <Th>Last login</Th>
                                             <Th className="text-end"></Th>
                                         </Tr>
                                     </Thead>
@@ -283,10 +347,10 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.email}</Td>
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.phone}</Td>
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.designation}</Td>
-                                                <Td  onClick={() => handleShow(vendor)}  className='text-center'>
-                                                    <div dangerouslySetInnerHTML={{ __html: window.statusIcon(vendor.status) }} />
-                                                </Td>
-                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{window.formatDateTime(vendor.updated_at)}</Td>
+                                                <Td></Td>
+                                                <Td></Td>
+                                                <Td></Td>
+                                                <Td></Td>   
                                                 <Td className="text-end">
                                                     <PermissionAllow permission={'Seller Show'}>
                                                         <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
