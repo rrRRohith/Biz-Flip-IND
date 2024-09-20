@@ -165,16 +165,22 @@
                                                 <label class="fw-semibold">Postal code</label>
                                                 <input form="authForm" x-mask="999 9999" maxlength="8"
                                                     name="postalcode" type="text" autocomplete="off"
-                                                    placeholder=''
+                                                    placeholder='Your postalcode'
                                                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                             </div>
                                         </div>
                                         <div class="col-md-4" x-show="accountType == 'agent'">
                                             <div class="form-group label-top mb-4">
                                                 <label class="fw-semibold">Province</label>
-                                                <input form="authForm" name="province" type="text"
+                                                <select form="authForm" name="province" class="form-control border-1 border rounded-1 border-gray shadow-none">
+                                                    <option disabled selected value="">Select province</option>
+                                                    @foreach($provinces as $province)
+                                                    <option value="{{ $province->name }}">{{ $province->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- <input form="authForm" name="province" type="text"
                                                     autocomplete="off" placeholder='Your province'
-                                                    class="form-control border-1 border rounded-1 border-gray shadow-none" />
+                                                    class="form-control border-1 border rounded-1 border-gray shadow-none" /> --}}
                                             </div>
                                         </div>
                                     </div>

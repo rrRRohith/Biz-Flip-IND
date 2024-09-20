@@ -148,7 +148,7 @@ Route::post('/subscribe', 'App\Http\Controllers\Controller@subscribe')->name('su
 
 
 Route::get('/sign-up', function () {
-    return view('auth.sign-up');
+    return view('auth.sign-up')->withProvinces(\App\Models\Province::all());
 });
 
 Route::post('/sign-up', 'App\Http\Controllers\Auth\RegisteredUserController@register');

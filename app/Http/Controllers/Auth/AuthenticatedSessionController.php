@@ -30,6 +30,14 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
+        
+        if(!auth()->user()->last_login){
+            session(['firstLogin' => true]);
+        }
+
+        auth()->user()->update([
+            'last_login' => now()
+        ]);
 
         $request->session()->regenerate();
 
