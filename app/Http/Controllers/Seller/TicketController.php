@@ -68,7 +68,7 @@ class TicketController extends BaseController{
             event(new NewNotification(auth()->user()->id, 1, 'New Support Ticket Created', 'A created new support ticket.', route('admin.support-tickets.index')));
             $this->ticketCreated($ticket);
             
-            return to_route('seller.tickets.show', ['ticket' => $ticket->id])->with('success', 'Ticket created successfully.');
+            return to_route('account.tickets.show', ['ticket' => $ticket->id])->with('success', 'Ticket created successfully.');
         }
         catch(\Exception $e){
             return $e->getMessage();
@@ -110,7 +110,7 @@ class TicketController extends BaseController{
 
             event(new NewNotification(auth()->user()->id, 1, 'Support Ticket Resubmited', 'A Support Ticket has resubmited.', route('admin.support-tickets.index')));
 
-            return to_route('seller.tickets.show', ['ticket' => $ticket->id]);
+            return to_route('account.tickets.show', ['ticket' => $ticket->id]);
         }
         catch(\Exception $e){
 			return $e->getMessage();

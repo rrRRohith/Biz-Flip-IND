@@ -84,17 +84,17 @@ class AdsController extends Controller
             $ad->save();	
 
             if($request->status == '0'){
-                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Pending Stage', 'A post has been pending stage.', route('seller.ads.index')));
+                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Pending Stage', 'A post has been pending stage.', route('account.ads.index')));
             }
             else if($request->status == '1'){
                 if($statusOld == '0'){
                     $this->adApproved($ad);
                 }
-                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Approved', 'A post has been approved.', route('seller.ads.index')));
+                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Approved', 'A post has been approved.', route('account.ads.index')));
     
             }
             else if($request->status == '-1'){
-                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Suspended', 'A post has been suspended.', route('seller.ads.index')));
+                event(new NewNotification(auth()->user()->id, $ad->seller_id, 'Your Post is Suspended', 'A post has been suspended.', route('account.ads.index')));
     
             }
            

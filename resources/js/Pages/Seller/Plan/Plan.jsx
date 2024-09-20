@@ -88,7 +88,7 @@ export default function Plan({ auth, plan, error, success, province_options, add
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route('seller.plans.update', plan.id), {
+        await post(route('account.plans.update', plan.id), {
             preserveScroll: true,
         });
     };
@@ -113,7 +113,7 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                 <div className="d-flex align-items-center">
                                     <div className="text-xl font-bold">Purchase new plan</div>
                                     <div className="ms-auto">
-                                        <Link href={route('seller.plans.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
+                                        <Link href={route('account.plans.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
                                     </div>
                                 </div>
                                 <form onSubmit={handleSubmit}>

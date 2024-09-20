@@ -50,7 +50,7 @@ class ProfileController extends Controller{
                 ]);
             }
 
-            return to_route('seller.profile.index')->with('success', 'Profile updated successfully.');
+            return to_route('account.profile.index')->with('success', 'Profile updated successfully.');
         }
         catch(Exception $e){
             return $e->getMessage();
@@ -65,7 +65,7 @@ class ProfileController extends Controller{
                 ]);
             }
 
-            return to_route('seller.password.index')->with('success', 'Password changed successfully.');
+            return to_route('account.password.index')->with('success', 'Password changed successfully.');
         }
         catch(Exception $e){
             return $e->getMessage();

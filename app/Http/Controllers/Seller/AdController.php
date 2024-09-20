@@ -58,7 +58,7 @@ class AdController extends BaseController{
      */
     public function create(){
         if(!$this->seller->remaining_ads){
-            return redirect()->route('seller.plans.index')->withError('Please purchase a plan to continue.');
+            return redirect()->route('account.plans.index')->withError('Please purchase a plan to continue.');
         }
         return Inertia::render('Seller/AdForm', [
             'categories_options' => Category::selectRaw("id as value, name as label")->get()->toArray(),
@@ -154,7 +154,7 @@ class AdController extends BaseController{
                 $this->adPendingReview($ad);
             }
 
-            return to_route('seller.ads.index')->with('success', 'Ad created successfully.');
+            return to_route('account.ads.index')->with('success', 'Ad created successfully.');
         }
         catch(\Exception $e){
             return $e->getMessage();
@@ -266,7 +266,7 @@ class AdController extends BaseController{
             event(new NewNotification(auth()->user()->id, 1, 'Your Post is Pending Stage', 'A post has been pending stage.', route('admin.ads.index')));
 
             
-            return to_route('seller.ads.index')->with('success', 'Ad updated successfully.');
+            return to_route('account.ads.index')->with('success', 'Ad updated successfully.');
         }
         catch(\Exception $e){
 			return $e->getMessage();
@@ -289,6 +289,6 @@ class AdController extends BaseController{
         $this->seller->ads()->findOrfail($ad->id);
         $ad->delete();
         //Delete images if forceDeleted
-        return to_route('seller.ads.index')->with('success', "Ad was deleted");
+        return to_route('account.ads.index')->with('success', "Ad was deleted");
     }
 }

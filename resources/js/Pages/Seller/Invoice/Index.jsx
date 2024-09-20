@@ -21,7 +21,7 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
 
     const searchResult = async () => {
         setLoading(true);
-        const response = await axios.get(route("seller.invoices.search", data));
+        const response = await axios.get(route("account.invoices.search", data));
         setinvoiceData(response.data);
         setLoading(false);
     }
@@ -64,8 +64,8 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                         <Invoice invoice={mdata}></Invoice>
                     </Modal.Body>
                     <Modal.Footer>
-                        <a target='_blank' href={route('seller.invoices.print', invoiceId)} className='btn btn-primary btn-sm text-overflow'>Print <i className="bi bi-printer"></i></a>
-                        <a target='_blank' href={route('seller.invoices.download', invoiceId)} className='btn btn-primary btn-sm text-overflow'>Download <i className="bi bi-download"></i></a>
+                        <a target='_blank' href={route('account.invoices.print', invoiceId)} className='btn btn-primary btn-sm text-overflow'>Print <i className="bi bi-printer"></i></a>
+                        <a target='_blank' href={route('account.invoices.download', invoiceId)} className='btn btn-primary btn-sm text-overflow'>Download <i className="bi bi-download"></i></a>
                     </Modal.Footer>
                 </Modal>
             </PermissionAllow>
@@ -134,7 +134,7 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                                                                 <td>
                                                                     <PermissionAllow permission="Invoice View">
                                                                         <button onClick={(e) => showInvoice(invoice)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-search"></i></button>
-                                                                        <a target='_blank' href={route('seller.invoices.download', invoice.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-download"></i></a>
+                                                                        <a target='_blank' href={route('account.invoices.download', invoice.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-download"></i></a>
                                                                     </PermissionAllow>
                                                                 </td>
                                                             </tr>

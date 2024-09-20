@@ -16,7 +16,7 @@ const Header = ({ user }) => {
                 </button>
                 {/* { user.type !== 'customer' &&
                     <PermissionAllow permission="Ad Create">
-                        <Link className="btn btn-primary btn-sm text-overflow" href={route('seller.ads.create')}>Place an ad
+                        <Link className="btn btn-primary btn-sm text-overflow" href={route('account.ads.create')}>Place an ad
                         </Link>
                     </PermissionAllow>
                  }

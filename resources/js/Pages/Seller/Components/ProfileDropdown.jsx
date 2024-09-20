@@ -24,49 +24,49 @@ export default function ProfileDropdown({ user }) {
                 </>
             ) : (
                 <>
-                    <Link className="dropdown-item" href="/seller/profile">
+                    <Link className="dropdown-item" href="/account/profile">
                         <i className="bi bi-pencil me-3" />Profile </Link>
-                    <Link className="dropdown-item" href="/seller/password">
+                    <Link className="dropdown-item" href="/account/password">
                         <i class="bi bi-shield-lock me-3"></i>Security </Link>
                     <div className="dropdown-divider" />
-                    <Link className="dropdown-item" href="/seller">
+                    <Link className="dropdown-item" href="/account">
                         <i class="bi bi-speedometer me-3"></i>Dashboard </Link>
                     <PermissionAllow permission="Ads Listing">
-                        <Link className="dropdown-item" href="/seller/ads">
+                        <Link className="dropdown-item" href="/account/ads">
                             <i className="bi bi-house me-3"></i>Ads </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Ads Leads Listing">
-                        <Link className="dropdown-item" href="/seller/leads">
+                        <Link className="dropdown-item" href="/account/leads">
                             <i className="bi bi-house-check me-3"></i>Leads </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Messages">
-                        <Link className="dropdown-item" href="/seller/chats">
+                        <Link className="dropdown-item" href="/account/chats">
                             <i className="bi bi-chat-left-dots me-3"></i>Messages</Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Plan Purchase">
-                        <Link className="dropdown-item" href="/seller/plans">
+                        <Link className="dropdown-item" href="/account/plans">
                             <i class="bi bi-currency-dollar me-3"></i>Plans </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Invoice List">
-                        <Link className="dropdown-item" href="/seller/invoices">
+                        <Link className="dropdown-item" href="/account/invoices">
                             <i class="bi bi-receipt me-3"></i>Invoices </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Support Ticket Listing">
-                        <Link className="dropdown-item" href="/seller/tickets">
+                        <Link className="dropdown-item" href="/account/tickets">
                             <i className="bi bi-headset me-3"></i>Support tickets </Link>
                     </PermissionAllow>
                     {user.is_agent && (
                         <>
                             <PermissionAllow permission="Staff Listing">
-                                <Link className="dropdown-item" href="/seller/staffs">
+                                <Link className="dropdown-item" href="/account/staffs">
                                     <i className="bi bi-people me-3"></i>Staffs </Link>
                             </PermissionAllow>
                             <PermissionAllow permission="Role and Responsibilities Listing">
-                                <Link className="dropdown-item" href="/seller/staffs/roles">
+                                <Link className="dropdown-item" href="/account/staffs/roles">
                                     <i class="bi bi-person-gear me-3"></i>Staff roles </Link>
                             </PermissionAllow>
                             <PermissionAllow permission="Settings">
-                                <Link className="dropdown-item" href="/seller/settings">
+                                <Link className="dropdown-item" href="/account/settings">
                                     <i className="bi bi-gear me-3" />Settings </Link>
                             </PermissionAllow>
                         </>

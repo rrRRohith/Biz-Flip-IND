@@ -178,7 +178,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    @if(!env('CAPTCHA_VALIDATION_DISABLE'))
                                     <div class="row g-3 align-items-center">
                                         <div class="form-group  input-group mb-3 col-lg-12">
                                             <span class="input-group-text bi bi-question-circle"
@@ -196,7 +196,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    
+                                    @endif
                                     <div class="form-group mb-4">
                                         <div class="form-check form-check-lg">
                                             <input form="authForm" role="button"

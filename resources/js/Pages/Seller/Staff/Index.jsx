@@ -22,7 +22,7 @@ export default function Index({ auth, staffs }) {
 
     const searchResult = async () => {
         setLoading(true);
-        const response = await axios.get(route("seller.staffs.search", data));
+        const response = await axios.get(route("account.staffs.search", data));
         setstaffData(response.data);
         setLoading(false);
     }
@@ -31,7 +31,7 @@ export default function Index({ auth, staffs }) {
     const [deleteId, setDeleteId] = useState(null);
     const deleteAction = function (id) {
         setShowDelete(false);
-        router.delete(route("seller.staffs.destroy", id))
+        router.delete(route("account.staffs.destroy", id))
     }
 
     const confirmDelete = (id) => {
@@ -65,7 +65,7 @@ export default function Index({ auth, staffs }) {
                                             </div>
                                             <PermissionAllow permission="Staff Create">
                                                 <div className="ms-auto">
-                                                    <Link className="btn btn-primary text-overflow" href={route('seller.staffs.create')}><i className="bi bi-plus text-md"></i>
+                                                    <Link className="btn btn-primary text-overflow" href={route('account.staffs.create')}><i className="bi bi-plus text-md"></i>
                                                         <span className="d-none d-md-inline">New staff</span>
                                                     </Link>
                                                 </div>
@@ -110,7 +110,7 @@ export default function Index({ auth, staffs }) {
                                                                 </td>
                                                                 <td>
                                                                     <PermissionAllow permission="Staff Edit">
-                                                                        <Link href={route('seller.staffs.edit', staff.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
+                                                                        <Link href={route('account.staffs.edit', staff.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission="Staff Delete">
                                                                         <button onClick={(e) => confirmDelete(staff.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>

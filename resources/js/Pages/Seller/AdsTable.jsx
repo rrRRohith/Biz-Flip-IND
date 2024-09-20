@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 export default function ({ ads, confirmDelete, minimal = false, searchResult }) {
     const adStatus = (ad, status) => {
-        router.put(route("seller.ads.status", ad.id), {
+        router.put(route("account.ads.status", ad.id), {
             status: status,
         });
         searchResult();
@@ -111,7 +111,7 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                             </>
                                         )}
                                         <td>
-                                            <div><Link className="text-decoration-none" href={route('seller.leads.index', { ad: ad.id })}>{ad.total_leads} leads</Link></div>
+                                            <div><Link className="text-decoration-none" href={route('account.leads.index', { ad: ad.id })}>{ad.total_leads} leads</Link></div>
                                         </td>
                                         <td onClick={(e) => showAd(ad)}>
                                             {ad.total_views} views
@@ -127,7 +127,7 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                                 <td>
                                                     <PermissionAllow permission="Ad Create">
                                                         <AdAction status={adStatus} ad={ad}></AdAction>
-                                                        <Link type="button" href={route('seller.ads.edit', ad.id)} className="btn btn-sm btn-square btn-neutral me-2"><i className="bi bi-pen"></i></Link>
+                                                        <Link type="button" href={route('account.ads.edit', ad.id)} className="btn btn-sm btn-square btn-neutral me-2"><i className="bi bi-pen"></i></Link>
                                                     </PermissionAllow>
                                                     <PermissionAllow permission="Ad Delete">
                                                         <button onClick={(e) => confirmDelete(ad.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>

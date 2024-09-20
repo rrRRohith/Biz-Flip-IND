@@ -18,7 +18,7 @@ export default function ({ lead, attendLead, sold }) {
 
     const handleResponseSubmit = async (e) => {
         e.preventDefault();
-        await post(route("seller.leads.respond", lead.id), {
+        await post(route("account.leads.respond", lead.id), {
             preserveScroll: true,
             onSuccess: () => {
                 reset('message');
@@ -110,7 +110,7 @@ export default function ({ lead, attendLead, sold }) {
                     {lead.chat_id && (
                         <tr>
                             <td colSpan={2}>
-                                <Link href={route('seller.chats.show', lead.chat_id)} className="text-primary">View chat</Link>
+                                <Link href={route('account.chats.show', lead.chat_id)} className="text-primary">View chat</Link>
                             </td>
                         </tr>
                     )}

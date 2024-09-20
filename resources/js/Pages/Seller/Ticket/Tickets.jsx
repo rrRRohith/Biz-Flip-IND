@@ -41,7 +41,7 @@ export default ({ticketData}) => {
                                             </div>
                                         </td>
                                         <td>
-                                            <Link href={route('seller.tickets.show', ticket.id)} className="btn btn-sm btn-square btn-neutral"><i className="bi bi-eye"></i></Link>
+                                            <Link href={route('account.tickets.show', ticket.id)} className="btn btn-sm btn-square btn-neutral"><i className="bi bi-eye"></i></Link>
                                         </td>
                                     </tr>
                                 </>

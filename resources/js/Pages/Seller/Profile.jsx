@@ -38,7 +38,7 @@ export default function Profile({ user, queryParams = null, auth, success, error
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route("seller.profile.store"), {
+        await post(route("account.profile.store"), {
             preserveScroll: true,
             onSuccess: () => {
                 reset('confirm_password', 'password');

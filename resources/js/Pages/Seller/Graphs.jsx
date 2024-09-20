@@ -56,7 +56,7 @@ const Graphs = () => {
 
     const getData = async () => {
         try {
-            const response = await axios.get(route("seller.graph"), data); // Ensure your route is correctly defined
+            const response = await axios.get(route("account.graph"), data); // Ensure your route is correctly defined
             processData(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);

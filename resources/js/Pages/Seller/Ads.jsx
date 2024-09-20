@@ -30,7 +30,7 @@ export default function Ads({ auth, ads, categories, industries }) {
 
     const searchResult = async () => {
         setLoading(true);
-        const response = await axios.get(route("seller.ads.search", data));
+        const response = await axios.get(route("account.ads.search", data));
         setadData(response.data);
         setLoading(false);
     }
@@ -39,7 +39,7 @@ export default function Ads({ auth, ads, categories, industries }) {
     const [deleteId, setDeleteId] = useState(null);
     const deleteAction = function (id) {
         setShowDelete(false);
-        router.delete(route("seller.ads.destroy", id));
+        router.delete(route("account.ads.destroy", id));
         searchResult();
     }
 
@@ -91,7 +91,7 @@ export default function Ads({ auth, ads, categories, industries }) {
 
                                             <PermissionAllow permission="Ad Create">
                                                 <div className="ms-auto">
-                                                    <Link className="btn btn-primary text-overflow" href={route('seller.ads.create')}><i className="bi bi-plus text-md"></i>
+                                                    <Link className="btn btn-primary text-overflow" href={route('account.ads.create')}><i className="bi bi-plus text-md"></i>
                                                         New ad
                                                     </Link>
                                                 </div>
@@ -116,7 +116,7 @@ export default function Ads({ auth, ads, categories, industries }) {
                                                 </div>
                                                 <PermissionAllow permission="Ad Create">
                                                     <div className="ms-auto d-none d-lg-block col-lg-auto">
-                                                        <Link className="btn btn-primary text-overflow" href={route('seller.ads.create')}><i className="bi bi-plus text-md"></i>
+                                                        <Link className="btn btn-primary text-overflow" href={route('account.ads.create')}><i className="bi bi-plus text-md"></i>
                                                             New ad
                                                         </Link>
                                                     </div>

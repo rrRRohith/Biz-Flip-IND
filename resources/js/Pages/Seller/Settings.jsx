@@ -100,7 +100,7 @@ export default function Settings({ seller, auth, success, error, province_option
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route("seller.settings.store", {
+        await post(route("account.settings.store", {
             days: checkedDays,
             socials: checkedSocials,
         }), {

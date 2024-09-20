@@ -72,7 +72,7 @@ class ChatController extends Controller{
             $message->update([
                 'user_id' => $this->user->id,
             ]);
-            return to_route( $this->user->type == 'customer' ? 'customer.chats.show' : 'seller.chats.show', ['chat' => $chat]);
+            return to_route( $this->user->type == 'customer' ? 'customer.chats.show' : 'account.chats.show', ['chat' => $chat]);
         }
         catch(\Exception $e){
 			return $e->getMessage();

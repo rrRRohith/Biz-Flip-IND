@@ -20,7 +20,7 @@ export default function Index({ auth, tickets }) {
 
     const searchResult = async () => {
         setLoading(true);
-        const response = await axios.get(route("seller.tickets.search", data));
+        const response = await axios.get(route("account.tickets.search", data));
         setTicketData(response.data);
         setLoading(false);
     }
@@ -49,7 +49,7 @@ export default function Index({ auth, tickets }) {
                                             </div>
                                             <PermissionAllow permission="Support Ticket Create">
                                                 <div className="ms-auto">
-                                                    <Link className="btn btn-primary text-overflow" href={route('seller.tickets.create')}><i className="bi bi-plus text-md"></i>
+                                                    <Link className="btn btn-primary text-overflow" href={route('account.tickets.create')}><i className="bi bi-plus text-md"></i>
                                                         <span className="d-none d-md-inline">Open ticket</span>
                                                     </Link>
                                                 </div>

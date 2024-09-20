@@ -19,7 +19,7 @@
                         </li>
                     @elseif(auth()->user()->type == 'seller' || auth()->user()->type == 'seller staff')
                         <li class="nav-item">
-                            <a class="nav-link p-2 fw-semibold" href="/seller">Dashboard</a>
+                            <a class="nav-link p-2 fw-semibold" href="/account">Dashboard</a>
                         </li>
                     @elseif(auth()->user()->type == 'customer')
                         <li class="nav-item">

@@ -123,7 +123,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route(ad ? "seller.ads.update" : "seller.ads.store", {
+        await post(route(ad ? "account.ads.update" : "account.ads.store", {
             ad: ad ? ad.id : null,
             additional_info: additionalInfo,
         }), {
@@ -215,7 +215,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                             <div className="d-flex align-items-center">
                                 <div className="text-xl font-bold">{ad ? 'Edit add' : 'Create new ad'}</div>
                                 <div className="ms-auto">
-                                    <Link href={route('seller.ads.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
+                                    <Link href={route('account.ads.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
                                 </div>
                             </div>
                             <div>
@@ -559,7 +559,7 @@ export default function PropertyForm({ ad, auth, categories_options, facilities_
                                             <InputError message={errors.status} />
                                         </div>
                                         <div className="col-12 text-end">
-                                            <Link href={route('seller.ads.index')} className="btn btn-neutral me-2">Cancel</Link>
+                                            <Link href={route('account.ads.index')} className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
