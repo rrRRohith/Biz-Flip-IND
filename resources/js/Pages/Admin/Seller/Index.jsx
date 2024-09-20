@@ -350,7 +350,7 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                                 <Td></Td>
                                                 <Td></Td>
                                                 <Td></Td>
-                                                <Td></Td>
+                                                <Td></Td>   
                                                 <Td className="text-end">
                                                     <PermissionAllow permission={'Seller Show'}>
                                                         <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
