@@ -32,6 +32,7 @@ class AdRequest extends FormRequest
      */
     public function rules(): array
     {
+
         $businessCategory = \App\Models\BusinessCategory::find($this->business_category);
         $rules = [
             'title' => 'required|max:256|string',
