@@ -67,7 +67,7 @@ class RoleController extends BaseController{
                 'guard_name' => 'web',
             ]);
             $role->syncPermissions($request->permissions);
-            return to_route('seller.roles.index')->with('success', 'Role created successfully.');
+            return to_route('account.roles.index')->with('success', 'Role created successfully.');
         }
         catch(\Exception $e){
             return $e->getMessage();
@@ -113,7 +113,7 @@ class RoleController extends BaseController{
         try{
             $role->update($request->only('name'));
             $role->syncPermissions($request->permissions);
-            return to_route('seller.roles.index')->with('success', 'Role updated successfully.');
+            return to_route('account.roles.index')->with('success', 'Role updated successfully.');
         }
         catch(\Exception $e){
 			return $e->getMessage();
@@ -127,6 +127,6 @@ class RoleController extends BaseController{
         abort_if($this->user->role_id == $role->id, 403);
         $this->seller->staff_roles()->findOrfail($role->id);
         $role->delete();
-        return to_route('seller.roles.index')->with('success', "Role was deleted");
+        return to_route('account.roles.index')->with('success', "Role was deleted");
     }
 }

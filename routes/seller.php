@@ -5,7 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>'seller', 'as' => 'seller.','namespace' => 'App\Http\Controllers\Seller'], function(){
+Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>'account', 'as' => 'account.','namespace' => 'App\Http\Controllers\Seller'], function(){
     
     Route::get('/', 'App\Http\Controllers\Seller\Controller@dashboard')->name('index');
     Route::get('/graph', 'App\Http\Controllers\Seller\Controller@graph')->name('graph');

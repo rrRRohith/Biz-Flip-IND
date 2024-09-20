@@ -74,7 +74,7 @@ class StaffController extends BaseController{
                 ]);
             }
 
-            return to_route('seller.staffs.index')->with('success', 'Staff created successfully.');
+            return to_route('account.staffs.index')->with('success', 'Staff created successfully.');
         }
         catch(\Exception $e){
             return $e->getMessage();
@@ -114,7 +114,7 @@ class StaffController extends BaseController{
                     'password' => Hash::make($request->password),
                 ]);
             }
-            return to_route('seller.staffs.index')->with('success', 'Staff updated successfully.');
+            return to_route('account.staffs.index')->with('success', 'Staff updated successfully.');
         }
         catch(\Exception $e){
 			return $e->getMessage();
@@ -129,6 +129,6 @@ class StaffController extends BaseController{
         $this->seller->staffs()->findOrfail($staff->id);
         $staff->delete();
         //Delete images if forceDeleted
-        return to_route('seller.staffs.index')->with('success', "Staff was deleted");
+        return to_route('account.staffs.index')->with('success', "Staff was deleted");
     }
 }

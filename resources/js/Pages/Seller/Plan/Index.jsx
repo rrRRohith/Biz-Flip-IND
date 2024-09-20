@@ -46,7 +46,7 @@ export default function Index({ auth, plans, can_purchase }) {
                                                                 {plan.default != '1' && (
                                                                     <>
                                                                         {can_purchase ? (
-                                                                            <Link className="btn btn-primary mt-5 btn-sm text-overflow" href={route('seller.plans.show', plan.id)}>
+                                                                            <Link className="btn btn-primary mt-5 btn-sm text-overflow" href={route('account.plans.show', plan.id)}>
                                                                                 Purchase {plan.name} <i className="bi bi-arrow-right"></i>
                                                                             </Link>
                                                                         ) : (

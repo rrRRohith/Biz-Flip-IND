@@ -18,7 +18,7 @@ export default function Password({ user, queryParams = null, auth, success, erro
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route("seller.password.store"), {
+        await post(route("account.password.store"), {
             preserveScroll: true,
             onSuccess: () => {
                 reset('confirm_password', 'password');

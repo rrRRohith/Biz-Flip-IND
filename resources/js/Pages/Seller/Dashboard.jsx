@@ -43,7 +43,7 @@ export default function Dashboard({ showAgentForm, auth, data, leads, tickets, a
                         ) : (
                             <>
                                 <div className="alert alert-danger mb-5">
-                                    You dont have any active subscriptions. Please <Link href={route('seller.plans.index')}>purchase </Link>
+                                    You dont have any active subscriptions. Please <Link href={route('account.plans.index')}>purchase </Link>
                                     new plan to create new ads.
                                 </div>
                             </>
@@ -120,7 +120,7 @@ export default function Dashboard({ showAgentForm, auth, data, leads, tickets, a
                         </div>
                         {/* <PermissionAllow permission="Ad Create">
                             <div className="ms-auto text-center mt-10">
-                                <Link className="btn btn-primary btn-lg text-overflow" href={route('seller.ads.create')}><i className="bi bi-plus text-md"></i>
+                                <Link className="btn btn-primary btn-lg text-overflow" href={route('account.ads.create')}><i className="bi bi-plus text-md"></i>
                                     <span className="d-none d-md-inline">Create new ad</span>
                                 </Link>
                             </div>

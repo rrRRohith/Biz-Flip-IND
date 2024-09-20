@@ -29,7 +29,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route(staff ? "seller.staffs.update" : "seller.staffs.store", {
+        await post(route(staff ? "account.staffs.update" : "account.staffs.store", {
             staff: staff ? staff.id : null
         }), {
             preserveScroll: true,
@@ -47,7 +47,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                             <div className="d-flex align-items-center">
                                 <div className="text-xl font-bold">{staff ? 'Edit staff' : 'Create new staff'}</div>
                                 <div className="ms-auto">
-                                    <Link href={route('seller.staffs.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
+                                    <Link href={route('account.staffs.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
                                 </div>
                             </div>
                             <div>
@@ -102,7 +102,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                             <InputError message={errors.confirm_password} />
                                         </div>
                                         <div className="col-12 text-end">
-                                            <Link href={route('seller.staffs.index')} className="btn btn-neutral me-2">Cancel</Link>
+                                            <Link href={route('account.staffs.index')} className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Save changes</button></div>
                                     </div>
                                 </form>

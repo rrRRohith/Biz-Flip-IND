@@ -76,7 +76,7 @@ class TicketController extends Controller
                 'user_id' => auth()->user()->id,
             ]);
 
-            event(new NewNotification(auth()->user()->id, $ticket->user_id, 'Support Ticket Updated', 'A support ticket as replied.', route('seller.tickets.index')));
+            event(new NewNotification(auth()->user()->id, $ticket->user_id, 'Support Ticket Updated', 'A support ticket as replied.', route('account.tickets.index')));
 
             
             return redirect()->route('admin.support-tickets.show', ['support_ticket' => $ticket->id])->withSuccess('Message added successfully.');
@@ -99,7 +99,7 @@ class TicketController extends Controller
         $ticket->status = 'solved';
         $ticket->save();
 
-        event(new NewNotification(auth()->user()->id, $ticket->user_id, 'Support Ticket Closed', 'A closed support ticket.', route('seller.tickets.index')));
+        event(new NewNotification(auth()->user()->id, $ticket->user_id, 'Support Ticket Closed', 'A closed support ticket.', route('account.tickets.index')));
 
 
         return redirect()->route('admin.support-tickets.index',)->withSuccess('Message added successfully.');

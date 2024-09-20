@@ -34,7 +34,7 @@ export default function Form({ role, permissions, auth, success, error }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route(role ? "seller.roles.update" : "seller.roles.store", {
+        await post(route(role ? "account.roles.update" : "account.roles.store", {
             role: role ? role.id : null
         }), {
             preserveScroll: true,
@@ -52,7 +52,7 @@ export default function Form({ role, permissions, auth, success, error }) {
                             <div className="d-flex align-items-center">
                                 <div className="text-xl font-bold">{role ? 'Edit role' : 'Create new role'}</div>
                                 <div className="ms-auto">
-                                    <Link href={route('seller.roles.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
+                                    <Link href={route('account.roles.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
                                 </div>
                             </div>
                             <div>
@@ -100,7 +100,7 @@ export default function Form({ role, permissions, auth, success, error }) {
                                             <InputError message={errors.permissions} />
                                         </div>
                                         <div className="col-12 text-end">
-                                            <Link href={route('seller.roles.index')} className="btn btn-neutral me-2">Cancel</Link>
+                                            <Link href={route('account.roles.index')} className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Save changes</button></div>
                                     </div>
                                 </form>

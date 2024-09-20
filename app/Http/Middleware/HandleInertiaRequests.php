@@ -17,7 +17,7 @@ class HandleInertiaRequests extends Middleware
     protected $rootView = 'app';
 
     public function handle(Request $request,  Closure $next){
-        if($request->is('seller*') || $request->is('customer*')){
+        if($request->is('account*') || $request->is('customer*')){
             $this->rootView = 'sellerApp';
         }
 

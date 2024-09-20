@@ -22,7 +22,7 @@ export default function Index({ auth, roles }) {
 
     const searchResult = async () => {
         setLoading(true);
-        const response = await axios.get(route("seller.roles.search", data));
+        const response = await axios.get(route("account.roles.search", data));
         setroleData(response.data);
         setLoading(false);
     }
@@ -37,7 +37,7 @@ export default function Index({ auth, roles }) {
     const ShowPermissions = async function (role) {
         setTitle(`Permissions of ${role.name}`);
         setLoading(true);
-        const response = await axios.get(route("seller.roles.show", role.id));
+        const response = await axios.get(route("account.roles.show", role.id));
         setmData(ReactDOMServer.renderToString(<Permissions permissions={response.data.permissions} />));
         setLoading(false);
         setShow(true);
@@ -51,7 +51,7 @@ export default function Index({ auth, roles }) {
     const [deleteId, setDeleteId] = useState(null);
     const deleteAction = function (id) {
         setShowDelete(false);
-        router.delete(route("seller.roles.destroy", id))
+        router.delete(route("account.roles.destroy", id))
     }
 
     const confirmDelete = (id) => {
@@ -82,7 +82,7 @@ export default function Index({ auth, roles }) {
                                             </div>
                                             <PermissionAllow permission="Role and Responsibilities Create">
                                                 <div className="ms-auto">
-                                                    <Link className="btn btn-primary text-overflow" href={route('seller.roles.create')}><i className="bi bi-plus text-md"></i>
+                                                    <Link className="btn btn-primary text-overflow" href={route('account.roles.create')}><i className="bi bi-plus text-md"></i>
                                                         <span className="d-none d-md-inline">New role</span>
                                                     </Link>
                                                 </div>
@@ -121,7 +121,7 @@ export default function Index({ auth, roles }) {
                                                                 </td>
                                                                 <td>
                                                                     <PermissionAllow permission="Role and Responsibilities Edit">
-                                                                        <Link href={route('seller.roles.edit', role.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
+                                                                        <Link href={route('account.roles.edit', role.id)} type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover me-2"><i className="bi bi-pen"></i></Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission="Role and Responsibilities Delete">
                                                                         <button onClick={(e) => confirmDelete(role.id)} className="btn btn-sm btn-square btn-neutral text-danger-hover"><i className="bi bi-trash"></i></button>

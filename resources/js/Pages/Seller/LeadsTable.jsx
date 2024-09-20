@@ -23,7 +23,7 @@ export default function ({ leads, confirmDelete, minimal = false, searchResult }
 
     const attendLead = (lead) => {
         setShow(false);
-        router.put(route("seller.leads.update", lead.id), {
+        router.put(route("account.leads.update", lead.id), {
             status: 'responded',
         });
         searchResult();
@@ -31,7 +31,7 @@ export default function ({ leads, confirmDelete, minimal = false, searchResult }
 
     const sold = (lead) => {
         setShow(false);
-        router.put(route("seller.leads.update", lead.id), {
+        router.put(route("account.leads.update", lead.id), {
             status: 'sold',
         });
         searchResult();

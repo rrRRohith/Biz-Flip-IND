@@ -112,7 +112,7 @@ class VendorController extends Controller
                 if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
                     $this->subscribeToPlan($request, $defaultPlan, $user);
                     try {
-                        event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
+                        event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
                     } catch (\Exception $e) {}
                 }
             } catch (\Exception $e) {
@@ -311,15 +311,15 @@ class VendorController extends Controller
              $user->save();	
            
             if($request->status == '0'){
-                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Pending Stage', 'A account has been pending stage.', route('seller.index')));
+                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Pending Stage', 'A account has been pending stage.', route('account.index')));
             }
             else if($request->status == '1'){
                 $this->accountApproved($user);
-                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Approved', 'A account has been approved.', route('seller.index')));
+                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Approved', 'A account has been approved.', route('account.index')));
     
             }
             else if($request->status == '-1'){
-                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Suspended', 'A account has been suspended.', route('seller.index')));
+                event(new NewNotification(auth()->user()->id, $user_id, 'Your Account is Suspended', 'A account has been suspended.', route('account.index')));
             }
 
            	

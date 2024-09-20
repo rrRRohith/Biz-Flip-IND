@@ -28,7 +28,7 @@ const SideBar = ({ user }) => {
                     </a>
                     <div className='me-auto ms-3 d-lg-none'>
                         <PermissionAllow permission="Ad Create">
-                            <Link className="btn btn-primary btn-sm text-overflow" href={route('seller.ads.create')}>Place an ad
+                            <Link className="btn btn-primary btn-sm text-overflow" href={route('account.ads.create')}>Place an ad
                             </Link>
                         </PermissionAllow>
                     </div>
@@ -55,42 +55,42 @@ const SideBar = ({ user }) => {
                             <div className="text-center text-md font-bold mt-3">{user.firstname} {user.lastname}</div>
                         </div>
                         <ul className="navbar-nav p-0 px-lg-3">
-                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller') ? 'bg-gray-100' : ''}`}>
-                                <Link className='nav-link text-md rounded-0 rounded-lg-3' href={route('seller.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account') ? 'bg-gray-100' : ''}`}>
+                                <Link className='nav-link text-md rounded-0 rounded-lg-3' href={route('account.index')}>
                                     <i className="bi bi-speedometer"></i> Dashboard
                                 </Link>
                             </li>
                             <PermissionAllow permission="Ads Listing">
-                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/ads*') ? 'bg-gray-100' : ''}`}>
-                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.ads.index')}>
+                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/ads*') ? 'bg-gray-100' : ''}`}>
+                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.ads.index')}>
                                         <i className="bi bi-house"></i> Ads
                                     </Link>
                                 </li>
                             </PermissionAllow>
                             <PermissionAllow permission="Ads Leads Listing">
-                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/leads*') ? 'bg-gray-100' : ''}`}>
-                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.leads.index')}>
+                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/leads*') ? 'bg-gray-100' : ''}`}>
+                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.leads.index')}>
                                         <i className="bi bi-house-check"></i> Leads
                                     </Link>
                                 </li>
                             </PermissionAllow>
                             {/* <PermissionAllow permission="Plan Purchase">
-                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/plans*') ? 'bg-gray-100' : ''}`}>
-                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.plans.index')}>
+                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/plans*') ? 'bg-gray-100' : ''}`}>
+                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.plans.index')}>
                                         <i className="bi bi-currency-dollar"></i> Plans
                                     </Link>
                                 </li>
                             </PermissionAllow>
                             <PermissionAllow permission="Invoice List">
-                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/invoices*') ? 'bg-gray-100' : ''}`}>
-                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.invoices.index')}>
+                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/invoices*') ? 'bg-gray-100' : ''}`}>
+                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.invoices.index')}>
                                         <i className="bi bi-receipt"></i> Invoices
                                     </Link>
                                 </li>
                             </PermissionAllow> */}
                             <PermissionAllow permission="Messages">
-                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/chats*') ? 'bg-gray-100' : ''}`}>
-                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.chats.index')}>
+                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/chats*') ? 'bg-gray-100' : ''}`}>
+                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.chats.index')}>
                                         <i className="bi bi-chat-left-dots"></i> Messages
                                     </Link>
                                 </li>
@@ -98,16 +98,16 @@ const SideBar = ({ user }) => {
                             <PermissionAllow permission="Staff Listing">
                                 {user.is_agent && (
                                     <li className={`nav-item rounded-0 rounded-lg-3 mb-2`}>
-                                        <a className={`nav-link text-md rounded-0 rounded-lg-3 ${urlMatches(path, '/seller/staffs*') ? 'bg-gray-100' : ''}`} href="#sidebar-staffs" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar-settings">
+                                        <a className={`nav-link text-md rounded-0 rounded-lg-3 ${urlMatches(path, '/account/staffs*') ? 'bg-gray-100' : ''}`} href="#sidebar-staffs" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar-settings">
                                             <i className="bi bi-people"></i> Staff management </a>
-                                        <div className={`collapse ${urlMatches(path, '/seller/staffs*') ? 'show' : ''}`} id="sidebar-staffs" style={{}}>
+                                        <div className={`collapse ${urlMatches(path, '/account/staffs*') ? 'show' : ''}`} id="sidebar-staffs" style={{}}>
                                             <ul className="nav nav-sm flex-column">
                                                 <li className="nav-item">
-                                                    <Link href={route('seller.staffs.index')} className="nav-link">Staffs</Link>
+                                                    <Link href={route('account.staffs.index')} className="nav-link">Staffs</Link>
                                                 </li>
                                                 <PermissionAllow permission="Role and Responsibilities Listing">
                                                     <li className="nav-item">
-                                                        <Link href={route('seller.roles.index')} className="nav-link">Roles</Link>
+                                                        <Link href={route('account.roles.index')} className="nav-link">Roles</Link>
                                                     </li>
                                                 </PermissionAllow>
                                             </ul>
@@ -115,26 +115,26 @@ const SideBar = ({ user }) => {
                                     </li>)}
                             </PermissionAllow>
                             <PermissionAllow permission="Support Ticket Listing">
-                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/tickets*') ? 'bg-gray-100' : ''}`}>
-                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.tickets.index')}>
+                                <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/tickets*') ? 'bg-gray-100' : ''}`}>
+                                    <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.tickets.index')}>
                                         <i className="bi bi-headset"></i> Support tickets
                                     </Link>
                                 </li>
                             </PermissionAllow>
-                            {/* <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/profile*') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.profile.index')}>
+                            {/* <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/profile*') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.profile.index')}>
                                     <i className="bi bi-person"></i> Profile
                                 </Link>
                             </li>
-                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/password') ? 'bg-gray-100' : ''}`}>
-                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.password.index')}>
+                            <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/password') ? 'bg-gray-100' : ''}`}>
+                                <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.password.index')}>
                                     <i class="bi bi-shield-lock"></i> Security
                                 </Link>
                             </li> */}
                             <PermissionAllow permission="Settings">
                                 {user.is_agent && (
-                                    <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/seller/settings*') ? 'bg-gray-100' : ''}`}>
-                                        <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('seller.settings.index')}>
+                                    <li className={`nav-item rounded-0 rounded-lg-3 mb-2 ${urlMatches(path, '/account/settings*') ? 'bg-gray-100' : ''}`}>
+                                        <Link className="nav-link text-md rounded-0 rounded-lg-3" href={route('account.settings.index')}>
                                             <i className="bi bi-gear"></i> Settings
                                         </Link>
                                     </li>

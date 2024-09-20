@@ -71,7 +71,7 @@ class RegisteredUserController extends Controller
             if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
                 $this->subscribeToPlan($request, $defaultPlan, $user);
                 try {
-                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
+                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
                 } catch (\Exception $e) {}
             }
         } catch (\Exception $e) {
@@ -151,7 +151,7 @@ class RegisteredUserController extends Controller
             if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
                 $this->subscribeToPlan($request, $defaultPlan, $user);
                 try {
-                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
+                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
                 } catch (\Exception $e) {}
             }
         } catch (\Exception $e) {
@@ -192,7 +192,7 @@ class RegisteredUserController extends Controller
             if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
                 $this->subscribeToPlan($request, $defaultPlan, $user);
                 try {
-                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
+                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
                 } catch (\Exception $e) {}
             }
         } catch (\Exception $e) {

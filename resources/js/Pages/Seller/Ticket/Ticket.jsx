@@ -21,7 +21,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route("seller.tickets.update", ticket.id), {
+        await post(route("account.tickets.update", ticket.id), {
             preserveScroll: true,
             onSuccess: () => {
                 reset('message');
@@ -45,7 +45,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                             <div className="d-flex align-items-center">
                                 <div className="text-xl font-bold">Support Ticket#{ticket.id}</div>
                                 <div className="ms-auto">
-                                    <Link href={route('seller.tickets.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
+                                    <Link href={route('account.tickets.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
                                 </div>
                             </div>
                             <div>
@@ -98,7 +98,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                             </div>
                                         </div>
                                         <div className="col-12 text-end">
-                                            <Link href={route('seller.tickets.index')} role="button" className="btn btn-neutral me-2">Cancel</Link>
+                                            <Link href={route('account.tickets.index')} role="button" className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Send message</button></div>
                                     </div>
                                 </form>

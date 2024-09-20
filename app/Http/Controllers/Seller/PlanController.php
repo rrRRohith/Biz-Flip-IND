@@ -72,11 +72,11 @@ class PlanController extends BaseController{
             $subscription = $this->subscribeToPlan($request, $plan, $this->seller);
             $this->subscriptionOrder($subscription);
             try {
-                event(new \App\Events\NewNotification(1, $this->seller->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('seller.invoices.index')));
-                event(new \App\Events\NewNotification($this->seller->id, 1, 'Subscription plan purchased by seller.', 'Subscription plan purchased by seller.', route('admin.subscription.index')));
+                event(new \App\Events\NewNotification(1, $this->seller->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
+                event(new \App\Events\NewNotification($this->seller->id, 1, 'Subscription plan purchased by account.', 'Subscription plan purchased by account.', route('admin.subscription.index')));
             } catch (\Exception $e) {}
             \DB::commit();
-            return redirect()->route('seller.invoices.show', ['invoice' => $subscription])->with('success', "Thank you, your subscription has been completed.");
+            return redirect()->route('account.invoices.show', ['invoice' => $subscription])->with('success', "Thank you, your subscription has been completed.");
             
         }
         catch(\Exception $e){
