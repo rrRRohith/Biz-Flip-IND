@@ -24,8 +24,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
  
     Route::get('/', 'Controller@Dashboard')->name('index');
     Route::get('ads/pending-approvel', 'AdsController@pendingApprovel')->name('ads.pendingApprovel');
-    Route::get('sellers/pending/approvel', 'VendorController@pendingApprovel')->name('sellers.pendingApprovel');
-    Route::post('sellers/status/update/{id}', 'VendorController@statusUpdate')->name('sellers.status-update');
+    Route::get('users/pending/approvel', 'VendorController@pendingApprovel')->name('sellers.pendingApprovel');
+    Route::post('users/status/update/{id}', 'VendorController@statusUpdate')->name('sellers.status-update');
     
     Route::post('category/position-update', 'CategoryController@positionUpdate')->name('category.position-update');
     Route::post('category/position-update', 'BusinessCategoryController@positionUpdate')->name('business-category.position-update');
@@ -45,13 +45,23 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'navigation-menu'   => NavigationMenuController::class,
         'support-tickets'   => TicketController::class,
         'ads'               => AdsController::class,
-        'sellers'           => VendorController::class,
+        // 'sellers'           => VendorController::class,
         'role-responsibilities'=> RoleController::class,
         'staff'             => StaffController::class,
         'business-category' => BusinessCategoryController::class,
         'app-settings'      => AppSettingsController::class,
     ]);
 
+    Route::resource('users', VendorController::class)
+    ->names([
+        'index'   => 'sellers.index',
+        'create'  => 'sellers.create',
+        'store'   => 'sellers.store',
+        'show'    => 'sellers.show',
+        'edit'    => 'sellers.edit',
+        'update'  => 'sellers.update',
+        'destroy' => 'sellers.destroy',
+    ]);
 
     
     // Route::get('customers', 'CustomerController@index')->name('customers.index');

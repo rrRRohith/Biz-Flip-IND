@@ -61,7 +61,10 @@ class VendorResource extends JsonResource
             'created_at'    => $this->created_at ?? null,	
             'updated_at'    => $this->updated_at ?? null,	
             'availableDays' => $this->seller->availableDays ?? null,
-            'is_agent' => $this->seller()->exists(),
+            'is_agent'      => $this->seller()->exists(),
+            'current_subscription' => $this->current_subscription,
+            'last_login'    => $this->last_login ?? null,	
+            'ads'           => $this->ads,
         ];
     }
 }

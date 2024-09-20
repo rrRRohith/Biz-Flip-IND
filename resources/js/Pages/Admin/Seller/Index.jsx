@@ -347,10 +347,12 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.email}</Td>
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.phone}</Td>
                                                 <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.designation}</Td>
-                                                <Td></Td>
-                                                <Td></Td>
-                                                <Td></Td>
-                                                <Td></Td>   
+                                                <Td>
+                                                      {vendor.current_subscription?.name}
+                                                </Td>
+                                                <Td>{(vendor.ads).length}</Td>
+                                                <Td>{window.formatDateTime(vendor.created_at)}</Td>
+                                                <Td>{vendor.last_login != null && window.formatDateTime(vendor.last_login)}</Td>   
                                                 <Td className="text-end">
                                                     <PermissionAllow permission={'Seller Show'}>
                                                         <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
