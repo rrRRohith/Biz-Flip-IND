@@ -37,7 +37,7 @@ class AdRequest extends FormRequest
         $rules = [
             'title' => 'required|max:256|string',
             'price' => 'required|numeric|min:0',
-            'price_max' => 'required_if:ad_type,wanted|numeric|gt:price',
+            'price_max' => 'required_if:ad_type,wanted|numeric|gt:price|nullable',
             'images' => 'array|images',
             'uploaded_images' => 'array',
             'description' => 'required|string',
