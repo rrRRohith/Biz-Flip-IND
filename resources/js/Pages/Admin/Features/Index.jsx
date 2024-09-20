@@ -81,17 +81,11 @@ export default function Index({ featuresList, auth, success = null, error = null
                                                         </Tr>
                                                     </Thead>
                                                     <Tbody>
-                                                        {featuresList.data.map((feature) => (
+                                                        {featuresList.data.map((feature,index) => (
                                                             <Tr key={feature.id} className="hover-primary">
-                                                                <Td>{feature.id}</Td>
-
+                                                                <Td>{index+1}</Td>
                                                                 <Td>
-                                                                    <img
-                                                                        src={feature.icon}
-                                                                        className='w-40 rounded-5 '
-                                                                        alt={`${feature.icon} icon`}
-                                                                        onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                    />
+                                                                    <i className={`${feature.icon} bi  w-40 rounded-5`}></i>
                                                                     <span className='ms-3'>{feature.name}</span>
                                                                 </Td>
                                                                 <Td>{feature.position}</Td>

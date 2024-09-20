@@ -46,10 +46,11 @@ class FacilityController extends Controller
         if ($image) {
             $imagePath = $this->uploadFile(file : $image, path : 'facilities', maxHeight : 100, maxWidth : 100, ratio: '1:1');
         }
+
         $new        = new Facility();
         $new->name  = $request->facility_name;
         $new->slug  = Str::slug($request->facility_name);
-        $new->icon  = $imagePath ?? null;
+        $new->icon  = $request->icon ?? null;
      
         $new->position=$request->position;
         $new->status= $request->status;
@@ -100,23 +101,25 @@ class FacilityController extends Controller
 
 
         // Handle image removal
-        if ($request->remove_image) {
-            if ($facility->icon) {
-                Storage::disk('images')->delete($facility->icon);
-                $facility->icon = null;
-            }
-        }
+        // if ($request->remove_image) {
+        //     if ($facility->icon) {
+        //         Storage::disk('images')->delete($facility->icon);
+        //         $facility->icon = null;
+        //     }
+        // }
 
-        if ($image) {
-            if ($facility->icon) {
-                Storage::disk('images')->delete($facility->icon);
-            }
-            $facility->icon = $this->uploadFile(file : $image, path : 'facilities', maxHeight : 100, maxWidth : 100, ratio: '1:1');
-        }
+        // if ($image) {
+        //     if ($facility->icon) {
+        //         Storage::disk('images')->delete($facility->icon);
+        //     }
+        //     $facility->icon = $this->uploadFile(file : $image, path : 'facilities', maxHeight : 100, maxWidth : 100, ratio: '1:1');
+        // }
+
+        
 
         $facility->name  = $request->facility_name;
         $facility->slug  = Str::slug($request->facility_name);
-      
+        $facility->icon  = $request->icon ?? null;
         $facility->position=$request->position;
         $facility->status= $request->status;
         $facility->save();
@@ -135,10 +138,10 @@ class FacilityController extends Controller
         $facility = Facility::where('id',$id)->first() ?? abort(404);
         $name = $facility->name;
         $facility->delete();
-        if ($facility->icon) {
-            Storage::disk('images')->delete($facility->icon);
+        // if ($facility->icon) {
+        //     Storage::disk('images')->delete($facility->icon);
            
-        }
+        // }
         return to_route('admin.facilities.index')
             ->with('success', "Facility \"$name\" was deleted");
     }

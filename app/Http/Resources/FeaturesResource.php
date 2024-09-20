@@ -23,7 +23,8 @@ class FeaturesResource extends JsonResource
             'slug'          => $this->slug,
             'position'      => $this->position,
             'status'        => $this->status == 1 ? 'Published' : 'Draft',
-            'icon'          => null,
+            // 'icon'          => null,
+            'icon'          => $this->icon,
             'created_at'    => (new Carbon($this->created_at)),
             'updated_at'    => (new Carbon($this->updated_at)),
           

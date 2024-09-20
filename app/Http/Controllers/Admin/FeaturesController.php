@@ -51,7 +51,7 @@ class FeaturesController extends Controller
         $new        = new Features();
         $new->name  = $request->feature_name;
         $new->slug  = Str::slug($request->feature_name);
-        $new->icon  = $imagePath ?? null;
+        $new->icon  = $request->icon ?? null;
      
         $new->position=$request->position;
         $new->status= $request->status;
@@ -101,25 +101,25 @@ class FeaturesController extends Controller
         $image = $data['image'] ?? null;
 
 
-        // Handle image removal
-        if ($request->remove_image) {
-            if ($features->icon) {
-                Storage::disk('images')->delete($features->icon);
-                $features->icon = null;
-            }
-        }
+        // // Handle image removal
+        // if ($request->remove_image) {
+        //     if ($features->icon) {
+        //         Storage::disk('images')->delete($features->icon);
+        //         $features->icon = null;
+        //     }
+        // }
 
-        if ($image) {
-            if ($features->icon) {
-                Storage::disk('images')->delete($features->icon);
-            }
+        // if ($image) {
+        //     if ($features->icon) {
+        //         Storage::disk('images')->delete($features->icon);
+        //     }
             
-            $features->icon = $this->uploadFile(file : $image, path : 'features', maxHeight : 100, maxWidth : 100, ratio: '1:1');
-        }
+        //     $features->icon = $this->uploadFile(file : $image, path : 'features', maxHeight : 100, maxWidth : 100, ratio: '1:1');
+        // }
 
         $features->name  = $request->feature_name;
         $features->slug  = Str::slug($request->feature_name);
-      
+        $features->icon  = $request->icon;
         $features->position=$request->position;
         $features->status= $request->status;
         $features->save();
@@ -138,10 +138,10 @@ class FeaturesController extends Controller
         $features = Features::where('id',$id)->first() ?? abort(404);
         $name = $features->name;
         $features->delete();
-        if ($features->icon) {
-            Storage::disk('images')->delete($features->icon);
+        // if ($features->icon) {
+        //     Storage::disk('images')->delete($features->icon);
            
-        }
+        // }
         return to_route('admin.features.index')
             ->with('success', "Features \"$name\" was deleted");
     }

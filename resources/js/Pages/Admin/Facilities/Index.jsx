@@ -77,7 +77,6 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                 <Thead>
                                                     <Tr>
                                                         <Th>#</Th>
-                                                        <Th>Icon</Th>
                                                         <Th>Name</Th>
                                                         <Th>Position</Th>
                                                         <Th>Status</Th>
@@ -91,12 +90,8 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                     <Tr key={facility.id} className="hover-primary">
                                                         <Td>{facility.id}</Td>
                                                         <Td>
-                                                            <img
-                                                                src={facility.icon}
-                                                                className='w-40 rounded-5 '
-                                                                alt={`${facility.icon} icon`}
-                                                                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                            /> <span className='ms-3'>{facility.name}</span>
+                                                            <i className={`${facility.icon} bi  w-40 rounded-5`}></i>
+                                                            <span className='ms-3'>{facility.name}</span>
                                                         </Td>
                                                         <Td>{facility.position}</Td>
                                                         <Td>{facility.status}</Td>
