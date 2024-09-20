@@ -46,11 +46,9 @@ class Controller extends BaseController{
         
         $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) max(($views / $leads), 1) : 1)) : 0;
         
-        $showAgentForm = !$this->seller->last_login && $this->seller->seller;
-        if(!$this->seller->last_login){
-            $this->seller->update([
-                'last_login' => now(),
-            ]);
+        $showAgentForm = session('firstLogin') && $this->seller->seller;
+        if(session('firstLogin')){
+            session()->forget('firstLogin');
         }
         return Inertia::render('Seller/Dashboard', [
             'data' => [
