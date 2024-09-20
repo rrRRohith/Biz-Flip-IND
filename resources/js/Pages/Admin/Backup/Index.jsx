@@ -214,14 +214,13 @@ export default function Index({ files = [], images = [], auth }) {
                                                             <Tr key={index}>
                                                                 <Td>{image.name}</Td>
                                                                 <Td align='right'>
-                                                                    <PermissionAllow permission={'Category Show'}>
+                                                               
                                                                         <span onClick={() => handleRestoreImage(image.originalName)} title='Restore' className="btn btn-transparent">
                                                                             <i className="bi bi-arrow-clockwise"></i>
                                                                         </span>
                                                                         <span onClick={() => handleDownload(image.originalName)} title='Download' className="btn btn-transparent">
                                                                             <i className="bi bi-download"></i>
                                                                         </span>
-                                                                    </PermissionAllow>
                                                                 </Td>
                                                             </Tr>
                                                         ))}
@@ -243,7 +242,7 @@ export default function Index({ files = [], images = [], auth }) {
                                                             <Tr key={index}>
                                                                 <Td>{file.name}</Td>
                                                                 <Td align='right'>
-                                                                    <PermissionAllow permission={'Category Show'}>
+                                                                
                                                                         {/* <span onClick={() => handleRestoreDb(file.originalName)} title='Restore' className="btn btn-transparent">
                                                                             <i className="bi bi-arrow-clockwise"></i>
                                                                         </span> */}
@@ -251,7 +250,6 @@ export default function Index({ files = [], images = [], auth }) {
                                                                             <i className="bi bi-download"></i>
                                                                         </span>
 
-                                                                    </PermissionAllow>
                                                                 </Td>
                                                             </Tr>
                                                         ))}

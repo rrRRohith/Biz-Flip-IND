@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 
+
 export default function Contacts({ chats, user }) {
     const urlMatches = (currentUrl, pattern) => {
         const regex = new RegExp(`^${pattern.replace(/\*/g, '.*')}$`);
