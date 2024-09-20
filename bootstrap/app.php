@@ -31,7 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->report(function (Throwable $exception) {
-            if (env('APP_DEBUG')) {
+            if (!env('APP_DEBUG')) {
                 $content['message'] = $exception->getMessage();
                 $content['file'] = $exception->getFile();
                 $content['line'] = $exception->getLine();
