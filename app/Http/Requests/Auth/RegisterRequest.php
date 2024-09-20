@@ -57,7 +57,7 @@ class RegisterRequest extends FormRequest
                 'lastname' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'numeric', 'digits:10','unique:users,phone'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)],
-                'captcha' => 'required|captcha',
+                'captcha' => !env('CAPTCHA_VALIDATION_DISABLE') ? 'required|captcha' : 'nullable|sometimes',
                 'password_confirmation' => 'required'
             ];
         }

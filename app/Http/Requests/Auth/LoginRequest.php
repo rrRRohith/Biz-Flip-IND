@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Factory as ValidationFactory;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class LoginRequest extends FormRequest
 {
@@ -18,6 +20,17 @@ class LoginRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function failedValidation(Validator $validator){
+        if($this->ajax()){
+            throw new HttpResponseException(response()->json([
+                'success'   => false,
+                'message'   => 'Opps, there are some problems.',
+                'data'      => $validator->errors()
+            ], 422));
+        }
+        parent::failedValidation($validator);
     }
 
     public function __construct(ValidationFactory $validationFactory){     
@@ -42,7 +55,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email', 'exists:users,email', 'verify_email'],
             'password' => ['required', 'string'],
-            'captcha' => ['required', 'captcha']
+            'captcha' => !env('CAPTCHA_VALIDATION_DISABLE') ? 'required|captcha' : 'nullable|sometimes',
         ];
     }
 

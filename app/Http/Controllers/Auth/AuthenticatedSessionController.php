@@ -16,8 +16,10 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): Response
+    public function create()
     {
+        return view('auth.login');
+
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
@@ -43,19 +45,25 @@ class AuthenticatedSessionController extends Controller
 
         if(auth()->user()->type == 'admin' || auth()->user()->type == 'admin staff')
         {
-            return redirect()->intended(route('admin.index', absolute: false));
+            $url = route('admin.index', absolute: false);
         }
         else if(auth()->user()->type == 'seller' || auth()->user()->type == 'seller staff'){
             $redirect =  redirect()->intended(route('account.index', absolute: false));
-            return Inertia::location($redirect);
-            // return redirect()->intended(route('account.index', absolute: false));
+            //return Inertia::location($redirect);
+            $url = route('account.index', absolute: false);
         }
 
         else if(auth()->user()->type == 'customer'){
             $redirect =  redirect()->intended(route('customer.index', absolute: false));
-            return Inertia::location($redirect);
-            // return redirect()->intended(route('customer.index', absolute: false));
+            //return Inertia::location($redirect);
+            $url = route('customer.index', absolute: false);
         }
+
+        return $request->ajax() ? response()->json([
+            'success' => true,
+            'redirect' => $url,
+            'message' => __("You are logged in successfully.")
+        ]) : redirect()->intended($url);
 
     }
 
