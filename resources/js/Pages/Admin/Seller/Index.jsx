@@ -11,6 +11,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Height } from '@mui/icons-material';
 
 export default function Index({ vendorsList, pendingVendorsList, suspendedVendorsList, auth }) {
     const itemsPerPage = 20;
@@ -26,7 +27,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
 
     const deleteVendor = (vendor) => {
         Swal.fire({
-            title: 'Are you sure you want to delete the Seller?',
+            title: 'Are you sure you want to delete the User?',
             text: ' Once deleted, it cannot be recovered.',
             icon: 'warning',
             showCancelButton: true,
@@ -53,7 +54,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
         let filtered;
         if (key === 'ApprovedSellers') {
             filtered = vendorsList.data.filter(vendor =>
-                (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
+            (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.full_name?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.email?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.phone?.toLowerCase().includes(value.toLowerCase()))
@@ -61,7 +62,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
             setFilteredVendors(filtered);
         } else if (key === 'PendingApproval') {
             filtered = pendingVendorsList.data.filter(vendor =>
-                (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
+            (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.full_name?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.email?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.phone?.toLowerCase().includes(value.toLowerCase()))
@@ -69,7 +70,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
             setFilteredPendingVendors(filtered);
         } else if (key === 'SuspendedSellers') {
             filtered = suspendedVendorsList.data.filter(vendor =>
-                (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
+            (vendor.company_name?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.full_name?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.email?.toLowerCase().includes(value.toLowerCase()) ||
                 vendor.phone?.toLowerCase().includes(value.toLowerCase()))
@@ -80,54 +81,54 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     };
 
     const handleSearchType = (e) => {
-      
+
         const value2 = e.target.value;
         setSearchQuery2(value2);
         let filtered2;
-        
+
         if (key === 'ApprovedSellers') {
-            if(value2 == 'agent'){
+            if (value2 == 'agent') {
                 filtered2 = vendorsList.data.filter(vendor =>
                     vendor.is_agent === true
                 );
             }
-            else if(value2 == 'individual'){
+            else if (value2 == 'individual') {
                 filtered2 = vendorsList.data.filter(vendor =>
                     vendor.is_agent == false
                 );
             }
-            else{
+            else {
                 filtered2 = vendorsList.data;
             }
-            
+
             setFilteredVendors(filtered2);
         } else if (key === 'PendingApproval') {
-            if(value2 == 'agent'){
+            if (value2 == 'agent') {
                 filtered2 = vendorsList.data.filter(vendor =>
                     vendor.is_agent == true
                 );
             }
-            else if(value2 == 'individual'){
+            else if (value2 == 'individual') {
                 filtered2 = vendorsList.data.filter(vendor =>
                     vendor.is_agent == false
                 );
             }
-            else{
+            else {
                 filtered2 = vendorsList.data;
             }
             setFilteredPendingVendors(filtered2);
         } else if (key === 'SuspendedSellers') {
-            if(value2 == 'agent'){
+            if (value2 == 'agent') {
                 filtered2 = vendorsList.data.filter(vendor =>
                     vendor.is_agent == true
                 );
             }
-            else if(value2 == 'individual'){
+            else if (value2 == 'individual') {
                 filtered2 = vendorsList.data.filter(vendor =>
                     vendor.is_agent == false
                 );
             }
-            else{
+            else {
                 filtered2 = vendorsList.data;
             }
             setFilteredSuspendedVendors(filtered2);
@@ -136,7 +137,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     };
 
     const getDisplayList = () => {
-        if (searchQuery.length > 0 || searchQuery2.length >0) {
+        if (searchQuery.length > 0 || searchQuery2.length > 0) {
             if (key === 'ApprovedSellers') {
                 return filteredVendors;
             } else if (key === 'PendingApproval') {
@@ -220,7 +221,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 handleSearchType={handleSearchType}
                             />
                         </Tab>
-                     
+
                         <Tab eventKey="SuspendedSellers" title="Suspended">
                             <VendorTable
                                 displayList={displayList}
@@ -236,10 +237,10 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 handleSearchType={handleSearchType}
                             />
                         </Tab>
-                           {/* <Tab eventKey="PendingApproval" title={`Pending Approval (${pendingVendorsList.data.length})`}> */}
-                           <Tab eventKey="PendingApproval" title={
+                        {/* <Tab eventKey="PendingApproval" title={`Pending Approval (${pendingVendorsList.data.length})`}> */}
+                        <Tab eventKey="PendingApproval" title={
                             <>
-                                <span>Unverified</span> 
+                                <span>Unverified</span>
                                 {pendingVendorsList.data.length > 0 && (
                                     <span className="pending-approval-count">
                                         {pendingVendorsList.data.length}
@@ -280,7 +281,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     );
 }
 
-const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch,handleSearchType }) => (
+const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch, handleSearchType }) => (
     <section className="content2">
         <div className="row">
             <div className="col-12">
@@ -298,17 +299,21 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                     />
                                 </div>
                                 <div className="mb-3 col-lg-2">
-                                    <select name="" className='form-control'  onChange={handleSearchType}>
+                                    <select name="type" className='form-control select-option' style={{ WebkitAppearance:"auto !important" }} onChange={handleSearchType}>
                                         <option value={'all'}>All</option>
                                         <option value={'agent'}>Agent</option>
-                                        <option value={'individual'}>Individual</option>
-                                      
+                                        <option value={'individual'}>Individual users</option>
+
                                     </select>
                                 </div>
+                                
+
                             </div>
-                           
+
                             <div className="table-responsive rounded card-table">
-                                <Table className="table border-no" id="example1">
+                            {displayList.length > 0 ?
+                            <>
+                             <Table className="table border-no" id="example1">
                                     <Thead>
                                         <Tr>
                                             {/* <Th>#</Th> */}
@@ -327,32 +332,60 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                         {displayList.slice(startIdx, endIdx).map((vendor) => (
                                             <Tr key={vendor.id} className="hover-primary">
                                                 {/* <Td valign="middle">{vendor.id}</Td> */}
-                                                <Td valign="middle" className="d-flex" onClick={() => handleShow(vendor)} >
-                                                    <img
-                                                        src={vendor.picture}
-                                                        className='w-30 h-30 me-3 rounded-circle'
-                                                        alt={`${vendor.picture} icon`}
-                                                        onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                    />
-                                                    <div>
-         
-                                                    {vendor.company_name != '' && (
-                                                       <>
-                                                        <span className="text-fw-bold">{vendor.company_name}</span><br />
-                                                       </>
-                                                    )}
-                                                        <i>{vendor.full_name}</i>
+                                                <Td role="button" valign="middle" className="d-flex" onClick={() => handleShow(vendor)} >
+                                                    <div className="avatar-userlisting position-relative" style={{ height: '60px', width: '60px' }}>
+                                                        <span
+                                                            className="d-block"
+                                                            style={{
+                                                                backgroundImage: `url(${vendor.picture})`,
+                                                                backgroundSize: 'cover',
+                                                                backgroundPosition: 'center',
+                                                                height: '60px',
+                                                                width: '60px',
+                                                                borderRadius: '50%',
+                                                            }}
+                                                        ></span>
+
+                                                        <span
+                                                            className={`position-absolute ${vendor.is_agent ? 'bg-dropbox' : 'bg-success'} text-white d-flex justify-content-center align-items-center`}
+                                                            style={{
+                                                                bottom: '0',
+                                                                right: '0',
+                                                                borderRadius: '50%',
+                                                                width: '20px',
+                                                                height: '20px',
+                                                                fontSize: '12px',
+                                                            }}
+                                                        >
+                                                            {vendor.is_agent ? 'A' : 'I'}
+                                                        </span>
                                                     </div>
+
+                                                    <div className="ms-20">
+                                                        {vendor.is_agent && (
+                                                            <>
+                                                                <span className="text-bold text-uppercase">{vendor.company_name}</span>
+                                                                <br />
+                                                            </>
+                                                        )}
+                                                        <span>{vendor.full_name}</span>
+                                                    </div>
+
                                                 </Td>
-                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.email}</Td>
-                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.phone}</Td>
-                                                <Td  onClick={() => handleShow(vendor)}  valign="middle">{vendor.designation}</Td>
+                                                <Td  valign="middle">{vendor.email}</Td>
+                                                <Td  valign="middle">{vendor.phone}</Td>
+                                                <Td  valign="middle">{vendor.designation}</Td>
                                                 <Td>
-                                                      {vendor.current_subscription?.name}
+                                                    {vendor.current_subscription?.name}
                                                 </Td>
                                                 <Td>{(vendor.ads).length}</Td>
-                                                <Td>{window.formatDateTime(vendor.created_at)}</Td>
-                                                <Td>{vendor.last_login != null && window.formatDateTime(vendor.last_login)}</Td>   
+                                                <Td>{window.formatDate(vendor.created_at)}<br />{window.formatTime(vendor.created_at)}</Td>
+                                                <Td> {vendor.last_login != null && (
+                                                    <>
+                                                        {window.formatDate(vendor.last_login)} <br />{window.formatTime(vendor.last_login)}
+                                                    </>
+                                                )}
+                                                </Td>
                                                 <Td className="text-end">
                                                     <PermissionAllow permission={'Seller Show'}>
                                                         <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
@@ -372,6 +405,15 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                         ))}
                                     </Tbody>
                                 </Table>
+                            </>
+                            :
+                            <>
+                                <div className='h-100 text-center'>
+                                    <h5>No users found!</h5>
+                                </div>
+                            </>
+                            }
+                               
                             </div>
                             {displayList.length > itemsPerPage && (
                                 <div className="pagination-container float-end py-5">
@@ -389,3 +431,4 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
         </div>
     </section>
 );
+

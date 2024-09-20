@@ -26159,7 +26159,9 @@ Height property
   z-index: 999;
   top: 0;
   right: 0;
-  left: 0; }
+  width: 100%;
+  left: 0;
+ }
 .fixed .main-sidebar {
   position: fixed; }
 .fixed .content-wrapper {
