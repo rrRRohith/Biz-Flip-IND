@@ -43,7 +43,6 @@ class Controller extends BaseController{
 
         $leads = $this->seller->leads()->count();
         $views = $this->seller->ad_views()->count();
-        a;
         $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) max(($views / $leads), 1) : 1)) : 0;
         
         $showAgentForm = session('firstLogin') && $this->seller->seller;
