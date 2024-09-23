@@ -40,6 +40,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_login',
         'email_verified_at',
         'status',
+        'address', 
+        'city', 
+        'province', 
+        'postalcode',
     ];
 
     /**

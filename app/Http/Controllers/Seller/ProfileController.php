@@ -24,7 +24,9 @@ class ProfileController extends Controller{
     }
 
     public function index(){
-        return Inertia::render('Seller/Profile',['user' => new UserProfileResource($this->user), 'success' => session('success'),'error' => session('error')]);
+        return Inertia::render('Seller/Profile',[
+            'province_options' => \App\Models\Province::selectRaw("name as value, name as label")->orderBy('name')->get()->toArray(),
+            'user' => new UserProfileResource($this->user), 'success' => session('success'),'error' => session('error')]);
     }
 
     public function password(){
@@ -33,7 +35,8 @@ class ProfileController extends Controller{
 
     public function store(ProfileUpdateRequest $request){
         try{		
-            $this->user->update($request->only(['firstname', 'lastname', 'email', 'phone']));
+            //$this->user->update($request->only(['firstname', 'lastname', 'email', 'phone']));
+            $this->user->update($request->only(['firstname', 'lastname', 'address', 'city', 'province', 'postalcode']));
             if($request->has('password') && $request->password){
                 $this->user->update([
                     'password' => Hash::make($request->password),

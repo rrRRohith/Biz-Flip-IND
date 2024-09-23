@@ -72,6 +72,7 @@ export default function Settings({ seller, auth, success, error, province_option
         province: seller ? seller.province : '',
         lat: seller ? seller.lat : '',
         lng: seller ? seller.lng : '',
+        
     });
 
     const [imagePreview, setImagePreview] = useState('');

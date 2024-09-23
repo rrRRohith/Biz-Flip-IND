@@ -21,8 +21,12 @@ class ProfileUpdateRequest extends FormRequest
             'confirm_password' => 'sometimes|nullable',
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'numeric', 'digits:10'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'address' => 'required|max:256|string',
+            'city' => 'required|max:256|string',
+            'postalcode' => 'required|max:10|string',
+            'province' => 'required|exists:provinces,name',
+            //'phone' => ['required', 'numeric', 'digits:10'],
+            //'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }
 }

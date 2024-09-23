@@ -3,8 +3,9 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import Wrapper from './layout/Wrapper';
 import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
+import Select from 'react-select';
 
-export default function Profile({ user, queryParams = null, auth, success, error }) {
+export default function Profile({ user, queryParams = null, auth, success, error, province_options }) {
     const { data, setData, post, errors, reset } = useForm({
         picture: '',
         firstname: user.firstname,
@@ -13,6 +14,10 @@ export default function Profile({ user, queryParams = null, auth, success, error
         phone: user.phone,
         password: '',
         confirm_password: '',
+        address: user ? user.address : '',
+        city: user ? user.city : '',
+        postalcode: user ? user.postalcode : '',
+        province: user ? user.province : '',
     });
 
     const [imagePreview, setImagePreview] = useState();
@@ -89,13 +94,42 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                             <div><label>Last name</label><input value={data.lastname} onChange={(e) => handleChange("lastname", e.target.value)} type="text" placeholder="Your last name" className="form-control" /></div>
                                             <InputError message={errors.lastname} />
                                         </div>
-                                        <div className="col-md-6">
+                                        {/* <div className="col-md-6">
                                             <div><label htmlFor="email">Email</label> <input value={data.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="Your email address" type="email" className="form-control" /></div>
                                             <InputError message={errors.email} />
+                                        </div> */}
+                                        <div className="col-md-6">
+                                            <div><label>Phone number</label> <input disabled value={data.phone} type="tel" onChange={(e) => handleChange("phone", e.target.value)} placeholder="Your phone number" className="form-control" /></div>
+                                            <InputError message={errors.phone} />
+                                        </div>
+                                    </div>
+                                    <div className="mb-5">
+                                        <h4>Address</h4>
+                                    </div>
+                                    <div className="row g-5 mb-5">
+                                        <div className="col-md-6">
+                                            <div><label>Address</label>
+                                                <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Address" className="form-control" />
+                                                <InputError message={errors.address} />
+                                            </div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Phone number</label> <input value={data.phone} type="tel" onChange={(e) => handleChange("phone", e.target.value)} placeholder="Your phone number" className="form-control" /></div>
-                                            <InputError message={errors.phone} />
+                                            <div><label>City</label>
+                                                <input value={data.city} onChange={(e) => { handleChange('city', e.target.value) }} type="text" placeholder="City" className="form-control" />
+                                                <InputError message={errors.city} />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div><label>Postcode</label>
+                                                <input value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
+                                                <InputError message={errors.postalcode} />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div><label>Province</label>
+                                                <Select defaultValue={{ value: data.province, label: data.province ? data.province : 'Select...' }} onChange={(e) => { handleChange('province', e.value) }} options={province_options}></Select>
+                                                <InputError message={errors.province} />
+                                            </div>
                                         </div>
                                     </div>
                                     {/* <div className="mb-5 mt-5">
