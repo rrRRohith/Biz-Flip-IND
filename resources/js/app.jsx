@@ -4,7 +4,6 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import React, { useState, useEffect } from 'react';
 import Spinner from './Components/Spinner';
 import {getImageAsset, formatTime, capitalize, formatPrice,formatDate, truncateText, formatDateTime, statusIcon }  from '@/Components/Helpers';
-
 import './app.css'; // Import the CSS file for styling the spinner
 
 const appName = import.meta.env.VITE_APP_NAME || 'Bizflip';
