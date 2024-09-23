@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class PasswordRequest extends FormRequest
 {
@@ -16,6 +17,11 @@ class PasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'old_password' => ['required', function ($attribute, $value, $fail) {
+                if (!Hash::check($value, auth()->user()->password)) {
+                    $fail('The old password is incorrect.');
+                }
+            }],
             'password' => ['required', 'same:confirm_password', new \App\Rules\StrongPassword],
             'confirm_password' => 'required',
         ];

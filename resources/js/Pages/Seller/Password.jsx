@@ -21,7 +21,7 @@ export default function Password({ user, queryParams = null, auth, success, erro
         await post(route("account.password.store"), {
             preserveScroll: true,
             onSuccess: () => {
-                reset('confirm_password', 'password');
+                reset('confirm_password', 'password', 'old_password');
             },
         });
     };
@@ -42,6 +42,13 @@ export default function Password({ user, queryParams = null, auth, success, erro
                                         <h4>Change password</h4>
                                     </div>
                                     <div className="row g-5">
+                                        <div className="col-md-6">
+                                            <div><label>Old password</label> <input type="password" value={data.old_password} onChange={(e) => handleChange("old_password", e.target.value)} name="old_password" id="password" placeholder="Your current secret password" className="form-control" /></div>
+                                            <InputError message={errors.old_password} />
+                                        </div>
+                                        <div className="col-md-6">
+
+                                        </div>
                                         <div className="col-md-6">
                                             <div><label>New password</label> <input type="password" value={data.password} onChange={(e) => handleChange("password", e.target.value)} name="password" id="password" placeholder="Your new secret password" className="form-control" /></div>
                                             <InputError message={errors.password} />
