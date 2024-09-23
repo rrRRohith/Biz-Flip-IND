@@ -13,6 +13,7 @@ export default function ProfileDropdown({ user }) {
             <div className="dropdown-header">
                 <span className="d-block text-sm text-muted mb-1">Signed in as</span>
                 <span className="d-block text-heading font-semibold">{user.firstname} {user.lastname}</span>
+                <div class="text-muted">{user.email}</div>
             </div>
             <div className="dropdown-divider"></div>
             {user.type == 'customer' ? (

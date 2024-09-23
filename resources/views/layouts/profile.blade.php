@@ -17,6 +17,7 @@
                 <div>
                     <div class="text-muted">Signed in as</div>
                     <p class="mb-0 fw-semibold text-overflow fs-6">{{ $user->name }}</p>
+                    <div class="text-muted">{{ $user->email }}</div>
                 </div>
             </div>
             <hr class="light" />
