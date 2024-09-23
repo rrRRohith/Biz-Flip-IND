@@ -1,12 +1,17 @@
 <div class="d-flex align-items-center">
     <div class="dropdown ms-3 me-3">
+        @php
+            $notifications = \App\Models\DashboardNotification::where('recipient_id', auth()->user()->id ?? null)->whereNull('read_at')->paginate(6)
+        @endphp
         <div class="dropdown-toggle notification position-relative" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="count fw-bolder position-absolute end-0">{{ $notifications->total() }}</span>
+            <span class="count fw-bolder position-absolute end-0">{{ $notifications->count() }}</span>
             <span class="bi bi-bell fs-20"></span>
         </div>
-        <div role="button" class="cursor-pointer" data-bs-toggle="dropdown">
-            
-        </div>
+        <ul class="dropdown-menu profile-dropdown text-overflow rounded-2 pb-2 dropdown-menu-end border-0 shadow-sm p-0 mt-4">
+            @foreach($notifications as $notification)
+                <a href="{{ $notification->redirection }}" title="{{ $notification->subject }}" data-rr-ui-dropdown-item="" class="dropdown-item text-overflow">{{ $notification->subject }}</a>
+            @endforeach
+        </ul>
     </div>
     <div class="dropdown">
         <div role="button" class="cursor-pointer" data-bs-toggle="dropdown">

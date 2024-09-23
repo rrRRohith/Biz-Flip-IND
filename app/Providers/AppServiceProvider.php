@@ -43,7 +43,6 @@ class AppServiceProvider extends ServiceProvider
 
         $this->loadGoogleStorageDriver();
         View::share('provinces', \App\Models\Province::orderBy('name')->whereStatus(1)->get());
-        View::share('notifications', \App\Models\DashboardNotification::where('recipient_id', auth()->user()->id ?? null)->whereNull('read_at')->paginate(6));
     }
 
     private function loadGoogleStorageDriver(string $driverName = 'google')
