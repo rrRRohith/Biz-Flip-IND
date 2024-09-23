@@ -79,7 +79,7 @@ export default function Leads({ auth, leads, ads, categories }) {
             <Delete showDelete={showDelete} handleClose={handleClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
             <Wrapper user={auth.user}>
                 <main className="py-6">
-                    <div className="container-fluid px-3 px-lg-6">
+                    <div className="container-fluid px-3">
                         <div className="vstack gap-6 m-auto">
                             <div className="text-xl font-bold">Leads</div>
                             <div>

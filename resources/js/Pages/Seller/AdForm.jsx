@@ -179,7 +179,7 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
             <Wrapper user={auth.user}>
 
                 <main className="py-6">
-                    <div className="container px-3 px-lg-6">
+                    <div className="container px-3">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             <div className="d-flex align-items-center">
                                 <div className="text-xl font-bold">{ad ? 'Edit add' : 'Create new ad'}</div>

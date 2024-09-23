@@ -47,9 +47,17 @@ export default function Index({ auth, staffs }) {
             <Wrapper user={auth.user}>
             <Delete showDelete={showDelete} handleClose={handleClose} deleteAction={deleteAction} deleteId={deleteId} setShowDelete={setShowDelete}></Delete>
                 <main className="py-6">
-                    <div className="container-fluid px-3 px-lg-6">
+                    <div className="container-fluid px-3">
                         <div className="vstack gap-6 m-auto">
-                            <div className="text-xl font-bold">Staffs</div>
+                        <div className="d-flex">
+                                <div className="text-xl font-bold">Staffs</div>
+                                <PermissionAllow permission="Plan Purchase">
+                                    <div className="ms-auto">
+                                        <Link className="btn btn-secondary text-overflow" href={route('account.roles.index')}>Manage roles
+                                        </Link>
+                                    </div>
+                                </PermissionAllow>
+                            </div>
                             <div>
                                 Manage your staff members easily. Search, view, and edit staff information.
                             </div>

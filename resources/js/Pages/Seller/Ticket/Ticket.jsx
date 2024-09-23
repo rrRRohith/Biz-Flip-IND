@@ -35,7 +35,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
             <Wrapper user={auth.user} success={success} error={error}>
 
                 <main className="py-6">
-                    <div className="container px-3 px-lg-6">
+                    <div className="container px-3">
                         <div className="max-w-screen-md vstack gap-6 m-auto">
                             {ticket.status == 'solved' && (
                                 <div className="alert alert-warning rounded-input border-0">

@@ -106,7 +106,7 @@ export default function Plan({ auth, plan, error, success, province_options, add
             <Head title={plan.name} />
             <Wrapper user={auth.user} success={success} error={error}>
                 <main className="py-6">
-                    <div className="container-fluid px-3 px-lg-6">
+                    <div className="container-fluid px-3">
                         <div className="vstack gap-6 m-auto">
                             {/* <div className="text-xl font-bold">Purchase {plan.name}</div> */}
                             <div className="container max-w-screen-lg vstack gap-6 m-auto">

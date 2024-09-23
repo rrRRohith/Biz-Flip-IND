@@ -43,13 +43,13 @@ export default function ProfileDropdown({ user }) {
                         <Link className="dropdown-item" href="/account/chats">
                             <i className="bi bi-chat-left-dots me-3"></i>Messages</Link>
                     </PermissionAllow>
-                    <PermissionAllow permission="Plan Purchase">
+                    {/* <PermissionAllow permission="Plan Purchase">
                         <Link className="dropdown-item" href="/account/plans">
                             <i class="bi bi-currency-dollar me-3"></i>Plans </Link>
-                    </PermissionAllow>
+                    </PermissionAllow> */}
                     <PermissionAllow permission="Invoice List">
                         <Link className="dropdown-item" href="/account/invoices">
-                            <i class="bi bi-receipt me-3"></i>Invoices </Link>
+                            <i class="bi bi-receipt me-3"></i>Accounts </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Support Ticket Listing">
                         <Link className="dropdown-item" href="/account/tickets">
@@ -61,10 +61,10 @@ export default function ProfileDropdown({ user }) {
                                 <Link className="dropdown-item" href="/account/staffs">
                                     <i className="bi bi-people me-3"></i>Staffs </Link>
                             </PermissionAllow>
-                            <PermissionAllow permission="Role and Responsibilities Listing">
+                            {/* <PermissionAllow permission="Role and Responsibilities Listing">
                                 <Link className="dropdown-item" href="/account/staffs/roles">
                                     <i class="bi bi-person-gear me-3"></i>Staff roles </Link>
-                            </PermissionAllow>
+                            </PermissionAllow> */}
                             <PermissionAllow permission="Settings">
                                 <Link className="dropdown-item" href="/account/settings">
                                     <i className="bi bi-gear me-3" />Settings </Link>

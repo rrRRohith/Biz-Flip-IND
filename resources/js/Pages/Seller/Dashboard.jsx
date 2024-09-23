@@ -30,7 +30,7 @@ export default function Dashboard({ showAgentForm, auth, data, leads, tickets, a
             <Head title="Dashboard" />
             <Wrapper user={auth.user}>
                 <main className="py-6">
-                    <div className="container-fluid px-3 px-lg-6">
+                    <div className="container-fluid px-3">
                         <div className="mb-10">
                             Track the performance of your ads, including daily views and leads, and view detailed metrics like lead-to-view ratios. Manage your active subscriptions and monitor your most viewed ads and recent leads.
                         </div>

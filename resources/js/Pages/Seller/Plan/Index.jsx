@@ -12,7 +12,7 @@ export default function Index({ auth, plans, can_purchase }) {
             <Head title="Plans" />
             <Wrapper user={auth.user}>
                 <main className="py-6">
-                    <div className="container-fluid px-3 px-lg-6">
+                    <div className="container-fluid px-3">
                         <div className="vstack gap-6 m-auto">
 
                             <div className="container p-0">

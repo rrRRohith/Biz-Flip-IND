@@ -71,11 +71,21 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
             </PermissionAllow>
             <Wrapper user={auth.user}>
                 <main className="py-6">
-                    <div className="container-fluid px-3 px-lg-6">
+                    <div className="container-fluid px-3">
                         <div className="vstack gap-6 m-auto">
-                            <div className="text-xl font-bold">Invoices</div>
+                            <div className="d-flex">
+                                <div className="text-xl font-bold">Invoices</div>
+                                <PermissionAllow permission="Plan Purchase">
+                                    <div className="ms-auto">
+                                        <Link className="btn btn-primary text-overflow" href={route('account.plans.index')}>
+                                            <span className="d-none d-md-inline">Purchase new plan</span>
+                                        </Link>
+                                    </div>
+                                </PermissionAllow>
+                            </div>
+
                             <div>
-                            View and manage your invoices easily. See your subscription details, track your billing history, and download invoices for record-keeping.
+                                View and manage your invoices easily. See your subscription details, track your billing history, and download invoices for record-keeping.
                             </div>
                             <div>
                                 {current_invoice && (
