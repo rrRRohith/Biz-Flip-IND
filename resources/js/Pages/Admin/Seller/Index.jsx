@@ -11,10 +11,10 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Height } from '@mui/icons-material';
+import DatePicker from '@/Components/DatePicker';
 
 export default function Index({ vendorsList, pendingVendorsList, suspendedVendorsList, auth }) {
-    const itemsPerPage = 20;
+    const itemsPerPage = 50;
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchQuery2, setSearchQuery2] = useState('all');
@@ -177,6 +177,46 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
         // Additional logic after form submission
     };
 
+    const handleDateRangeChange = (newValue) => {
+        const [startDate, endDate] = newValue; // Extracting the start and end date
+        setSearchQuery2(newValue); // Set the selected date range
+
+        let filteredVendors;
+
+        // Helper function to filter vendors based on agent status and date range
+        const filterVendors = (vendorList) => {
+            return vendorList.filter(vendor => {
+                const createdAt = new Date(vendor.created_at);
+                const isWithinDateRange = createdAt > startDate && createdAt < endDate;
+                return isWithinDateRange;
+
+            });
+        };
+
+        // Apply the filtering logic based on the key
+        switch (key) {
+            case 'ApprovedSellers':
+                filteredVendors = filterVendors(vendorsList.data);
+                setFilteredVendors(filteredVendors);
+                break;
+
+            case 'PendingApproval':
+                filteredVendors = filterVendors(vendorsList.data);
+                setFilteredPendingVendors(filteredVendors);
+                break;
+
+            case 'SuspendedSellers':
+                filteredVendors = filterVendors(vendorsList.data);
+                setFilteredSuspendedVendors(filteredVendors);
+                break;
+
+            default:
+                break;
+        }
+
+        setCurrentPage(1); // Reset pagination
+    };
+
     return (
         <Authenticated user={auth.user}>
             <Head title="Users List" />
@@ -219,6 +259,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 searchQuery={searchQuery}
                                 handleSearch={handleSearch}
                                 handleSearchType={handleSearchType}
+                                handleDateRangeChange={handleDateRangeChange}
                             />
                         </Tab>
 
@@ -235,6 +276,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 searchQuery={searchQuery}
                                 handleSearch={handleSearch}
                                 handleSearchType={handleSearchType}
+                                handleDateRangeChange={handleDateRangeChange}
                             />
                         </Tab>
                         {/* <Tab eventKey="PendingApproval" title={`Pending Approval (${pendingVendorsList.data.length})`}> */}
@@ -261,6 +303,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                                 searchQuery={searchQuery}
                                 handleSearch={handleSearch}
                                 handleSearchType={handleSearchType}
+                                handleDateRangeChange={handleDateRangeChange}
                             />
                         </Tab>
                     </Tabs>
@@ -281,13 +324,14 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
     );
 }
 
-const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch, handleSearchType }) => (
+const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch, handleSearchType, handleDateRangeChange }) => (
     <section className="content2">
         <div className="row">
             <div className="col-12">
                 <div className="box">
                     <div className="box-body">
                         <PermissionAllow permission={'Categories Listing'} message="true">
+
                             <div className='row'>
                                 <div className="mb-3 col-lg-4">
                                     <input
@@ -299,121 +343,129 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                     />
                                 </div>
                                 <div className="mb-3 col-lg-2">
-                                    <select name="type" className='form-control select-option' style={{ WebkitAppearance:"auto !important" }} onChange={handleSearchType}>
+                                    <select name="type" className='form-control select-option' style={{ WebkitAppearance: "auto !important" }} onChange={handleSearchType}>
                                         <option value={'all'}>All</option>
                                         <option value={'agent'}>Agent</option>
                                         <option value={'individual'}>Individual users</option>
 
                                     </select>
                                 </div>
-                                
+                                <div className="mb-3 col-lg-3">
+                                    <div className="form-group">
+                                    <label className="fw-700 fs-16 form-label form-group__label">Started at</label>
+                                        <DatePicker onChange={handleDateRangeChange} />
+                                    </div>
+                                </div>
 
                             </div>
 
                             <div className="table-responsive rounded card-table">
-                            {displayList.length > 0 ?
-                            <>
-                             <Table className="table border-no" id="example1">
-                                    <Thead>
-                                        <Tr>
-                                            {/* <Th>#</Th> */}
-                                            <Th>Full Name</Th>
-                                            <Th>Email</Th>
-                                            <Th>Mobile Number</Th>
-                                            <Th>Designation</Th>
-                                            <Th>Subscription</Th>
-                                            <Th>Ads</Th>
-                                            <Th>Started at</Th>
-                                            <Th>Last login</Th>
-                                            <Th className="text-end"></Th>
-                                        </Tr>
-                                    </Thead>
-                                    <Tbody>
-                                        {displayList.slice(startIdx, endIdx).map((vendor) => (
-                                            <Tr key={vendor.id} className="hover-primary">
-                                                {/* <Td valign="middle">{vendor.id}</Td> */}
-                                                <Td role="button" valign="middle" className="d-flex" onClick={() => handleShow(vendor)} >
-                                                    <div className="avatar-userlisting position-relative" style={{ height: '60px', width: '60px' }}>
-                                                        <span
-                                                            className="d-block"
-                                                            style={{
-                                                                backgroundImage: `url(${vendor.picture})`,
-                                                                backgroundSize: 'cover',
-                                                                backgroundPosition: 'center',
-                                                                height: '60px',
-                                                                width: '60px',
-                                                                borderRadius: '50%',
-                                                            }}
-                                                        ></span>
+                                {displayList.length > 0 ?
+                                    <>
+                                        <Table className="table border-no" id="example1">
+                                            <Thead>
+                                                <Tr>
+                                                    {/* <Th>#</Th> */}
+                                                    <Th>Full Name</Th>
+                                                    <Th>Email</Th>
+                                                    <Th>Mobile Number</Th>
+                                                    <Th>Designation</Th>
+                                                    <Th>Subscription</Th>
+                                                    <Th>Ads</Th>
+                                                    <Th>Started at</Th>
+                                                    <Th>Last login</Th>
+                                                    <Th className="text-end"></Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody>
+                                                {displayList.slice(startIdx, endIdx).map((vendor) => (
+                                                    <Tr key={vendor.id} className="hover-primary">
+                                                        {/* <Td valign="middle">{vendor.id}</Td> */}
+                                                        <Td role="button" valign="middle" onClick={() => handleShow(vendor)} >
+                                                            <div className='d-flex'>
+                                                                <div className="avatar-userlisting position-relative" style={{ height: '60px', width: '60px' }}>
+                                                                    <span
+                                                                        className="d-block"
+                                                                        style={{
+                                                                            backgroundImage: `url(${vendor.picture})`,
+                                                                            backgroundSize: 'cover',
+                                                                            backgroundPosition: 'center',
+                                                                            height: '60px',
+                                                                            width: '60px',
+                                                                            borderRadius: '50%',
+                                                                        }}
+                                                                    ></span>
 
-                                                        <span
-                                                            className={`position-absolute ${vendor.is_agent ? 'bg-dropbox' : 'bg-success'} text-white d-flex justify-content-center align-items-center`}
-                                                            style={{
-                                                                bottom: '0',
-                                                                right: '0',
-                                                                borderRadius: '50%',
-                                                                width: '20px',
-                                                                height: '20px',
-                                                                fontSize: '12px',
-                                                            }}
-                                                        >
-                                                            {vendor.is_agent ? 'A' : 'I'}
-                                                        </span>
-                                                    </div>
+                                                                    <span
+                                                                        className={`position-absolute ${vendor.is_agent ? 'bg-dropbox' : 'bg-success'} text-white d-flex justify-content-center align-items-center`}
+                                                                        style={{
+                                                                            bottom: '0',
+                                                                            right: '0',
+                                                                            borderRadius: '50%',
+                                                                            width: '20px',
+                                                                            height: '20px',
+                                                                            fontSize: '12px',
+                                                                        }}
+                                                                    >
+                                                                        {vendor.is_agent ? 'A' : 'I'}
+                                                                    </span>
+                                                                </div>
 
-                                                    <div className="ms-20">
-                                                        {vendor.is_agent && (
+                                                                <div className="ms-20">
+                                                                    {vendor.is_agent && (
+                                                                        <>
+                                                                            <span className="text-bold text-uppercase">{vendor.company_name}</span>
+                                                                            <br />
+                                                                        </>
+                                                                    )}
+                                                                    <span>{vendor.full_name}</span>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </Td>
+                                                        <Td valign="middle">{vendor.email}</Td>
+                                                        <Td valign="middle">{vendor.phone}</Td>
+                                                        <Td valign="middle">{vendor.designation}</Td>
+                                                        <Td>
+                                                            {vendor.current_subscription?.name}
+                                                        </Td>
+                                                        <Td>{(vendor.ads).length}</Td>
+                                                        <Td>{window.formatDate(vendor.created_at)}<br />{window.formatTime(vendor.created_at)}</Td>
+                                                        <Td> {vendor.last_login != null && (
                                                             <>
-                                                                <span className="text-bold text-uppercase">{vendor.company_name}</span>
-                                                                <br />
+                                                                {window.formatDate(vendor.last_login)} <br />{window.formatTime(vendor.last_login)}
                                                             </>
                                                         )}
-                                                        <span>{vendor.full_name}</span>
-                                                    </div>
+                                                        </Td>
+                                                        <Td className="text-end">
+                                                            <PermissionAllow permission={'Seller Show'}>
+                                                                <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                            </PermissionAllow>
+                                                            <PermissionAllow permission={'Seller Edit'}>
+                                                                <Link className='btn btn-transparent' href={route('admin.sellers.edit', vendor.id)}>
+                                                                    <i className="bi bi-pencil"></i>
+                                                                </Link>
+                                                            </PermissionAllow>
+                                                            <PermissionAllow permission={'Seller Edit'}>
+                                                                <button onClick={() => deleteVendor(vendor)} className="btn btn-transparent border-0">
+                                                                    <i className="bi bi-trash"></i>
+                                                                </button>
+                                                            </PermissionAllow>
+                                                        </Td>
+                                                    </Tr>
+                                                ))}
+                                            </Tbody>
+                                        </Table>
+                                    </>
+                                    :
+                                    <>
+                                        <div id='content' className='h-100 text-center'>
+                                            <h5 className='fw-bold fs-4'>No users found!</h5>
+                                        </div>
+                                    </>
+                                }
 
-                                                </Td>
-                                                <Td  valign="middle">{vendor.email}</Td>
-                                                <Td  valign="middle">{vendor.phone}</Td>
-                                                <Td  valign="middle">{vendor.designation}</Td>
-                                                <Td>
-                                                    {vendor.current_subscription?.name}
-                                                </Td>
-                                                <Td>{(vendor.ads).length}</Td>
-                                                <Td>{window.formatDate(vendor.created_at)}<br />{window.formatTime(vendor.created_at)}</Td>
-                                                <Td> {vendor.last_login != null && (
-                                                    <>
-                                                        {window.formatDate(vendor.last_login)} <br />{window.formatTime(vendor.last_login)}
-                                                    </>
-                                                )}
-                                                </Td>
-                                                <Td className="text-end">
-                                                    <PermissionAllow permission={'Seller Show'}>
-                                                        <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
-                                                    </PermissionAllow>
-                                                    <PermissionAllow permission={'Seller Edit'}>
-                                                        <Link className='btn btn-transparent' href={route('admin.sellers.edit', vendor.id)}>
-                                                            <i className="bi bi-pencil"></i>
-                                                        </Link>
-                                                    </PermissionAllow>
-                                                    <PermissionAllow permission={'Seller Edit'}>
-                                                        <button onClick={() => deleteVendor(vendor)} className="btn btn-transparent border-0">
-                                                            <i className="bi bi-trash"></i>
-                                                        </button>
-                                                    </PermissionAllow>
-                                                </Td>
-                                            </Tr>
-                                        ))}
-                                    </Tbody>
-                                </Table>
-                            </>
-                            :
-                            <>
-                                <div className='h-100 text-center'>
-                                    <h5>No users found!</h5>
-                                </div>
-                            </>
-                            }
-                               
                             </div>
                             {displayList.length > itemsPerPage && (
                                 <div className="pagination-container float-end py-5">

@@ -8,7 +8,7 @@ import TabView from '@/Components/TabView';
 import StatusBtn from '@/Components/StatusBtn';
 import DynamicSelect from '@/Components/DynamicSelect';
 
-const AdView = ({ collection, handleClose, onSubmit }) => {
+const AdView = ({ collection, handleClose, onSubmit,keyVal}) => {
     
     const [editingStatus, setEditingStatus] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState(collection.status);
@@ -16,6 +16,8 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
         'status': collection.status || '0',
         '_method' : "PUT"
     });
+
+   
 
     const images = collection.images || [];
     const options = [
@@ -217,6 +219,12 @@ const AdView = ({ collection, handleClose, onSubmit }) => {
                     <div className='col-lg-12 mt-50'>
                        
                         <TabView options={options} />
+                    </div>
+                    <div className='action-btns col-lg-12 text-end'>
+                       
+                            <button className='btn btn-sm btn-success text-white me-3'>Publish</button>
+                            <button className='btn btn-sm btn-info text-white me-3'>On hold</button>
+                            <button className='btn btn-sm text-white btn-danger'>Suspended</button>
                     </div>
                 </div>
             </div>

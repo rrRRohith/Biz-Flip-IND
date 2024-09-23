@@ -53,7 +53,7 @@ export default function Dashboard({ auth, data, adsListing, leadLast7Days, selle
                                         <div className="box box-body">
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div className="text-start">
-                                                    <h5>Total Sellers</h5>
+                                                    <h5>Total Users</h5>
                                                     <h3 className="mb-0 fw-500">{data['sellers']}</h3>
                                                 </div>
                                                 <div>

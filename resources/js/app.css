@@ -357,3 +357,26 @@ img.avatar {
         max-width: 1480px;
     }
 }
+
+.box .box-body .table-responsive{
+    display: table;
+    min-height: 500px;
+    width: 100%;
+}
+.box .box-body .table-responsive #content {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle
+}
+
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root{
+   border-radius: 10px !important; 
+   border-color: #86a4c3ab !important;
+}
+.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
+    padding: 6.5px 15px !important;
+}
+
+.css-nby9nv-MuiStack-root{
+    padding-top: 0 !important;
+}

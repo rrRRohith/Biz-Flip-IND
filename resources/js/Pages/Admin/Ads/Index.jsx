@@ -20,14 +20,14 @@ const Index = ({ ads, pendingAdsList, suspendedAdsList, soldAdsList, auth, succe
 
     const [show, setShow] = useState(false);
     const [data, setData] = useState(null);
-    const itemsPerPage = 5;
+    const itemsPerPage = 50;
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredAds, setFilteredAds] = useState(ads.data);
     const [filteredPendingAds, setFilteredPendingAds] = useState(pendingAdsList.data);
     const [filteredSuspendedAds, setFilteredSuspendedAds] = useState(suspendedAdsList.data);
     const [filteredSoldAds, setFilteredSoldAds] = useState(soldAdsList.data);
-    const [key, setKey] = useState('ApprovedAds');
+    const [key, setKey] = useState('PendingApproval');
     
 
     
@@ -95,6 +95,7 @@ const Index = ({ ads, pendingAdsList, suspendedAdsList, soldAdsList, auth, succe
     const endIdx = currentPage * itemsPerPage;
     const handleClose = () => setShow(false);
     const handleShow = async (ad) => {
+        
         try {
             const response = await axios.get(route("admin.ads.show", ad.id));
             const responseData = response.data;
@@ -146,23 +147,9 @@ const Index = ({ ads, pendingAdsList, suspendedAdsList, soldAdsList, auth, succe
                         onSelect={(k) => setKey(k)}
                         className=""
                     >
-                        <Tab eventKey="ApprovedAds" title="Approved Ads">
-                            <AdTable
-                                displayList={displayList}
-                                startIdx={startIdx}
-                                endIdx={endIdx}
-                                handlePageChange={handlePageChange}
-                                currentPage={currentPage}
-                                itemsPerPage={itemsPerPage}
-                                handleShow={handleShow}
-                                searchQuery={searchQuery}
-                                handleSearch={handleSearch}
-                            />
-                        </Tab>
-                    
                         <Tab eventKey="PendingApproval" title={
                             <>
-                                <span>Pending Approval</span> 
+                                <span>Pending Review</span> 
                                 {pendingAdsList.data.length > 0 && (
                                     <span className="pending-approval-count">
                                         {pendingAdsList.data.length}
@@ -182,7 +169,7 @@ const Index = ({ ads, pendingAdsList, suspendedAdsList, soldAdsList, auth, succe
                                 handleSearch={handleSearch}
                             />
                         </Tab>
-                        <Tab eventKey="SuspendedAds" title="Suspended Ads">
+                        <Tab eventKey="ApprovedAds" title="Active">
                             <AdTable
                                 displayList={displayList}
                                 startIdx={startIdx}
@@ -195,7 +182,36 @@ const Index = ({ ads, pendingAdsList, suspendedAdsList, soldAdsList, auth, succe
                                 handleSearch={handleSearch}
                             />
                         </Tab>
-                        <Tab eventKey="SoldAds" title="Sold Ads">
+                    
+                        
+                        <Tab eventKey="SuspendedAds" title="On Hold">
+                            <AdTable
+                                displayList={displayList}
+                                startIdx={startIdx}
+                                endIdx={endIdx}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                                itemsPerPage={itemsPerPage}
+                                handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
+                            />
+                        </Tab>
+                        
+                        <Tab eventKey="SuspendedAds" title="Rejected">
+                            <AdTable
+                                displayList={displayList}
+                                startIdx={startIdx}
+                                endIdx={endIdx}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                                itemsPerPage={itemsPerPage}
+                                handleShow={handleShow}
+                                searchQuery={searchQuery}
+                                handleSearch={handleSearch}
+                            />
+                        </Tab>
+                        <Tab eventKey="SoldAds" title="Sold">
                             <AdTable
                                 displayList={displayList}
                                 startIdx={startIdx}
@@ -217,11 +233,13 @@ const Index = ({ ads, pendingAdsList, suspendedAdsList, soldAdsList, auth, succe
 
             {/* Display modal for ad details */}
             <ModalPopup show={show} handleClose={handleClose} size="lg" title="Ad Details">
+              
                 {data ? (
                     <AdView
                         collection={data}
                         handleClose={handleClose}
                         onSubmit={handleSubmit} // Pass handleSubmit function to AdView
+                        keyVal={key}
                     />
                 ) : (
                     'Failed fetching data...'
@@ -243,7 +261,7 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Search by name..."
+                                    placeholder="Search by ad name or user name"
                                     value={searchQuery}
                                     onChange={handleSearch}
                                 />
@@ -254,12 +272,12 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                         <Tr>
                                             <Th>#</Th>
                                             <Th>Ad</Th>
-                                            <Th>Address</Th>
+                                            <Th>City</Th>
                                             <Th className="text-end">Price</Th>
                                             <Th>Leads</Th>
                                             <Th>Type</Th>
                                             <Th>Purpose</Th>
-                                            <Th>Seller</Th>
+                                            <Th>User</Th>
                                             <Th>Last Modified</Th>
                                             <Th></Th>
                                         </Tr>
@@ -270,7 +288,7 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                                     <Td>
                                                         <Badge value={`#${ad.unique_code}`} bg="bg-dark" color='text-white' />
                                                     </Td>
-                                                    <Td onClick={() => handleShow(ad)}>
+                                                    <Td role="button" onClick={() => handleShow(ad)}>
                                                         <img
                                                             src={ad.main_picture}
                                                             className='w-25 rounded-5 '
@@ -279,22 +297,19 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                                         />
                                                         <span className='ms-2'> {ad.title} </span>
                                                     </Td>
-                                                    <Td onClick={() => handleShow(ad)}>
-                                                        {ad.address}
-                                                        <div className="small">
-                                                            <small>{ad.city}</small>
-                                                        </div>
+                                                    <Td>
+                                                        <small>{ad.city}</small>
                                                     </Td>
-                                                    <Td onClick={() => handleShow(ad)} className="text-end">{window.formatPrice(ad.price)}</Td>
-                                                    <Td onClick={() => handleShow(ad)}>
+                                                    <Td className="text-end">{window.formatPrice(ad.price)}</Td>
+                                                    <Td>
                                                         <Link className="text-decoration-none" href={route('admin.propery_leads_index', { ad: ad.id })}>
-                                                            {ad.total_leads} leads
+                                                            {ad.total_leads} 
                                                         </Link>
                                                     </Td>
-                                                    <Td onClick={() => handleShow(ad)}>{ad.property_type}</Td>
-                                                    <Td onClick={() => handleShow(ad)}>{ad.ad_purpose}</Td>
-                                                    <Td onClick={() => handleShow(ad)}>{ad.seller.firstname} {ad.seller.lastname}</Td>
-                                                    <Td onClick={() => handleShow(ad)}>{ad.date_text}</Td>
+                                                    <Td>{ad.property_type}</Td>
+                                                    <Td>{ad.ad_purpose}</Td>
+                                                    <Td>{ad.seller.firstname} {ad.seller.lastname}</Td>
+                                                    <Td>{window.formatDate(ad.created_at)}<br />{window.formatTime(ad.created_at)}</Td>
                                                     <Td>
                                                         <span onClick={() => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
                                                     </Td>
