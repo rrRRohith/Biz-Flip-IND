@@ -35,6 +35,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'features'          => FeaturesController::class,
         'feature-label'     => FeatureLabelController::class,
         'facilities'        => FacilityController::class,
+        'ad_types'          => AdTypeController::class,
+        'ad_purposes'       => AdPurposeController::class,
         'country'           => CountryController::class,
         'province'          => ProvinceController::class,
         'city'              => CityController::class,

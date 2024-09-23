@@ -200,6 +200,20 @@ export default function AdminSidebar() {
                                                     </Link>
                                                 </li>
                                                 </PermissionAllow>
+                                                <PermissionAllow permission={'Ad Types'}>
+                                                <li>
+                                                    <Link href={route('admin.ad_types.index')}>
+                                                        <i className="icon-Commit"></i>Ad types
+                                                    </Link>
+                                                </li>
+                                                </PermissionAllow>
+                                                <PermissionAllow permission={'Ad Purposes'}>
+                                                <li>
+                                                    <Link href={route('admin.ad_purposes.index')}>
+                                                        <i className="icon-Commit"></i>Ad purposes
+                                                    </Link>
+                                                </li>
+                                                </PermissionAllow>
                                                 <PermissionAllow permission={'Facilities'}>
                                                 <li>
                                                     <Link href={route('admin.facilities.index')}>

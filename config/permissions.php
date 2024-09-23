@@ -101,6 +101,16 @@ return $permissions = [
         "Type" => "Admin"
     ],
     [
+        "Permissions" => "Ad Purposes",
+        "Section" => "Sidebar",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Types",
+        "Section" => "Sidebar",
+        "Type" => "Admin"
+    ],
+    [
         "Permissions" => "Feature Label",
         "Section" => "Sidebar",
         "Type" => "Admin"
@@ -599,6 +609,56 @@ return $permissions = [
         "Permissions" => "Facility Delete",
         "Section" => "Facilities",
         "Type" => "Common"
+    ],
+    [
+        "Permissions" => "Ad Type Listing",
+        "Section" => "Ad Types",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Type Create",
+        "Section" => "Ad Types",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Type Show",
+        "Section" => "Ad Types",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Type Edit",
+        "Section" => "Ad Types",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Type Delete",
+        "Section" => "Ad Types",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Purpose Listing",
+        "Section" => "Ad Purposes",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Purpose Create",
+        "Section" => "Ad Purposes",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Purpose Show",
+        "Section" => "Ad Purposes",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Purpose Edit",
+        "Section" => "Ad Purposes",
+        "Type" => "Admin"
+    ],
+    [
+        "Permissions" => "Ad Purpose Delete",
+        "Section" => "Ad Purposes",
+        "Type" => "Admin"
     ],
     [
         "Permissions" => "Staff Management",
