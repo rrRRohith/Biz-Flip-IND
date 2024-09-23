@@ -10,38 +10,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AdFranchise from './AdFranchise';
 
-const type_options = [
-    {
-        'label': 'Land',
-        'value': 'Land',
-    },
-    {
-        'label': 'Building',
-        'value': 'Building',
-    },
-    {
-        'label': 'Farm',
-        'value': 'Farm',
-    }
-];
-
-const purpose_options = [
-    {
-        'label': 'Rental',
-        'value': 'Rental',
-    },
-    {
-        'label': 'Lease',
-        'value': 'Lease',
-    },
-    {
-        'label': 'Sale',
-        'value': 'Sale',
-    }
-];
-
-
-export default function PropertyForm({ ad, auth, categories_options, facilities_options, features_options, province_options, business_categories_options }) {
+export default function PropertyForm({type_options, purpose_options, ad, auth, categories_options, facilities_options, features_options, province_options, business_categories_options }) {
 
     const [additionalInfo, setAdditionalInfo] = useState(ad ? ad.additional_info : []);
     const [ad_categories, setAdcategories] = useState([]);

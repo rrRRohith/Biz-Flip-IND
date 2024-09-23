@@ -66,6 +66,8 @@ class AdController extends BaseController{
             'facilities_options' => Facility::selectRaw("id as value, name as label")->get()->toArray(),
             'features_options' => Features::selectRaw("id as value, name as label")->get()->toArray(),
             'province_options' => Province::selectRaw("name as value, name as label")->orderBy('name')->get()->toArray(),
+            'type_options' => \App\Models\AdType::selectRaw("title as value, title as label")->orderBy('title')->get()->toArray(),
+            'purpose_options' => \App\Models\AdPurpose::selectRaw("title as value, title as label")->orderBy('title')->get()->toArray(),
         ]);
     }
 
