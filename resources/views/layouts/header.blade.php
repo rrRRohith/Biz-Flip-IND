@@ -28,7 +28,7 @@
                         </div>
                     @else
                         <li class="nav-item me-auto ">
-                            <a data-bs-toggle="modal" data-bs-target="#loginModal" class="nav-link p-2 fw-semibold"
+                            <a data-bs-toggle="modal" data-bs-target="#loginModal" class="text-black nav-link p-2 fw-semibold"
                                 href="/login">Login</a>
                         </li>
                         {{-- <li class="nav-item">

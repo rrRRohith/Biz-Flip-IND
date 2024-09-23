@@ -903,3 +903,12 @@ img.header-image {
       max-width: 1480px !important;
   }
 }
+
+.dropdown-toggle.notification::after {
+  margin-left: -1px;
+}
+
+.dropdown-toggle.notification span.count {
+  top: -15px;
+  left: 10px;
+}

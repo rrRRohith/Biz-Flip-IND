@@ -86,6 +86,9 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function getPictureUrlAttribute($picture){
+        if($this->picture == 'default.png'){
+            return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name='.$this->name[0]);
+        }
         return $this->picture ? image_url($this->picture) : asset('/assets/admin/images/noimage.webp');
         return asset($this->picture ? 'images/'.$this->picture : '/assets/admin/images/noimage.webp');
     }
