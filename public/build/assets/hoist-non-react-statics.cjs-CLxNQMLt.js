@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:public/build/assets/hoist-non-react-statics.cjs-CLxNQMLt.js
 import{g as R}from"./app-1W61cHJj.js";var A={exports:{}},e={};/** @license React v16.13.1
-========
-import{g as R}from"./app-3mR5dcr4.js";var A={exports:{}},e={};/** @license React v16.13.1
->>>>>>>> c9be03ff60f4a7293e6db07ca2da3faa2a6d6e95:public/build/assets/hoist-non-react-statics.cjs-i33gionF.js
  * react-is.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.

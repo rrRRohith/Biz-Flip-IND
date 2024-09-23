@@ -1,5 +1,1 @@
-<<<<<<<< HEAD:public/build/assets/AdStatusBtn-D2UhgJtl.js
 import{j as n}from"./app-1W61cHJj.js";function t({status:s}){return s==1?n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-success small",children:"Active"}):s==0?n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-warning small",children:"Inactive"}):s==2?n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-primary small",children:"Sold"}):n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-danger small",children:"Pending"})}export{t as default};
-========
-import{j as n}from"./app-3mR5dcr4.js";function t({status:s}){return s==1?n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-success small",children:"Active"}):s==0?n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-warning small",children:"Inactive"}):s==2?n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-primary small",children:"Sold"}):n.jsx("div",{className:"btn btn-sm p-2 py-1 btn-danger small",children:"Pending"})}export{t as default};
->>>>>>>> c9be03ff60f4a7293e6db07ca2da3faa2a6d6e95:public/build/assets/AdStatusBtn-DKWUfyl9.js

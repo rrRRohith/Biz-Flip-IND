@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:public/build/assets/useMergedRefs-CIoa9NAg.js
 import{g as x,r as c}from"./app-1W61cHJj.js";var d={exports:{}};/*!
-========
-import{g as x,r as c}from"./app-3mR5dcr4.js";var d={exports:{}};/*!
->>>>>>>> c9be03ff60f4a7293e6db07ca2da3faa2a6d6e95:public/build/assets/useMergedRefs-Cxa2RhTo.js
 	Copyright (c) 2018 Jed Watson.
 	Licensed under the MIT License (MIT), see
 	http://jedwatson.github.io/classnames
