@@ -38,6 +38,9 @@ class LoginRequest extends FormRequest
             'verify_email',
             function($attribute, $value, $parameters){
                 $user = \App\Models\User::where('email', $this->email)->first();
+                if(!$user){
+                    return true;
+                }
                 return $user->email_verified_at ?? null;
             },
             'Please verify your email using the link sent to your email.'
