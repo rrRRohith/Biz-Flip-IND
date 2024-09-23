@@ -8,24 +8,26 @@ import TabView from '@/Components/TabView';
 import StatusBtn from '@/Components/StatusBtn';
 import DynamicSelect from '@/Components/DynamicSelect';
 
-const AdView = ({ collection, handleClose, onSubmit,keyVal}) => {
-    
+const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
+
     const [editingStatus, setEditingStatus] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState(collection.status);
     const { data, setData, post, errors, reset } = useForm({
         'status': collection.status || '0',
-        '_method' : "PUT"
+        '_method': "PUT"
     });
 
-   
+
 
     const images = collection.images || [];
     const options = [
-        { title: 'Details', content: collection.description+ '<br>'
-                                     
-         },
-         
-        { title: 'More Information', content:   `<table className="table">
+        {
+            title: 'Details', content: collection.description + '<br>'
+
+        },
+
+        {
+            title: 'More Information', content: `<table className="table">
                                                     <tr>
                                                         <th>
                                                         Addess
@@ -70,9 +72,9 @@ const AdView = ({ collection, handleClose, onSubmit,keyVal}) => {
                                                         </td>
                                                     </tr>
                                                 </table>`
-         },
+        },
     ];
-    
+
 
     const statusOptions = [
         { value: '0', label: 'Pending' },
@@ -82,16 +84,16 @@ const AdView = ({ collection, handleClose, onSubmit,keyVal}) => {
 
     var defaultStatus = '';
 
-    if(collection.status == 1){
+    if (collection.status == 1) {
         defaultStatus = 'Publish';
     }
-    else if(collection.status == -1){
+    else if (collection.status == -1) {
         defaultStatus = 'Suspend';
     }
-    else if(collection.status == 3){
+    else if (collection.status == 3) {
         defaultStatus = 'Inactive';
     }
-    else{
+    else {
         defaultStatus = 'Pending';
     }
 
@@ -99,18 +101,32 @@ const AdView = ({ collection, handleClose, onSubmit,keyVal}) => {
     const handleStatusEdit = () => {
         setEditingStatus(true);
     };
-  <StatusBtn status={collection.status} />
-    const handleStatusSubmit = (e) => {
-        e.preventDefault();
-        console.log(data);
+    <StatusBtn status={collection.status} />
+    // const handleStatusSubmit = (e) => {
+    //     e.preventDefault();
+    //     console.log(data);
+    //     post(route("admin.ads.update", collection.id), {
+    //         preserveScroll: true,
+    //         onSuccess: () => {
+    //             setEditingStatus(false);
+    //             onSubmit(); // Call onSubmit function passed from parent component
+    //         },
+    //     });
+    // };
+    const handleStatusSubmit = (statusValue) => {
+        setData('status', statusValue); // Set status value
         post(route("admin.ads.update", collection.id), {
             preserveScroll: true,
             onSuccess: () => {
-                setEditingStatus(false);
-                onSubmit(); // Call onSubmit function passed from parent component
+                setEditingStatus(false); // Disable editing mode after successful submission
+                onSubmit();              // Trigger the callback function to notify the parent component
+            },
+            onError: () => {
+                console.error('An error occurred while updating the status.');
             },
         });
     };
+
 
     const handleStatusCancel = () => {
         setEditingStatus(false);
@@ -124,110 +140,141 @@ const AdView = ({ collection, handleClose, onSubmit,keyVal}) => {
 
 
     return (
-       
-            <div className='col-lg-12'>
-                <div className='row'>
-                    <div className='col-lg-4'>
-                        <SlickSlider images={images} slidesToShow={1} dots={true} />
-                    </div>
-                    <div className='col-lg-8'>
-                        <h2>{collection.title}</h2>
-                        <table className='border-0 '>
-                            <tbody>
-                                <tr>
-                                    <td className="p-2">
-                                        <strong>Price</strong>
-                                    </td>
-                                    <td className="p-2">
-                                        <p className="mb-0">{window.formatPrice(collection.price)}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="p-2">
-                                        <strong>Type/Purpose</strong>
-                                    </td>
-                                    <td className="p-2">
-                                        <p className="mb-0">{collection.property_type} / {collection.ad_purpose}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="p-2">
-                                        <strong>Seller</strong>
-                                    </td>
-                                    <td className="p-2">
-                                        <p className="mb-0">{collection.seller.firstname} {collection.seller.lastname}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="p-2">
-                                        <strong>Created Date</strong>
-                                    </td>
-                                    <td className="p-2">
-                                        <p className="mb-0">{window.formatDateTime(collection.created_at)}</p>
-                                    </td>
-                                </tr>
-                                {collection.updated_at && (
-                                    <tr>
-                                        <td className="p-2">
-                                            <strong>Last Modified</strong>
-                                        </td>
-                                        <td className="p-2">
-                                            <p className="mb-0">{window.formatDateTime(collection.updated_at)}</p>
-                                        </td>
-                                    </tr>
-                                )}
-                                <tr>
-                                    <td className="p-2">
-                                        <strong>Status</strong>
-                                    </td>
-                                    <td className="p-2">
-                                        {!editingStatus ? (
-                                            <>
-                                                <StatusBtn status={collection.status} />
-                                                {collection.status !=   2 ? 
-                                                <i className='bi bi-pencil-fill ms-2 text-primary' role='button' onClick={handleStatusEdit}></i> :
-                                                 ''
-                                                }
-                                                
-                                            </>
-                                        ) : (
-                                            <form onSubmit={handleStatusSubmit}>
-                                                <div className='text-center'>
-                                                    <DynamicSelect
-                                                        onChange={handleChange}
-                                                        value={data.status}
-                                                        defaultValue={defaultStatus}
-                                                        options={statusOptions}
-                                                        isClearable={false}
-                                                    />
-                                                    <div className='mt-2'>
-                                                        <button type='button' className="btn btn-link p-0" onClick={handleStatusCancel}>
-                                                            <i className='bi bi-x-circle-fill fs-3 text-danger ms-2' role='button'></i>
-                                                        </button>
-                                                        <button type='submit' className='btn btn-link p-0'>
-                                                            <i className='bi bi-check-circle-fill fs-3 text-success ms-2'></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        )}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className='col-lg-12 mt-50'>
-                       
-                        <TabView options={options} />
-                    </div>
-                    <div className='action-btns col-lg-12 text-end'>
-                       
-                            <button className='btn btn-sm btn-success text-white me-3'>Publish</button>
-                            <button className='btn btn-sm btn-info text-white me-3'>On hold</button>
-                            <button className='btn btn-sm text-white btn-danger'>Suspended</button>
-                    </div>
+
+        <div className='col-lg-12'>
+            <div className='row'>
+                <div className='col-lg-4'>
+                    <SlickSlider images={images} slidesToShow={1} dots={true} />
                 </div>
+                <div className='col-lg-8'>
+                    <h2>{collection.title}</h2>
+                    <table className='border-0 '>
+                        <tbody>
+                            <tr>
+                                <td className="p-2">
+                                    <strong>Price</strong>
+                                </td>
+                                <td className="p-2">
+                                    <p className="mb-0">{window.formatPrice(collection.price)}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="p-2">
+                                    <strong>Type/Purpose</strong>
+                                </td>
+                                <td className="p-2">
+                                    <p className="mb-0">{collection.property_type} / {collection.ad_purpose}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="p-2">
+                                    <strong>Seller</strong>
+                                </td>
+                                <td className="p-2">
+                                    <p className="mb-0">{collection.seller.firstname} {collection.seller.lastname}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="p-2">
+                                    <strong>Created Date</strong>
+                                </td>
+                                <td className="p-2">
+                                    <p className="mb-0">{window.formatDateTime(collection.created_at)}</p>
+                                </td>
+                            </tr>
+                            {collection.updated_at && (
+                                <tr>
+                                    <td className="p-2">
+                                        <strong>Last Modified</strong>
+                                    </td>
+                                    <td className="p-2">
+                                        <p className="mb-0">{window.formatDateTime(collection.updated_at)}</p>
+                                    </td>
+                                </tr>
+                            )}
+                            <tr>
+                                <td className="p-2">
+                                    <strong>Status</strong>
+                                </td>
+                                <td>
+                                    <span className='badge bg-dark badge-pill' >{defaultStatus}</span>
+                                </td>
+                                {/* 
+                                <td className="p-2">
+                                    {!editingStatus ? (
+                                        <>
+                                            <StatusBtn status={collection.status} />
+                                            {collection.status != 2 ?
+                                                <i className='bi bi-pencil-fill ms-2 text-primary' role='button' onClick={handleStatusEdit}></i> :
+                                                ''
+                                            }
+
+                                        </>
+                                    ) : (
+                                        <form onSubmit={handleStatusSubmit}>
+                                            <div className='text-center'>
+                                                <DynamicSelect
+                                                    onChange={handleChange}
+                                                    value={data.status}
+                                                    defaultValue={defaultStatus}
+                                                    options={statusOptions}
+                                                    isClearable={false}
+                                                />
+                                                <div className='mt-2'>
+                                                    <button type='button' className="btn btn-link p-0" onClick={handleStatusCancel}>
+                                                        <i className='bi bi-x-circle-fill fs-3 text-danger ms-2' role='button'></i>
+                                                    </button>
+                                                    <button type='submit' className='btn btn-link p-0'>
+                                                        <i className='bi bi-check-circle-fill fs-3 text-success ms-2'></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    )}
+                                </td>
+                                 */}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className='col-lg-12 mt-50'>
+
+                    <TabView options={options} />
+                </div>
+                {/* <form onSubmit={handleStatusSubmit} id='actionBtn'></form> */}
+                {keyVal != 'SoldAds' &&
+                    <div className='action-btns col-lg-12 text-end'>
+                        {keyVal != 'ApprovedAds' && keyVal != 'SoldAds' &&
+                            <button
+                                type='button'
+                                onClick={() => handleStatusSubmit(1)} // Publish status
+                                className='btn btn-sm btn-success text-white me-3'
+                            >
+                                Publish
+                            </button>
+                        }
+                        {keyVal != 'PendingApproval' && keyVal != 'SoldAds' &&
+                            <button
+                                type='button'
+                                onClick={() => handleStatusSubmit(0)} // On hold status
+                                className='btn btn-sm btn-info text-white me-3'
+                            >
+                                On hold
+                            </button>
+                        }
+                        {keyVal != 'SuspendedAds' && keyVal != 'SoldAds' &&
+                            <button
+                                type='button'
+                                onClick={() => handleStatusSubmit(-1)} // Suspend status
+                                className='btn btn-sm text-white btn-danger'
+                            >
+                                Suspend
+                            </button>
+                        }
+                    </div>
+                }
             </div>
+        </div>
     );
 };
 
