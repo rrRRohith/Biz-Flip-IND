@@ -12,12 +12,12 @@
         <div role="button" class="cursor-pointer" data-bs-toggle="dropdown">
             <img class="rounded-circle shadow-sm header-image" src="{{ $user->picture_url }}" alt="">
         </div>
-        <ul class="dropdown-menu profile-dropdown rounded-2 pb-2 dropdown-menu-end border-0 shadow-sm p-0 mt-4">
-            <div class="d-flex align-items-center p-2 px-3">
-                <div>
+        <ul class="dropdown-menu profile-dropdown text-overflow rounded-2 pb-2 dropdown-menu-end border-0 shadow-sm p-0 mt-4">
+            <div class="d-flex align-items-center text-overflow p-2 px-3">
+                <div class="text-overflow">
                     <div class="text-muted">Signed in as</div>
                     <p class="mb-0 fw-semibold text-overflow fs-6">{{ $user->name }}</p>
-                    <div class="text-muted">{{ $user->email }}</div>
+                    <div class="text-muted text-overflow">{{ $user->email }}</div>
                 </div>
             </div>
             <hr class="light" />
