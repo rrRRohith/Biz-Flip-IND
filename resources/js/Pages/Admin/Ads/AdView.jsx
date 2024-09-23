@@ -111,7 +111,7 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
     //             setEditingStatus(false);
     //             onSubmit(); // Call onSubmit function passed from parent component
     //         },
-    //     });
+    //     });    
     // };
     const handleStatusSubmit = (statusValue) => {
         setData('status', statusValue); // Set status value
