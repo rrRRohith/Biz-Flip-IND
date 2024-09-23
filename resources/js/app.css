@@ -315,7 +315,7 @@ hr.hr-text {
 
 iframe.listframe {
     width: 100%;
-    min-height: 50vh;
+    min-height: 75vh;
 }
 
 .loader {

@@ -24,7 +24,7 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
     const handleClose = () => setShow(false);
     return (
         <>
-            <Modal size="lg" show={show} onHide={handleClose} centered>
+            <Modal size="xl" show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
