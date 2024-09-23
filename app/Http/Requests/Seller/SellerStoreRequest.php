@@ -22,7 +22,7 @@ class SellerStoreRequest extends FormRequest
             'email'         => ['required','email','max:255',Rule::unique('users'),'email'],
             'phone'         => ['required','max:10','unique:users,phone'],
             'address'       => ['nullable'],
-            'password'      => ['required','min:8'],
+            'password' => ['required', new \App\Rules\StrongPassword],
             'postalcode'    => ['nullable'],
             'city'          => ['nullable'],
             'province'      => ['nullable'],

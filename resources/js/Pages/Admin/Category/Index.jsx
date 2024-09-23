@@ -47,21 +47,21 @@ export default function Index({ categoryList, auth }) {
         window.scrollTo(0, 0);
     };
 
-    useEffect(() => { setCategories(categoryList.data);}, [categoryList]);
-    
+    useEffect(() => { setCategories(categoryList.data); }, [categoryList]);
+
 
     const displayList = searchQuery.length > 0 ? categories : categoryList.data;
     const startIdx = (currentPage - 1) * itemsPerPage;
     const endIdx = currentPage * itemsPerPage;
     const paginatedList = displayList.slice(startIdx, endIdx);
 
-    useEffect(() => { setItems(paginatedList);}, [paginatedList]);
+    useEffect(() => { setItems(paginatedList); }, [paginatedList]);
 
     const [items, setItems] = useState(paginatedList);
 
     const searchingQuery = (value = null) => {
         setSearchQuery(value);
-      
+
         const filtered = categoryList.data.filter(category =>
             category.name.toLowerCase().includes(value.toLowerCase())
         );
@@ -75,13 +75,13 @@ export default function Index({ categoryList, auth }) {
         searchingQuery(value);
     };
 
-    
+
     const handleClose = () => setShow(false);
     const handleShow = async (vendor) => {
         try {
             const response = await axios.get(route("admin.category.show", vendor.id));
             const responseData = response.data;
-         
+
             setData(responseData);
             setShow(true);
         } catch (error) {
@@ -155,19 +155,23 @@ export default function Index({ categoryList, auth }) {
                                                     <Tbody>
                                                         {items.map((category, index) => (
                                                             <Tr key={index}>
-                                                                <Td  onClick={() => handleShow(category)} >
+                                                                <Td onClick={() => handleShow(category)} >
                                                                     {category.name}
                                                                 </Td>
-                                                                <Td  onClick={() => handleShow(category)}  className='text-center'>
+                                                                <Td onClick={() => handleShow(category)} className='text-center'>
                                                                     <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
                                                                 </Td>
-                                                                <Td  onClick={() => handleShow(category)}  className='text-center'>{window.formatDateTime(category.updated_at)}</Td>
+                                                                <Td onClick={() => handleShow(category)} className='text-center'>{window.formatDateTime(category.updated_at)}</Td>
                                                                 <Td align='right'>
                                                                     <PermissionAllow permission={'Category Show'}>
                                                                         <span onClick={() => handleShow(category)} className="btn btn-transparent">
                                                                             <i className="bi bi-eye"></i></span>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Category Edit'}>
+                                                                        {/* <Link className='btn btn-transparent' href={route('admin.category.form', category.id)}>
+                                                                        <i class="bi bi-code-square"></i>
+                                                                        </Link> */}
+
                                                                         <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
@@ -201,7 +205,7 @@ export default function Index({ categoryList, auth }) {
                     </section>
                 </div>
             </div>
-            
+
             <ModalPopup show={show} handleClose={handleClose} size="md" title="Ad Category Details">
                 {data ? (
                     <ViewCategory

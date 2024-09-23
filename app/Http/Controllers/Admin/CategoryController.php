@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\{Category,BusinessCategory,CategoriesItem};
 use App\Http\Resources\BusinessCategoryResource;
+use App\Http\Resources\CategoryFormResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
@@ -188,5 +189,11 @@ class CategoryController extends Controller
         return to_route('admin.category.index')->with('success', "Position Updated ");
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function form(Category $category){
+        return Inertia::render('Admin/Category/Form/Index',['category' => new CategoryFormResource($category)]);
+    }
 
 }

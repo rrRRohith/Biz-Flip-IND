@@ -16,7 +16,7 @@ class PasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'required|same:confirm_password',
+            'password' => ['required', 'same:confirm_password', new \App\Rules\StrongPassword],
             'confirm_password' => 'required',
         ];
     }

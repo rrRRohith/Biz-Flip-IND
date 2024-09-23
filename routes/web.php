@@ -30,6 +30,9 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::post('category/position-update', 'CategoryController@positionUpdate')->name('category.position-update');
     Route::post('category/position-update', 'BusinessCategoryController@positionUpdate')->name('business-category.position-update');
 
+    // Route::get('category/{category}/form', 'CategoryController@form')->name('category.form');
+    // Route::post('category/{category}/form', 'CategoryController@updateForm')->name('category.form.update');
+
     Route::resources([
         'category'          => CategoryController::class,
         'features'          => FeaturesController::class,

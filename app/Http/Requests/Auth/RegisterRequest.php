@@ -33,7 +33,7 @@ class RegisterRequest extends FormRequest
 
         if($this->accountType == 'individual'){
             return [
-                'password' => 'required|confirmed|min:6',
+                'password' => ['required', 'confirmed', new \App\Rules\StrongPassword],
                 'agree_terms_and_conditions' => 'required',
                 'firstname' => ['required', 'string', 'max:255'],
                 'lastname' => ['required', 'string', 'max:255'],
@@ -51,7 +51,7 @@ class RegisterRequest extends FormRequest
                 'city' => 'nullable|max:256|string',
                 'postalcode' => 'nullable|max:10|string',
                 'province' => 'nullable|exists:provinces,name',
-                'password' => 'required|confirmed|min:6',
+                'password' => ['required', 'confirmed', new \App\Rules\StrongPassword],
                 'agree_terms_and_conditions' => 'required',
                 'firstname' => ['required', 'string', 'max:255'],
                 'lastname' => ['required', 'string', 'max:255'],

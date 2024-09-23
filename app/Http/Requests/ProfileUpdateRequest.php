@@ -16,7 +16,7 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'sometimes|nullable|same:confirm_password',
+            'password' => ['sometimes', 'nullable', 'same:confirm_password', new \App\Rules\StrongPassword],
             'picture' => ['nullable', 'image'],
             'confirm_password' => 'sometimes|nullable',
             'firstname' => ['required', 'string', 'max:255'],

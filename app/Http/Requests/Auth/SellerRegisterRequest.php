@@ -31,7 +31,7 @@ class SellerRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'required|string',
+            'password' => ['required', new \App\Rules\StrongPassword],
             'agree_terms_and_conditions' => 'required',
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
