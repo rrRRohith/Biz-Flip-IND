@@ -396,7 +396,7 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                                     <Th></Th>
                                                 </Tr>
                                             </Thead>
-                                            <Tbody>
+                                            <Tbody>    
                                                 {displayList.slice(startIdx, endIdx).map((ad) => (
                                                     <Tr key={ad.id}>
                                                         <Td>
