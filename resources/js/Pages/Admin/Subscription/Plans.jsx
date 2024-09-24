@@ -319,6 +319,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                             name="default"
                                                                             label="Default"
                                                                             role="button"
+                                                                            checked={data.default ? true : false}
                                                                             onChange={(e) => handleChange('default', e.target.checked ? data.default : 0)}
                                                                         />
                                                                         <InputError message={errors.default} className="mt-2 col-12" />
@@ -334,6 +335,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                             name="status"
                                                                             label="Publish"
                                                                             role="button"
+                                                                            checked={data.status ? true : false}
                                                                             onChange={(e) => handleChange('status', e.target.checked ? data.status : 0)}
                                                                         />
                                                                         <InputError message={errors.status} className="mt-2 col-12" />
@@ -341,10 +343,11 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                 </div>
                                                             </div>
                                                             <div className="modal-footer">
-                                                                <button type="button" className="btn btn-secondary" onClick={handleClose}>
+                                                                <button type="button" className="btn btn-sm  btn-secondary" onClick={handleClose}>
                                                                     Cancel
                                                                 </button>
-                                                                <button type="submit" className="btn btn-primary">
+                                                                <button type="submit" className="btn btn-sm text-white  btn-success">
+                                                                <i class="bi bi-check"></i>
                                                                     {modalType === "create" ? "Create Plan" : "Update Plan"}
                                                                 </button>
                                                             </div>
