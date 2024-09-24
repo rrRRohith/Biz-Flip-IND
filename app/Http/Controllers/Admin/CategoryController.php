@@ -33,7 +33,10 @@ class CategoryController extends Controller
     {
         $categoryList = Category::orderBy('name','ASC')->get();
        
-        return Inertia::render('Admin/Category/Index',['categoryList' => CategoryResource::collection($categoryList)]);
+        return Inertia::render('Admin/Category/Index',[
+            'categoryList' => CategoryResource::collection($categoryList),
+            'business_category_options' => BusinessCategory::selectRaw("id as value, name as label, business_categories.*")->get()->toArray(),
+        ]);
 
     }
 

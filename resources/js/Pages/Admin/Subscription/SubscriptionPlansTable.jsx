@@ -135,7 +135,15 @@ export default function SubscriptionPlansTable({ plans }) {
                                 <Tr key={plan.id}>
                                     <Td>{plan.id}</Td>
                                     <Td>{plan.name}</Td>
-                                    <Td>{plan.price}</Td>
+                                    <Td>
+                                        {plan.price > 0 ? (
+                                            <>
+                                            ${plan.price}
+                                            </>
+                                        ) : (
+                                            <>Free</>
+                                        )}
+                                    </Td>
                                     <Td>{plan.ads}</Td>
                                     <Td>{plan.duration} {plan.duration > 1 ? 'months' : 'month'}</Td>
                                     <Td>

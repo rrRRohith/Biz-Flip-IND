@@ -33,10 +33,10 @@ export default function Show({ ticket, messages, auth, success = null, error = n
         router.post(route("admin.support-tickets.close-ticket", id))
     }
 
-    
-    
-   
-    
+
+
+
+
     useEffect(() => {
         // Scroll to the bottom of the box-body div whenever messages change
         if (boxBodyRef.current) {
@@ -155,11 +155,11 @@ export default function Show({ ticket, messages, auth, success = null, error = n
                                             <div className="col-lg-2  align-content-center">
                                                 <div className='d-flex gap-2'>
                                                     <button type="submit" className="btn btn-success">
-                                                        <i className="bi bi-send"></i> 
+                                                        <i className="bi bi-send"></i>
                                                         Send message
                                                     </button>
                                                     <span onClick={(e) => closeTicket(ticket.id)} className="btn btn-warning">
-                                                        <i className="bi bi-x"></i> 
+                                                        <i className="bi bi-x"></i>
                                                         Close Ticket
                                                     </span>
                                                 </div>
@@ -168,8 +168,13 @@ export default function Show({ ticket, messages, auth, success = null, error = n
                                     </form>
 
                                 ) : (
-                                    <div className="alert alert-warning rounded-input border-0">
-                                        This ticket has been closed and is no longer active, if you need any further assitance please open another ticket and mention your ticket <strong>ID#{ticket.id}</strong>
+                                    <div className="">
+                                        <div className="alert alert-warning rounded-input border-0">
+                                            This ticket has been closed and is no longer active, if you need any further assitance please open another ticket and mention your ticket <strong>ID#{ticket.id}</strong>
+                                        </div>
+                                        <div className="ms-auto text-end mt-3">
+                                           <Link href={route('admin.support-tickets.reopen', ticket.id)} className='btn btn-success'>Reopen Ticket</Link>
+                                        </div>
                                     </div>
                                 )}
 

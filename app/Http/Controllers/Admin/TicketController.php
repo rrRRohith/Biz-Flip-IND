@@ -102,9 +102,15 @@ class TicketController extends Controller
         event(new NewNotification(auth()->user()->id, $ticket->user_id, 'Support Ticket Closed', 'A closed support ticket.', route('account.tickets.index')));
 
 
-        return redirect()->route('admin.support-tickets.index',)->withSuccess('Message added successfully.');
+        return redirect()->route('admin.support-tickets.index',)->withSuccess('Ticket closed successfully.');
 
 
+    }
+
+    public function reopen(Ticket $ticket){
+        $ticket->status = 'open';
+        $ticket->save();
+        return redirect()->back()->withSuccess('Ticket reopned successfully.');
     }
 
 }

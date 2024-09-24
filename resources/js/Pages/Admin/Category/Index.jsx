@@ -10,8 +10,9 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import ModalPopup from '@/Components/ModalPopup';
 import ViewCategory from '@/Pages/Admin/Category/ViewCategory';
 import axios from 'axios';
+import Select from 'react-select';
 
-export default function Index({ categoryList, auth }) {
+export default function Index({ categoryList, auth, business_category_options }) {
     const [show, setShow] = useState(false);
     const itemsPerPage = 20;
     const [currentPage, setCurrentPage] = useState(1);

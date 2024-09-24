@@ -57,6 +57,8 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
         'app-settings'      => AppSettingsController::class,
     ]);
 
+    Route::get('support-tickets/{ticket}/reopen', 'TicketController@reopen')->name('support-tickets.reopen');
+
     Route::resource('users', VendorController::class)
     ->names([
         'index'   => 'sellers.index',

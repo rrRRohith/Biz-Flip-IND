@@ -83,12 +83,12 @@ export default function Edit({ city_item, queryParams = null, auth, provinces })
     //     }
     // };
 
-    // const handleChange = (key, value) => {
-    //     setData(key, value);
-    //     if (key === 'country') {
-    //         fetchProvinces(value);
-    //     }
-    // };
+    const handleChange = (key, value) => {
+        setData(key, value);
+        if (key === 'country') {
+            fetchProvinces(value);
+        }
+    };
 
     return (
         <Authenticated
