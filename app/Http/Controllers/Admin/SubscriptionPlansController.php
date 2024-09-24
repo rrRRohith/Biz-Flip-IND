@@ -61,7 +61,7 @@ class SubscriptionPlansController extends Controller
 
     
     public function plansUpdate(UpdateSubscriptioRequest $request,$id){
-       
+      
         $plans              = SubscriptionPlan::where('id',$id)->first() ?? abort(404);
         $plans->name        = $request->name;
         $plans->description = $request->description;
@@ -69,9 +69,9 @@ class SubscriptionPlansController extends Controller
         $plans->price       = $request->price;
         $plans->ads         = $request->ads;
         $plans->duration    = $request->duration;
-        $plans->default     = isset($request->default) ? 1 :0;
-        $plans->visibility  = isset($request->visibility) ? 1 :0;
-        $plans->status      = isset($request->status) ? 1 : 0;
+        $plans->default     = ($request->default == 1) ? 1 :0;
+        $plans->visibility  = ($request->visibility == 1) ? 1 :0;
+        $plans->status      = ($request->status == 1) ? 1 : 0;
       
         try{
             $plans->save();	

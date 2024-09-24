@@ -33,9 +33,9 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
         price: '',
         ads: '',
         duration: '1',
-        default: '0',
-        visibility: '0',
-        status: '0',
+        default: 0,
+        visibility: 0,
+        status: 0,
     });
 
     // Handlers for modal show/close
@@ -308,10 +308,11 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                 <div className="col-lg-6 mb-3">
                                                                     <InputLabel value="Duration" />
                                                                     {/* <SelectOption name="duration" items={durations} onChange={(e) => handleChange('duration', e.target.value)} value={data.duration} /> */}
-                                                                    <select aria-readonly=""
+                                                                    <select 
                                                                      name="duration"
+                                                                     value={data.duration ?? 1}
                                                                      onChange={(e) => handleChange('duration', e.target.value)} 
-                                                                    className="form-control"
+                                                                    className="form-control bg-white"
                                                                     >
                                                                     {durations.map((option) => (
                                                                         <option key={option.value} value={option.value}>
@@ -331,7 +332,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                             label="Default"
                                                                             role="button"
                                                                             checked={data.default ? true : false}
-                                                                            onChange={(e) => handleChange('default', e.target.checked ? data.default : 0)}
+                                                                            onChange={(e) => handleChange('default', e.target.checked)}
                                                                         />
                                                                         <InputError message={errors.default} className="mt-2 col-12" />
                                                                     </div>
@@ -347,7 +348,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                             label="Publish"
                                                                             role="button"
                                                                             checked={data.status ? true : false}
-                                                                            onChange={(e) => handleChange('status', e.target.checked ? data.status : 0)}
+                                                                            onChange={(e) => handleChange('status', e.target.checked)}
                                                                         />
                                                                         <InputError message={errors.status} className="mt-2 col-12" />
                                                                     </div>
