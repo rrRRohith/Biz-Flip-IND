@@ -25,11 +25,18 @@ export default function ProfileDropdown({ user }) {
                 </>
             ) : (
                 <>
+                    <Link className="dropdown-item" href="/account">
+                        <i class="bi bi-speedometer me-3"></i>Dashboard </Link>
+                    <div className="dropdown-divider" />
                     <Link className="dropdown-item" href="/account/profile">
                         <i className="bi bi-pencil me-3" />Profile </Link>
                     <Link className="dropdown-item" href="/account/password">
                         <i class="bi bi-shield-lock me-3"></i>Security </Link>
-                    <div className="dropdown-divider" />
+                    <PermissionAllow permission="Invoice List">
+                        <Link className="dropdown-item" href="/account/invoices">
+                            <i class="bi bi-receipt me-3"></i>Billing </Link>
+                    </PermissionAllow>
+                    {/* <div className="dropdown-divider" />
                     <Link className="dropdown-item" href="/account">
                         <i class="bi bi-speedometer me-3"></i>Dashboard </Link>
                     <PermissionAllow permission="Ads Listing">
@@ -43,33 +50,33 @@ export default function ProfileDropdown({ user }) {
                     <PermissionAllow permission="Messages">
                         <Link className="dropdown-item" href="/account/chats">
                             <i className="bi bi-chat-left-dots me-3"></i>Messages</Link>
-                    </PermissionAllow>
+                    </PermissionAllow> */}
                     {/* <PermissionAllow permission="Plan Purchase">
                         <Link className="dropdown-item" href="/account/plans">
                             <i class="bi bi-currency-dollar me-3"></i>Plans </Link>
                     </PermissionAllow> */}
-                    <PermissionAllow permission="Invoice List">
+                    {/* <PermissionAllow permission="Invoice List">
                         <Link className="dropdown-item" href="/account/invoices">
                             <i class="bi bi-receipt me-3"></i>Accounts </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Support Ticket Listing">
                         <Link className="dropdown-item" href="/account/tickets">
                             <i className="bi bi-headset me-3"></i>Support tickets </Link>
-                    </PermissionAllow>
+                    </PermissionAllow> */}
                     {user.is_agent && (
                         <>
-                            <PermissionAllow permission="Staff Listing">
+                            {/* <PermissionAllow permission="Staff Listing">
                                 <Link className="dropdown-item" href="/account/staffs">
                                     <i className="bi bi-people me-3"></i>Staffs </Link>
-                            </PermissionAllow>
+                            </PermissionAllow> */}
                             {/* <PermissionAllow permission="Role and Responsibilities Listing">
                                 <Link className="dropdown-item" href="/account/staffs/roles">
                                     <i class="bi bi-person-gear me-3"></i>Staff roles </Link>
                             </PermissionAllow> */}
-                            <PermissionAllow permission="Settings">
+                            {/* <PermissionAllow permission="Settings">
                                 <Link className="dropdown-item" href="/account/settings">
                                     <i className="bi bi-gear me-3" />Settings </Link>
-                            </PermissionAllow>
+                            </PermissionAllow> */}
                         </>
                     )}
                     <div className="dropdown-divider" />

@@ -45,7 +45,7 @@ class VendorResource extends JsonResource
         	'alt_phone'     => $this->seller->alt_phone ?? null,	
             'firstname'     => $this->firstname ?? null,	
             'lastname'      => $this->lastname ?? null,	
-            'full_name'     => $this->firstname ?? null.' '.$this->lastname ?? null,
+            'full_name'     => $this->name,
             'email'         => $this->email ?? null,	
             'status'        => $this->status ?? null,	
             'phone'         => $this->phone ?? null,	

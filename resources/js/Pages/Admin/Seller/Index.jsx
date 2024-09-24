@@ -383,7 +383,7 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                                     <Tr key={vendor.id} className="hover-primary">
                                                         {/* <Td valign="middle">{vendor.id}</Td> */}
                                                         <Td role="button" valign="middle" onClick={() => handleShow(vendor)} >
-                                                            <div className='d-flex'>
+                                                            <div className='d-flex align-items-center'>
                                                                 <div className="avatar-userlisting position-relative" style={{ height: '60px', width: '60px' }}>
                                                                     <span
                                                                         className="d-block"

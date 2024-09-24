@@ -39,6 +39,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $menu = menu('main-menu');
         return [
             ...parent::share($request),
             'auth' => [
@@ -53,6 +54,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'captcha_validation_disable' => env('CAPTCHA_VALIDATION_DISABLE', false),
             'notifications' => $request->user() ? DashboardNotification::where('recipient_id', $request->user()->id)->whereNull('read_at')->get() : [],
+            'menu' => $menu ? $menu->childs->toArray() : [],
         ];
     }
 

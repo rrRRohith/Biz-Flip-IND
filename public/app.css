@@ -829,23 +829,31 @@ label.selected-business-category img {
   filter: invert(31%) sepia(52%) saturate(3293%) hue-rotate(207deg) brightness(96%) contrast(107%);
 }
 
-ul.dropdown-menu {
+/* ul.dropdown-menu {
   max-height: 300px;
   overflow-y: auto;
-}
+} */
 
 ul.dropdown-menu {
   max-width: 300px;
   min-width: 200px;
 }
 hr.light {
-  border-color: #a7a7a7 !important;
+  border-color: #d1d1d1 !important;
   margin: 10px 0px;
 }
 .mt--200 {
   margin-top: -200px;
 }
 
+.profile-dropdown .dropdown-item, .profile-dropdown .dropdown-item.active, .profile-dropdown .dropdown-item:active, .profile-dropdown .dropdown-item:hover {
+  color: var(--bs-primary) !important;
+  background-color: transparent !important;
+}
+.profile-dropdown .dropdown-item{
+  color: var(--bs-dark) !important;
+  background-color: transparent !important;
+}
 .advertise-divider {
   width: 4px;
   height: 60px !important;

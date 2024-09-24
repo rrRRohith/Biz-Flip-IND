@@ -6,7 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 const Header = ({ user }) => {
     const { sellertopmenu } = usePage().props;
-    const { notifications } = usePage().props
+    const { notifications, menu } = usePage().props
 
     return (
         <nav className="navbar seller-top-navbar navbar-expand-lg navbar-light bg-white border-bottom px-0 fixed-top">
@@ -72,7 +72,14 @@ const Header = ({ user }) => {
                 </div>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                        <li className="nav-item me-auto">
+                        {menu.map((item, key) => (
+                            <>
+                                <li className="nav-item me-auto">
+                                    <a className="nav-link p-2" href={item.link}>{item.title}</a>
+                                </li>
+                            </>
+                        ))}
+                        {/* <li className="nav-item me-auto">
                             <Link className="nav-link p-2" href={route('account.index')}>Dashboard</Link>
                         </li>
                         <li className="nav-item me-auto">
@@ -95,7 +102,7 @@ const Header = ({ user }) => {
                         </li>
                         <li className="nav-item me-auto">
                             <Link className="nav-link p-2" href={route('account.settings.index')}>Settings</Link>
-                        </li>
+                        </li> */}
                         <li className="d-none d-lg-block">
                             <Dropdown>
                                 <Dropdown.Toggle
