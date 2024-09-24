@@ -41,14 +41,14 @@ export default function Form({ staff, permissions, auth, success, error, roles }
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight"> staff ? 'Staff/Edit' : 'Staff/Create'</h2>}
         >
-            <Head title="Seller Create" />
+            <Head title={staff ? 'Update staff' : 'Create Staff'} />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Create Seller</h4>
+                                    <h4 className="page-title"> {staff ? 'Update staff' : 'Create Staff'}</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">

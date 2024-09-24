@@ -384,3 +384,7 @@ table td, table th{
 .css-nby9nv-MuiStack-root{
     padding-top: 0 !important;
 }
+
+.theme-primary .text-danger {
+    color: #ff3f3f !important;
+}
