@@ -21,7 +21,6 @@ export default function Create({ label_item ,queryParams = null, auth}) {
         priority: label_item.priority || '', 
         _method: "PUT",
     });
-   
 
         const handleSubmit = (e) => {
             e.preventDefault();
