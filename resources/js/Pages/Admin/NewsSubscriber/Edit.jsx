@@ -161,7 +161,7 @@ export default function Create({ subscriber_item, queryParams = null, auth }) {
                                                 </div>
                                                 <div className="form-actions mt-10">
                                                     <button type="submit" className="btn btn-success">
-                                                        <i className="bi bi-check"></i> Save Data
+                                                        <i className="bi bi-check"></i> Save
                                                     </button>
                                                 </div>
                                             </form>

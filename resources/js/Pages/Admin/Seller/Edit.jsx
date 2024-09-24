@@ -306,7 +306,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Email</InputLabel>
-                                                                        <TextInput
+                                                                        <TextInput disabled
                                                                             id="email"
                                                                             type="text"
                                                                             name="email"
@@ -322,7 +322,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Phone No</InputLabel>
-                                                                        <TextInput
+                                                                        <TextInput disabled
                                                                             id="phone"
                                                                             type="text"
                                                                             maxlength="10"
@@ -337,7 +337,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                                 </div>
 
 
-                                                                <div className="col-md-6 mb-3">
+                                                                {/* <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Password</InputLabel>
                                                                         <InputGroup className="mb-3">
@@ -357,7 +357,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
 
                                                                         <InputError message={errors.password} className="mt-2 col-12" />
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
                                                                 {seller.is_agent &&
                                                                     <>
                                                                         <div className="col-md-6 mb-3">
@@ -762,7 +762,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                 </div>
 
                                                 <div className="form-actions mt-10 col-lg-12 text-left">
-                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
+                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save</button>
                                                 </div>
                                             </div>
                                         </form>

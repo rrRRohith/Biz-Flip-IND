@@ -191,7 +191,7 @@ export default function Index({ categoryList, auth }) {
                                                                         <th>Move Position</th>
                                                                         <th>Name</th>
                                                                         <th className='text-center'>Status</th>
-                                                                        <th className='text-center'>Last Modified</th>
+                                                                        {/* <th className='text-center'>Last Modified</th> */}
                                                                         <th></th>
                                                                     </tr>
                                                                 </thead>
@@ -206,14 +206,14 @@ export default function Index({ categoryList, auth }) {
                                                                                     className={` ${snapshot.isDragging ? 'dragging' : ''}`}
                                                                                 >
                                                                                     <td><i className='bi bi-arrows-move me-3 fw-bold'></i></td>
-                                                                                    <td onClick={() => handleShow(category)} >
+                                                                                    <td  >
 
-                                                                                        {category.name}
+                                                                                        <strong role='button' onClick={() => handleShow(category)}>{category.name}</strong>
                                                                                     </td>
-                                                                                    <td onClick={() => handleShow(category)}  className='text-center'>
+                                                                                    <td  className='text-center'>
                                                                                         <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
                                                                                     </td>
-                                                                                    <td onClick={() => handleShow(category)}  className='text-center'>{window.formatDateTime(category.updated_at)}</td>
+                                                                                    {/* <td  className='text-center'>{window.formatDateTime(category.updated_at)}</td> */}
                                                                                     <td align='right'>
                                                                                         <PermissionAllow permission={'Category Show'}>
                                                                                             <span onClick={() => handleShow(category)} className="btn btn-transparent">

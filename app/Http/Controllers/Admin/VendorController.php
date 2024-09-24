@@ -232,8 +232,8 @@ class VendorController extends Controller
            
             $user->firstname    = $request->firstname;
             $user->lastname     = $request->lastname;
-            $user->email        = $request->email;
-            $user->phone        = $request->phone;
+            //$user->email        = $request->email;
+            //$user->phone        = $request->phone;
             $user->address      = $request->address;
             $user->postalcode   = $request->postalcode;
             $user->city         = $request->city;
@@ -241,9 +241,9 @@ class VendorController extends Controller
             $user->country      = $request->country;
             $user->designation  = $request->designation;
 
-            if($request->has('password') && $request->password){
-                $user->password     =  Hash::make($request->password);
-            }
+            // if($request->has('password') && $request->password){
+            //     $user->password     =  Hash::make($request->password);
+            // }
 
             if ($request->picture) {
                 if (($user->picture) && ($user->picture != null)) {

@@ -231,7 +231,7 @@ export default function Edit({ category_item, queryParams = null, auth, Business
 
                                                 </div>
                                                 <div className="form-actions mt-10 col-lg-12 text-left">
-                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Update Data</button>
+                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Update</button>
                                                 </div>
                                             </form>
                                         </PermissionAllow>

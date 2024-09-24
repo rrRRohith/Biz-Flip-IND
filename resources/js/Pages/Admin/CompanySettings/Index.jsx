@@ -168,7 +168,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
                                                                                 <div className="col-md-6 mb-3 text-center">
                                                                                     <div className="form-actions mt-10">
                                                                                         <button type="submit" className="btn btn-success">
-                                                                                            <i className="bi bi-check"></i> Update Data
+                                                                                            <i className="bi bi-check"></i> Update
                                                                                         </button>
                                                                                     </div>
                                                                                 </div>
@@ -200,7 +200,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
                                                                         <div className="col-md-12 mb-3 text-center">
                                                                             <div className="form-actions mt-10">
                                                                                 <button type="submit" className="btn btn-success">
-                                                                                    <i className="bi bi-check"></i> Update Data
+                                                                                    <i className="bi bi-check"></i> Update
                                                                                 </button>
                                                                             </div>
                                                                         </div>
@@ -265,7 +265,7 @@ export default function Index({ company_settings, socialLinks, queryParams = nul
                                                                             <div className="col-md-6 mb-3 text-center">
                                                                                 <div className="form-actions mt-10">
                                                                                     <button type="submit" className="btn btn-success">
-                                                                                        <i className="bi bi-check"></i> Update Data
+                                                                                        <i className="bi bi-check"></i> Update
                                                                                     </button>
                                                                                 </div>
                                                                             </div>

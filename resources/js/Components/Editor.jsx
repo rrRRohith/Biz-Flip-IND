@@ -241,7 +241,7 @@ export default function Create({ auth }) {
 
                                             <div className="form-actions mt-10">
                                                 <button type="button" className="btn btn-sm btn-neutral" onClick={exportHtml}>
-                                                    <i className="bi bi-check"></i> Save Data
+                                                    <i className="bi bi-check"></i> Save
                                                 </button>
                                             </div>
                                         </form>

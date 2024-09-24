@@ -148,20 +148,24 @@ export default function Index({ categoryList, auth }) {
                                                         <Tr>
                                                             <Th>Name</Th>
                                                             <Th className='text-center'>Status</Th>
-                                                            <Th className='text-center'>Last Modified</Th>
+                                                            <Th>Business categories</Th>
+                                                            {/* <Th className='text-center'>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
                                                     <Tbody>
                                                         {items.map((category, index) => (
                                                             <Tr key={index}>
-                                                                <Td onClick={() => handleShow(category)} >
-                                                                    {category.name}
+                                                                <Td  >
+                                                                    <strong role='button' onClick={() => handleShow(category)}>{category.name}</strong>
                                                                 </Td>
-                                                                <Td onClick={() => handleShow(category)} className='text-center'>
+                                                                <Td className='text-center'>
                                                                     <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
                                                                 </Td>
-                                                                <Td onClick={() => handleShow(category)} className='text-center'>{window.formatDateTime(category.updated_at)}</Td>
+                                                                <Td>
+                                                                    {category.business_categories_list}
+                                                                </Td>
+                                                                {/* <Td className='text-center'>{window.formatDateTime(category.updated_at)}</Td> */}
                                                                 <Td align='right'>
                                                                     <PermissionAllow permission={'Category Show'}>
                                                                         <span onClick={() => handleShow(category)} className="btn btn-transparent">

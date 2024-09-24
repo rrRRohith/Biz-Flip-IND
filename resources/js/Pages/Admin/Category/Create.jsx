@@ -212,7 +212,7 @@ export default function Create({ auth }) {
 
                                                 </div>
                                                 <div className="form-actions mt-10 col-lg-12 text-left">
-                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save Data</button>
+                                                    <button type="submit" className="btn btn-success"> <i className="bi bi-check"></i> Save</button>
                                                 </div>
                                             </form>
                                         </PermissionAllow>

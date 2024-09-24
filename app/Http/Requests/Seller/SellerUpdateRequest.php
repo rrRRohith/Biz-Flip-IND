@@ -19,8 +19,8 @@ class SellerUpdateRequest extends FormRequest
            
             'firstname'     => ['required'],
             'lastname'      => ['required'],
-            'email'         => ['required','email','max:255','unique:users,email,' . $this->seller],
-            'phone'         => ['required','max:10','unique:users,phone,' . $this->seller],
+            //'email'         => ['required','email','max:255','unique:users,email,' . $this->seller],
+            //'phone'         => ['required','max:10','unique:users,phone,' . $this->seller],
             'address'       => ['nullable'],
             'postalcode'    => ['nullable'],
             'city'          => ['nullable'],

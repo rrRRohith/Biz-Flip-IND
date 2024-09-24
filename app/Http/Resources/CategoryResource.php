@@ -29,6 +29,7 @@ class CategoryResource extends JsonResource
             'updated_at'    => $this->updated_at,
             'selected_items'  => $this->selectedItms->pluck('business_category_id'),
             'business_categories' => $this->business_categories,
+            'business_categories_list' => $this->business_categories->pluck('name')->implode(', ')
         ];
     }
 }

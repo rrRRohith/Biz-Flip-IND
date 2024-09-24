@@ -351,6 +351,9 @@ img.avatar {
         height: calc(100vh - 88px) !important;
     }
 }
+table td, table th{
+    vertical-align: middle;
+}
 
 
 @media (min-width: 1400px) {
