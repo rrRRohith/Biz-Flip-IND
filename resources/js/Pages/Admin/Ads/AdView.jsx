@@ -7,6 +7,7 @@ import SlickSlider from '@/Components/SlickSlider';
 import TabView from '@/Components/TabView';
 import StatusBtn from '@/Components/StatusBtn';
 import DynamicSelect from '@/Components/DynamicSelect';
+import Swal from 'sweetalert2';
 
 const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
 
@@ -16,6 +17,7 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
         'status': collection.status || '0',
         '_method': "PUT"
     });
+    
 
 
 
@@ -91,7 +93,7 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
         defaultStatus = 'Suspend';
     }
     else if (collection.status == 3) {
-        defaultStatus = 'Inactive';
+        defaultStatus = 'On hold';
     }
     else {
         defaultStatus = 'Pending';
@@ -102,30 +104,18 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
         setEditingStatus(true);
     };
     <StatusBtn status={collection.status} />
-    // const handleStatusSubmit = (e) => {
-    //     e.preventDefault();
-    //     console.log(data);
-    //     post(route("admin.ads.update", collection.id), {
-    //         preserveScroll: true,
-    //         onSuccess: () => {
-    //             setEditingStatus(false);
-    //             onSubmit(); // Call onSubmit function passed from parent component
-    //         },
-    //     });    
-    // };
-    const handleStatusSubmit = (statusValue) => {
-        setData('status', statusValue); // Set status value
+    const handleStatusSubmit = (e) => {
+        e.preventDefault();
+       
         post(route("admin.ads.update", collection.id), {
             preserveScroll: true,
             onSuccess: () => {
-                setEditingStatus(false); // Disable editing mode after successful submission
-                onSubmit();              // Trigger the callback function to notify the parent component
+                setEditingStatus(false);
+                onSubmit(); // Call onSubmit function passed from parent component
             },
-            onError: () => {
-                console.error('An error occurred while updating the status.');
-            },
-        });
+        });    
     };
+
 
 
     const handleStatusCancel = () => {
@@ -133,10 +123,37 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
         setSelectedStatus(collection.status);
     };
 
+    // const handleChange = (selectedOption) => {
+    //     setData('status', selectedOption);
+    //     setSelectedStatus(selectedOption.value);
+       
+        
+    // };
+
+
     const handleChange = (selectedOption) => {
-        setData('status', selectedOption);
+        // First, update the state (setData)
+        setData(prevState => ({
+          ...prevState,
+          status: selectedOption // Change the value you want
+        }));
         setSelectedStatus(selectedOption.value);
-    };
+    
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, do it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('myFormSubmit').click();
+            }
+        });
+       
+      };
+    
 
 
     return (
@@ -241,13 +258,13 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
 
                     <TabView options={options} />
                 </div>
-                {/* <form onSubmit={handleStatusSubmit} id='actionBtn'></form> */}
+               
                 {keyVal != 'SoldAds' &&
                     <div className='action-btns col-lg-12 text-end'>
                         {keyVal != 'ApprovedAds' && keyVal != 'SoldAds' &&
                             <button
                                 type='button'
-                                onClick={() => handleStatusSubmit(1)} // Publish status
+                                onClick={() => handleChange('1')} // Publish status
                                 className='btn btn-sm btn-success text-white me-3'
                             >
                                 Publish
@@ -256,7 +273,7 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
                         {keyVal != 'PendingApproval' && keyVal != 'SoldAds' &&
                             <button
                                 type='button'
-                                onClick={() => handleStatusSubmit(0)} // On hold status
+                                onClick={() => handleChange('3')} // On hold status
                                 className='btn btn-sm btn-info text-white me-3'
                             >
                                 On hold
@@ -265,12 +282,16 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
                         {keyVal != 'SuspendedAds' && keyVal != 'SoldAds' &&
                             <button
                                 type='button'
-                                onClick={() => handleStatusSubmit(-1)} // Suspend status
+                                onClick={() => handleChange('-1')} // Suspend status
                                 className='btn btn-sm text-white btn-danger'
                             >
                                 Suspend
                             </button>
                         }
+                         <form onSubmit={handleStatusSubmit} id='myForm'>
+                
+                            <button id='myFormSubmit' className='d-none'>Submit</button>
+                        </form>
                     </div>
                 }
             </div>
