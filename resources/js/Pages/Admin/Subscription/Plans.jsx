@@ -307,7 +307,18 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                 </div>
                                                                 <div className="col-lg-6 mb-3">
                                                                     <InputLabel value="Duration" />
-                                                                    <SelectOption name="duration" items={durations} onChange={(e) => handleChange('duration', e.target.value)} value={data.duration} />
+                                                                    {/* <SelectOption name="duration" items={durations} onChange={(e) => handleChange('duration', e.target.value)} value={data.duration} /> */}
+                                                                    <select aria-readonly=""
+                                                                     name="duration"
+                                                                     onChange={(e) => handleChange('duration', e.target.value)} 
+                                                                    className="form-control"
+                                                                    >
+                                                                    {durations.map((option) => (
+                                                                        <option key={option.value} value={option.value}>
+                                                                        {option.label}
+                                                                        </option>
+                                                                    ))}
+                                                                    </select>
                                                                     <InputError message={errors.duration} className="mt-2" />
                                                                 </div>
                                                                 <div className='col-lg-12'>
@@ -347,7 +358,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                     Cancel
                                                                 </button>
                                                                 <button type="submit" className="btn btn-sm text-white  btn-success">
-                                                                <i class="bi bi-check"></i>
+                                                                <i className="bi bi-check"></i>
                                                                     {modalType === "create" ? "Create Plan" : "Update Plan"}
                                                                 </button>
                                                             </div>
