@@ -94,7 +94,9 @@ export default function Index({ typeList, auth, success = null, error = null }) 
                                                             <span className='ms-3'>{type.title}</span>
                                                         </Td>
                                                         <Td>{type.position}</Td>
-                                                        <Td>{type.status}</Td>
+                                                        <Td>
+                                                        <div dangerouslySetInnerHTML={{ __html: window.statusIcon(type.status) }} />
+                                                        </Td>
                                                         {/* <Td>{window.formatDateTime(type.updated_at)}</Td> */}
                                                         <Td>
                                                             <PermissionAllow permission={'Ad Type Edit'}>

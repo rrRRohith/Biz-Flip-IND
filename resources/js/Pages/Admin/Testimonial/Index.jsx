@@ -118,7 +118,9 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                                                 </Td>
                                                                 <Td  onClick={() => handleShow(testimonial)}>{testimonial.company_name}</Td>
                                                                 <Td  onClick={() => handleShow(testimonial)}>{testimonial.designation}</Td>
-                                                                <Td  onClick={() => handleShow(testimonial)}>{testimonial.status}</Td>
+                                                                <Td  onClick={() => handleShow(testimonial)}>
+                                                                <div dangerouslySetInnerHTML={{ __html: window.statusIcon(testimonial.status) }} />
+                                                                </Td>
                                                                 {/* <Td  onClick={() => handleShow(testimonial)}>{window.formatDateTime(testimonial.updated_at)}</Td> */}
                                                                 <Td> 
                                                                     <PermissionAllow permission={'Testimonial Show'}>

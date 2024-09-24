@@ -16,7 +16,7 @@ export default function Create({ features_item, queryParams = null, auth }) {
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         feature_name: features_item.name || '',
-        status: features_item.status = 'published' ? 1 : 0 || 1,
+        status: features_item.status,
         position: features_item.position || '', _method: "PUT",
         remove_image: false,
         icon:features_item.icon

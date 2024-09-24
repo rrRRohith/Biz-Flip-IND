@@ -99,7 +99,9 @@ export default function Index({ bannersList, auth, success = null, error = null 
                                                                 <Td>{banner.title}</Td>
                                                                 <Td>{banner.type}</Td>
                                                                 <Td>{banner.position}</Td>
-                                                                <Td>{banner.status}</Td>
+                                                                <Td>
+                                                                <div dangerouslySetInnerHTML={{ __html: window.statusIcon(banner.status) }} />
+                                                                </Td>
                                                                 {/* <Td>{banner.updated_at}</Td> */}
                                                                 <Td>
                                                                     <PermissionAllow permission={'Banner Edit'}>

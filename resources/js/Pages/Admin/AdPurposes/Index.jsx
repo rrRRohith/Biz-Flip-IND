@@ -94,7 +94,9 @@ export default function Index({ purposeList, auth, success = null, error = null 
                                                             <span className='ms-3'>{purpose.title}</span>
                                                         </Td>
                                                         <Td>{purpose.position}</Td>
-                                                        <Td>{purpose.status}</Td>
+                                                        <Td>
+                                                        <div dangerouslySetInnerHTML={{ __html: window.statusIcon(purpose.status) }} />
+                                                        </Td>
                                                         {/* <Td>{window.formatDateTime(purpose.updated_at)}</Td> */}
                                                         <Td>
                                                             <PermissionAllow permission={'Ad Purpose Edit'}>

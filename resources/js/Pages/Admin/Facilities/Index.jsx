@@ -94,7 +94,9 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                             <span className='ms-3'>{facility.name}</span>
                                                         </Td>
                                                         <Td>{facility.position}</Td>
-                                                        <Td>{facility.status}</Td>
+                                                        <Td>
+                                                        <div dangerouslySetInnerHTML={{ __html: window.statusIcon(facility.status) }} />
+                                                        </Td>
                                                         {/* <Td>{window.formatDateTime(facility.updated_at)}</Td> */}
                                                         <Td>
                                                             <PermissionAllow permission={'Facility Edit'}>

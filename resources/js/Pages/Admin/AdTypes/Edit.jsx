@@ -17,7 +17,7 @@ export default function Create({ type_item, queryParams = null, auth }) {
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         title: type_item.title || '',
-        status: type_item.status = 'published' ? 1 : 0 || 1,
+        status: type_item.status,
         position: type_item.position || '', _method: "PUT",
         remove_image: false,
         icon : type_item.icon

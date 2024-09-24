@@ -18,7 +18,7 @@ export default function Create({ testimonial_item, queryParams = null, auth }) {
         company_name : testimonial_item.company_name || '',
         designation: testimonial_item.designation || '',
         message: testimonial_item.message || '',
-        status: testimonial_item.status = 'published' ? 1 : 0 || 1,
+        status: testimonial_item.status,
         position: testimonial_item.position || '', _method: "PUT",
         remove_image: false,
     });

@@ -89,7 +89,9 @@ export default function Index({ featuresList, auth, success = null, error = null
                                                                     <span className='ms-3'>{feature.name}</span>
                                                                 </Td>
                                                                 <Td>{feature.position}</Td>
-                                                                <Td>{feature.status}</Td>
+                                                                <Td>
+                                                                <div dangerouslySetInnerHTML={{ __html: window.statusIcon(feature.status) }} />
+                                                                </Td>
                                                                 {/* <Td>{window.formatDateTime(feature.updated_at)}</Td> */}
                                                                 <Td>
                                                                     <PermissionAllow permission={'Feature Edit'}>
