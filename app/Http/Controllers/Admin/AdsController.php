@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\{Ad, Category, Facility, Features, Province, DashboardNotification};
+use App\Models\{Ad, Category, Facility, Features, Province, DashboardNotification,BusinessCategory};
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\Ad\{AdRequest};
-use App\Http\Resources\{AdResource};
+use App\Http\Resources\{AdResource,BusinessCategoryResource};
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Exception;
@@ -14,6 +14,7 @@ use App\Events\NewNotification;
 
 class AdsController extends Controller
 {
+    use \App\Emails;
     /**
      * Display a listing of the resource.
      */
@@ -25,14 +26,16 @@ class AdsController extends Controller
         $pendingAdsList= Ad::with('seller')->where('status',0)->orderBy('updated_at','DESC')->get();
         $suspendedAdsList= Ad::with('seller')->where('status',-1)->orderBy('updated_at','DESC')->get();
         $soldAdsList= Ad::with('seller')->where('status',2)->orderBy('updated_at','DESC')->get();
-
-
+        $onHoldAdsList= Ad::with('seller')->where('status',3)->orderBy('updated_at','DESC')->get();
+        $categories  = BusinessCategory::where('status',1)->get();
         DashboardNotification::where('recipient_id', auth()->user()->id)->update(['read_at' => date('Y-m-d H:i:s')]);
         return Inertia::render('Admin/Ads/Index', [
-                            'ads' => AdResource::collection($ads),
-                            'pendingAdsList' => AdResource::collection($pendingAdsList),
+                            'ads'              => AdResource::collection($ads),
+                            'pendingAdsList'   => AdResource::collection($pendingAdsList),
                             'suspendedAdsList' => AdResource::collection($suspendedAdsList),
-                            'soldAdsList' => AdResource::collection($soldAdsList),
+                            'soldAdsList'      => AdResource::collection($soldAdsList),
+                            'onHoldAdsList'    => AdResource::collection($onHoldAdsList),
+                            'categories'       => BusinessCategoryResource::collection($categories)
                         ]);
     }
 

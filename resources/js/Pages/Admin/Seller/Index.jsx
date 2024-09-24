@@ -343,6 +343,7 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                     />
                                 </div>
                                 <div className="mb-3 col-lg-2">
+                                    <label className='fw-700 fs-16 form-label form-group__label'>Type</label>
                                     <select name="type" className='form-control select-option' style={{ WebkitAppearance: "auto !important" }} onChange={handleSearchType}>
                                         <option value={'all'}>All</option>
                                         <option value={'agent'}>Agent</option>
