@@ -16,7 +16,7 @@ export default function Edit({ city_item, queryParams = null, auth, provinces })
     const { data, setData, post, errors, reset } = useForm({
         image: '',
         name: city_item.name || '',
-        status: city_item.status == 'published' ? 1 : 0 || 1,
+        status: city_item.status,
         position: city_item.position || '',
         _method: "PUT",
         remove_image: false,

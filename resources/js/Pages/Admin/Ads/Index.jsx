@@ -278,7 +278,7 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                             <Th>Type</Th>
                                             <Th>Purpose</Th>
                                             <Th>User</Th>
-                                            <Th>Last Modified</Th>
+                                            {/* <Th>Last Modified</Th> */}
                                             <Th></Th>
                                         </Tr>
                                     </Thead>
@@ -309,7 +309,7 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                                     <Td>{ad.property_type}</Td>
                                                     <Td>{ad.ad_purpose}</Td>
                                                     <Td>{ad.seller.firstname} {ad.seller.lastname}</Td>
-                                                    <Td>{window.formatDate(ad.created_at)}<br />{window.formatTime(ad.created_at)}</Td>
+                                                    {/* <Td>{window.formatDate(ad.created_at)}<br />{window.formatTime(ad.created_at)}</Td> */}
                                                     <Td>
                                                         <span onClick={() => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
                                                     </Td>

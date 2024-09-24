@@ -135,6 +135,7 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                                         <Tr>
                                                             <Th>#</Th>
                                                             <Th>Name</Th>
+                                                            <Th>Province</Th>
                                                             <Th>Leads</Th>
                                                             <Th>Ads</Th>
                                                             <Th>Status</Th>
@@ -155,9 +156,12 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                                                     /> */}
                                                                     <span className='ms-3'>{city.name}</span>
                                                                 </td>
+                                                                <td>{city.province_code}</td>
                                                                 <td>{city.leads.length}</td>
                                                                 <td>{city.ads.length}</td>
-                                                                <td><i className='badge badge-pill  badge-muted text-dark text-capitalize'>{city.status}</i></td>
+                                                                <td className='text-center'>
+                                                                    <div dangerouslySetInnerHTML={{ __html: window.statusIcon(city.status) }} />
+                                                                </td>
                                                                 {/* <td>{city.updated_at}</td> */}
                                                                 <td className='text-end'>
                                                                     <PermissionAllow permission={'City Edit'}>

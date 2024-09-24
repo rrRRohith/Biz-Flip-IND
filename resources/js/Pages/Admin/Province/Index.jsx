@@ -84,7 +84,7 @@ export default function Index({ provinceList, auth, success = null, error = null
                                                             <Th>Leads</Th>
                                                             <Th>Ads</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -110,8 +110,10 @@ export default function Index({ provinceList, auth, success = null, error = null
                                                                 <Td>{province.position}</Td> */} 
                                                                 <Td>{province.leads.length}</Td>
                                                                 <Td>{province.ads.length}</Td>
-                                                                <Td><i className='badge badge-pill  badge-muted text-dark text-capitalize'>{province.status}</i> </Td>
-                                                                <Td>{province.updated_at}</Td>
+                                                                <td className='text-center'>
+                                                                    <div dangerouslySetInnerHTML={{ __html: window.statusIcon(province.status) }} />
+                                                                </td>
+                                                                {/* <Td>{province.updated_at}</Td> */}
                                                                 <Td className="text-end">
                                                                     <PermissionAllow permission={'Province Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.province.edit', province.id)}>

@@ -92,7 +92,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Title</th>
-                                                            <th>Last Modified</th>
+                                                            {/* <th>Last Modified</th> */}
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -101,7 +101,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                         <tr key={menu.id} className="hover-primary">
                                                             <td>{menu.id}</td>
                                                             <td>{menu.title}</td>
-                                                            <td>{window.formatDateTime(menu.updated_at)}</td>
+                                                            {/* <td>{window.formatDateTime(menu.updated_at)}</td> */}
                                                             <td>
                                                             <PermissionAllow permission={'Navigation Menu Edit'}>
                                                                 <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>

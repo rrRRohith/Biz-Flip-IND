@@ -95,7 +95,7 @@ export default function Index({ auth, staffs }) {
                                                                 <Th scope="col">Email</Th>
                                                                 <Th scope="col">Phone</Th>
                                                                 <Th scope="col">Role</Th>
-                                                                <Th scope="col" >Last Modified</Th>
+                                                                {/* <Th scope="col" >Last Modified</Th> */}
                                                                 <Th scope="col" ></Th>
                                                             </Tr>
                                                         </Thead>
@@ -119,9 +119,9 @@ export default function Index({ auth, staffs }) {
                                                                             <Td>
                                                                                 {staff.role_names}
                                                                             </Td>
-                                                                            <Td>
+                                                                            {/* <Td>
                                                                                 {staff.date_text}
-                                                                            </Td>
+                                                                            </Td> */}
                                                                             <Td>
                                                                                 <PermissionAllow permission={'Seller Show'}>
                                                                                     <span onClick={() => handleShow(staff)} className="btn btn-transparent">

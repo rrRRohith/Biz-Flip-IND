@@ -72,7 +72,7 @@ export default function Index({ customersList, auth}) {
                                                             <th>Full Name </th>
                                                             <th>Email</th>
                                                             <th>Phone</th>
-                                                            <th>Last Modified</th>
+                                                            {/* <th>Last Modified</th> */}
                                                             <th>     </th>
                                                         </tr>
                                                     </thead>
@@ -92,7 +92,7 @@ export default function Index({ customersList, auth}) {
 
                                                                 <td>{customer.email}</td>
                                                                 <td>{customer.phone}</td>
-                                                                <td>{customer.updated_at}</td>
+                                                                {/* <td>{customer.updated_at}</td> */}
                                                                 <td>
                                                                     {/* <PermissionAllow permission={'Subscriber Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.customers.edit', customer.id)}>

@@ -83,7 +83,7 @@ const PendingApprovel = ({ ads, auth, success = null, error = null }) => {
                                                             <th>Purpose</th>
                                                             <th>Seller</th>
                                                             <th>Status</th>
-                                                            <th>Last Modified</th>
+                                                            {/* <th>Last Modified</th> */}
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -118,7 +118,7 @@ const PendingApprovel = ({ ads, auth, success = null, error = null }) => {
                                                                     <td>{ad.property_type}</td>
                                                                     <td>{ad.ad_purpose}</td>
                                                                     <td>{ad.seller.firstname} {ad.seller.lastname}</td>
-                                                                    <td>{ad.date_text}</td>
+                                                                    {/* <td>{ad.date_text}</td> */}
                                                                     <td>
                                                                         <StatusBtn status={ad.status}></StatusBtn>
                                                                     </td>

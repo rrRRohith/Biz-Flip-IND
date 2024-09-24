@@ -80,7 +80,7 @@ export default function Index({ bannersList, auth, success = null, error = null 
                                                             <Th>Type</Th>
                                                             <Th>Position</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -100,7 +100,7 @@ export default function Index({ bannersList, auth, success = null, error = null 
                                                                 <Td>{banner.type}</Td>
                                                                 <Td>{banner.position}</Td>
                                                                 <Td>{banner.status}</Td>
-                                                                <Td>{banner.updated_at}</Td>
+                                                                {/* <Td>{banner.updated_at}</Td> */}
                                                                 <Td>
                                                                     <PermissionAllow permission={'Banner Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.banners.edit', banner.id)}>

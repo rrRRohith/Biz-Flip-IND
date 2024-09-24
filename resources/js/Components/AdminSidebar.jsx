@@ -158,7 +158,7 @@ export default function AdminSidebar() {
                                     <li className={`treeview ${openDropdown === 'collections' ? 'active' : ''}`}>
                                         <a href="#" onClick={() => handleToggle('collections')}>
                                             <i className="bi bi-files-alt" title="Collections"></i>
-                                            <span>Collections</span>
+                                            <span>Setup</span>
                                             <span className="pull-right-container">
                                                 <i className={`fa ${openDropdown === 'collections' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
                                             </span>
@@ -251,13 +251,13 @@ export default function AdminSidebar() {
                                                         </Link>
                                                     </li>
                                                 </PermissionAllow>
-                                                <PermissionAllow permission={'App Settings'}>
+                                                {/* <PermissionAllow permission={'App Settings'}>
                                                    <li>
                                                         <Link href={route('admin.app-settings.index')}>
                                                             <i className="icon-Commit"></i>App Settings
                                                         </Link>
                                                     </li> 
-                                                </PermissionAllow>
+                                                </PermissionAllow> */}
                                                 <PermissionAllow permission={'Role and Responsibilities'}>
                                                     <li>
                                                         <Link href={route('admin.role-responsibilities.index')}>

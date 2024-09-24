@@ -80,7 +80,7 @@ export default function Index({ purposeList, auth, success = null, error = null 
                                                         <Th>Name</Th>
                                                         <Th>Position</Th>
                                                         <Th>Status</Th>
-                                                        <Th>Last Modified</Th>
+                                                        {/* <Th>Last Modified</Th> */}
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>
@@ -95,7 +95,7 @@ export default function Index({ purposeList, auth, success = null, error = null 
                                                         </Td>
                                                         <Td>{purpose.position}</Td>
                                                         <Td>{purpose.status}</Td>
-                                                        <Td>{window.formatDateTime(purpose.updated_at)}</Td>
+                                                        {/* <Td>{window.formatDateTime(purpose.updated_at)}</Td> */}
                                                         <Td>
                                                             <PermissionAllow permission={'Ad Purpose Edit'}>
                                                                 <Link className='btn btn-transparent' href={route('admin.ad_purposes.edit', purpose.id)}>

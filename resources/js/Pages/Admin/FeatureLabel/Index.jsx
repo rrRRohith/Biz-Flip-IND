@@ -82,7 +82,7 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                             <Th>Color</Th>
                                                             <Th>Priority</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -95,7 +95,7 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                                 <Td><div style={{ backgroundColor: label.color,width:"20px",height:"20px" }}></div></Td>
                                                                 <Td>{label.priority}</Td>
                                                                 <Td>{label.status}</Td>
-                                                                <Td>{window.formatDateTime(label.updated_at)}</Td>
+                                                                {/* <Td>{window.formatDateTime(label.updated_at)}</Td> */}
                                                                 <Td>
                                                                     <PermissionAllow permission={'Feature Label Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.feature-label.edit', label.id)}>

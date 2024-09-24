@@ -232,7 +232,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
                                                     <div className="row">
                                                         <div className="col-lg-9">
 
-                                                            <h4 className="col-lg-12 pb-30"><u>Contact Person </u></h4>
+                                                            {/* <h4 className="col-lg-12 pb-30"><u>Contact Person </u></h4> */}
                                                             <div className="row">
                                                                 {seller.is_agent &&
                                                                     <>

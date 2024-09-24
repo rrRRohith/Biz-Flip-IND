@@ -97,7 +97,7 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                                             <Th>Company</Th>
                                                             <Th>Designation</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -119,7 +119,7 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                                                 <Td  onClick={() => handleShow(testimonial)}>{testimonial.company_name}</Td>
                                                                 <Td  onClick={() => handleShow(testimonial)}>{testimonial.designation}</Td>
                                                                 <Td  onClick={() => handleShow(testimonial)}>{testimonial.status}</Td>
-                                                                <Td  onClick={() => handleShow(testimonial)}>{window.formatDateTime(testimonial.updated_at)}</Td>
+                                                                {/* <Td  onClick={() => handleShow(testimonial)}>{window.formatDateTime(testimonial.updated_at)}</Td> */}
                                                                 <Td> 
                                                                     <PermissionAllow permission={'Testimonial Show'}>
                                                                         <span onClick={() => handleShow(testimonial)} className="btn btn-transparent">

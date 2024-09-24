@@ -66,7 +66,7 @@ export default function Index({ sellers, auth, success = null, error = null }) {
                                                         <th>Company Name</th>
                                                         <th>Designation</th>
                                                         <th>Status</th>
-                                                        <th>Last Modified</th>
+                                                        {/* <th>Last Modified</th> */}
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -90,7 +90,7 @@ export default function Index({ sellers, auth, success = null, error = null }) {
                                                         <td>{vendor.company_name}</td>
                                                         <td>{vendor.designation}</td>
                                                         <td>{vendor.status}</td>
-                                                        <td>{vendor.updated_at}</td>
+                                                        {/* <td>{vendor.updated_at}</td> */}
                                                         <td>
                                                             <Link className='btn btn-transparent' href={route('admin.sellers.edit', vendor.user_id)}>
                                                                 <i className="bi bi-pencil"></i>

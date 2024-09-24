@@ -26,13 +26,14 @@ class CityResource extends JsonResource
             'country'       => $this->province->country->name ?? null,
             'country_id'       => $this->province->country->id ?? null,
             'position'      => $this->position,
-            'status'        => $this->status == 1 ? 'Enabled' : 'Draft',
+            'status'        => $this->status,
             'image'         => null,
             'ads'           => $this->ads,
             'leads'         => $this->leads,
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
 
+            'province_code' => $this->province_code,
         ];
     }
 }

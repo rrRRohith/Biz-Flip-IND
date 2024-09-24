@@ -77,7 +77,7 @@ export default function Index({ countryList, auth, success = null, error = null 
                                                             <Th>Code</Th>
                                                             <Th>Position</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -99,7 +99,7 @@ export default function Index({ countryList, auth, success = null, error = null 
                                                                 <td>{country.code}</td>
                                                                 <td>{country.position}</td>
                                                                 <td>{country.status}</td>
-                                                                <td>{country.updated_at}</td>
+                                                                {/* <td>{country.updated_at}</td> */}
                                                                 <td>
                                                                     <PermissionAllow permission={'Country Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.country.edit', country.id)}>

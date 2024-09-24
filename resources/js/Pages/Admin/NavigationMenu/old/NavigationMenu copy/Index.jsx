@@ -56,7 +56,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Title</th>
-                                                        <th>Last Modified</th>
+                                                        {/* <th>Last Modified</th> */}
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -67,7 +67,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                     <tr key={menu.id} className="hover-primary">
                                                         <td>{menu.id}</td>
                                                         <td>{menu.title}</td>
-                                                        <td>{window.formatDateTime(menu.updated_at)}</td>
+                                                        {/* <td>{window.formatDateTime(menu.updated_at)}</td> */}
                                                         <td>
                                                             <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
                                                                 <i className="bi bi-pencil"></i>

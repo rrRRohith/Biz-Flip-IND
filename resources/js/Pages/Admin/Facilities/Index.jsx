@@ -80,7 +80,7 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                         <Th>Name</Th>
                                                         <Th>Position</Th>
                                                         <Th>Status</Th>
-                                                        <Th>Last Modified</Th>
+                                                        {/* <Th>Last Modified</Th> */}
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>
@@ -95,7 +95,7 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                         </Td>
                                                         <Td>{facility.position}</Td>
                                                         <Td>{facility.status}</Td>
-                                                        <Td>{window.formatDateTime(facility.updated_at)}</Td>
+                                                        {/* <Td>{window.formatDateTime(facility.updated_at)}</Td> */}
                                                         <Td>
                                                             <PermissionAllow permission={'Facility Edit'}>
                                                                 <Link className='btn btn-transparent' href={route('admin.facilities.edit', facility.id)}>

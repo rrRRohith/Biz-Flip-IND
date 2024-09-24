@@ -23,6 +23,8 @@ class City extends Model
         return $this->hasManyDeepFromRelations($this->ads(), (new Ad())->leads());
     }
 
-
+    public function getProvinceCodeAttribute(){
+        return $this->province->code ?? null;
+    }
     
 }
