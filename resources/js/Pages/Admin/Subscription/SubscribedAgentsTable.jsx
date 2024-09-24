@@ -8,16 +8,6 @@ export default function SubscribedAgentsTable({ users }) {
         <>
             <div className="container">
                 <div className="table-responsive rounded card-table">
-
-
-                    {/* <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search by name..."
-                       
-                        />
-                    </div> */}
                     <Table className="table border-no" id="example1">
                         <Thead>
                             <Tr>

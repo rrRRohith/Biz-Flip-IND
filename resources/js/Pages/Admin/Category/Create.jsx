@@ -176,7 +176,7 @@ export default function Create({ auth }) {
                                                                                 <div className="product-img">
                                                                                     {imagePreview ? (
                                                                                         <div className="mb-15 text-center position-relative">
-                                                                                            <img src={imagePreview} alt="Selected" className="w-50 rounded-5" />
+                                                                                            <img  onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}  src={imagePreview} alt="Selected" className="w-50 rounded-5" />
                                                                                             <i role="button" className="bi bi-x-lg fw-bold position-absolute text-danger top-0" onClick={handleRemoveImage}></i>
 
                                                                                         </div>
