@@ -138,7 +138,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                                     <InputError message={errors.confirm_password} />
                                                 </div>
                                                 <div className="col-12 text-start">
-                                                    <button type="submit" className="btn  btn-success">Save changes</button>
+                                                    <button type="submit" className="btn  btn-success">Save</button>
                                                 </div>
                                             </div>
                                         </form>

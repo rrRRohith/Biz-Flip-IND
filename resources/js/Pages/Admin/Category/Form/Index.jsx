@@ -226,7 +226,7 @@ export default function Index({ category, auth }) {
                                                     </Dropdown.Menu>
                                                 </Dropdown>
                                                     <button type="submit" className="ms-4 btn btn-success">
-                                                        <i className="bi bi-check"></i> Save changes
+                                                        <i className="bi bi-check"></i> Save
                                                     </button>
                                                 </div>
                                             </form>
@@ -335,7 +335,7 @@ export default function Index({ category, auth }) {
                                 Close
                             </Button>
                             <Button variant="primary" className="text-white" onClick={saveFieldDetails}>
-                                Save Changes
+                                Save
                             </Button>
                         </Modal.Footer>
                     </Modal>

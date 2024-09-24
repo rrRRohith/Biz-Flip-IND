@@ -124,7 +124,7 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                                                     </div>
                                                                     <div className="col-12 text-end">
                                                                         <button type="button" className="btn btn-neutral me-2">Cancel</button>
-                                                                        <button type="submit" className="btn btn-sm btn-neutral">Save changes</button></div>
+                                                                        <button type="submit" className="btn btn-sm btn-neutral">Save</button></div>
                                                                 </div>
                                                             </div>
                                                             <div className='col-lg-3'>

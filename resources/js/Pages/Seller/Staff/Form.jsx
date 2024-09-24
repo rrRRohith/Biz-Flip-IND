@@ -103,7 +103,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                         </div>
                                         <div className="col-12 text-end">
                                             <Link href={route('account.staffs.index')} className="btn btn-neutral me-2">Cancel</Link>
-                                            <button type="submit" className="btn btn-primary">Save changes</button></div>
+                                            <button type="submit" className="btn btn-primary">Save</button></div>
                                     </div>
                                 </form>
                             </div>

@@ -101,7 +101,7 @@ export default function Form({ role, permissions, auth, success, error }) {
                                         </div>
                                         <div className="col-12 text-end">
                                             <Link href={route('account.roles.index')} className="btn btn-neutral me-2">Cancel</Link>
-                                            <button type="submit" className="btn btn-primary">Save changes</button></div>
+                                            <button type="submit" className="btn btn-primary">Save</button></div>
                                     </div>
                                 </form>
                             </div>

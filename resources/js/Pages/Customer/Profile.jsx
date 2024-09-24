@@ -112,7 +112,7 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                     <div className="row g-5">
                                         <div className="col-12 text-end mt-10">
                                             <button type="button" className="btn btn-neutral me-2">Cancel</button>
-                                            <button type="submit" className="btn btn-primary">Save changes</button>
+                                            <button type="submit" className="btn btn-primary">Save</button>
                                         </div>
                                     </div>
                                 </form>
