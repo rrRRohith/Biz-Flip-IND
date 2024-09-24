@@ -95,7 +95,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                                                             <Th>#</Th>
                                                             <Th>Title</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -105,7 +105,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                                                                 <Td>{page.id}</Td>
                                                                 <Td>{page.title}</Td>
                                                                 <Td>{page.status}</Td>
-                                                                <Td>{page.updated_at}</Td>
+                                                                {/* <Td>{page.updated_at}</Td> */}
                                                                 <Td>
                                                                     <span onClick={() => handleShow(page)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
                                                                     <PermissionAllow permission={'Content Page Edit'}>

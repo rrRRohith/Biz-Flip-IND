@@ -17,7 +17,7 @@ export default function Edit({ province_item, queryParams = null, auth, countrie
         image: '',
         name: province_item.name || '',
         code: province_item.code || '',
-        status: province_item.status = 'published' ? 1 : 0 || 1,
+        status: province_item.status,
         position: province_item.position || '', _method: "PUT",
         remove_image: false,
         country: province_item.country_name

@@ -17,11 +17,10 @@ export default function Create({ label_item ,queryParams = null, auth}) {
     const { data, setData, post, errors, reset } = useForm({
         color: label_item.color || '',
         name: label_item.name || '',
-        status: label_item.status = 'published' ? 1 : 0 || 1,
+        status: label_item.status,
         priority: label_item.priority || '', 
         _method: "PUT",
     });
-   
 
         const handleSubmit = (e) => {
             e.preventDefault();

@@ -80,7 +80,7 @@ export default function Index({ typeList, auth, success = null, error = null }) 
                                                         <Th>Name</Th>
                                                         <Th>Position</Th>
                                                         <Th>Status</Th>
-                                                        <Th>Last Modified</Th>
+                                                        {/* <Th>Last Modified</Th> */}
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>
@@ -94,8 +94,10 @@ export default function Index({ typeList, auth, success = null, error = null }) 
                                                             <span className='ms-3'>{type.title}</span>
                                                         </Td>
                                                         <Td>{type.position}</Td>
-                                                        <Td>{type.status}</Td>
-                                                        <Td>{window.formatDateTime(type.updated_at)}</Td>
+                                                        <Td>
+                                                        <div dangerouslySetInnerHTML={{ __html: window.statusIcon(type.status) }} />
+                                                        </Td>
+                                                        {/* <Td>{window.formatDateTime(type.updated_at)}</Td> */}
                                                         <Td>
                                                             <PermissionAllow permission={'Ad Type Edit'}>
                                                                 <Link className='btn btn-transparent' href={route('admin.ad_types.edit', type.id)}>

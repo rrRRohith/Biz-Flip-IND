@@ -23,7 +23,7 @@ class FeatureLabelResource extends JsonResource
             'slug'          => $this->slug,
             'color'          => $this->color,
             'priority'      => $this->priority,
-            'status'        => $this->status == 1 ? 'Published' : 'Draft',
+            'status'        => $this->status,
             'icon'          => $this->icon  ? image_url($this->icon) :asset('/assets/admin/images/noimage.webp'),
             'created_at'    => (new Carbon($this->created_at)),
             'updated_at'    => (new Carbon($this->updated_at)),

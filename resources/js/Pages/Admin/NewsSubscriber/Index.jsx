@@ -77,7 +77,7 @@ export default function Index({ subscribersList, auth, success = null, error = n
                                                             <th>Email</th>
                                                             <th>Type of Needed</th>
                                                             <th>Status</th>
-                                                            <th>Last Modified</th>
+                                                            {/* <th>Last Modified</th> */}
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -91,7 +91,7 @@ export default function Index({ subscribersList, auth, success = null, error = n
                                                                 <td>{subscriber.email_id}</td>
                                                                 <td>{subscriber.type_of_needed}</td>
                                                                 <td>{subscriber.status_text}</td>
-                                                                <td>{subscriber.updated_at}</td>
+                                                                {/* <td>{subscriber.updated_at}</td> */}
                                                                 <td>
                                                                     <PermissionAllow permission={'Subscriber Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.subscribers.edit', subscriber.id)}>

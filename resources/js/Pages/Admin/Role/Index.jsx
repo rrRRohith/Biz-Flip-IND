@@ -90,7 +90,7 @@ export default function Index({ roleList, auth, success = null, error = null }) 
                                                         <Th>#</Th>
                                                         <Th>Name</Th>
                                                         <Th>No of Permissions</Th>
-                                                        <Th>Last Modified</Th>
+                                                        {/* <Th>Last Modified</Th> */}
                                                         <Th></Th> 
                                                     </Tr> 
                                                 </Thead>
@@ -100,7 +100,7 @@ export default function Index({ roleList, auth, success = null, error = null }) 
                                                             <Td>{role.id}</Td>
                                                             <Td>{role.name}</Td>
                                                             <Td>{Object.keys(role.permissions).length}</Td>
-                                                            <Td>{window.formatDateTime(role.updated_at)}</Td>
+                                                            {/* <Td>{window.formatDateTime(role.updated_at)}</Td> */}
                                                             <Td>
                                                                 <span title='Show' onClick={() => handleShow(role)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
                                                                 <Link title='Edit' className='btn btn-transparent' href={route('admin.role-responsibilities.edit', role.id)}>

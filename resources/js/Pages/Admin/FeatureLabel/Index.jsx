@@ -82,7 +82,7 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                             <Th>Color</Th>
                                                             <Th>Priority</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -90,12 +90,14 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                         {labelList.data.map((label,index) => (
                                                             <Tr key={label.id} className="hover-primary">
                                                                 <Td>{index+1}</Td>
-                                                                <Td> <i className={`${feature.icon} bi  w-40 rounded-5`}></i>
+                                                                <Td> <i className={`${label.icon} bi  w-40 rounded-5`}></i>
                                                                     {label.name}</Td>
                                                                 <Td><div style={{ backgroundColor: label.color,width:"20px",height:"20px" }}></div></Td>
                                                                 <Td>{label.priority}</Td>
-                                                                <Td>{label.status}</Td>
-                                                                <Td>{window.formatDateTime(label.updated_at)}</Td>
+                                                                <Td>
+                                                                <div dangerouslySetInnerHTML={{ __html: window.statusIcon(label.status) }} />
+                                                                </Td>
+                                                                {/* <Td>{window.formatDateTime(label.updated_at)}</Td> */}
                                                                 <Td>
                                                                     <PermissionAllow permission={'Feature Label Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.feature-label.edit', label.id)}>

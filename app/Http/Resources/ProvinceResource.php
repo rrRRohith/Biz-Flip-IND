@@ -25,7 +25,7 @@ class ProvinceResource extends JsonResource
             'country'       => $this->country_id,
             'country_name'  => $this->country->name ?? null,
             'position'      => $this->position,
-            'status'        => $this->status == 1 ? 'enabled' : 'Draft',
+            'status'        => $this->status,
             'image'         => null,
             'ads'           => $this->ads,
             'leads'         => $this->leads,

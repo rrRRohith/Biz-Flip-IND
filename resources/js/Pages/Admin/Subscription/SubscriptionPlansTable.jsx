@@ -126,7 +126,7 @@ export default function SubscriptionPlansTable({ plans }) {
                                 <Th>Price</Th>
                                 <Th>No:of Ads</Th>
                                 <Th>Duration</Th>
-                                {/* <Th>Status</Th> */}
+                                <Th>Status</Th>
                                 <Th className="text-end">Actions</Th>
                             </Tr>
                         </Thead>
@@ -137,8 +137,10 @@ export default function SubscriptionPlansTable({ plans }) {
                                     <Td>{plan.name}</Td>
                                     <Td>{plan.price}</Td>
                                     <Td>{plan.ads}</Td>
-                                    <Td>{plan.duration}</Td>
-                                    {/* <Td>{plan.status_text}</Td> */}
+                                    <Td>{plan.duration} {plan.duration > 1 ? 'months' : 'month'}</Td>
+                                    <Td>
+                                    <div dangerouslySetInnerHTML={{ __html: window.statusIcon(plan.status) }} />
+                                    </Td>
                                     <Td className="text-end">
                                         <button className="btn btn-transparent" onClick={() => handleModelShow("view", plan)}>
                                             <i className="bi bi-eye"></i>

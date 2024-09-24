@@ -76,7 +76,7 @@ export default function Index({ featuresList, auth, success = null, error = null
                                                             <Th>Name</Th>
                                                             <Th>Position</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -89,8 +89,10 @@ export default function Index({ featuresList, auth, success = null, error = null
                                                                     <span className='ms-3'>{feature.name}</span>
                                                                 </Td>
                                                                 <Td>{feature.position}</Td>
-                                                                <Td>{feature.status}</Td>
-                                                                <Td>{window.formatDateTime(feature.updated_at)}</Td>
+                                                                <Td>
+                                                                <div dangerouslySetInnerHTML={{ __html: window.statusIcon(feature.status) }} />
+                                                                </Td>
+                                                                {/* <Td>{window.formatDateTime(feature.updated_at)}</Td> */}
                                                                 <Td>
                                                                     <PermissionAllow permission={'Feature Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.features.edit', feature.id)}>
