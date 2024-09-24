@@ -138,7 +138,7 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                                             <Th>Leads</Th>
                                                             <Th>Ads</Th>
                                                             <Th>Status</Th>
-                                                            <Th>Last Modified</Th>
+                                                            {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
@@ -147,18 +147,18 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                                             <Tr key={city.id} className="hover-primary">
                                                                 <td>{index + startIdx + 1}</td>
                                                                 <td>
-                                                                    <img
+                                                                    {/* <img
                                                                         src={city.image}
                                                                         className='w-40 rounded-5 '
                                                                         alt={`${city.image} icon`}
                                                                         onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
-                                                                    />
+                                                                    /> */}
                                                                     <span className='ms-3'>{city.name}</span>
                                                                 </td>
                                                                 <td>{city.leads.length}</td>
                                                                 <td>{city.ads.length}</td>
                                                                 <td><i className='badge badge-pill  badge-muted text-dark text-capitalize'>{city.status}</i></td>
-                                                                <td>{city.updated_at}</td>
+                                                                {/* <td>{city.updated_at}</td> */}
                                                                 <td className='text-end'>
                                                                     <PermissionAllow permission={'City Edit'}>
                                                                         <Link className='btn btn-transparent' href={route('admin.city.edit', city.id)}>
