@@ -28,7 +28,7 @@ class SubscriptionPlanResource extends JsonResource
             'default'       => $this->default,
             'visibility'    => $this->visibility,
             'status_text'   => $this->status == 1 ? 'Activated' : 'Deactivated',
-            'status'        => $this->status == 1,
+            'status'        => $this->status,
             'created_at'    => (new Carbon($this->created_at))->format('h:i a, d M'),
             'updated_at'    => (new Carbon($this->updated_at))->format('h:i a, d M'),
         ];
