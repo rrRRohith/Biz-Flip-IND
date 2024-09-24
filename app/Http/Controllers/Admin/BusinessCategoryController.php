@@ -23,7 +23,7 @@ class BusinessCategoryController extends Controller
         $this->middleware('can:Category Edit',   ['only' => ['edit','update']]);
         $this->middleware('can:Category Delete', ['only' => ['destroy']]);
 
-        $this->middleware('can:frachise', ['only' => 'store', 'destroy']);
+        //$this->middleware('can:frachise', ['only' => 'store', 'destroy']);
     }
 
 
@@ -136,8 +136,8 @@ class BusinessCategoryController extends Controller
             $category->icon     = $this->uploadFile(file : $image, path : 'categories', maxHeight : 200, maxWidth : 200, ratio: '1:1');
         }
 
-        //$category->name         = $request->category_name;
-        //$category->slug         = Str::slug($request->category_name);
+        $category->name         = $request->category_name;
+        $category->slug         = Str::slug($request->category_name);
         $category->description  = $request->description;
         $category->parent       = null;
         $category->position     = $request->position;
