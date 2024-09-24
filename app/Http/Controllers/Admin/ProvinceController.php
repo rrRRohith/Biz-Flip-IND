@@ -16,7 +16,7 @@ class ProvinceController extends Controller
 {
         public function index()
         {
-            $provinceList = Province::query()->paginate(10);
+            $provinceList = Province::query()->paginate(40);
             
             // dd(ProvinceResource::collection($provinceList));
             return Inertia::render('Admin/Province/Index',['provinceList' => ProvinceResource::collection($provinceList),'success' => session('success'),'error' => session('error')]);
@@ -41,9 +41,10 @@ class ProvinceController extends Controller
             //
             $new        = new Province();
             $new->name  = $request->name;
+            $new->code  = $request->code;
             $new->slug  = Str::slug($request->name);
-            $new->country_id  = $request->country;
-            $new->position=$request->position;
+            $new->country_id  = $request->country?? \App\Models\Country::first()->id ?? null;
+            //$new->position=$request->position;
             $new->status= $request->status;
             try{
                 $new->save();			

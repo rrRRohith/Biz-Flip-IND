@@ -46,12 +46,12 @@ export default function Create({ auth, provinces }) {
         setImagePreview('');
     };
 
-    // const handleChange = (key, value) => {
-    //     setData(key, value);
-    //     if (key === 'country') {
-    //         fetchProvinces(value);
-    //     }
-    // };
+    const handleChange = (key, value) => {
+        setData(key, value);
+        if (key === 'country') {
+            fetchProvinces(value);
+        }
+    };
     
 
     // const [provinces, setProvinces] = useState([]);

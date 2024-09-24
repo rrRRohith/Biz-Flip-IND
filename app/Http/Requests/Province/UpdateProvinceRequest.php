@@ -25,7 +25,7 @@ class UpdateProvinceRequest extends FormRequest
             "name" => ['required', 'max:255'],
             'image' => ['nullable', 'image'],   
             'country' => ['required'],
-            "position" => ['integer'],
+            //"position" => ['integer'],
             'status' => ['required', Rule::in(['0', '1'])]
         ];
     }
