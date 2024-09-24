@@ -65,7 +65,17 @@ export default function Index({ auth, staffs }) {
                                 <div className='col-lg-6'>
                                     <div className="d-flex align-items-center">
                                         <div className="me-auto">
-                                            <h4 className="page-title">Staff List</h4>
+                                            <div className="d-flex flex-column">
+                                                <h4 className="page-title">Staff List</h4>
+                                                <div className="d-inline-block align-items-center mt-2">
+                                                    <nav>
+                                                        <ol className="breadcrumb">
+                                                            <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
+                                                            <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.staff.index')}>Staffs</Link></li>
+                                                        </ol>
+                                                    </nav>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

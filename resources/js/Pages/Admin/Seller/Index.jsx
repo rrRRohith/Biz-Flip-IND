@@ -342,7 +342,7 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                         onChange={handleSearch}
                                     />
                                 </div>
-                                <div className="mb-3 col-lg-2">
+                                <div className="mb-3 col-lg-2 form-group">
                                     <label className='fw-700 fs-16 form-label form-group__label'>Type</label>
                                     <select name="type" className='form-control select-option' style={{ WebkitAppearance: "auto !important" }} onChange={handleSearchType}>
                                         <option value={'all'}>All</option>
@@ -351,9 +351,9 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
 
                                     </select>
                                 </div>
-                                <div className="mb-3 col-lg-3">
+                                <div className="mb-3 col-lg-4">
                                     <div className="form-group">
-                                    <label className="fw-700 fs-16 form-label form-group__label">Started at</label>
+                                    {/* <label className="fw-700 fs-16 form-label form-group__label">Started at</label> */}
                                         <DatePicker onChange={handleDateRangeChange} />
                                     </div>
                                 </div>

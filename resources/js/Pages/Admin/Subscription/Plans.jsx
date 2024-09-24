@@ -33,9 +33,9 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
         price: '',
         ads: '',
         duration: '1',
-        default: '0',
-        visibility: '0',
-        status: '0',
+        default: 0,
+        visibility: 0,
+        status: 0,
     });
 
     // Handlers for modal show/close
@@ -307,7 +307,19 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                 </div>
                                                                 <div className="col-lg-6 mb-3">
                                                                     <InputLabel value="Duration" />
-                                                                    <SelectOption name="duration" items={durations} onChange={(e) => handleChange('duration', e.target.value)} value={data.duration} />
+                                                                    {/* <SelectOption name="duration" items={durations} onChange={(e) => handleChange('duration', e.target.value)} value={data.duration} /> */}
+                                                                    <select 
+                                                                     name="duration"
+                                                                     value={data.duration ?? 1}
+                                                                     onChange={(e) => handleChange('duration', e.target.value)} 
+                                                                    className="form-control bg-white"
+                                                                    >
+                                                                    {durations.map((option) => (
+                                                                        <option key={option.value} value={option.value}>
+                                                                        {option.label}
+                                                                        </option>
+                                                                    ))}
+                                                                    </select>
                                                                     <InputError message={errors.duration} className="mt-2" />
                                                                 </div>
                                                                 <div className='col-lg-12'>
@@ -319,7 +331,8 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                             name="default"
                                                                             label="Default"
                                                                             role="button"
-                                                                            onChange={(e) => handleChange('default', e.target.checked ? data.default : 0)}
+                                                                            checked={data.default ? true : false}
+                                                                            onChange={(e) => handleChange('default', e.target.checked)}
                                                                         />
                                                                         <InputError message={errors.default} className="mt-2 col-12" />
                                                                     </div>
@@ -334,17 +347,19 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                             name="status"
                                                                             label="Publish"
                                                                             role="button"
-                                                                            onChange={(e) => handleChange('status', e.target.checked ? data.status : 0)}
+                                                                            checked={data.status ? true : false}
+                                                                            onChange={(e) => handleChange('status', e.target.checked)}
                                                                         />
                                                                         <InputError message={errors.status} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className="modal-footer">
-                                                                <button type="button" className="btn btn-secondary" onClick={handleClose}>
+                                                                <button type="button" className="btn btn-sm  btn-secondary" onClick={handleClose}>
                                                                     Cancel
                                                                 </button>
-                                                                <button type="submit" className="btn btn-primary">
+                                                                <button type="submit" className="btn btn-sm text-white  btn-success">
+                                                                <i className="bi bi-check"></i>
                                                                     {modalType === "create" ? "Create Plan" : "Update Plan"}
                                                                 </button>
                                                             </div>
