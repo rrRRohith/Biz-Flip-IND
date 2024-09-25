@@ -24,6 +24,13 @@
 </div>
 @push('scripts')
 <script>
+    $('#loginModal').on('shown.bs.modal', function () {
+        refreshCaptcha1()
+    });
+    $('#registerModal').on('shown.bs.modal', function () {
+        refreshCaptcha2()
+    });
+
     function removeClass() {
         var elements = document.getElementsByClassName('form-group');
 
