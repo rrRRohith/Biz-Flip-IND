@@ -63,7 +63,7 @@ export default function Show({ ticket, messages, auth, success = null, error = n
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Support Tickets #{ticket.id}</h4><br />
+                                        <h4 className="page-title">Support Tickets #{ticket.ticket_no}</h4><br />
                                         <div className="d-inline-block align-items-center mt-2">
                                             <nav>
                                                 <ol className="breadcrumb">
@@ -75,7 +75,7 @@ export default function Show({ ticket, messages, auth, success = null, error = n
                                                     <li className="breadcrumb-item" aria-current="page">
                                                         <a href="{route('admin.support-tickets.index')}">Support Tickets</a>
                                                     </li>
-                                                    <li className="breadcrumb-item active" aria-current="page">#{ticket.id}</li>
+                                                    <li className="breadcrumb-item active" aria-current="page">#{ticket.ticket_no}</li>
                                                 </ol>
                                             </nav>
                                         </div>

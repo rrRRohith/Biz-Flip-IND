@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import PermissionAllow from '@/Components/PermissionAllow';
 import Swal from 'sweetalert2';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
-export default function Index({ tickets, auth, success = null, error = null }) {
+export default function Index({ tickets, auth, success = null, error = null, newTickets, openTickets, closedTickets }) {
+    const [key, setKey] = useState('NewTickets');
+
     return (
         <Authenticated
             user={auth.user}
@@ -31,7 +35,7 @@ export default function Index({ tickets, auth, success = null, error = null }) {
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -45,7 +49,43 @@ export default function Index({ tickets, auth, success = null, error = null }) {
                                 <div className="box">
                                     <div className="box-body">
                                         <PermissionAllow permission={'Support Ticket Listing'} message={'true'}>
-                                            <div className="table-responsive rounded card-table">
+                                            <Tabs
+                                                id="uncontrolled-tab-example"
+                                                activeKey={key}
+                                                onSelect={(k) => setKey(k)}
+                                                className=""
+                                            >
+                                                <Tab eventKey="NewTickets" title="New Tickets">
+                                                    <TicketTable tickets={newTickets}></TicketTable>
+                                                </Tab>
+
+                                                <Tab eventKey="OpenTickets" title="Open Tickets">
+                                                <TicketTable tickets={openTickets}></TicketTable>
+                                                </Tab>
+                                                <Tab eventKey="ClosedTickets" title="Closed Tickets">
+                                                    <TicketTable tickets={closedTickets}></TicketTable>
+                                                </Tab>
+                                            </Tabs>
+
+                                        </PermissionAllow>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    {/* <!-- /.content --> */}
+
+                </div>
+            </div>
+            {/* <!-- /.content-wrapper --> */}
+        </Authenticated>
+
+    )
+}
+
+const TicketTable = function({tickets}){
+    return (
+        <div className="table-responsive rounded card-table">
                                                 <Table className="table border-no" id="example1">
                                                     <Thead>
                                                         <Tr>		
@@ -59,11 +99,12 @@ export default function Index({ tickets, auth, success = null, error = null }) {
                                                         </Tr>
                                                     </Thead>
                                                     <tbody>
-
-                                                        {tickets.data.map((ticket) => (
+                                                        {tickets.data.length ? (
+                                                            <>
+                                                            {tickets.data.map((ticket) => (
                                                             <React.Fragment key={ticket.id}>
                                                                 <Tr key={ticket.id} className="hover-primary">
-                                                                    <Td>{ticket.id}</Td>
+                                                                    <Td>{ticket.ticket_no}</Td>
                                                                     <Td className='text-capitalize'>{ticket.user.firstname} {ticket.user.lastname}</Td>
                                                                     <Td className='text-capitalize'>{ticket.subject}</Td>
                                                                     <Td className='text-capitalize'>
@@ -101,22 +142,21 @@ export default function Index({ tickets, auth, success = null, error = null }) {
                                                                 </Tr>
                                                             </React.Fragment>
                                                         ))}
+                                                        </>
+                                                        ) : (
+                                                            <>
+                                                            
+                                                            <tr>
+                                                                <td colspan="100" className='text-center'>
+                                                                    No tickets found.
+                                                                </td>
+                                                            </tr>
+                                                            </>
+                                                        )}
+                                                        
 
                                                     </tbody>
                                                 </Table>
                                             </div>
-                                        </PermissionAllow>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    {/* <!-- /.content --> */}
-
-                </div>
-            </div>
-            {/* <!-- /.content-wrapper --> */}
-        </Authenticated>
-
     )
 }
