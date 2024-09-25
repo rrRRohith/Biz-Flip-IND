@@ -164,7 +164,7 @@ export default function Index({ categoryList, auth }) {
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Category Create'}>
-                                        <Link className='btn btn-info text-end' href={route('admin.business-category.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.business-category.create')}>Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>

@@ -243,7 +243,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Seller Create'}>
-                                        <Link className='btn btn-info text-end' href={route('admin.sellers.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.sellers.create')}>Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>

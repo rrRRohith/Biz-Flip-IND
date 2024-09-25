@@ -68,7 +68,7 @@ export default function Index({ purposeList, auth, success = null, error = null 
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                 <PermissionAllow permission={'Ad Purpose Create'}>
-                                <Link className='btn btn-info text-end' href={route('admin.ad_purposes.create')}><i className='bi bi-plus'></i> Create</Link>
+                                <Link className='btn btn-info text-end' href={route('admin.ad_purposes.create')}>Create</Link>
                                 </PermissionAllow>
                                 </div>
                             </div>

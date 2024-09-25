@@ -87,7 +87,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                 <div className="text-end">
 
                                     <PermissionAllow permission={'Navigation Menu Create'}>
-                                        <Link className='btn btn-info text-end' href={route('admin.navigation-menu.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.navigation-menu.create')}>Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>

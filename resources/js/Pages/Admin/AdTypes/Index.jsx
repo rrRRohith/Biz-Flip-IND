@@ -67,7 +67,7 @@ export default function Index({ typeList, auth, success = null, error = null }) 
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                 <PermissionAllow permission={'Ad Type Create'}>
-                                <Link className='btn btn-info text-end' href={route('admin.ad_types.create')}><i className='bi bi-plus'></i> Create</Link>
+                                <Link className='btn btn-info text-end' href={route('admin.ad_types.create')}>Create</Link>
                                 </PermissionAllow>
                                 </div>
                             </div>

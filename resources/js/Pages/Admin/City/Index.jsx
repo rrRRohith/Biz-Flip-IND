@@ -103,7 +103,7 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                 <div className="text-end">
                                     <PermissionAllow permission={'City Create'}>
                                         <Link className='btn btn-info text-end' href={route('admin.city.create')}>
-                                            <i className='bi bi-plus'></i> Create
+                                             Create
                                         </Link>
                                     </PermissionAllow>
                                 </div>

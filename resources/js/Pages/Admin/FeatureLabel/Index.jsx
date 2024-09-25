@@ -67,7 +67,7 @@ export default function Index({ labelList, auth, success = null, error = null })
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Feature Label Create'}>
-                                    <Link className='btn btn-info text-end' href={route('admin.feature-label.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    <Link className='btn btn-info text-end' href={route('admin.feature-label.create')}>Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>

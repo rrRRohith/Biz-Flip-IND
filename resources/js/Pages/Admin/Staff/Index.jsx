@@ -82,7 +82,7 @@ export default function Index({ auth, staffs }) {
                                 <div className='col-lg-6'>
                                     <div className="text-end">
                                         <PermissionAllow permission={'Staff Create'}>
-                                            <Link className='btn btn-info text-end' href={route('admin.staff.create')}><i className='bi bi-plus'></i> Create</Link>
+                                            <Link className='btn btn-info text-end' href={route('admin.staff.create')}>Create</Link>
                                         </PermissionAllow>
                                     </div>
                                 </div>

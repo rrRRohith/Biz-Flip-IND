@@ -65,7 +65,7 @@ export default function Index({ provinceList, auth, success = null, error = null
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Province Create'}>
-                                        <Link className='btn btn-info text-end' href={route('admin.province.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.province.create')}> Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>

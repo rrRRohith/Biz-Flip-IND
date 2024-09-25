@@ -43,7 +43,7 @@ export default function Index({ sellers, auth, success = null, error = null }) {
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                    <Link className='btn btn-info text-end' href={route('admin.sellers.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    <Link className='btn btn-info text-end' href={route('admin.sellers.create')}>Create</Link>
                                 </div>
                             </div>
                         </div>

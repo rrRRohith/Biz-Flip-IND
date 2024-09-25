@@ -37941,3 +37941,39 @@ img.away, img.busy, img.offline, img.online {
  } */
 
 }
+
+.btn {
+  border: none;
+  padding: .95rem 2rem;
+  font-weight: 500;
+}
+input[type="text"]:not(.css-t3ipsp-control input),
+input[type="email"],
+input[type="number"],
+input[type="password"],
+.form-group select,
+.form-group textarea,
+input,
+select,
+textarea {
+    border-width: 2px !important;
+    padding-bottom: 15px !important;
+    padding-top: 15px !important;
+    border-color: #dcdcdc;
+    box-shadow: none !important;
+}
+.css-13cymwt-control, .css-t3ipsp-control{
+    border-width: 2px !important;
+    border-color: #dcdcdc !important;
+    box-shadow: none !important;
+}
+body .css-13cymwt-control input, body .css-t3ipsp-control input{
+    padding: 9px !important;
+}
+
+
+#app .css-13cymwt-control input, #app .css-t3ipsp-control input {
+  padding: 9px !important;
+  padding-bottom: 9px !important;
+  padding-top: 9px !important;
+}

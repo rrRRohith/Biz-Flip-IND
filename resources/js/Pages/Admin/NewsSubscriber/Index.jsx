@@ -62,7 +62,7 @@ export default function Index({ subscribersList, auth, success = null, error = n
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Subscriber Create'}>
-                                        <Link className='btn btn-info text-end' href={route('admin.subscribers.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.subscribers.create')}>Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>

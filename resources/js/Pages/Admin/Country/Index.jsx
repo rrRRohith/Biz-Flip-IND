@@ -53,7 +53,7 @@ export default function Index({ countryList, auth, success = null, error = null 
                             <div className='col-lg-6'>
                                 <div className="text-end">
                                     <PermissionAllow permission={'Country Create'}>
-                                        <Link className='btn btn-info text-end' href={route('admin.country.create')}><i className='bi bi-plus'></i> Create</Link>
+                                        <Link className='btn btn-info text-end' href={route('admin.country.create')}> Create</Link>
                                     </PermissionAllow>
                                 </div>
                             </div>
