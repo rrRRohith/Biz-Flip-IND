@@ -1,13 +1,14 @@
-<nav class="not-embed navbar navbar-expand-lg py-3 px-0 navbar-light bg-white fixed-top shadow-sm">
+<nav class="not-embed navbar navbar-expand-lg border-bottom-1 py-3 px-0 navbar-light bg-white fixed-top shadow-none">
     <div class="container">
-        <a class="navbar-brand py-1" href="/">
-            <img src="/logo.png" alt="{{ env('APP_NAME') }}">
-        </a>
-        <button class="navbar-toggler ms-auto border-0 shadow-none" type="button" data-bs-toggle="collapse"
+        <button class="navbar-toggler border-0 shadow-none p-1 me-2" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <a class="navbar-brand py-1 me-auto" href="/">
+            <img src="/logo.png" alt="{{ env('APP_NAME') }}">
+        </a>
+        
         <div class="d-block d-lg-none">
             @auth
                 @php
@@ -16,7 +17,7 @@
                 @include('layouts.profile')
                 @endif
             </div>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse mt-0" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                     @include('layouts.menu.top.index')
                     @auth

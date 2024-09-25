@@ -285,15 +285,22 @@ hr.hr-text {
     height: 8px;
 }
 
+span.small.font-normal {
+    font-weight: normal !important;
+    font-size: .875em;
+}
+
 .seller-count {
     position: absolute;
     top: -15px;
-    right: -20px;
-    color: #5c60f5;
-    height: 25px;
-    width: 25px;
+    right: -15px;
+    color: #fff !important;
+    height: 20px;
+    width: 20px;
     border-radius: 25px;
     font-weight: 900;
+    border-radius: 50%;
+    background: #ff579a;
 }
 
 /* Navigation Menu End */
@@ -387,4 +394,20 @@ table td, table th{
 
 .theme-primary .text-danger {
     color: #ff3f3f !important;
+}
+
+.bg-lighter {
+    background: #fbfbfb;
+}
+
+.top-menu a.dropdown-item.active-link {
+    color: #5c60f5;
+    border-bottom: 2px solid #5c60f5;
+}
+.top-menu a.dropdown-item{
+    border-bottom: 2px solid transparent;
+}
+.top-menu a.dropdown-item:hover {
+    color: #5c60f5;
+    border-bottom: 2px solid #5c60f5;
 }
