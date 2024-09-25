@@ -135,7 +135,7 @@ const TicketTable = function({tickets}){
                                                                     <Td>{ticket.date_text}</Td>
                                                                     <Td className="text-end text-right">
                                                                         <PermissionAllow permission={'Support Ticket Edit'}>
-                                                                             <Link className='btn btn-transparent' href={route('admin.support-tickets.show', ticket.id)}>
+                                                                             <Link className='btn btn-transparent p-2 px-3' href={route('admin.support-tickets.show', ticket.id)}>
                                                                                 <i className="bi bi-eye"></i>
                                                                             </Link>
                                                                             {ticket.status == 'open' ? (

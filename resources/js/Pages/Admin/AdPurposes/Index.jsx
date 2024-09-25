@@ -111,12 +111,12 @@ export default function Index({ purposeList, auth, success = null, error = null 
                                                         {/* <Td>{window.formatDateTime(purpose.updated_at)}</Td> */}
                                                         <Td>
                                                             <PermissionAllow permission={'Ad Purpose Edit'}>
-                                                                <Link className='btn btn-transparent' href={route('admin.ad_purposes.edit', purpose.id)}>
+                                                                <Link className='btn btn-transparent p-2 px-3' href={route('admin.ad_purposes.edit', purpose.id)}>
                                                                     <i className="bi bi-pencil"></i>
                                                                 </Link>
                                                             </PermissionAllow>
                                                             <PermissionAllow permission={'Ad Purpose Delete'}>
-                                                                <button onClick={(e) => deletePupose(purpose)} className="btn btn-transparent border-0">
+                                                                <button onClick={(e) => deletePupose(purpose)} className="btn btn-transparent p-2 px-3 border-0">
                                                                     <i className="bi bi-trash"></i>
                                                                 </button>
                                                             </PermissionAllow>

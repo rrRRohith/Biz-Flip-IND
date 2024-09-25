@@ -169,20 +169,20 @@ export default function Index({ categoryList, auth, business_category_options })
                                                                 {/* <Td className='text-center'>{window.formatDateTime(category.updated_at)}</Td> */}
                                                                 <Td align='right'>
                                                                     <PermissionAllow permission={'Category Show'}>
-                                                                        <span onClick={() => handleShow(category)} className="btn btn-transparent">
+                                                                        <span onClick={() => handleShow(category)} className="btn btn-transparent p-2 px-3">
                                                                             <i className="bi bi-eye"></i></span>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Category Edit'}>
-                                                                        {/* <Link className='btn btn-transparent' href={route('admin.category.form', category.id)}>
+                                                                        {/* <Link className='btn btn-transparent p-2 px-3' href={route('admin.category.form', category.id)}>
                                                                         <i class="bi bi-code-square"></i>
                                                                         </Link> */}
 
-                                                                        <Link className='btn btn-transparent' href={route('admin.category.edit', category.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.category.edit', category.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Category Delete'}>
-                                                                        <button onClick={() => deleteCategory(category)} className="btn btn-transparent border-0">
+                                                                        <button onClick={() => deleteCategory(category)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>

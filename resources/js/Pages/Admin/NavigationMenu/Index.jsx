@@ -120,15 +120,15 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                                 {/* <td>{window.formatDateTime(menu.updated_at)}</td> */}
                                                                 <td>
                                                                     <PermissionAllow permission={'Navigation Menu Edit'}>
-                                                                        <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                                        <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent p-2 px-3"><i className="bi bi-eye"></i></span>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Navigation Menu Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.navigation-menu.edit', menu.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Navigation Menu Delete'}>
-                                                                        <button onClick={(e) => deleteMenu(menu)} className="btn btn-transparent border-0">
+                                                                        <button onClick={(e) => deleteMenu(menu)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>

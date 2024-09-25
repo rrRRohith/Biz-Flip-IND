@@ -123,8 +123,8 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                                                         <InputError message={errors.confirm_password} />
                                                                     </div>
                                                                     <div className="col-12 text-end">
-                                                                        <button type="button" className="btn btn-neutral me-2">Cancel</button>
-                                                                        <button type="submit" className="btn btn-sm btn-neutral">Save</button></div>
+                                                                        <button type="button" className="btn btn-secondary me-2">Cancel</button>
+                                                                        <button type="submit" className="btn btn-success">Save</button></div>
                                                                 </div>
                                                             </div>
                                                             <div className='col-lg-3'>

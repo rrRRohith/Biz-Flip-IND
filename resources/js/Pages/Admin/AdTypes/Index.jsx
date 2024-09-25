@@ -110,12 +110,12 @@ export default function Index({ typeList, auth, success = null, error = null }) 
                                                         {/* <Td>{window.formatDateTime(type.updated_at)}</Td> */}
                                                         <Td>
                                                             <PermissionAllow permission={'Ad Type Edit'}>
-                                                                <Link className='btn btn-transparent' href={route('admin.ad_types.edit', type.id)}>
+                                                                <Link className='btn btn-transparent p-2 px-3' href={route('admin.ad_types.edit', type.id)}>
                                                                     <i className="bi bi-pencil"></i>
                                                                 </Link>
                                                             </PermissionAllow>
                                                             <PermissionAllow permission={'Ad Type Delete'}>
-                                                                <button onClick={(e) => deletePupose(type)} className="btn btn-transparent border-0">
+                                                                <button onClick={(e) => deletePupose(type)} className="btn btn-transparent p-2 px-3 border-0">
                                                                     <i className="bi bi-trash"></i>
                                                                 </button>
                                                             </PermissionAllow>

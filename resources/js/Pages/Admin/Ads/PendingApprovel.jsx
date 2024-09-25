@@ -123,7 +123,7 @@ const PendingApprovel = ({ ads, auth, success = null, error = null }) => {
                                                                         <StatusBtn status={ad.status}></StatusBtn>
                                                                     </td>
                                                                     <td>
-                                                                        <span onClick={() => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                                        <span onClick={() => handleShow(ad)} className="btn btn-transparent p-2 px-3"><i className="bi bi-eye"></i></span>
                                                                     </td>
                                                                 </tr>
                                                             ))

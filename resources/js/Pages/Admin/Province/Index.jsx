@@ -124,12 +124,12 @@ export default function Index({ provinceList, auth, success = null, error = null
                                                                 {/* <Td>{province.updated_at}</Td> */}
                                                                 <Td className="text-end">
                                                                     <PermissionAllow permission={'Province Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.province.edit', province.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.province.edit', province.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Province Delete'}>
-                                                                        <button onClick={(e) => deleteProvince(province)} className="btn btn-transparent border-0">
+                                                                        <button onClick={(e) => deleteProvince(province)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>

@@ -135,16 +135,16 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                                                 {/* <Td  onClick={() => handleShow(testimonial)}>{window.formatDateTime(testimonial.updated_at)}</Td> */}
                                                                 <Td> 
                                                                     <PermissionAllow permission={'Testimonial Show'}>
-                                                                        <span onClick={() => handleShow(testimonial)} className="btn btn-transparent">
+                                                                        <span onClick={() => handleShow(testimonial)} className="btn btn-transparent p-2 px-3">
                                                                             <i className="bi bi-eye"></i></span>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Testimonial Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.testimonial.edit', testimonial.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.testimonial.edit', testimonial.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Testimonial Delete'}>
-                                                                        <button onClick={(e) => deleteTestimonial(testimonial)} className="btn btn-transparent border-0">
+                                                                        <button onClick={(e) => deleteTestimonial(testimonial)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>

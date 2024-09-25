@@ -67,7 +67,7 @@ export default function InvoicesTable({ invoices }) {
                                     <Td>{invoice.payment_method}</Td>
                                     <Td>{invoice.created_at}</Td>
                                     <Td>
-                                        <button className="btn btn-transparent" onClick={() => showInvoice(invoice)}>
+                                        <button className="btn btn-transparent p-2 px-3" onClick={() => showInvoice(invoice)}>
                                             <i className="bi bi-eye"></i>
                                         </button>
                                     </Td>

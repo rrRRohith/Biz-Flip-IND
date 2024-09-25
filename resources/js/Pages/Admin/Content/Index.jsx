@@ -118,14 +118,14 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                                                                 <Td>{page.status}</Td>
                                                                 {/* <Td>{page.updated_at}</Td> */}
                                                                 <Td>
-                                                                    <span onClick={() => handleShow(page)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                                    <span onClick={() => handleShow(page)} className="btn btn-transparent p-2 px-3"><i className="bi bi-eye"></i></span>
                                                                     <PermissionAllow permission={'Content Page Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.content-page.edit', page.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.content-page.edit', page.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Content Page Delete'}>
-                                                                        <button onClick={(e) => deletePage(page)} className="btn btn-transparent border-0">
+                                                                        <button onClick={(e) => deletePage(page)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>

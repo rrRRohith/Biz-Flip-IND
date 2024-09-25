@@ -69,10 +69,10 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                         <td>{menu.title}</td>
                                                         {/* <td>{window.formatDateTime(menu.updated_at)}</td> */}
                                                         <td>
-                                                            <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
+                                                            <Link className='btn btn-transparent p-2 px-3' href={route('admin.navigation-menu.edit', menu.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>
-                                                            <button onClick={(e) => deleteProvince(menu)} className="btn btn-transparent border-0">
+                                                            <button onClick={(e) => deleteProvince(menu)} className="btn btn-transparent p-2 px-3 border-0">
                                                                 <i className="bi bi-trash"></i>
                                                             </button>
                                                         </td>

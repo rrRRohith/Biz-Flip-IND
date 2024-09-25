@@ -134,7 +134,7 @@ export default function Index({ auth, staffs }) {
                                                                             </Td> */}
                                                                             <Td>
                                                                                 <PermissionAllow permission={'Seller Show'}>
-                                                                                    <span onClick={() => handleShow(staff)} className="btn btn-transparent">
+                                                                                    <span onClick={() => handleShow(staff)} className="btn btn-transparent p-2 px-3">
                                                                                         <i className="bi bi-eye"></i>
                                                                                     </span>
                                                                                 </PermissionAllow>

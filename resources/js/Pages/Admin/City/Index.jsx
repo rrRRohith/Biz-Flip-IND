@@ -165,12 +165,12 @@ export default function Index({ cityList, auth, success = null, error = null }) 
                                                                 {/* <td>{city.updated_at}</td> */}
                                                                 <td className='text-end'>
                                                                     <PermissionAllow permission={'City Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.city.edit', city.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.city.edit', city.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'City Delete'}>
-                                                                        <button onClick={(e) => deleteCity(city)} className="btn btn-transparent border-0">
+                                                                        <button onClick={(e) => deleteCity(city)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>

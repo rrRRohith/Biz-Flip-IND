@@ -54,10 +54,10 @@ const LeadTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPag
                                                 <Td onClick={() => handleShow(lead)}>{lead.status}</Td>
                                                 <Td onClick={() => handleShow(lead)}>{lead.created_at}</Td>
                                                 <Td>
-                                                    <button onClick={() => handleShow(lead)} className="btn btn-transparent border-0">
+                                                    <button onClick={() => handleShow(lead)} className="btn btn-transparent p-2 px-3 border-0">
                                                         <i className="bi bi-eye"></i>
                                                     </button>
-                                                    <button onClick={() => deleteLead(lead)} className="btn btn-transparent border-0">
+                                                    <button onClick={() => deleteLead(lead)} className="btn btn-transparent p-2 px-3 border-0">
                                                         <i className="bi bi-trash"></i>
                                                     </button>
                                                 </Td>
@@ -122,10 +122,10 @@ const ContactLeadTable = ({ displayList, startIdx, endIdx, handlePageChange, cur
                                                 <Td  onClick={() => handleShow(inquiry)}>{inquiry.subject}</Td>
                                                 <Td  onClick={() => handleShow(inquiry)}>{inquiry.created_at}</Td>
                                                 <Td>
-                                                    <button onClick={() => handleShow(inquiry)} className="btn btn-transparent border-0">
+                                                    <button onClick={() => handleShow(inquiry)} className="btn btn-transparent p-2 px-3 border-0">
                                                         <i className="bi bi-eye"></i>
                                                     </button>
-                                                    <button onClick={() => deleteLead(inquiry)} className="btn btn-transparent border-0">
+                                                    <button onClick={() => deleteLead(inquiry)} className="btn btn-transparent p-2 px-3 border-0">
                                                         <i className="bi bi-trash"></i>
                                                     </button>
                                                 </Td>

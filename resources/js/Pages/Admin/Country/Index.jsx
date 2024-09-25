@@ -102,12 +102,12 @@ export default function Index({ countryList, auth, success = null, error = null 
                                                                 {/* <td>{country.updated_at}</td> */}
                                                                 <td>
                                                                     <PermissionAllow permission={'Country Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.country.edit', country.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.country.edit', country.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Country Delete'}>
-                                                                        <button onClick={(e) => deleteCountry(country)} className="btn btn-transparent border-0">
+                                                                        <button onClick={(e) => deleteCountry(country)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>

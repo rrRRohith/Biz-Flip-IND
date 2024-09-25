@@ -111,12 +111,12 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                                 {/* <Td>{window.formatDateTime(label.updated_at)}</Td> */}
                                                                 <Td>
                                                                     <PermissionAllow permission={'Feature Label Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.feature-label.edit', label.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.feature-label.edit', label.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Feature Label Delete'}>
-                                                                    <button onClick={(e) => deleteLabel(label)} className="btn btn-transparent border-0">
+                                                                    <button onClick={(e) => deleteLabel(label)} className="btn btn-transparent p-2 px-3 border-0">
                                                                         <i className="bi bi-trash"></i>
                                                                     </button>
                                                                     </PermissionAllow>

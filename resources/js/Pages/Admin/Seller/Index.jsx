@@ -450,15 +450,15 @@ const VendorTable = ({ displayList, startIdx, endIdx, deleteVendor, handlePageCh
                                                         </Td>
                                                         <Td className="text-end">
                                                             <PermissionAllow permission={'Seller Show'}>
-                                                                <span onClick={() => handleShow(vendor)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                                <span onClick={() => handleShow(vendor)} className="btn btn-transparent p-2 px-3"><i className="bi bi-eye"></i></span>
                                                             </PermissionAllow>
                                                             <PermissionAllow permission={'Seller Edit'}>
-                                                                <Link className='btn btn-transparent' href={route('admin.sellers.edit', vendor.id)}>
+                                                                <Link className='btn btn-transparent p-2 px-3' href={route('admin.sellers.edit', vendor.id)}>
                                                                     <i className="bi bi-pencil"></i>
                                                                 </Link>
                                                             </PermissionAllow>
                                                             <PermissionAllow permission={'Seller Edit'}>
-                                                                <button onClick={() => deleteVendor(vendor)} className="btn btn-transparent border-0">
+                                                                <button onClick={() => deleteVendor(vendor)} className="btn btn-transparent p-2 px-3 border-0">
                                                                     <i className="bi bi-trash"></i>
                                                                 </button>
                                                             </PermissionAllow>

@@ -95,12 +95,12 @@ export default function Index({ customersList, auth}) {
                                                                 {/* <td>{customer.updated_at}</td> */}
                                                                 <td>
                                                                     {/* <PermissionAllow permission={'Subscriber Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.customers.edit', customer.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.customers.edit', customer.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Subscriber Delete'}>
-                                                                        <button onClick={(e) => deleteCustomer(customer)} className="btn btn-transparent border-0">
+                                                                        <button onClick={(e) => deleteCustomer(customer)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow> */}

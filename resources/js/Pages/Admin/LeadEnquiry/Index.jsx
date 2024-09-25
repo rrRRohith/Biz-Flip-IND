@@ -316,10 +316,10 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
                                                     <Td>{lead.status}</Td>
                                                     <Td>{lead.created_at}</Td>
                                                     <Td>
-                                                        <button onClick={(e) => handleShow(lead)} className="btn btn-transparent border-0">
+                                                        <button onClick={(e) => handleShow(lead)} className="btn btn-transparent p-2 px-3 border-0">
                                                             <i className="bi bi-eye"></i>
                                                         </button>
-                                                        <button onClick={(e) => deletelead(lead)} className="btn btn-transparent border-0">
+                                                        <button onClick={(e) => deletelead(lead)} className="btn btn-transparent p-2 px-3 border-0">
                                                             <i className="bi bi-trash"></i>
                                                         </button>
                                                     </Td>

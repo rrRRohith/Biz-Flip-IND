@@ -215,10 +215,10 @@ export default function Index({ files = [], images = [], auth }) {
                                                                 <Td>{image.name}</Td>
                                                                 <Td align='right'>
                                                                
-                                                                        <span onClick={() => handleRestoreImage(image.originalName)} title='Restore' className="btn btn-transparent">
+                                                                        <span onClick={() => handleRestoreImage(image.originalName)} title='Restore' className="btn btn-transparent p-2 px-3">
                                                                             <i className="bi bi-arrow-clockwise"></i>
                                                                         </span>
-                                                                        <span onClick={() => handleDownload(image.originalName)} title='Download' className="btn btn-transparent">
+                                                                        <span onClick={() => handleDownload(image.originalName)} title='Download' className="btn btn-transparent p-2 px-3">
                                                                             <i className="bi bi-download"></i>
                                                                         </span>
                                                                 </Td>
@@ -243,10 +243,10 @@ export default function Index({ files = [], images = [], auth }) {
                                                                 <Td>{file.name}</Td>
                                                                 <Td align='right'>
                                                                 
-                                                                        {/* <span onClick={() => handleRestoreDb(file.originalName)} title='Restore' className="btn btn-transparent">
+                                                                        {/* <span onClick={() => handleRestoreDb(file.originalName)} title='Restore' className="btn btn-transparent p-2 px-3">
                                                                             <i className="bi bi-arrow-clockwise"></i>
                                                                         </span> */}
-                                                                        <span onClick={() => handleDownload(file.originalName)} title='Download' className="btn btn-transparent">
+                                                                        <span onClick={() => handleDownload(file.originalName)} title='Download' className="btn btn-transparent p-2 px-3">
                                                                             <i className="bi bi-download"></i>
                                                                         </span>
 

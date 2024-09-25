@@ -115,12 +115,12 @@ export default function Index({ bannersList, auth, success = null, error = null 
                                                                 {/* <Td>{banner.updated_at}</Td> */}
                                                                 <Td>
                                                                     <PermissionAllow permission={'Banner Edit'}>
-                                                                        <Link className='btn btn-transparent' href={route('admin.banners.edit', banner.id)}>
+                                                                        <Link className='btn btn-transparent p-2 px-3' href={route('admin.banners.edit', banner.id)}>
                                                                             <i className="bi bi-pencil"></i>
                                                                         </Link>
                                                                     </PermissionAllow>
                                                                     <PermissionAllow permission={'Banner Delete'}>
-                                                                        <button onClick={(e) => deleteBanner(banner)} className="btn btn-transparent border-0">
+                                                                        <button onClick={(e) => deleteBanner(banner)} className="btn btn-transparent p-2 px-3 border-0">
                                                                             <i className="bi bi-trash"></i>
                                                                         </button>
                                                                     </PermissionAllow>

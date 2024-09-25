@@ -150,13 +150,13 @@ export default function SubscriptionPlansTable({ plans }) {
                                     <div dangerouslySetInnerHTML={{ __html: window.statusIcon(plan.status) }} />
                                     </Td>
                                     <Td className="text-end">
-                                        <button className="btn btn-transparent" onClick={() => handleModelShow("view", plan)}>
+                                        <button className="btn btn-transparent p-2 px-3" onClick={() => handleModelShow("view", plan)}>
                                             <i className="bi bi-eye"></i>
                                         </button>
-                                        <button className="btn btn-transparent" onClick={() => handleModelShow("edit", plan)}>
+                                        <button className="btn btn-transparent p-2 px-3" onClick={() => handleModelShow("edit", plan)}>
                                             <i className="bi bi-pencil"></i>
                                         </button>
-                                        <button className="btn btn-transparent" onClick={() => handleDelete(plan.id)}>
+                                        <button className="btn btn-transparent p-2 px-3" onClick={() => handleDelete(plan.id)}>
                                             <i className="bi bi-trash"></i>
                                         </button>
                                     </Td>

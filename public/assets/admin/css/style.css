@@ -37949,6 +37949,7 @@ img.away, img.busy, img.offline, img.online {
 }
 input[type="text"]:not(.css-t3ipsp-control input),
 input[type="email"],
+input[type="tel"],
 input[type="number"],
 input[type="password"],
 .form-group select,

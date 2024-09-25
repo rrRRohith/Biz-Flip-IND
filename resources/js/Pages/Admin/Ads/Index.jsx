@@ -427,7 +427,7 @@ const AdTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage,
                                                         <Td>{ad.seller.firstname} {ad.seller.lastname}</Td>
                                                         <Td>{window.formatDate(ad.created_at)}<br />{window.formatTime(ad.created_at)}</Td>
                                                         <Td>
-                                                            <span onClick={() => handleShow(ad)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                            <span onClick={() => handleShow(ad)} className="btn btn-transparent p-2 px-3"><i className="bi bi-eye"></i></span>
                                                         </Td>
                                                     </Tr>
                                                 ))}

@@ -145,10 +145,10 @@ export default function Index({ category, auth }) {
                     }
                 </div>
                 <div className="ms-3">
-                    <button type="button" className="btn btn-transparent btn-sm me-2" onClick={() => openEditModal(index)}>
+                    <button type="button" className="btn btn-transparent p-2 px-3 btn-sm me-2" onClick={() => openEditModal(index)}>
                     <i class="bi bi-pencil"></i>
                     </button>
-                    <button type="button" className="btn btn-transparent btn-sm" onClick={() => removeField(index)}>
+                    <button type="button" className="btn btn-transparent p-2 px-3 btn-sm" onClick={() => removeField(index)}>
                     <i class="bi bi-trash"></i>
                     </button>
                 </div>

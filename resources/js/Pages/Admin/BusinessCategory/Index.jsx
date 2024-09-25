@@ -216,16 +216,16 @@ export default function Index({ categoryList, auth }) {
                                                                                     {/* <td  className='text-center'>{window.formatDateTime(category.updated_at)}</td> */}
                                                                                     <td align='right'>
                                                                                         <PermissionAllow permission={'Category Show'}>
-                                                                                            <span onClick={() => handleShow(category)} className="btn btn-transparent">
+                                                                                            <span onClick={() => handleShow(category)} className="btn btn-transparent p-2 px-3">
                                                                                                 <i className="bi bi-eye"></i></span>
                                                                                         </PermissionAllow>
                                                                                         <PermissionAllow permission={'Category Edit'}>
-                                                                                            <Link className='btn btn-transparent' href={route('admin.business-category.edit', category.id)}>
+                                                                                            <Link className='btn btn-transparent p-2 px-3' href={route('admin.business-category.edit', category.id)}>
                                                                                                 <i className="bi bi-pencil"></i>
                                                                                             </Link>
                                                                                         </PermissionAllow>
                                                                                         <PermissionAllow permission={'Category Delete'}>
-                                                                                            <button onClick={() => deleteCategory(category)} className="btn btn-transparent border-0">
+                                                                                            <button onClick={() => deleteCategory(category)} className="btn btn-transparent p-2 px-3 border-0">
                                                                                                 <i className="bi bi-trash"></i>
                                                                                             </button>
                                                                                         </PermissionAllow>
