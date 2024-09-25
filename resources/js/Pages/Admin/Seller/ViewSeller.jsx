@@ -101,7 +101,7 @@ const ViewSeller = ({ collection, handleClose, onSubmit }) => {
                                         <span className=''> {collection.postalcode} {collection.city} {collection.province}</span></h6>
                                 </div>
                                 {collection.is_agent && 
-                                <>
+                                <>    
                                     <div className='mt-20'>
                                         <h4 className='fw-bold'><u>Company Details</u></h4>
                                         <div className='col-lg-12'>
