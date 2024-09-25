@@ -210,7 +210,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                 {/* Modal for viewing, editing, or creating a plan */}
                                                 <ModalPopup show={show} handleClose={handleClose} size="md" title={modalType === "create" ? "Create New Plan" : modalType === "edit" ? "Edit Plan" : "View Plan"}>
                                                     {modalType === "view" && currentPlan && (
-                                                        <div>
+                                                        <div >
                                                             <table className='table'>
                                                                 <thead></thead>
                                                                 <tbody>
@@ -249,7 +249,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
 
                                                     {(modalType === "edit" || modalType === "create") && (
                                                         <form onSubmit={handleSubmit} method='POST'>
-                                                            <div className="modal-body row">
+                                                            <div className="modal-body row theme-primary">
                                                                 <div className="col-lg-12 mb-3">
                                                                     <InputLabel value="Plan Name" />
                                                                     <TextInput
@@ -354,7 +354,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div className="modal-footer">
+                                                            <div className="modal-footer  theme-primary">
                                                                 <button type="button" className="btn  btn-secondary" onClick={handleClose}>
                                                                     Cancel
                                                                 </button>
