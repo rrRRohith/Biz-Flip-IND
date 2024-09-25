@@ -27,6 +27,7 @@ export default function DatePicker({ onChange }) {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['SingleInputDateRangeField']}>
         <DateRangePicker
+          localeText={{ start: 'From', end: 'To' }}
           // slots={{ field: SingleInputDateRangeField }}
           inputFormat="DD/MM/YYYY" // Ensure date format is dd/MM/yyyy
           value={value}

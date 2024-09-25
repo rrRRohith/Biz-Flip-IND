@@ -920,3 +920,7 @@ img.header-image {
   top: -15px;
   left: 10px;
 }
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root{
+  border-radius: 10px !important;
+}

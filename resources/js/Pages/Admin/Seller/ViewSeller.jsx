@@ -7,11 +7,15 @@ import SlickSlider from '@/Components/SlickSlider';
 import TabView from '@/Components/TabView';
 import StatusBtn from '@/Components/StatusBtn';
 import DynamicSelect from '@/Components/DynamicSelect';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
 const ViewSeller = ({ collection, handleClose, onSubmit }) => {
 
     const [editingStatus, setEditingStatus] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState(collection.status);
+    const [key, setKey] = useState('Profile');
+
     const { data, setData, post, errors, reset } = useForm({
         'status': collection.status || '0',
     });
@@ -63,149 +67,88 @@ const ViewSeller = ({ collection, handleClose, onSubmit }) => {
         setSelectedStatus(selectedOption.value);
     };
 
+    
     return (
 
         <div className='col-lg-12'>
             <div className='row  border-0'>
-
-                <div className='col-lg-12 mx-auto'>
-                    <div className=' p-4'>
-                        <h4 className='fw-bold'><u>Contact Person Details</u></h4>
-                        <table className='border-0 '>
-                            <tbody>
-                                <tr>
-                                    <td colSpan={2}>
+                <Tabs
+                    id="subscription-plans-tabs"
+                    activeKey={key}
+                    onSelect={(k) => setKey(k)}
+                    className="mb-3"
+                >
+                    <Tab eventKey="Profile" title={`Profile`}>
+                        <div className='col-lg-12 mx-auto'>
+                            <div className='row p-4'>
+                                <div className='col-lg-4'>
+                                    <div className='col-lg-12'>
                                         <img src={collection.picture} className='me-3 rounded-circle avatar-xxxl' onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }} />
-                                    </td>
-                                    <td colSpan={10}>
-                                        <table className='border-0 '>
-                                            <tr>
-                                                <td className="p-2">
-                                                    <strong>Full Name</strong>
-                                                </td>
-                                                <td className="p-2">
-                                                    <p className="mb-0">{collection.full_name}</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2">
-                                                    <strong>Email</strong>
-                                                </td>
-                                                <td className="p-2">
-                                                    <p className="mb-0">{collection.email}</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2">
-                                                    <strong>Mobile No:</strong>
-                                                </td>
-                                                <td className="p-2">
-                                                    <p className="mb-0">{collection.phone}</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="p-2">
-                                                    <strong>Address</strong>
-                                                </td>
-                                                <td className="p-2">
-                                                    <p className="mb-0">{collection.address}</p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <div className='mt-20'>
-                            <h4 className='fw-bold'><u>Company Details</u></h4>
-                            <table className='border-0 '>
-                                <tbody>
-                                    <tr>
-
-                                        <td colSpan={10}>
-                                            <table className='border-0 '>
-                                                <tr>
-                                                    <td className="p-2">
-                                                        <strong>Company Name</strong>
-                                                    </td>
-                                                    <td className="p-2">
-                                                        <p className="mb-0">{collection.company_name}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2">
-                                                        <strong>Company Address</strong>
-                                                    </td>
-                                                    <td className="p-2">
-                                                        <p className="mb-0">{collection.full_address}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2">
-                                                        <strong>Website</strong>
-                                                    </td>
-                                                    <td className="p-2">
-                                                        <p className="mb-0">{collection.website}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2">
-                                                        <strong>Business Type</strong>
-                                                    </td>
-                                                    <td className="p-2">
-                                                        <p className="mb-0">{collection.business_type}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2">
-                                                        <strong>Created Date</strong>
-                                                    </td>
-                                                    <td className="p-2">
-                                                        <p className="mb-0">{window.formatDateTime(collection.created_at)}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="p-2">
-                                                        <strong>Status</strong>
-                                                    </td>
-                                                    <td className="p-2">
-                                                        {!editingStatus ? (
-                                                            <>
-                                                                <StatusBtn status={collection.status} />
-                                                                <i className='bi bi-pencil-fill ms-2 text-primary' role='button' onClick={handleStatusEdit}></i>
-                                                            </>
-                                                        ) : (
-                                                            <form onSubmit={handleStatusSubmit}>
-                                                                <div className='text-center'>
-                                                                    <DynamicSelect
-                                                                        onChange={handleChange}
-                                                                        value={data.status}
-                                                                        defaultValue={defaultStatus}
-                                                                        options={statusOptions}
-                                                                        isClearable={false}
-                                                                    />
-                                                                    <div className='mt-2'>
-                                                                        <button type='button' className="btn btn-link p-0" onClick={handleStatusCancel}>
-                                                                            <i className='bi bi-x-circle-fill fs-3 text-danger ms-2' role='button'></i>
-                                                                        </button>
-                                                                        <button type='submit' className='btn btn-link p-0'>
-                                                                            <i className='bi bi-check-circle-fill fs-3 text-success ms-2'></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        )}
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </div>
+                                </div>
+                                <div className='col-lg-4'>
+                                    <h5><span className='bi bi-person-fill fs-20 me-2'></span>{collection.full_name}</h5>
+                                    <h6><span className='bi bi-envelope-fill fs-20 me-2'></span><a href={`tel:${collection.email}`}>{collection.email}</a></h6>
+                                    <h6><span className='bi bi-phone-fill fs-20 me-2'></span><a href={`tel:${collection.phone}`}>{collection.phone}</a></h6>
+                                    <h6><span className='bi bi-geo-alt-fill fs-20 me-2'></span>{collection.address},
+                                    <span className=''> {collection.postalcode} {collection.city} {collection.province}</span></h6>
+                                </div>
+                                <div className='mt-20'>
+                                    <h4 className='fw-bold'><u>Company Details</u></h4>
+                                    <div className='col-lg-12'>
+                                        <div className='row'>
+                                            <div className='col-lg-4'>
+                                                <h5><span className='bi bi-buildings-fill fs-20 me-2'></span>{collection.company_name}</h5>
+                                                <h6><span className='bi bi-globe-europe-africa fs-20 me-2'></span>{collection.website}</h6>
+                                            </div>
+                                            <div className='col-lg-4'>
+                     
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <div className="col-lg-12 ">
+                                    {!editingStatus ? (
+                                        <>
+                                            <StatusBtn status={collection.status} />
+                                            <i className='bi bi-pencil-fill ms-2 text-primary' role='button' onClick={handleStatusEdit}></i>
+                                        </>
+                                    ) : (
+                                        <form onSubmit={handleStatusSubmit}>
+                                            <div className='text-center'>
+                                                <DynamicSelect
+                                                    onChange={handleChange}
+                                                    value={data.status}
+                                                    defaultValue={defaultStatus}
+                                                    options={statusOptions}
+                                                    isClearable={false}
+                                                />
+                                                <div className='mt-2'>
+                                                    <button type='button' className="btn btn-link p-0" onClick={handleStatusCancel}>
+                                                        <i className='bi bi-x-circle-fill fs-3 text-danger ms-2' role='button'></i>
+                                                    </button>
+                                                    <button type='submit' className='btn btn-link p-0'>
+                                                        <i className='bi bi-check-circle-fill fs-3 text-success ms-2'></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    )}
+                                </div> */}
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </Tab>
+                    <Tab eventKey="Ads" title={`Ads`}>
+                        2
+                        {/* <SubscribedAgentsTable users={subscribedAgents} /> */}
+                    </Tab>
+                    
+                    <Tab eventKey="Leads" title={`Leads`}>
+                        3
+                        {/* <FreePlanAgentsTable users={freePlanAgents} /> */}
+                    </Tab>
+                </Tabs>  
+                
             </div>
         </div>
 

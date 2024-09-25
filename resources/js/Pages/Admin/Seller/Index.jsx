@@ -309,7 +309,7 @@ export default function Index({ vendorsList, pendingVendorsList, suspendedVendor
                     </Tabs>
                 </div>
             </div>
-            <ModalPopup show={show} handleClose={handleClose} size="md" title="Seller Details">
+            <ModalPopup show={show} handleClose={handleClose} size="lg" title="Seller Details">
                 {data ? (
                     <ViewSeller
                         collection={data}
