@@ -21,6 +21,7 @@ class Ticket extends Model{
         'priority',
         'status',
         'user_id',
+        'ticket_no'
     ];
     
     /**

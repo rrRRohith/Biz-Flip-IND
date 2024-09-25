@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 trait Subscription{
     public function subscribeToPlan(Request $request, \App\Models\SubscriptionPlan $plan, \App\Models\User $user){
+        $invoiceNo = $this->generateInvoiceNumber();
         /**
          * Create subscription order
          */
@@ -14,7 +15,7 @@ trait Subscription{
          * Set invoice no and payment ref
          */
         $subscription_order->update([
-            'invoice_no' => $this->generateInvoiceNumber(),
+            'invoice_no' => $invoiceNo,
         ]);
 
         /**
