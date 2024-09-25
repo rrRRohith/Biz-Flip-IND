@@ -75,13 +75,13 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                         <div className="vstack gap-6 m-auto">
                             <div className="d-flex">
                                 <div className="text-xl font-bold">Invoices</div>
-                                <PermissionAllow permission="Plan Purchase">
+                                {/* <PermissionAllow permission="Plan Purchase">
                                     <div className="ms-auto">
                                         <Link className="btn btn-primary text-overflow" href={route('account.plans.index')}>
                                             Purchase new plan
                                         </Link>
                                     </div>
-                                </PermissionAllow>
+                                </PermissionAllow> */}
                             </div>
 
                             <div>

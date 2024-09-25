@@ -72,6 +72,7 @@ export default function Settings({ seller, auth, success, error, province_option
         province: seller ? seller.province : '',
         lat: seller ? seller.lat : '',
         lng: seller ? seller.lng : '',
+        established : seller ? seller.established : '',
         
     });
 
@@ -143,7 +144,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                             <div className="d-flex align-items-center">
                                                 <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></label>
                                                 <div className="ms-4"><span className="h4 d-block mb-0">{data.company_name}</span>
-                                                <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Change image</label></div>
+                                                <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Upload logo</label></div>
                                                 
                                             </div>
                                             <InputError message={errors.logo} />
@@ -159,20 +160,20 @@ export default function Settings({ seller, auth, success, error, province_option
                                         <h4>About your business</h4>
                                     </div>
                                     <div className="row g-5 mb-5">
-                                        <div className="col-md-6">
+                                        <div className="col-md-12">
                                             <label>Business name</label>
                                             <input value={data.company_name} onChange={(e) => { handleChange('company_name', e.target.value) }} placeholder="Your business name" className="form-control" />
                                             <InputError message={errors.company_name} />
                                         </div>
 
-                                        <div className="col-md-12">
+                                        {/* <div className="col-md-12">
                                             <label>Short description</label>
                                             <input value={data.short_description} onChange={(e) => { handleChange('short_description', e.target.value) }} placeholder="Tell us about your business briefly" className="form-control" />
                                             <InputError message={errors.short_description} />
-                                        </div>
+                                        </div> */}
                                         <div className="col-md-12">
                                             <label>Description</label>
-                                            <textarea onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control">{data.description}</textarea>
+                                            <textarea rows={10} onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control">{data.description}</textarea>
                                             <InputError message={errors.description} />
                                         </div>
                                         <div className="col-md-6">
@@ -185,6 +186,12 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 <input value={data.website} onChange={(e) => { handleChange('website', e.target.value) }} type="text" placeholder="Your website url" className="form-control" />
                                             </div>
                                             <InputError message={errors.website} />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div><label>Established</label>
+                                                <input value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
+                                            </div>
+                                            <InputError message={errors.established} />
                                         </div>
                                     </div>
                                     <div className="mb-5">
@@ -235,7 +242,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                         </div>
                                     </div>
                                     <div className="mb-5">
-                                        <h4>Contact Information</h4>
+                                        <h4>Business Communication</h4>
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-6">
@@ -251,7 +258,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                             <InputError message={errors.phone} />
                                         </div>
                                     </div>
-                                    <div className="mb-5">
+                                    {/* <div className="mb-5">
                                         <h4>Office working days</h4>
                                     </div>
                                     <div className="card mb-5 rounded-input">
@@ -274,7 +281,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 ))}
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="mb-5">
                                         <h4>Social media</h4>
                                     </div>

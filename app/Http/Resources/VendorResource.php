@@ -67,6 +67,7 @@ class VendorResource extends JsonResource
             'last_login'    => $this->last_login ?? null,	
             'ads'           => $this->ads,
             'leads'         => $this->leads,
+            'established' => $this->seller->established ?? null,
         ];
     }
 }

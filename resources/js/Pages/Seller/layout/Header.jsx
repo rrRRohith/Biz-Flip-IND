@@ -165,10 +165,7 @@ const Header = ({ user }) => {
                     <div class="dropdown-divider"></div>
                     <ul className="navbar-nav me-auto mb-2 d-lg-none mb-lg-0 align-items-center">
                         <Link className='dropdown-item p-2' href='/account'>Dashboard</Link>
-                        <PermissionAllow permission="Invoice List">
-                            <Link className='dropdown-item p-2' href="/account/invoices">
-                                Billing </Link>
-                        </PermissionAllow>
+                        
                         <PermissionAllow permission="Ads Listing">
                             <Link className='dropdown-item p-2' href="/account/ads">
                                 Ads </Link>
@@ -181,10 +178,7 @@ const Header = ({ user }) => {
                             <Link className='dropdown-item p-2' href="/account/chats">
                                 Messages</Link>
                         </PermissionAllow>
-                        <PermissionAllow permission="Support Ticket Listing">
-                            <Link className='dropdown-item p-2' href="/account/tickets">
-                                Support </Link>
-                        </PermissionAllow>
+                        
                         {user.is_agent && (
                             <>
                                 <PermissionAllow permission="Staff Listing">
@@ -193,10 +187,18 @@ const Header = ({ user }) => {
                                 </PermissionAllow>
                                 <PermissionAllow permission="Settings">
                                     <Link className='dropdown-item p-2' href="/account/settings">
-                                        Settings </Link>
+                                        Company Settings </Link>
                                 </PermissionAllow>
                             </>
                         )}
+                        <PermissionAllow permission="Invoice List">
+                            <Link className='dropdown-item p-2' href="/account/invoices">
+                                Billing </Link>
+                        </PermissionAllow>
+                        <PermissionAllow permission="Support Ticket Listing">
+                            <Link className='dropdown-item p-2' href="/account/tickets">
+                                Support </Link>
+                        </PermissionAllow>
                     </ul>
                 </div>
             </div>

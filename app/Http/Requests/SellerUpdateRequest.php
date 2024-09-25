@@ -19,7 +19,7 @@ class SellerUpdateRequest extends FormRequest
             'company_name' => ['required', 'string', 'max:255'],
             // 'firstname' => ['required', 'string', 'max:255'],
             // 'lastname' => ['required', 'string', 'max:255'],
-            'short_description' => ['required', 'string', 'max:255'],
+            //'short_description' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
             'employee' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
@@ -33,6 +33,7 @@ class SellerUpdateRequest extends FormRequest
             'province' => 'required|exists:provinces,name',
             'lat' => 'required|max:256|string',
             'lng' => 'required|max:256|string',
+            'established' => 'required|digits:4',
         ];
     }
 }
