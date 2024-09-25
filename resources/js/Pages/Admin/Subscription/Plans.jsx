@@ -149,7 +149,7 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                     </div>
                                 </div>
                                 <div className='col-lg-6'>
-                                    <button onClick={() => handleModelShow("create")} className="btn btn-info btn-sm float-end mb-4">
+                                    <button onClick={() => handleModelShow("create")} className="btn btn-info float-end mb-4">
                                         Create New Plan
                                     </button>
                                 </div>
@@ -355,10 +355,10 @@ export default function Plans({ plans, subscribedAgents, freePlanAgents, invoice
                                                                 </div>
                                                             </div>
                                                             <div className="modal-footer">
-                                                                <button type="button" className="btn btn-sm  btn-secondary" onClick={handleClose}>
+                                                                <button type="button" className="btn  btn-secondary" onClick={handleClose}>
                                                                     Cancel
                                                                 </button>
-                                                                <button type="submit" className="btn btn-sm text-white  btn-success">
+                                                                <button type="submit" className="btn  text-white  btn-success">
                                                                 <i className="bi bi-check"></i>
                                                                     {modalType === "create" ? "Create Plan" : "Update Plan"}
                                                                 </button>
