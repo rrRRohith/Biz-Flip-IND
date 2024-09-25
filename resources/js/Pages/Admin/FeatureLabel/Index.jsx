@@ -50,6 +50,17 @@ export default function Index({ labelList, auth, success = null, error = null })
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
                                         <h4 className="page-title">Feature Label</h4>
+                                        <div className="align-items-center mt-2">
+                                        <nav>
+                                            <ol className="breadcrumb">
+                                                <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
+                                                <PermissionAllow permission={'Feature Label Listing'}>
+                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.feature-label.index')}>Feature Label</Link></li>
+                                                </PermissionAllow>
+                                                <li className="breadcrumb-item active" aria-current="page">Edit</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

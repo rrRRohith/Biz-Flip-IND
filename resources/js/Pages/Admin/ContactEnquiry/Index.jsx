@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, useForm, router } from "@inertiajs/react";
 import Authenticated from '@/Layouts/AdminAuthenticated';
 import ModalPopup from '@/Components/ModalPopup';
 import axios from 'axios';
@@ -283,6 +283,15 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
                                         <h4 className="page-title">Leads Listing</h4>
+                                        <div className="align-items-center mt-2">
+                                        <nav>
+                                            <ol className="breadcrumb">
+                                                <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
+                                                <li className="breadcrumb-item" aria-current="page"><Link href='/admin/leads'>Leads</Link></li>
+                                                
+                                            </ol>
+                                        </nav>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

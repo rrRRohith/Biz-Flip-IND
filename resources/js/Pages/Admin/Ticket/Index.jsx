@@ -30,6 +30,21 @@ export default function Index({ tickets, auth, success = null, error = null, new
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
                                         <h4 className="page-title">Support Tickets</h4>
+                                        <div className="align-items-center mt-2">
+                                            <nav>
+                                                <ol className="breadcrumb">
+                                                    <li className="breadcrumb-item">
+                                                    <Link  href="/admin">
+                                                            <i className="bi bi-house"></i> Dashboard
+                                                        </Link >
+                                                    </li>
+                                                    <li className="breadcrumb-item" aria-current="page">
+                                                        <Link href={route('admin.support-tickets.index')}>Support Tickets</Link>
+                                                    </li>
+                                                    
+                                                </ol>
+                                            </nav>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

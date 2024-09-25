@@ -93,7 +93,7 @@ export default function Edit({ category_item, queryParams = null, auth, Business
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
                                                 <PermissionAllow permission={'Categories Listing'}>
-                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.category.index')}>Category</Link></li>
+                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.category.index')}>Ad Categories</Link></li>
                                                 </PermissionAllow>
                                                 <li className="breadcrumb-item active" aria-current="page">Edit</li>
                                             </ol>
