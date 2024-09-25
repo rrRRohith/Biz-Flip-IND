@@ -202,6 +202,15 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
                                         <h4 className="page-title">Leads Listing</h4>
+                                        <div className="align-items-center mt-2">
+                                        <nav>
+                                            <ol className="breadcrumb">
+                                                <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
+                                                <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.leads.index')}>Leads</Link></li>
+                                                
+                                            </ol>
+                                        </nav>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -264,6 +273,7 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
 }
 
     const LeadTable = ({ displayList, startIdx, endIdx, handlePageChange, currentPage, itemsPerPage, handleShow, searchQuery, handleSearch, deletelead }) => (
+        <>
         <section className="content2">
             <div className="row">
                 <div className="col-12">
@@ -334,4 +344,5 @@ export default function Index({ contactLeads, adLeads, auth, success = null, err
                 </div>
             </div>
         </section>
+        </>
     );

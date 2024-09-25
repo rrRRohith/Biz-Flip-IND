@@ -68,12 +68,12 @@ export default function Show({ ticket, messages, auth, success = null, error = n
                                             <nav>
                                                 <ol className="breadcrumb">
                                                     <li className="breadcrumb-item">
-                                                        <a href="/">
+                                                        <Link  href="/admin">
                                                             <i className="bi bi-house"></i> Dashboard
-                                                        </a>
+                                                        </Link >
                                                     </li>
                                                     <li className="breadcrumb-item" aria-current="page">
-                                                        <a href="{route('admin.support-tickets.index')}">Support Tickets</a>
+                                                    <Link href={route('admin.support-tickets.index')}>Support Tickets</Link>
                                                     </li>
                                                     <li className="breadcrumb-item active" aria-current="page">#{ticket.ticket_no}</li>
                                                 </ol>

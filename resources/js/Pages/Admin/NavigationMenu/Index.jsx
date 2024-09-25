@@ -10,7 +10,7 @@ import axios from 'axios';
 import PermissionAllow from '@/Components/PermissionAllow';
 
 export default function Index({ MenuList, auth, success = null, error = null }) {
-     
+
     const [show, setShow] = useState(false);
     const [data, setData] = useState(null);
     const deleteMenu = (menu) => {
@@ -22,7 +22,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Yes, delete it!',
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 router.delete(route("admin.navigation-menu.destroy", menu.id), {
                     onSuccess: () => {
@@ -31,21 +31,21 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                 });
             }
         })
-      }
+    }
 
-      const handleClose = () => setShow(false);
-      const handleShow = async (menu) => {
-          try {
-              const response = await axios.get(route("admin.navigation-menu.show", menu.id));
-              const responseData = response.data;
-              console.log(1,response.data)
-              setData(responseData);
-              setShow(true);
-          } catch (error) {
-              console.error('Error fetching data', error);
-          }
-      };
-  
+    const handleClose = () => setShow(false);
+    const handleShow = async (menu) => {
+        try {
+            const response = await axios.get(route("admin.navigation-menu.show", menu.id));
+            const responseData = response.data;
+            console.log(1, response.data)
+            setData(responseData);
+            setShow(true);
+        } catch (error) {
+            console.error('Error fetching data', error);
+        }
+    };
+
 
     return (
         <Authenticated
@@ -64,15 +64,31 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
                                         <h4 className="page-title">Navigation Menu List</h4>
+                                        <div className="align-items-center mt-2">
+                                            <nav>
+                                                <ol className="breadcrumb">
+                                                    <li className="breadcrumb-item">
+                                                        <Link href={route("admin.index")}>
+                                                            <i className="bi bi-house"></i> Dashboard
+                                                        </Link>
+                                                    </li>
+                                                    <li className="breadcrumb-item">
+                                                        <Link href={route("admin.navigation-menu.index")}>
+                                                            Navigation Menu
+                                                        </Link>
+                                                    </li>
+                                                </ol>
+                                            </nav>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className='col-lg-6'>
                                 <div className="text-end">
-                                
-                                <PermissionAllow permission={'Navigation Menu Create'}>
-                                    <Link className='btn btn-info text-end' href={route('admin.navigation-menu.create')}><i className='bi bi-plus'></i> Create</Link>
-                                </PermissionAllow>
+
+                                    <PermissionAllow permission={'Navigation Menu Create'}>
+                                        <Link className='btn btn-info text-end' href={route('admin.navigation-menu.create')}><i className='bi bi-plus'></i> Create</Link>
+                                    </PermissionAllow>
                                 </div>
                             </div>
                         </div>
@@ -97,28 +113,28 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {MenuList.data.map((menu) => (
-                                                        <tr key={menu.id} className="hover-primary">
-                                                            <td>{menu.id}</td>
-                                                            <td>{menu.title}</td>
-                                                            {/* <td>{window.formatDateTime(menu.updated_at)}</td> */}
-                                                            <td>
-                                                            <PermissionAllow permission={'Navigation Menu Edit'}>
-                                                                <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
-                                                            </PermissionAllow>
-                                                            <PermissionAllow permission={'Navigation Menu Edit'}>
-                                                                <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
-                                                                    <i className="bi bi-pencil"></i>
-                                                                </Link>
-                                                            </PermissionAllow>
-                                                            <PermissionAllow permission={'Navigation Menu Delete'}>
-                                                                <button onClick={(e) => deleteMenu(menu)} className="btn btn-transparent border-0">
-                                                                    <i className="bi bi-trash"></i>
-                                                                </button>
-                                                            </PermissionAllow>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
+                                                        {MenuList.data.map((menu) => (
+                                                            <tr key={menu.id} className="hover-primary">
+                                                                <td>{menu.id}</td>
+                                                                <td>{menu.title}</td>
+                                                                {/* <td>{window.formatDateTime(menu.updated_at)}</td> */}
+                                                                <td>
+                                                                    <PermissionAllow permission={'Navigation Menu Edit'}>
+                                                                        <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent"><i className="bi bi-eye"></i></span>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission={'Navigation Menu Edit'}>
+                                                                        <Link className='btn btn-transparent' href={route('admin.navigation-menu.edit', menu.id)}>
+                                                                            <i className="bi bi-pencil"></i>
+                                                                        </Link>
+                                                                    </PermissionAllow>
+                                                                    <PermissionAllow permission={'Navigation Menu Delete'}>
+                                                                        <button onClick={(e) => deleteMenu(menu)} className="btn btn-transparent border-0">
+                                                                            <i className="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </PermissionAllow>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
 
                                                     </tbody>
                                                 </table>

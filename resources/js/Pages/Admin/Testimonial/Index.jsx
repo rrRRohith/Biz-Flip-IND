@@ -67,6 +67,17 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
                                         <h4 className="page-title">Testimonials</h4>
+                                        <div className="align-items-center mt-2">
+                                        <nav>
+                                            <ol className="breadcrumb">
+                                                <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
+                                                <PermissionAllow permission={'Testimonials Listing'}>
+                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.testimonial.index')}>Testimonial</Link></li>
+                                                </PermissionAllow>
+                                                
+                                            </ol>
+                                        </nav>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
