@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Events\NewNotification;
+use App\Http\Resources\{InvoiceResource};
 
 class AdController extends BaseController{
     public $user;
@@ -46,6 +47,7 @@ class AdController extends BaseController{
             'industries' => Category::selectRaw("id as value, name as label")->get()->toArray(),
             'categories' => BusinessCategory::selectRaw("id as value, name as label, business_categories.*")->get()->toArray(),
             'ads' => AdResource::collection($this->seller->ads()->latest()->get()),
+            'current_invoice' => $this->seller->current_subscription ? new InvoiceResource($this->seller->current_subscription) : null,
         ]);
     }
 
