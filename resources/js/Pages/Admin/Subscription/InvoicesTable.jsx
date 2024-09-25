@@ -46,7 +46,7 @@ export default function InvoicesTable({ invoices }) {
                             <Tr>
                                 <Th>#</Th>
                                 <Th>Inv No</Th>
-                                <Th>Seller Name</Th>
+                                <Th>User Name</Th>
                                 <Th>Plan</Th>
                                 <Th>Price</Th>
                                 <Th>Payment Id</Th>

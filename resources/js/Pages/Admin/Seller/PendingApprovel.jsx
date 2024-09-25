@@ -8,7 +8,7 @@ import { Dropdown } from '@mui/joy';
 export default function Index({ sellers, auth, success = null, error = null }) {
      
     const deleteVendor = (vendor) => {
-        if (!window.confirm("Are you sure you want to delete the Seller?")) {
+        if (!window.confirm("Are you sure you want to delete the User?")) {
           return;
         }
         

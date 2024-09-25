@@ -51,7 +51,7 @@ export default function Index({ tickets, auth, success = null, error = null }) {
                                                     <Thead>
                                                         <Tr>		
                                                             <Th>#</Th>
-                                                            <Th>Seller</Th>
+                                                            <Th>User</Th>
                                                             <Th>Subject</Th>
                                                             <Th>Priority</Th>
                                                             <Th>Status</Th>

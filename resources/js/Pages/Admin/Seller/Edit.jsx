@@ -198,7 +198,7 @@ export default function Edit({ auth, seller, cities, provinces, featureLabel }) 
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">User/Edit</h2>}
         >
-            <Head title="Seller Edit" />
+            <Head title="User Edit" />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
