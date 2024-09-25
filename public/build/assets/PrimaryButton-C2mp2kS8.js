@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:public/build/assets/PrimaryButton-C2mp2kS8.js
-import{j as n}from"./app-0W1APbZD.js";function s({className:r="",disabled:t,children:e,...o}){return n.jsx("button",{...o,className:`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ${t&&"opacity-25"} `+r,disabled:t,children:e})}export{s as P};
-========
-import{j as n}from"./app-CETDUQ2O.js";function s({className:r="",disabled:t,children:e,...o}){return n.jsx("button",{...o,className:`inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ${t&&"opacity-25"} `+r,disabled:t,children:e})}export{s as P};
->>>>>>>> a169e6ad0c6d73ed0d666a16a5e4b062b5695b38:public/build/assets/PrimaryButton-Xca7-dGa.js
