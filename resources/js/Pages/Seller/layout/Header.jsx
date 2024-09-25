@@ -7,10 +7,14 @@ import Dropdown from 'react-bootstrap/Dropdown';
 const Header = ({ user }) => {
     const { sellertopmenu } = usePage().props;
     const { notifications, menu } = usePage().props
-
+    const urlMatches = (currentUrl, pattern) => {
+        const regex = new RegExp(`^${pattern.replace(/\*/g, '.*')}$`);
+        return regex.test(currentUrl);
+    };
+    const path = window.location.pathname;
     return (
         <nav className="navbar seller-top-navbar navbar-expand-lg navbar-light bg-white border-bottom px-0 fixed-top">
-            <div className="container px-3">
+            <div className="container px-3 position-relative">
                 <button className="navbar-toggler me-2 border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" />
                 </button>
@@ -31,8 +35,10 @@ const Header = ({ user }) => {
                         className="nav-item ps-2 text-dark ms-2 position-relative"
                     >
                         <li className="dropdown notifications-menu">
-                            <span className="label fw-bold text-dark label-dark seller-count">
-                                {notifications.length}
+                            <span className="label fw-bold text-dark d-flex align-items-center label-dark seller-count">
+                                <span className="small m-auto font-normal">
+                                    {notifications.length}
+                                </span>
                             </span>
                             <a
                                 href="#"
@@ -111,8 +117,10 @@ const Header = ({ user }) => {
                                     className="nav-item ps-2 text-dark ms-2 position-relative"
                                 >
                                     <li className="dropdown notifications-menu">
-                                        <span className="label fw-bold text-dark label-dark seller-count">
-                                            {notifications.length}
+                                        <span className="label fw-bold text-dark d-flex align-items-center label-dark seller-count">
+                                            <span className="small m-auto font-normal">
+                                                {notifications.length}
+                                            </span>
                                         </span>
                                         <a
                                             href="#"
@@ -153,6 +161,42 @@ const Header = ({ user }) => {
                                 </div>
                             </div>
                         </li>
+                    </ul>
+                    <div class="dropdown-divider"></div>
+                    <ul className="navbar-nav me-auto mb-2 d-lg-none mb-lg-0 align-items-center">
+                        <Link className='dropdown-item p-2' href='/account'>Dashboard</Link>
+                        <PermissionAllow permission="Invoice List">
+                            <Link className='dropdown-item p-2' href="/account/invoices">
+                                Billing </Link>
+                        </PermissionAllow>
+                        <PermissionAllow permission="Ads Listing">
+                            <Link className='dropdown-item p-2' href="/account/ads">
+                                Ads </Link>
+                        </PermissionAllow>
+                        <PermissionAllow permission="Ads Leads Listing">
+                            <Link className='dropdown-item p-2' href="/account/leads">
+                                Leads </Link>
+                        </PermissionAllow>
+                        <PermissionAllow permission="Messages">
+                            <Link className='dropdown-item p-2' href="/account/chats">
+                                Messages</Link>
+                        </PermissionAllow>
+                        <PermissionAllow permission="Support Ticket Listing">
+                            <Link className='dropdown-item p-2' href="/account/tickets">
+                                Support </Link>
+                        </PermissionAllow>
+                        {user.is_agent && (
+                            <>
+                                <PermissionAllow permission="Staff Listing">
+                                    <Link className='dropdown-item p-2' href="/account/staffs">
+                                        Staffs </Link>
+                                </PermissionAllow>
+                                <PermissionAllow permission="Settings">
+                                    <Link className='dropdown-item p-2' href="/account/settings">
+                                        Settings </Link>
+                                </PermissionAllow>
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>

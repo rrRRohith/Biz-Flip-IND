@@ -185,7 +185,7 @@ const AdView = ({ collection, handleClose, onSubmit, keyVal }) => {
                             </tr>
                             <tr>
                                 <td className="p-2">
-                                    <strong>Seller</strong>
+                                    <strong>User</strong>
                                 </td>
                                 <td className="p-2">
                                     <p className="mb-0">{collection.seller.firstname} {collection.seller.lastname}</p>

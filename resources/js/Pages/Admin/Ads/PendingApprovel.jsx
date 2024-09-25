@@ -81,7 +81,7 @@ const PendingApprovel = ({ ads, auth, success = null, error = null }) => {
                                                             <th>Leads</th>
                                                             <th>Type</th>
                                                             <th>Purpose</th>
-                                                            <th>Seller</th>
+                                                            <th>User</th>
                                                             <th>Status</th>
                                                             {/* <th>Last Modified</th> */}
                                                             <th></th>

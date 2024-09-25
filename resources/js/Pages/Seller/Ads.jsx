@@ -9,7 +9,7 @@ import PermissionAllow from '@/Components/PermissionAllow';
 import Delete from './Components/Delete';
 import Select from 'react-select';
 
-export default function Ads({ auth, ads, categories, industries }) {
+export default function Ads({ auth, ads, categories, industries, current_invoice }) {
     const [loading, setLoading] = useState(false);
 
     const [adData, setadData] = useState(ads.data);
@@ -84,6 +84,19 @@ export default function Ads({ auth, ads, categories, industries }) {
                             <div className="text-xl font-bold">Ads</div>
                             <div>Manage and track your ads effectively. Easily search, filter, and view detailed information about your campaigns, and monitor their performance.</div>
                             <div>
+                                {current_invoice ? (
+                                    <>
+                                        <div className={`alert ${current_invoice.remaining_ads > 0 ? 'alert-success' : 'alert-danger'} mb-5`}>
+                                            You currently have active subscription <strong>{current_invoice.name}</strong> with remaining <strong>{current_invoice.remaining_ads}</strong> ads till <strong>{current_invoice.expire_date}</strong>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className='alert alert-danger mb-5'>
+                                            You currently have no active subscription, please <Link href={route('account.plans.index')}>subscribe</Link> to a plan to post new ads.
+                                        </div>
+                                    </>
+                                ) }
                                 <div className="card">
                                     <div className="card-header border-bottom">
                                         <div className="d-flex d-lg-none align-items-center">

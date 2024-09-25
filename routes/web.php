@@ -107,7 +107,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::get('property-leads/{id}', 'EnquiryController@propery_lead_show')->name('propery_lead_show');
     Route::delete('property-leads/{id}', 'EnquiryController@propery_lead_delete')->name('propery_lead_delete');
     
-    Route::post('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
+    Route::any('support-tickets/close/{id}', 'TicketController@close')->name('support-tickets.close-ticket');
     
     // Route::get('app-settings', 'AppSettingsController@index')->name('app-settings.index');
     // Route::post('app-settings/{id}', 'AppSettingsController@index')->name('app-settings.update');

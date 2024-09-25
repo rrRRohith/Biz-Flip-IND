@@ -17,9 +17,34 @@ class TicketController extends Controller
     public function index()
     {
         //
-        $tickets = Ticket::orderBy('created_at','ASC')->orderBy('status','ASC')->get();
+        $ticketsQ = Ticket::orderByRaw("
+        CASE 
+            WHEN status = 'Open' THEN 1 
+            WHEN status = 'Closed' THEN 2 
+            ELSE 3 
+        END
+        ")->orderByRaw("
+            CASE 
+                WHEN priority = 'High' THEN 1 
+                WHEN priority = 'Medium' THEN 2 
+                WHEN priority = 'Low' THEN 3 
+                ELSE 4 
+            END
+        ")->orderBy('created_at', 'ASC');
+
+        $ticketsOpenQ = clone $ticketsQ;
+        $ticketsClosedQ = clone $ticketsQ;
+        $ticketsNewQ = clone $ticketsQ;
+
+        $ticketsOpen = $ticketsOpenQ->whereStatus('open')->get();
+        $ticketsClosed = $ticketsClosedQ->whereStatus('solved')->get();
+        $ticketsNew = $ticketsNewQ->whereStatus('open')->whereNull('responded_at')->get();
+
         return Inertia::render('Admin/Ticket/Index', [
-            'tickets' => TicketResource::collection($tickets),
+            //'tickets' => TicketResource::collection($tickets),
+            'newTickets' => TicketResource::collection($ticketsNew),
+            'closedTickets' => TicketResource::collection($ticketsClosed),
+            'openTickets' => TicketResource::collection($ticketsOpen),
         ]);
     }
 
@@ -70,6 +95,9 @@ class TicketController extends Controller
         $ticket = Ticket::whereStatus('open')->findOrfail($id);
   
         try{
+            $ticket->update([
+                'responded_at' => now(),
+            ]);
             $message = $ticket->messages()->create([
                 'message' => $request->input('message'),
                 'attachments' => $request->hasFile('attachments') ? $this->upload_files($request->file('attachments')) : null,

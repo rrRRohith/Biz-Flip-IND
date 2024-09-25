@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center">
-    <div class="dropdown ms-3 me-3">
+    <div class="dropdown ms-3 me-lg-3 me-2">
         @php
             $notifications = \App\Models\DashboardNotification::where('recipient_id', auth()->user()->id ?? null)
                 ->whereNull('read_at')
@@ -7,7 +7,11 @@
         @endphp
         <div class="dropdown-toggle notification position-relative" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="count fw-bolder position-absolute end-0">{{ $notifications->count() }}</span>
+            <span class="count fw-bolder position-absolute end-0 d-flex align-items-center">
+                <span class="m-auto small fw-normal">
+                    {{ $notifications->count() }}
+                </span>
+            </span>
             <span class="bi bi-bell fs-20"></span>
         </div>
         <ul

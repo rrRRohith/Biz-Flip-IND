@@ -78,7 +78,7 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                                 <PermissionAllow permission="Plan Purchase">
                                     <div className="ms-auto">
                                         <Link className="btn btn-primary text-overflow" href={route('account.plans.index')}>
-                                            <span className="d-none d-md-inline">Purchase new plan</span>
+                                            Purchase new plan
                                         </Link>
                                     </div>
                                 </PermissionAllow>

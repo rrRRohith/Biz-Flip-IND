@@ -60,9 +60,14 @@ class TicketController extends BaseController{
      */
     public function store(TicketRequest $request){
         try{
+            $ticketNo = $this->generateTicketNumber();
             $ticket = $this->seller->tickets()->create($request->only(['subject', 'priority']));
+            $ticket->update([
+                'ticket_no' => $ticketNo,
+            ]);
             $ticket->messages()->create($request->only(['message']))->update([
                 'user_id' => $this->user->id,
+                
             ]);
 
             event(new NewNotification(auth()->user()->id, 1, 'New Support Ticket Created', 'A created new support ticket.', route('admin.support-tickets.index')));
@@ -115,5 +120,14 @@ class TicketController extends BaseController{
         catch(\Exception $e){
 			return $e->getMessage();
         }
+    }
+
+    public function generateTicketNumber(){
+        $prefix = 'FAB';
+        $date = \Carbon\Carbon::now()->format('Ymd');
+        $orderCountToday = \App\Models\Ticket::whereDate('created_at', \Carbon\Carbon::today())->count();
+        $orderNumber = $orderCountToday + 1;
+        $orderNumberPadded = str_pad($orderNumber, 4, '0', STR_PAD_LEFT);
+        return  $prefix . $date . $orderNumberPadded;
     }
 }

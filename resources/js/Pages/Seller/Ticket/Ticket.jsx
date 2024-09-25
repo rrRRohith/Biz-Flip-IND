@@ -43,7 +43,10 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                 </div>
                             )}
                             <div className="d-flex align-items-center">
+                                <div>
                                 <div className="text-xl font-bold">Support Ticket#{ticket.id}</div>
+                                <p>Ticket no. {ticket.ticket_no}</p>
+                                </div>
                                 <div className="ms-auto">
                                     <Link href={route('account.tickets.index')} className="btn btn-neutral"><i className="bi bi-arrow-left"></i> Go back</Link>
                                 </div>
