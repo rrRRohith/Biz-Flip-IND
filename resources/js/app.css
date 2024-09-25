@@ -289,7 +289,9 @@ span.small.font-normal {
     font-weight: normal !important;
     font-size: .875em;
 }
-
+.badge.bg-danger {
+    background-color: #ff3f3f !important;
+}
 .seller-count {
     position: absolute;
     top: -15px;

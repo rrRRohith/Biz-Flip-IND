@@ -7,7 +7,6 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 export default function Index({ tickets, auth, success = null, error = null }) {
-
     return (
         <Authenticated
             user={auth.user}
@@ -67,18 +66,36 @@ export default function Index({ tickets, auth, success = null, error = null }) {
                                                                     <Td>{ticket.id}</Td>
                                                                     <Td className='text-capitalize'>{ticket.user.firstname} {ticket.user.lastname}</Td>
                                                                     <Td className='text-capitalize'>{ticket.subject}</Td>
-                                                                    <Td className='text-capitalize'>{ticket.priority}</Td>
+                                                                    <Td className='text-capitalize'>
+                                                                    <span className= {`badge  ${ticket.priority == 'high' ? 'bg-danger' : (ticket.priority == 'medium' ? 'bg-warning' : 'bg-secondary')}`}>
+                                                                            {ticket.priority}
+                                                                        </span>
+                                                                    </Td>
                                                                     <Td className='text-capitalize'>
                                                                         <span className= {`badge  ${ticket.status == 'open' ? 'bg-info' : 'bg-success'}`}>
                                                                             {ticket.status}
                                                                         </span>
                                                                     </Td>
                                                                     <Td>{ticket.date_text}</Td>
-                                                                    <Td>
+                                                                    <Td className="text-end text-right">
                                                                         <PermissionAllow permission={'Support Ticket Edit'}>
                                                                              <Link className='btn btn-transparent' href={route('admin.support-tickets.show', ticket.id)}>
                                                                                 <i className="bi bi-eye"></i>
                                                                             </Link>
+                                                                            {ticket.status == 'open' ? (
+                                                                            <>
+                                                                            <Link className='badge bg-secondary me-2' href={route('admin.support-tickets.show', ticket.id)}>
+                                                                                Respond
+                                                                            </Link>
+                                                                            <Link className='badge bg-secondary' href={route('admin.support-tickets.close-ticket', ticket.id)}>
+                                                                                Close
+                                                                            </Link>
+                                                                            </>
+                                                                            ) : (
+                                                                                <Link className='badge bg-secondary' href={route('admin.support-tickets.reopen', ticket.id)}>
+                                                                                Reopen
+                                                                            </Link>
+                                                                            )}
                                                                         </PermissionAllow>
                                                                     </Td>
                                                                 </Tr>

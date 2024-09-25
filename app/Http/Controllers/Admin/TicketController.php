@@ -17,7 +17,21 @@ class TicketController extends Controller
     public function index()
     {
         //
-        $tickets = Ticket::orderBy('created_at','ASC')->orderBy('status','ASC')->get();
+        $tickets = Ticket::orderByRaw("
+        CASE 
+            WHEN status = 'Open' THEN 1 
+            WHEN status = 'Closed' THEN 2 
+            ELSE 3 
+        END
+        ")->orderByRaw("
+            CASE 
+                WHEN priority = 'High' THEN 1 
+                WHEN priority = 'Medium' THEN 2 
+                WHEN priority = 'Low' THEN 3 
+                ELSE 4 
+            END
+        ")->orderBy('created_at', 'ASC')->get();
+
         return Inertia::render('Admin/Ticket/Index', [
             'tickets' => TicketResource::collection($tickets),
         ]);
