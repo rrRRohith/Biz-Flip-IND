@@ -46,9 +46,10 @@ const days = [
 
 const socials = [
     { id: 'facebook', label: 'Facebook' },
-    { id: 'twitter', label: 'Twitter' },
+    { id: 'x', label: 'X' },
     { id: 'instagram', label: 'Instagram' },
     { id: 'linkedin', label: 'Linkedin' },
+    { id: 'youtube', label: 'Youtube' },
 ];
 
 export default function Settings({ seller, auth, success, error, province_options, API_KEY }) {
@@ -315,7 +316,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                         <h4>Social media</h4>
                                     </div>
                                     <div>
-                                        <table>
+                                        <table className='w-100 w-full mb-10'>
                                             <tbody>
                                                 {socials.map((social) => (
                                                     <tr key={social.id}>
