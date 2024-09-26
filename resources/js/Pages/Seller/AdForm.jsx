@@ -175,8 +175,8 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
         // handleChange('category', null);
     }
 
-    
-    const INITIAL_LOCATION = { lat:  13.4, lng:  77.0 };
+    const INITIAL_LOCATION = { lat: ad && ad.lat ? ad.lat : 13.4, lng: ad && ad.lng ? ad.lng : 77.0 };
+
     console.log(INITIAL_LOCATION);
     const INITIAL_ZOOM = 10;
 
