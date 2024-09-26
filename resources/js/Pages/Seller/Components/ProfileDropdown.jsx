@@ -13,7 +13,7 @@ export default function ProfileDropdown({ user }) {
             <div className="dropdown-header">
                 <span className="d-block text-sm text-muted mb-1">Signed in as</span>
                 <span className="d-block text-heading font-semibold">{user.firstname} {user.lastname}</span>
-                <div class="text-muted">{user.email}</div>
+                <div className="text-muted">{user.email}</div>
             </div>
             <div className="dropdown-divider"></div>
             {user.type == 'customer' ? (
@@ -21,24 +21,24 @@ export default function ProfileDropdown({ user }) {
                     <Link className="dropdown-item" href="customer/profile">
                         <i className="bi bi-pencil me-3" />Profile </Link>
                     <Link className="dropdown-item" href="/customer/password">
-                        <i class="bi bi-shield-lock me-3"></i>Security </Link>
+                        <i className="bi bi-shield-lock me-3"></i>Security </Link>
                 </>
             ) : (
                 <>
                     <Link className="dropdown-item" href="/account">
-                        <i class="bi bi-speedometer me-3"></i>Dashboard </Link>
+                        <i className="bi bi-speedometer me-3"></i>Dashboard </Link>
                     <div className="dropdown-divider" />
                     <Link className="dropdown-item" href="/account/profile">
                         <i className="bi bi-pencil me-3" />Profile </Link>
                     <Link className="dropdown-item" href="/account/password">
-                        <i class="bi bi-shield-lock me-3"></i>Security </Link>
+                        <i className="bi bi-shield-lock me-3"></i>Security </Link>
                     <PermissionAllow permission="Invoice List">
                         <Link className="dropdown-item" href="/account/invoices">
-                            <i class="bi bi-receipt me-3"></i>Billing </Link>
+                            <i className="bi bi-receipt me-3"></i>Billing </Link>
                     </PermissionAllow>
                     {/* <div className="dropdown-divider" />
                     <Link className="dropdown-item" href="/account">
-                        <i class="bi bi-speedometer me-3"></i>Dashboard </Link>
+                        <i className="bi bi-speedometer me-3"></i>Dashboard </Link>
                     <PermissionAllow permission="Ads Listing">
                         <Link className="dropdown-item" href="/account/ads">
                             <i className="bi bi-house me-3"></i>Ads </Link>
@@ -53,11 +53,11 @@ export default function ProfileDropdown({ user }) {
                     </PermissionAllow> */}
                     {/* <PermissionAllow permission="Plan Purchase">
                         <Link className="dropdown-item" href="/account/plans">
-                            <i class="bi bi-currency-dollar me-3"></i>Plans </Link>
+                            <i className="bi bi-currency-dollar me-3"></i>Plans </Link>
                     </PermissionAllow> */}
                     {/* <PermissionAllow permission="Invoice List">
                         <Link className="dropdown-item" href="/account/invoices">
-                            <i class="bi bi-receipt me-3"></i>Accounts </Link>
+                            <i className="bi bi-receipt me-3"></i>Accounts </Link>
                     </PermissionAllow>
                     <PermissionAllow permission="Support Ticket Listing">
                         <Link className="dropdown-item" href="/account/tickets">
@@ -71,7 +71,7 @@ export default function ProfileDropdown({ user }) {
                             </PermissionAllow> */}
                             {/* <PermissionAllow permission="Role and Responsibilities Listing">
                                 <Link className="dropdown-item" href="/account/staffs/roles">
-                                    <i class="bi bi-person-gear me-3"></i>Staff roles </Link>
+                                    <i className="bi bi-person-gear me-3"></i>Staff roles </Link>
                             </PermissionAllow> */}
                             {/* <PermissionAllow permission="Settings">
                                 <Link className="dropdown-item" href="/account/settings">

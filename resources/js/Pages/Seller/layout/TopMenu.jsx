@@ -12,10 +12,10 @@ export default function TopMenu({ user }) {
         <>
             <div className="mt-20 bg-lighter py-0 pb-0">
                 <div className="container px-3 position-relative">
-                    <nav class="navbar seller-top-navbar navbar-expand-lg p-0 top-menu position-relative">
+                    <nav className="navbar seller-top-navbar navbar-expand-lg p-0 top-menu position-relative">
                         <div className="collapse navbar-collapse" id="navbarSupportedContent2">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
-                                <Link className={`dropdown-item  ${urlMatches(path, '/account') ? 'active-link' : ''}`} href='/account'><i class="bi bi-speedometer me-3"></i> Dashboard</Link>
+                                <Link className={`dropdown-item  ${urlMatches(path, '/account') ? 'active-link' : ''}`} href='/account'><i className="bi bi-speedometer me-3"></i> Dashboard</Link>
                                 
                                 <PermissionAllow permission="Ads Listing">
                                     <Link className={`dropdown-item  ${urlMatches(path, '/account/ads*') ? 'active-link' : ''}`} href="/account/ads">
@@ -44,7 +44,7 @@ export default function TopMenu({ user }) {
                                 )}
                                 <PermissionAllow permission="Invoice List">
                                     <Link className={`dropdown-item  ${urlMatches(path, '/account/invoices*') || urlMatches(path, '/account/plans*') ? 'active-link' : ''}`} href="/account/invoices">
-                                        <i class="bi bi-receipt me-3"></i>Billing </Link>
+                                        <i className="bi bi-receipt me-3"></i>Billing </Link>
                                 </PermissionAllow>
                                 <PermissionAllow permission="Support Ticket Listing">
                                     <Link className={`dropdown-item  ${urlMatches(path, '/account/tickets*') ? 'active-link' : ''}`} href="/account/tickets">

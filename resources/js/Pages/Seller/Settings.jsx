@@ -5,7 +5,7 @@ import Select from 'react-select';
 import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
 import { Picker } from 'react-gmap-picker';
-
+import { useLocation } from 'react-router-dom';
 const employee_options = [
     {
         'label': 'Select an option',
@@ -79,11 +79,7 @@ export default function Settings({ seller, auth, success, error, province_option
 
     const [imagePreview, setImagePreview] = useState('');
 
-    useEffect(() => {
-        if (seller.logo) {
-            setImagePreview(seller.logo);
-        }
-    }, [seller.logo]);
+    
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -141,6 +137,13 @@ export default function Settings({ seller, auth, success, error, province_option
     const handleChangeLocation = (lat, lng) => {
         setLocation({ lat, lng });
     };
+
+    useState(() => {
+        if (seller.logo) {
+            setImagePreview(seller.logo);
+        }
+    }, [seller.logo]);
+
     return (
         <>
             <Head title="Settings" />
@@ -187,7 +190,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                         </div> */}
                                         <div className="col-md-12">
                                             <label>Description</label>
-                                            <textarea rows={10} onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control">{data.description}</textarea>
+                                            <textarea rows={10} onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control" defaultValue={data.description}></textarea>
                                             <InputError message={errors.description} />
                                         </div>
                                         <div className="col-md-6">
@@ -255,6 +258,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                             </div>
                                         </div> */}
                                         <div className="col-12">
+                                        <div id="map" style={{ height: '400px', width: '100%' }}>
                                             <Picker
                                                 defaultLocation={defaultLocation}
                                                 zoom={zoom}
@@ -264,7 +268,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 //onChangeZoom={handleChangeZoom}
                                                 apiKey={API_KEY}
                                             />
-                                        </div>
+                                        </div></div>
                                     </div>
                                     <div className="mb-5">
                                         <h4>Business Communication</h4>
@@ -312,6 +316,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                     </div>
                                     <div>
                                         <table>
+                                            <tbody>
                                             {socials.map((social) => (
                                                 <tr key={social.id}>
                                                     <td>
@@ -338,12 +343,13 @@ export default function Settings({ seller, auth, success, error, province_option
                                                     <td>
                                                         {checkedSocials[social.id] && (
                                                             <div>
-                                                                <input value={data[social.id]} onChange={(e) => { handleChange(social.id, e.target.value) }} type="text" placeholder={`${social.label} page`} className="form-control" />
+                                                                <input value={data[social.id] ?? ''} onChange={(e) => { handleChange(social.id, e.target.value) }} type="text" placeholder={`${social.label} page`} className="form-control" />
                                                             </div>
                                                         )}
                                                     </td>
                                                 </tr>
                                             ))}
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div className="row g-5">
