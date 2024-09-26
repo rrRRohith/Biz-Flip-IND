@@ -66,17 +66,17 @@ class RegisteredUserController extends Controller
         ]);
         $user->assignRole(2);
 
-        try {
-            // $this->accountCreated($user);
-            if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
-                $this->subscribeToPlan($request, $defaultPlan, $user);
-                try {
-                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
-                } catch (\Exception $e) {}
-            }
-        } catch (\Exception $e) {
+        // try {
+        //     // $this->accountCreated($user);
+        //     if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+        //         $this->subscribeToPlan($request, $defaultPlan, $user);
+        //         try {
+        //             event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
+        //         } catch (\Exception $e) {}
+        //     }
+        // } catch (\Exception $e) {
             
-        }
+        // }
 
         try {
             event(new Registered($user));
@@ -146,17 +146,17 @@ class RegisteredUserController extends Controller
         ]);
         $user->assignRole(2);
 
-        try {
-            $this->accountCreated($user);
-            if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
-                $this->subscribeToPlan($request, $defaultPlan, $user);
-                try {
-                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
-                } catch (\Exception $e) {}
-            }
-        } catch (\Exception $e) {
+        // try {
+        //     $this->accountCreated($user);
+        //     if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+        //         $this->subscribeToPlan($request, $defaultPlan, $user);
+        //         try {
+        //             event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
+        //         } catch (\Exception $e) {}
+        //     }
+        // } catch (\Exception $e) {
             
-        }
+        // }
 
         try {
             event(new Registered($user));
@@ -188,16 +188,16 @@ class RegisteredUserController extends Controller
 
         }
 
-        try {
-            if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
-                $this->subscribeToPlan($request, $defaultPlan, $user);
-                try {
-                    event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
-                } catch (\Exception $e) {}
-            }
-        } catch (\Exception $e) {
+        // try {
+        //     if($defaultPlan = \App\Models\SubscriptionPlan::whereDefault('1')->first()){
+        //         $this->subscribeToPlan($request, $defaultPlan, $user);
+        //         try {
+        //             event(new \App\Events\NewNotification(1, $user->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
+        //         } catch (\Exception $e) {}
+        //     }
+        // } catch (\Exception $e) {
             
-        }
+        // }
 
         $seller = \App\Models\Seller::create($request->only(['company_name', 'description', 'address', 'city', 'postalcode', 'province']));
         $seller->update([

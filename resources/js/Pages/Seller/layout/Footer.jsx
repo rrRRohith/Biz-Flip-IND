@@ -3,7 +3,7 @@ const Footer = function() {
         <>
             <div class="not-embed">
                 
-                <footer class='bg-white border-top border border-light border-bottom-0'>
+                <footer class='bg-white border-top border-light border-bottom-0'>
                 <div class="w-100 bg-white pt-5">
                     <div class="container">
                         <div class="row">

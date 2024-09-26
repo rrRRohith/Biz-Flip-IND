@@ -72,6 +72,7 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
         province: seller ? seller.province : '',
         lat: seller ? seller.lat : '',
         lng: seller ? seller.lng : '',
+        established: seller ? seller.established : '',
     });
 
     const [imagePreview, setImagePreview] = useState('');
@@ -119,12 +120,6 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
         //setData('days', checkedDays);
     };
 
-    const handleSocialCheckboxChange = async (social) => {
-        await setCheckedSocials((prevCheckedSocials) => ({
-            ...prevCheckedSocials,
-            [social]: !prevCheckedSocials[social]
-        }));
-    }
     return (
         <>
             <div className="card rounded-input mb-5">
@@ -134,7 +129,7 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
                             <div className="d-flex align-items-center">
                                 <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></label>
                                 <div className="ms-4"><span className="h4 d-block mb-0">{data.company_name}</span>
-                                    <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Change image</label></div>
+                                    <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Upload logo</label></div>
 
                             </div>
                             <InputError message={errors.logo} />
@@ -150,20 +145,20 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
                         <h4>About your business</h4>
                     </div>
                     <div className="row g-5 mb-5">
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <label>Business name</label>
                             <input value={data.company_name} onChange={(e) => { handleChange('company_name', e.target.value) }} placeholder="Your business name" className="form-control" />
                             <InputError message={errors.company_name} />
                         </div>
 
-                        <div className="col-md-12">
+                        {/* <div className="col-md-12">
                             <label>Short description</label>
                             <input value={data.short_description} onChange={(e) => { handleChange('short_description', e.target.value) }} placeholder="Tell us about your business briefly" className="form-control" />
                             <InputError message={errors.short_description} />
-                        </div>
+                        </div> */}
                         <div className="col-md-12">
                             <label>Description</label>
-                            <textarea onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control">{data.description}</textarea>
+                            <textarea rows={10} onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control">{data.description}</textarea>
                             <InputError message={errors.description} />
                         </div>
                         <div className="col-md-6">
@@ -176,6 +171,12 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
                                 <input value={data.website} onChange={(e) => { handleChange('website', e.target.value) }} type="text" placeholder="Your website url" className="form-control" />
                             </div>
                             <InputError message={errors.website} />
+                        </div>
+                        <div className="col-md-6">
+                            <div><label>Established</label>
+                                <input value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
+                            </div>
+                            <InputError message={errors.established} />
                         </div>
                     </div>
                     <div className="mb-5">

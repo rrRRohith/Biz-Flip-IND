@@ -15,6 +15,8 @@ use App\Http\Resources\{LeadResource};
 use App\Http\Resources\{TicketMessageResource, TicketResource};
 use DB;
 use App\Http\Resources\SellerSettingsResource;
+use App\Http\Resources\{SellerPlanResource};
+use App\Http\Resources\{InvoiceResource};
 
 class Controller extends BaseController{
     public $user;
@@ -45,10 +47,10 @@ class Controller extends BaseController{
         $views = $this->seller->ad_views()->count();
         $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) max(($views / $leads), 1) : 1)) : 0;
         
-        $showAgentForm = session('firstLogin') && $this->seller->seller;
-        if(session('firstLogin')){
-            session()->forget('firstLogin');
-        }
+        $showAgentForm = $this->seller->seller && $this->seller->seller->has_public_view == '0' && !session('agentFormShown');
+        $showAgentForm = true;
+        $showPlanForm = !$this->seller->current_subscription()->exists() && !session('planFormShown');
+        session(['planFormShown' => true, 'agentFormShown' => true]);
         return Inertia::render('Seller/Dashboard', [
             'data' => [
                 'ads' => $this->seller->ads()->count(),
@@ -56,12 +58,14 @@ class Controller extends BaseController{
                 'views' => $views,
                 'view_lead_ratio' => $view_lead_ratio,
             ],
-            'current_invoice' => $this->seller->current_subscription,
+            'current_invoice' => $this->seller->current_subscription ? new InvoiceResource($this->seller->current_subscription) : null,
             'ads' => AdResource::collection($this->seller->ads()->withCount('views')->orderBy('views_count', 'desc')->get()),
             'tickets' => TicketResource::collection($this->seller->tickets()->latest()->limit(5)->get()),
             'leads' => LeadResource::collection($this->seller->leads()->latest()->limit(5)->get()),
             'showAgentForm' => $showAgentForm,
+            'showPlanForm' => $showPlanForm,
             'seller' => new SellerSettingsResource($this->seller),
+            'plans' => SellerPlanResource::collection(\App\Models\SubscriptionPlan::whereStatus('1')->whereVisibility('1')->orderBy('price')->get()),
             'province_options' => \App\Models\Province::selectRaw("name as value, name as label")->orderBy('name')->get()->toArray(),
         ]);
     }

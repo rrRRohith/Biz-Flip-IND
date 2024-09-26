@@ -15,7 +15,7 @@ class PlanPurchaseRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -25,10 +25,21 @@ class PlanPurchaseRequest extends FormRequest
             'city' => 'required|max:256|string',
             'postalcode' => 'required|max:10|string',
             'province' => 'required|exists:provinces,name',
-            'card_name' => 'required|string',
-            'card_date' => ['required', 'regex:/\d{2}\/\d{2}/', new CreditCardDate],
-            'card_cvv' => 'required|digits_between:3,4',
-            'card_number' => ['bail','required','digits_between:14,16'],
+            // 'card_name' => 'required|string',
+            // 'card_date' => ['required', 'regex:/\d{2}\/\d{2}/', new CreditCardDate],
+            // 'card_cvv' => 'required|digits_between:3,4',
+            // 'card_number' => ['bail','required','digits_between:14,16'],
         ];
+
+        if($this->plan->default != '1'){
+            $rules = array_merge($rules, [
+                'card_name' => 'required|string',
+                'card_date' => ['required', 'regex:/\d{2}\/\d{2}/', new CreditCardDate],
+                'card_cvv' => 'required|digits_between:3,4',
+                'card_number' => ['bail','required','digits_between:14,16'],
+            ]);
+        }
+
+        return $rules;
     }
 }

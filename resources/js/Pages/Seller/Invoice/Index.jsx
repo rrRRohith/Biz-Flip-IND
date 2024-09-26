@@ -10,6 +10,7 @@ import Spinner from '@/Components/Spinner';
 import Modal from 'react-bootstrap/Modal';
 import Invoice from './Invoice';
 import PermissionAllow from '@/Components/PermissionAllow';
+import PlanError from '../PlanError';
 
 export default function Index({ auth, invoices, current_invoice, newInvoice }) {
 
@@ -88,13 +89,7 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                                 View and manage your invoices easily. See your subscription details, track your billing history, and download invoices for record-keeping.
                             </div>
                             <div>
-                                {current_invoice && (
-                                    <>
-                                        <div className="alert alert-success mb-5">
-                                            You currently have active subscription <strong>{current_invoice.name}</strong> with remaining <strong>{current_invoice.remaining_ads}</strong> ads till <strong>{current_invoice.expire_date}</strong>
-                                        </div>
-                                    </>
-                                )}
+                            <PlanError current_invoice={current_invoice}></PlanError>
                                 <div className="card">
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center">

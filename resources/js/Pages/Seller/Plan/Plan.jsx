@@ -69,7 +69,7 @@ export default function Plan({ auth, plan, error, success, province_options, add
         const sanitizedValue = validateExpiryDate(value);
         setData('card_date', sanitizedValue);
     };
-    
+
     const { data, setData, post, errors, reset } = useForm({
         firstname: address.firstname,
         lastname: address.lastname,
@@ -194,34 +194,46 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                                     <div>Grand total. <span className="font-bolder">${plan.total_amount}</span></div>
                                                 </div>
                                             </div>
-                                            <div className="mb-5">
-                                                <div className='mb-3'>
-                                                    <img className='w-full' src="https://res.cloudinary.com/rr6/image/upload/v1725361095/cards_jokpdn.png" alt="" />
-                                                </div>
-                                                <div className='mb-3'><label>Name on card</label>
-                                                    <input value={data.card_name} onChange={handleNameOnCardChange} type="text" placeholder="Name on card" className="form-control" />
-                                                    <InputError message={errors.card_name} />
-                                                </div>
-                                                <div className='mb-3'><label>Card number</label>
-                                                    <input value={data.card_number} onChange={handleCardNumberChange} type="text" placeholder="Card number" className="form-control" />
-                                                    <InputError message={errors.card_number} />
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-6 ">
-                                                        <div><label>Exp date</label>
-                                                            <input value={data.card_date} onChange={handleExpirationDateChange} type="text" placeholder="Exp date" className="form-control" />
-                                                            <InputError message={errors.card_date} />
+                                            {plan.default != '1' && (
+                                                <div className="mb-5">
+                                                    <div className='mb-3'>
+                                                        <img className='w-full' src="https://res.cloudinary.com/rr6/image/upload/v1725361095/cards_jokpdn.png" alt="" />
+                                                    </div>
+                                                    <div className='mb-3'><label>Name on card</label>
+                                                        <input value={data.card_name} onChange={handleNameOnCardChange} type="text" placeholder="Name on card" className="form-control" />
+                                                        <InputError message={errors.card_name} />
+                                                    </div>
+                                                    <div className='mb-3'><label>Card number</label>
+                                                        <input value={data.card_number} onChange={handleCardNumberChange} type="text" placeholder="Card number" className="form-control" />
+                                                        <InputError message={errors.card_number} />
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-6 ">
+                                                            <div><label>Exp date</label>
+                                                                <input value={data.card_date} onChange={handleExpirationDateChange} type="text" placeholder="Exp date" className="form-control" />
+                                                                <InputError message={errors.card_date} />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <div><label>CVV</label>
+                                                                <input value={data.card_cvv} maxLength={4} onChange={(e) => handleChange("card_cvv", e.target.value)} type="text" placeholder="CVV" className="form-control" />
+                                                                <InputError message={errors.card_cvv} />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-6">
-                                                        <div><label>CVV</label>
-                                                            <input value={data.card_cvv} maxLength={4} onChange={(e) => handleChange("card_cvv", e.target.value)} type="text" placeholder="CVV" className="form-control" />
-                                                            <InputError message={errors.card_cvv} />
-                                                        </div>
-                                                    </div>
                                                 </div>
-                                            </div>
-                                            <button type="submit" className="btn d-block btn-primary w-full">Pay <span className="font-bolder">${plan.total_amount}</span> </button>
+                                            )}
+
+                                            {plan.default == '1' ? (
+                                                <>
+                                                    <button type="submit" className="btn d-block btn-primary w-full">Subscribe for free</button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <button type="submit" className="btn d-block btn-primary w-full">Pay <span className="font-bolder">${plan.total_amount}</span> </button>
+                                                </>
+                                            )}
+
                                         </div>
                                         <div className='col-sm-6 col-12'>
 
