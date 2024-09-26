@@ -31,10 +31,16 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     Route::get('/password', 'App\Http\Controllers\Seller\ProfileController@password')->name('password.index');
     Route::post('/password', 'App\Http\Controllers\Seller\ProfileController@changePassword')->name('password.store');
 
+    
     Route::resource('/settings', App\Http\Controllers\Seller\SettingsController::class, [
         'only' => ['index', 'store']
     ])->middleware("can:Settings");
+
+    Route::post('/settings/step1', 'App\Http\Controllers\Seller\SettingsController@storeStep1')->name('settings.step1');
+    Route::post('/settings/step2', 'App\Http\Controllers\Seller\SettingsController@storeStep2')->name('settings.step2');
+    Route::post('/settings/step3', 'App\Http\Controllers\Seller\SettingsController@storeStep3')->name('settings.step3');
     
+
     Route::get('/tickets/search', 'App\Http\Controllers\Seller\TicketController@search')->name('tickets.search');
     Route::resource('/tickets', App\Http\Controllers\Seller\TicketController::class, [
         'only' => ['index', 'show', 'update', 'create', 'store']

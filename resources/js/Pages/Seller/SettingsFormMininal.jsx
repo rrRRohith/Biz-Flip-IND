@@ -76,8 +76,9 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
     });
 
     const [imagePreview, setImagePreview] = useState('');
+    const [formStep, setFormStep] = useState(1);
 
-    useEffect(() => {
+    useState(() => {
         if (seller.logo) {
             setImagePreview(seller.logo);
         }
@@ -101,13 +102,26 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route("account.settings.store", {
+        const routeName = "account.settings.step" + formStep;
+        await post(route(routeName, {
             days: checkedDays,
             socials: checkedSocials,
         }), {
             preserveScroll: true,
             onSuccess: () => {
-                handleClose(false);
+                console.log(formStep);
+                switch (formStep) {
+                    case 1:
+                        setFormStep(2)
+                        break;
+                    case 2:
+                        setFormStep(3)
+                        break;
+                    case 3:
+                        handleClose(false);
+                        break;
+                }
+
             },
         });
     };
@@ -122,6 +136,7 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
 
     return (
         <>
+            {formStep == 1 && (
             <div className="card rounded-input mb-5">
                 <div className="card-body">
                     <div className="d-flex align-items-center">
@@ -138,116 +153,134 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
                         {/* <div className="ms-auto"><label htmlFor='avatar' type="button" className="btn btn-sm btn-neutral">Upload</label></div> */}
                     </div>
                 </div>
-            </div>
+            </div>)}
             <div>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-5">
-                        <h4>About your business</h4>
-                    </div>
-                    <div className="row g-5 mb-5">
-                        <div className="col-md-12">
-                            <label>Business name</label>
-                            <input value={data.company_name} onChange={(e) => { handleChange('company_name', e.target.value) }} placeholder="Your business name" className="form-control" />
-                            <InputError message={errors.company_name} />
-                        </div>
 
-                        {/* <div className="col-md-12">
+                    {formStep == 1 && (
+
+                        <>
+                            <div className="mb-5">
+                                <h4>About your business</h4>
+                            </div>
+                            <div className="row g-5 mb-5">
+                                <div className="col-md-12">
+                                    <label>Business name</label>
+                                    <input value={data.company_name} onChange={(e) => { handleChange('company_name', e.target.value) }} placeholder="Your business name" className="form-control" />
+                                    <InputError message={errors.company_name} />
+                                </div>
+
+                                {/* <div className="col-md-12">
                             <label>Short description</label>
                             <input value={data.short_description} onChange={(e) => { handleChange('short_description', e.target.value) }} placeholder="Tell us about your business briefly" className="form-control" />
                             <InputError message={errors.short_description} />
                         </div> */}
-                        <div className="col-md-12">
-                            <label>Description</label>
-                            <textarea rows={10} onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control">{data.description}</textarea>
-                            <InputError message={errors.description} />
-                        </div>
-                        <div className="col-md-6">
-                            <label>No of employees</label>
-                            <Select defaultValue={{ value: data.employee, label: data.employee }} onChange={(e) => { handleSelect('employee', e) }} name="employee" options={employee_options}></Select>
-                            <InputError message={errors.employee} />
-                        </div>
-                        <div className="col-md-6">
-                            <div><label>Website</label>
-                                <input value={data.website} onChange={(e) => { handleChange('website', e.target.value) }} type="text" placeholder="Your website url" className="form-control" />
+                                <div className="col-md-12">
+                                    <label>Description</label>
+                                    <textarea rows={10} onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control">{data.description}</textarea>
+                                    <InputError message={errors.description} />
+                                </div>
+                                <div className="col-md-6">
+                                    <label>No of employees</label>
+                                    <Select defaultValue={{ value: data.employee, label: data.employee }} onChange={(e) => { handleSelect('employee', e) }} name="employee" options={employee_options}></Select>
+                                    <InputError message={errors.employee} />
+                                </div>
+                                <div className="col-md-6">
+                                    <div><label>Website</label>
+                                        <input value={data.website} onChange={(e) => { handleChange('website', e.target.value) }} type="text" placeholder="Your website url" className="form-control" />
+                                    </div>
+                                    <InputError message={errors.website} />
+                                </div>
+                                <div className="col-md-6">
+                                    <div><label>Established</label>
+                                        <input value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
+                                    </div>
+                                    <InputError message={errors.established} />
+                                </div>
                             </div>
-                            <InputError message={errors.website} />
-                        </div>
-                        <div className="col-md-6">
-                            <div><label>Established</label>
-                                <input value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
+                        </>
+                    )}
+
+                    {formStep == 2 && (
+                        <>
+                            <div className="mb-5">
+                                <h4>Address</h4>
                             </div>
-                            <InputError message={errors.established} />
-                        </div>
-                    </div>
-                    <div className="mb-5">
-                        <h4>Address</h4>
-                    </div>
-                    <div className="row g-5 mb-5">
-                        <div className="col-md-6">
-                            <div><label>Address</label>
-                                <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Address" className="form-control" />
-                                <InputError message={errors.address} />
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div><label>City</label>
-                                <input value={data.city} onChange={(e) => { handleChange('city', e.target.value) }} type="text" placeholder="City" className="form-control" />
-                                <InputError message={errors.city} />
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div><label>Postcode</label>
-                                <input value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
-                                <InputError message={errors.postalcode} />
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div><label>Province</label>
-                                <Select defaultValue={{ value: data.province, label: data.province ? data.province : 'Select...' }} onChange={(e) => { handleChange('province', e.value) }} options={province_options}></Select>
-                                <InputError message={errors.province} />
-                            </div>
-                        </div>
-                        {/* <div className="col-md-12">
+                            <div className="row g-5 mb-5">
+                                <div className="col-md-6">
+                                    <div><label>Address</label>
+                                        <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Address" className="form-control" />
+                                        <InputError message={errors.address} />
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div><label>City</label>
+                                        <input value={data.city} onChange={(e) => { handleChange('city', e.target.value) }} type="text" placeholder="City" className="form-control" />
+                                        <InputError message={errors.city} />
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div><label>Postcode</label>
+                                        <input value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
+                                        <InputError message={errors.postalcode} />
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div><label>Province</label>
+                                        <Select defaultValue={{ value: data.province, label: data.province ? data.province : 'Select...' }} onChange={(e) => { handleChange('province', e.value) }} options={province_options}></Select>
+                                        <InputError message={errors.province} />
+                                    </div>
+                                </div>
+                                {/* <div className="col-md-12">
                                             <div><label>Map link</label>
                                                 <input value={data.map_link} onChange={(e) => { handleChange('map_link', e.target.value) }} type="text" placeholder="Map link" className="form-control" />
                                                 <InputError message={errors.map_link} />
                                             </div>
                                         </div> */}
-                        <div className="col-md-6">
-                            <div><label>Latitude</label>
-                                <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="text" placeholder="Latitude" className="form-control" />
-                                <InputError message={errors.lat} />
+                                <div className="col-md-6">
+                                    <div><label>Latitude</label>
+                                        <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="text" placeholder="Latitude" className="form-control" />
+                                        <InputError message={errors.lat} />
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div><label>Longitude</label>
+                                        <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="text" placeholder="Longitude" className="form-control" />
+                                        <InputError message={errors.lng} />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div><label>Longitude</label>
-                                <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="text" placeholder="Longitude" className="form-control" />
-                                <InputError message={errors.lng} />
+                            <div className="mb-5">
+                                <h4>Contact Information</h4>
                             </div>
-                        </div>
-                    </div>
-                    <div className="mb-5">
-                        <h4>Contact Information</h4>
-                    </div>
-                    <div className="row g-5 mb-5">
-                        <div className="col-md-6">
-                            <div><label htmlFor="email">Email</label>
-                                <input value={data.email} onChange={(e) => { handleChange('email', e.target.value) }} placeholder="Your email address" type="email" className="form-control" />
+                            <div className="row g-5 mb-5">
+                                <div className="col-md-6">
+                                    <div><label htmlFor="email">Email</label>
+                                        <input value={data.email} onChange={(e) => { handleChange('email', e.target.value) }} placeholder="Your email address" type="email" className="form-control" />
+                                    </div>
+                                    <InputError message={errors.email} />
+                                </div>
+                                <div className="col-md-6">
+                                    <div><label>Phone number</label>
+                                        <input value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
+                                    </div>
+                                    <InputError message={errors.phone} />
+                                </div>
                             </div>
-                            <InputError message={errors.email} />
-                        </div>
-                        <div className="col-md-6">
-                            <div><label>Phone number</label>
-                                <input value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
-                            </div>
-                            <InputError message={errors.phone} />
-                        </div>
-                    </div>
+                        </>
+                    )}
                     <div className="row g-5">
 
                         <div className="col-12 text-end">
                             <button onClick={handleClose} type="button" className="btn btn-neutral me-2">Cancel</button>
-                            <button type="submit" className="btn btn-primary">Save</button></div>
+                            <button type="submit" className="btn btn-primary">
+                                Save
+                                {formStep == 3 ? (
+                                    <> and close</>
+                                ) : (
+                                    <> and continue</>
+                                )}
+                            </button></div>
                     </div>
                 </form>
             </div>

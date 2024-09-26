@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SellerUpdateRequest extends FormRequest
+class SellerUpdateStep1Request extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

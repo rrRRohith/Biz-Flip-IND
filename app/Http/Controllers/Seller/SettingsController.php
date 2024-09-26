@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\SellerSettingsResource;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\SellerUpdateRequest;
+use App\Http\Requests\{
+    SellerUpdateRequest,
+    SellerUpdateStep1Request,
+    SellerUpdateStep2Request,
+    SellerUpdateStep3Request
+};
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Exception;
@@ -111,10 +116,7 @@ class SettingsController extends Controller{
                     'logo' => $logoPath,
                 ]);
             }
-            return response()->json([
-                'success' => true,
-                'message' => 'Settings updated successfully.',
-            ]);
+            return redirect()->back()->with('success', 'Settings updated successfully.');
             
         }
         catch(Exception $e){
@@ -136,10 +138,16 @@ class SettingsController extends Controller{
                 'lng' => $request->location['lng'] ?? null,
             ]);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Settings updated successfully.',
-            ]);
+            return redirect()->back()->with('success', 'Settings updated successfully.');
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function storeStep3(SellerUpdateStep3Request $request){
+        try{		
+            return redirect()->back()->with('success', 'Settings updated successfully.');
         }
         catch(Exception $e){
             return $e->getMessage();
