@@ -28,7 +28,7 @@ class AgentController extends BaseController{
      * @param Request $request
      */
     public function index(Request $request){
-        $agents = User::sellers()->whereStatus('1')->searchAgent($request)->paginate(24)->appends(request()->query());
+        $agents = User::sellers()->whereHas('seller', fn($q) => $q->where('has_public_view', '1'))->whereStatus('1')->searchAgent($request)->paginate(24)->appends(request()->query());
         return $request->ajax() ? response()->json([
             'success' => true,
             'total_agents' => $agents->total(),
