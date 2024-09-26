@@ -4,7 +4,7 @@ const Footer = function() {
         <>
             <div className="not-embed">
                 
-                <footer className='bg-white border-top border border-light border-bottom-0'>
+                <footer className='bg-white border-top border-light border-bottom-0'>
                 <div className="w-100 bg-white pt-5">
                     <div className="container">
                         <div className="row">

@@ -127,7 +127,6 @@ export default function Settings({ seller, auth, success, error, province_option
     }
 
     const INITIAL_LOCATION = { lat: seller && seller.lat ? seller.lat : 13.4, lng: seller && seller.lng ? seller.lng : 77.0 };
-    console.log(INITIAL_LOCATION);
     const INITIAL_ZOOM = 10;
 
     const [defaultLocation, setDefaultLocation] = useState(INITIAL_LOCATION);
@@ -258,7 +257,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                             </div>
                                         </div> */}
                                         <div className="col-12">
-                                        <div id="map" style={{ height: '400px', width: '100%' }}>
+                                        
                                             <Picker
                                                 defaultLocation={defaultLocation}
                                                 zoom={zoom}
@@ -268,7 +267,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 //onChangeZoom={handleChangeZoom}
                                                 apiKey={API_KEY}
                                             />
-                                        </div></div>
+                                        </div>
                                     </div>
                                     <div className="mb-5">
                                         <h4>Business Communication</h4>

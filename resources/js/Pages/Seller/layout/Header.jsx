@@ -25,9 +25,9 @@ const Header = ({ user }) => {
                     </PermissionAllow>
                  }
                 */}
-                <Link className="navbar-brand me-auto" as="a" href="/">
+                <a className="navbar-brand me-auto" as="a" href="/">
                     <img src="/logo.png" alt="..." />
-                </Link>
+                </a>
                 <Dropdown className="d-block d-lg-none">
                     <Dropdown.Toggle
                         as="a"

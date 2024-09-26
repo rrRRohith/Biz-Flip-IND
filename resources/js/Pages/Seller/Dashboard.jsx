@@ -12,7 +12,7 @@ import SettingsFormMininal from './SettingsFormMininal';
 import PlanError from './PlanError';
 import PlanForm from './PlanForm';
 
-export default function Dashboard({plans, showPlanForm, showAgentForm, auth, data, leads, tickets, ads, current_invoice, seller, province_options }) {
+export default function Dashboard({API_KEY, plans, showPlanForm, showAgentForm, auth, data, leads, tickets, ads, current_invoice, seller, province_options }) {
     const [show, setShow] = useState(true);
     const [show2, setShow2] = useState(true);
     const handleClose = () => setShow(false);
@@ -25,7 +25,7 @@ export default function Dashboard({plans, showPlanForm, showAgentForm, auth, dat
                         <Modal.Title>Update company settings</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <SettingsFormMininal handleClose={handleClose} seller={seller} province_options={province_options}></SettingsFormMininal>
+                        <SettingsFormMininal API_KEY={API_KEY} handleClose={handleClose} seller={seller} province_options={province_options}></SettingsFormMininal>
                     </Modal.Body>
                 </Modal>
             )}
