@@ -175,9 +175,9 @@ Route::get('pending-review', function () {
     return view('auth.pendingReview');
 });
 
-Route::post('/auth/seller', 'App\Http\Controllers\Auth\RegisteredUserController@seller');
-Route::post('/auth/agent', 'App\Http\Controllers\Auth\RegisteredUserController@agent');
-Route::post('/auth/customer', 'App\Http\Controllers\Auth\RegisteredUserController@customer');
+// Route::post('/auth/seller', 'App\Http\Controllers\Auth\RegisteredUserController@seller');
+// Route::post('/auth/agent', 'App\Http\Controllers\Auth\RegisteredUserController@agent');
+// Route::post('/auth/customer', 'App\Http\Controllers\Auth\RegisteredUserController@customer');
 
 // Route::get('/auth/agent', function () {
 //     return view('auth.agent');

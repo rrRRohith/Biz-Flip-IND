@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\SellerSettingsResource;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\SellerUpdateRequest;
+use App\Http\Requests\{
+    SellerUpdateRequest,
+    SellerUpdateStep1Request,
+    SellerUpdateStep2Request,
+    SellerUpdateStep3Request
+};
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Exception;
@@ -80,6 +85,68 @@ class SettingsController extends Controller{
                 ]);
             }
 
+            return redirect()->back()->with('success', 'Settings updated successfully.');
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function storeStep1(SellerUpdateStep1Request $request){
+        try{		
+            $this->seller->seller ? : $this->seller->seller()->create($request->validated());
+            
+            $this->seller->refresh();
+            
+            $seller = $this->seller->seller;
+
+            $seller->update($request->validated());
+            $seller->update([
+                'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
+                'has_public_view' => 1,
+            ]);
+
+            if ($request->has('logo') && $request->logo) {
+                if ($seller->logo && $seller->logo != 'default') {
+                    Storage::disk('images')->delete($seller->logo);
+                }
+                $logo = $request->logo;
+                $logoPath = $this->uploadFile(file : $logo, path : 'logos', maxHeight : 200, maxWidth : 200, ratio: '1:1');
+                $seller->update([
+                    'logo' => $logoPath,
+                ]);
+            }
+            return redirect()->back()->with('success', 'Settings updated successfully.');
+            
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function storeStep2(SellerUpdateStep2Request $request){
+        try{		
+            $this->seller->seller ? : $this->seller->seller()->create($request->validated());
+            
+            $this->seller->refresh();
+            
+            $seller = $this->seller->seller;
+
+            $seller->update($request->validated());
+            $seller->update([
+                'lat' => $request->location['lat'] ?? null,
+                'lng' => $request->location['lng'] ?? null,
+            ]);
+
+            return redirect()->back()->with('success', 'Settings updated successfully.');
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function storeStep3(SellerUpdateStep3Request $request){
+        try{		
             return redirect()->back()->with('success', 'Settings updated successfully.');
         }
         catch(Exception $e){

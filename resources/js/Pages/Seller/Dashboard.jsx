@@ -9,20 +9,34 @@ import Graphs from './Graphs';
 import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
 import SettingsFormMininal from './SettingsFormMininal';
+import PlanError from './PlanError';
+import PlanForm from './PlanForm';
 
-export default function Dashboard({ showAgentForm, auth, data, leads, tickets, ads, current_invoice, seller, province_options }) {
+export default function Dashboard({plans, showPlanForm, showAgentForm, auth, data, leads, tickets, ads, current_invoice, seller, province_options }) {
     const [show, setShow] = useState(true);
+    const [show2, setShow2] = useState(true);
     const handleClose = () => setShow(false);
-
+    const handleClose2 = () => setShow2(false);
     return (
         <>
             {showAgentForm && (
                 <Modal size="lg" backdrop="static" keyboard={false} show={show} onHide={handleClose} centered>
                     <Modal.Header closeButton>
-                        <Modal.Title>Hello</Modal.Title>
+                        <Modal.Title>Update company settings</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <SettingsFormMininal handleClose={handleClose} seller={seller} province_options={province_options}></SettingsFormMininal>
+                    </Modal.Body>
+                </Modal>
+            )}
+
+            {showPlanForm && (
+                <Modal size="xl" backdrop="static" keyboard={false} show={show2} onHide={handleClose2} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Purchase advertising plans</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <PlanForm current_invoice={current_invoice} handleClose={handleClose2} plans={plans}></PlanForm>
                     </Modal.Body>
                 </Modal>
             )}
@@ -34,20 +48,7 @@ export default function Dashboard({ showAgentForm, auth, data, leads, tickets, a
                         <div className="mb-10">
                             Track the performance of your ads, including daily views and leads, and view detailed metrics like lead-to-view ratios. Manage your active subscriptions and monitor your most viewed ads and recent leads.
                         </div>
-                        {current_invoice ? (
-                            <>
-                                <div className="alert alert-success mb-5">
-                                    You currently have active subscription <strong>{current_invoice.name}</strong> with remaining <strong>{current_invoice.remaining_ads}</strong> ads till <strong>{current_invoice.expire_date}</strong>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div className="alert alert-danger mb-5">
-                                    You dont have any active subscriptions. Please <Link href={route('account.plans.index')}>purchase </Link>
-                                    new plan to create new ads.
-                                </div>
-                            </>
-                        )}
+                        <PlanError current_invoice={current_invoice}></PlanError>
                         <div className="row g-6">
                             <div className="col-xl-3 col-sm-6 col-12">
                                 <Link href={route('account.ads.index')}>

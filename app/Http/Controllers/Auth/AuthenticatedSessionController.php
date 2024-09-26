@@ -33,9 +33,9 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         
-        if(!auth()->user()->last_login){
-            session(['firstLogin' => true]);
-        }
+        // if(!auth()->user()->last_login){
+        //     session(['firstLogin' => true]);
+        // }
 
         auth()->user()->update([
             'last_login' => now()

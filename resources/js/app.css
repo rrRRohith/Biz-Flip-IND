@@ -55,8 +55,8 @@
     border-color: #e7eaf0 !important;
     border-radius: 0.375rem !important;
     box-shadow: none !important;
-    padding-top: 0.213em;
-    padding-bottom: 0.213em;
+    padding-top: 0.213em !important;
+    padding-bottom: 0.213em !important;
 }
 
 .seller .css-t3ipsp-control {

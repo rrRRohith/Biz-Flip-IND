@@ -35,6 +35,7 @@ class PlanController extends BaseController{
     public function index(Request $request){
         return Inertia::render('Seller/Plan/Index', [
             'can_purchase' => $this->seller->remaining_ads ? false : true,
+            'current_invoice' => $this->seller->current_subscription ? new InvoiceResource($this->seller->current_subscription) : null,
             'plans' => SellerPlanResource::collection(\App\Models\SubscriptionPlan::whereStatus('1')->whereVisibility('1')->orderBy('price')->get()),
         ]);
     }
@@ -47,7 +48,8 @@ class PlanController extends BaseController{
      */
     public function show(Request $request, \App\Models\SubscriptionPlan $plan){
         abort_if($this->seller->remaining_ads, 403, 'You still have unused ad benefits. Be sure to take advantage of them before making a new purchase.');
-        \App\Models\SubscriptionPlan::whereDefault('0')->whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);
+        \App\Models\SubscriptionPlan::whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);
+        abort_if($this->seller->current_invoice && $plan->default == '1', 404);
         return Inertia::render('Seller/Plan/Plan', [
             'address' => [
                 'address' => $this->seller->address,
@@ -66,7 +68,8 @@ class PlanController extends BaseController{
 
     public function update(\App\Http\Requests\PlanPurchaseRequest $request, \App\Models\SubscriptionPlan $plan){
         abort_if($this->seller->remaining_ads, 403, 'You still have unused ad benefits. Be sure to take advantage of them before making a new purchase.');
-        \App\Models\SubscriptionPlan::whereDefault('0')->whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);
+        \App\Models\SubscriptionPlan::whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);
+        abort_if($this->seller->current_invoice && $plan->default == '1', 404);
         \DB::beginTransaction();
         try{
             $subscription = $this->subscribeToPlan($request, $plan, $this->seller);
