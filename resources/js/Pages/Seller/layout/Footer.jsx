@@ -2,7 +2,9 @@ const Footer = function() {
     return (
         <>
             <div class="not-embed">
-                <div class="w-100 bg-white py-5">
+                
+                <footer class='bg-white border-top border border-light border-bottom-0'>
+                <div class="w-100 bg-white pt-5">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 mb-3 mb-md-0 m-auto text-center">
@@ -43,7 +45,6 @@ const Footer = function() {
                         </div>
                     </div>
                 </div>
-                <footer class='bg-white border-top border border-light border-bottom-0'>
                     <div class="container py-3">
                         <p class="m-auto text-center">© 2024 Designed and developed by <a
                             class="text-primary text-decoration-none fw-medium" href="https://indigitalgroup.ca"

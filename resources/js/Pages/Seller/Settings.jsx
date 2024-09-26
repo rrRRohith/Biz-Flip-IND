@@ -4,6 +4,7 @@ import Wrapper from './layout/Wrapper';
 import Select from 'react-select';
 import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
+import { Picker } from 'react-gmap-picker';
 
 const employee_options = [
     {
@@ -49,7 +50,7 @@ const socials = [
     { id: 'linkedin', label: 'Linkedin' },
 ];
 
-export default function Settings({ seller, auth, success, error, province_options }) {
+export default function Settings({ seller, auth, success, error, province_options, API_KEY }) {
     const [checkedDays, setCheckedDays] = useState(seller.days);
     const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
 
@@ -72,8 +73,8 @@ export default function Settings({ seller, auth, success, error, province_option
         province: seller ? seller.province : '',
         lat: seller ? seller.lat : '',
         lng: seller ? seller.lng : '',
-        established : seller ? seller.established : '',
-        
+        established: seller ? seller.established : '',
+
     });
 
     const [imagePreview, setImagePreview] = useState('');
@@ -105,6 +106,7 @@ export default function Settings({ seller, auth, success, error, province_option
         await post(route("account.settings.store", {
             days: checkedDays,
             socials: checkedSocials,
+            location:location
         }), {
             preserveScroll: true,
             onSuccess: () => {
@@ -127,6 +129,18 @@ export default function Settings({ seller, auth, success, error, province_option
             [social]: !prevCheckedSocials[social]
         }));
     }
+
+    const INITIAL_LOCATION = { lat: seller && seller.lat ? seller.lat : 13.4, lng: seller && seller.lng ? seller.lng : 77.0 };
+    console.log(INITIAL_LOCATION);
+    const INITIAL_ZOOM = 10;
+
+    const [defaultLocation, setDefaultLocation] = useState(INITIAL_LOCATION);
+    const [location, setLocation] = useState(defaultLocation);
+    const [zoom, setZoom] = useState(INITIAL_ZOOM);
+
+    const handleChangeLocation = (lat, lng) => {
+        setLocation({ lat, lng });
+    };
     return (
         <>
             <Head title="Settings" />
@@ -144,8 +158,8 @@ export default function Settings({ seller, auth, success, error, province_option
                                             <div className="d-flex align-items-center">
                                                 <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></label>
                                                 <div className="ms-4"><span className="h4 d-block mb-0">{data.company_name}</span>
-                                                <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Upload logo</label></div>
-                                                
+                                                    <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Upload logo</label></div>
+
                                             </div>
                                             <InputError message={errors.logo} />
                                         </div>
@@ -228,7 +242,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 <InputError message={errors.map_link} />
                                             </div>
                                         </div> */}
-                                        <div className="col-md-6">
+                                        {/* <div className="col-md-6">
                                             <div><label>Latitude</label>
                                                 <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="text" placeholder="Latitude" className="form-control" />
                                                 <InputError message={errors.lat} />
@@ -239,6 +253,17 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="text" placeholder="Longitude" className="form-control" />
                                                 <InputError message={errors.lng} />
                                             </div>
+                                        </div> */}
+                                        <div className="col-12">
+                                            <Picker
+                                                defaultLocation={defaultLocation}
+                                                zoom={zoom}
+                                                mapTypeId="roadmap"
+                                                style={{ height: '300px' }}
+                                                onChangeLocation={handleChangeLocation}
+                                                //onChangeZoom={handleChangeZoom}
+                                                apiKey={API_KEY}
+                                            />
                                         </div>
                                     </div>
                                     <div className="mb-5">

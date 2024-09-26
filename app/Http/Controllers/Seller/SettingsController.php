@@ -35,6 +35,7 @@ class SettingsController extends Controller{
 
     public function index(){
         return Inertia::render('Seller/Settings',[
+            'API_KEY' => env('MAP_API_KEY'),
             'seller' => new SellerSettingsResource($this->seller),
             'province_options' => \App\Models\Province::selectRaw("name as value, name as label")->orderBy('name')->get()->toArray(),
         ]);
@@ -52,6 +53,8 @@ class SettingsController extends Controller{
             $seller->update([
                 'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
                 'has_public_view' => 1,
+                'lat' => $request->location['lat'] ?? null,
+                'lng' => $request->location['lng'] ?? null,
             ]);
 
             if ($request->has('logo') && $request->logo) {
