@@ -4,6 +4,7 @@ import Wrapper from './layout/Wrapper';
 import Select from 'react-select';
 import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
+import { Picker } from 'react-gmap-picker';
 
 const employee_options = [
     {
@@ -49,7 +50,7 @@ const socials = [
     { id: 'linkedin', label: 'Linkedin' },
 ];
 
-export default function SettingsFormMininal({ seller, province_options, handleClose }) {
+export default function SettingsFormMininal({ API_KEY, seller, province_options, handleClose }) {
     const [checkedDays, setCheckedDays] = useState(seller.days);
     const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
 
@@ -106,10 +107,10 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
         await post(route(routeName, {
             days: checkedDays,
             socials: checkedSocials,
+            location:location
         }), {
             preserveScroll: true,
             onSuccess: () => {
-                console.log(formStep);
                 switch (formStep) {
                     case 1:
                         setFormStep(2)
@@ -126,6 +127,17 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
         });
     };
 
+    const INITIAL_LOCATION = { lat: seller && seller.lat ? seller.lat : 13.4, lng: seller && seller.lng ? seller.lng : 77.0 };
+    const INITIAL_ZOOM = 10;
+
+    const [defaultLocation, setDefaultLocation] = useState(INITIAL_LOCATION);
+    const [location, setLocation] = useState(defaultLocation);
+    const [zoom, setZoom] = useState(INITIAL_ZOOM);
+
+    const handleChangeLocation = (lat, lng) => {
+        setLocation({ lat, lng });
+    };
+
     const handleCheckboxChange = async (day) => {
         await setCheckedDays((prevCheckedDays) => ({
             ...prevCheckedDays,
@@ -137,23 +149,23 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
     return (
         <>
             {formStep == 1 && (
-            <div className="card rounded-input mb-5">
-                <div className="card-body">
-                    <div className="d-flex align-items-center">
-                        <div>
-                            <div className="d-flex align-items-center">
-                                <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></label>
-                                <div className="ms-4"><span className="h4 d-block mb-0">{data.company_name}</span>
-                                    <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Upload logo</label></div>
+                <div className="card rounded-input mb-5">
+                    <div className="card-body">
+                        <div className="d-flex align-items-center">
+                            <div>
+                                <div className="d-flex align-items-center">
+                                    <label role='button' htmlFor='avatar' href="#" className="avatar avatar-lg border-2 border-gray rounded-circle text-white"><img alt="..." src={imagePreview} /></label>
+                                    <div className="ms-4"><span className="h4 d-block mb-0">{data.company_name}</span>
+                                        <label htmlFor='avatar' type="button" className="text-primary font-semibold mt-1">Upload logo</label></div>
 
+                                </div>
+                                <InputError message={errors.logo} />
                             </div>
-                            <InputError message={errors.logo} />
+                            <input onChange={handleImageChange} type="file" id="avatar" className='d-none' hidden accept='image/*' />
+                            {/* <div className="ms-auto"><label htmlFor='avatar' type="button" className="btn btn-sm btn-neutral">Upload</label></div> */}
                         </div>
-                        <input onChange={handleImageChange} type="file" id="avatar" className='d-none' hidden accept='image/*' />
-                        {/* <div className="ms-auto"><label htmlFor='avatar' type="button" className="btn btn-sm btn-neutral">Upload</label></div> */}
                     </div>
-                </div>
-            </div>)}
+                </div>)}
             <div>
                 <form onSubmit={handleSubmit}>
 
@@ -237,7 +249,7 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
                                                 <InputError message={errors.map_link} />
                                             </div>
                                         </div> */}
-                                <div className="col-md-6">
+                                {/* <div className="col-md-6">
                                     <div><label>Latitude</label>
                                         <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="text" placeholder="Latitude" className="form-control" />
                                         <InputError message={errors.lat} />
@@ -248,6 +260,18 @@ export default function SettingsFormMininal({ seller, province_options, handleCl
                                         <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="text" placeholder="Longitude" className="form-control" />
                                         <InputError message={errors.lng} />
                                     </div>
+                                </div> */}
+                                <div className="col-12">
+
+                                    <Picker
+                                        defaultLocation={defaultLocation}
+                                        zoom={zoom}
+                                        mapTypeId="roadmap"
+                                        style={{ height: '300px' }}
+                                        onChangeLocation={handleChangeLocation}
+                                        //onChangeZoom={handleChangeZoom}
+                                        apiKey={API_KEY}
+                                    />
                                 </div>
                             </div>
                             <div className="mb-5">

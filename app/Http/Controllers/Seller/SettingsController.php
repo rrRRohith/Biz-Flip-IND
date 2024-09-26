@@ -116,6 +116,7 @@ class SettingsController extends Controller{
                     'logo' => $logoPath,
                 ]);
             }
+            session(['forceAgentForm' => true, 'agentFormShown' => false]);
             return redirect()->back()->with('success', 'Settings updated successfully.');
             
         }
@@ -137,7 +138,7 @@ class SettingsController extends Controller{
                 'lat' => $request->location['lat'] ?? null,
                 'lng' => $request->location['lng'] ?? null,
             ]);
-
+            session(['forceAgentForm' => true, 'agentFormShown' => false]);
             return redirect()->back()->with('success', 'Settings updated successfully.');
         }
         catch(Exception $e){
@@ -146,7 +147,8 @@ class SettingsController extends Controller{
     }
 
     public function storeStep3(SellerUpdateStep3Request $request){
-        try{		
+        try{	
+            session(['forceAgentForm' => false, 'agentFormShown' => true]);	
             return redirect()->back()->with('success', 'Settings updated successfully.');
         }
         catch(Exception $e){
