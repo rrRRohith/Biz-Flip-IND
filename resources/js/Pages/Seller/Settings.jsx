@@ -259,10 +259,6 @@ export default function Settings({ seller, auth, success, error, province_option
                                             </div>
                                         </div> */}
                                         <div className="col-12">
-<<<<<<< HEAD
-=======
-                                        
->>>>>>> 135266f00fcd0a63563ceb412c65b6dbccd3db07
                                             <Picker
                                                 defaultLocation={defaultLocation}
                                                 zoom={zoom}
@@ -273,10 +269,6 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 apiKey={API_KEY}
                                             />
                                         </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 135266f00fcd0a63563ceb412c65b6dbccd3db07
                                     </div>
                                     <div className="mb-5">
                                         <h4>Business Communication</h4>

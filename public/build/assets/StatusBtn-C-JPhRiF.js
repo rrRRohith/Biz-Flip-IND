@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:public/build/assets/StatusBtn-DJbb5w_J.js
-import{j as e}from"./app-CszI9XME.js";function a({status:s}){return s==-1?e.jsx("div",{className:"badge  p-2 py-1 bg-danger small",children:"Suspended"}):s==0?e.jsx("div",{className:"badge  p-2 py-1 bg-warning small",children:"Pending"}):s==1?e.jsx("div",{className:"badge  p-2 py-1 bg-success small",children:"Active"}):s==2?e.jsx("div",{className:"badge  p-2 py-1 bg-info small",children:"Completed"}):e.jsx("div",{className:"badge  p-2 py-1 bg-danger small",children:"Inactive"})}export{a as S};
-========
-import{j as e}from"./app-m6jwzREc.js";function a({status:s}){return s==-1?e.jsx("div",{className:"badge  p-2 py-1 bg-danger small",children:"Suspended"}):s==0?e.jsx("div",{className:"badge  p-2 py-1 bg-warning small",children:"Pending"}):s==1?e.jsx("div",{className:"badge  p-2 py-1 bg-success small",children:"Active"}):s==2?e.jsx("div",{className:"badge  p-2 py-1 bg-info small",children:"Completed"}):e.jsx("div",{className:"badge  p-2 py-1 bg-danger small",children:"Inactive"})}export{a as S};
->>>>>>>> 135266f00fcd0a63563ceb412c65b6dbccd3db07:public/build/assets/StatusBtn-C-JPhRiF.js
