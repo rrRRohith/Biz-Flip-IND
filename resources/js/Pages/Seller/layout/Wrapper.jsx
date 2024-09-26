@@ -2,6 +2,7 @@ import SideBar from "./SideBar";
 import Header from "./Header";
 import ToastNotification from '@/Components/ToastNotification';
 import TopMenu from "./TopMenu";
+import Footer from "./Footer";
 
 const Wrapper = ({ success, error, children, user }) => {
     return (
@@ -21,9 +22,10 @@ const Wrapper = ({ success, error, children, user }) => {
                             </div>
                         </div>
                     </div>
-
+                    
                 </div>
             </div>
+            <Footer/>
         </>
     );
 }

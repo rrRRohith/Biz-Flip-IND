@@ -44,6 +44,7 @@
         "react-circular-progressbar": "^2.1.0",
         "react-email-editor": "^1.7.10",
         "react-full-screen": "^1.1.1",
+        "react-gmap-picker": "^1.0.3",
         "react-icons": "^5.2.1",
         "react-paginate": "^8.2.0",
         "react-router-dom": "^6.23.1",
