@@ -33,6 +33,8 @@
         "@mui/x-date-pickers": "^7.18.0",
         "@mui/x-date-pickers-pro": "^7.18.0",
         "@react-google-maps/api": "^2.19.3",
+        "@react-input/mask": "^1.2.10",
+        "alpinejs": "^3.14.1",
         "apexcharts": "^3.49.1",
         "bootstrap": "^5.3.3",
         "date-fns": "^4.1.0",

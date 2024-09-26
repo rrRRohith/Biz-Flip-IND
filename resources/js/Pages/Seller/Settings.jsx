@@ -5,7 +5,8 @@ import Select from 'react-select';
 import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
 import { Picker } from 'react-gmap-picker';
-import { useLocation } from 'react-router-dom';
+import { InputMask } from '@react-input/mask';
+
 const employee_options = [
     {
         'label': 'Select an option',
@@ -79,7 +80,7 @@ export default function Settings({ seller, auth, success, error, province_option
 
     const [imagePreview, setImagePreview] = useState('');
 
-    
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -102,7 +103,7 @@ export default function Settings({ seller, auth, success, error, province_option
         await post(route("account.settings.store", {
             days: checkedDays,
             socials: checkedSocials,
-            location:location
+            location: location
         }), {
             preserveScroll: true,
             onSuccess: () => {
@@ -206,7 +207,8 @@ export default function Settings({ seller, auth, success, error, province_option
                                         </div>
                                         <div className="col-md-6">
                                             <div><label>Established</label>
-                                                <input value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
+                                           
+                                                <input maxLength={4}  value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
                                             </div>
                                             <InputError message={errors.established} />
                                         </div>
@@ -229,7 +231,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                         </div>
                                         <div className="col-md-6">
                                             <div><label>Postcode</label>
-                                                <input value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
+                                                <input maxLength={7} value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
                                                 <InputError message={errors.postalcode} />
                                             </div>
                                         </div>
@@ -258,7 +260,6 @@ export default function Settings({ seller, auth, success, error, province_option
                                             </div>
                                         </div> */}
                                         <div className="col-12">
-                                        <div id="map" style={{ height: '400px', width: '100%' }}>
                                             <Picker
                                                 defaultLocation={defaultLocation}
                                                 zoom={zoom}
@@ -268,7 +269,8 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 //onChangeZoom={handleChangeZoom}
                                                 apiKey={API_KEY}
                                             />
-                                        </div></div>
+                                        </div>
+
                                     </div>
                                     <div className="mb-5">
                                         <h4>Business Communication</h4>
@@ -282,7 +284,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                         </div>
                                         <div className="col-md-6">
                                             <div><label>Phone number</label>
-                                                <input value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
+                                                <input maxLength={12} value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
                                             </div>
                                             <InputError message={errors.phone} />
                                         </div>
@@ -317,45 +319,45 @@ export default function Settings({ seller, auth, success, error, province_option
                                     <div>
                                         <table>
                                             <tbody>
-                                            {socials.map((social) => (
-                                                <tr key={social.id}>
-                                                    <td>
-                                                        <div className="me-2">
-                                                            <div className="form-check form-check-lg">
-                                                                <input
-                                                                    role="button"
-                                                                    className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
-                                                                    type="checkbox"
-                                                                    id={`social_${social.id}`}
-                                                                    checked={checkedSocials[social.id]}
-                                                                    onChange={() => handleSocialCheckboxChange(social.id)}
-                                                                />
-                                                                <label role="button" className="mt-1" htmlFor={`social_${social.id}`}>
-                                                                    {social.label}
+                                                {socials.map((social) => (
+                                                    <tr key={social.id}>
+                                                        <td>
+                                                            <div className="me-2">
+                                                                <div className="form-check form-check-lg">
+                                                                    <input
+                                                                        role="button"
+                                                                        className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                                        type="checkbox"
+                                                                        id={`social_${social.id}`}
+                                                                        checked={checkedSocials[social.id]}
+                                                                        onChange={() => handleSocialCheckboxChange(social.id)}
+                                                                    />
+                                                                    <label role="button" className="mt-1" htmlFor={`social_${social.id}`}>
+                                                                        {social.label}
 
-                                                                </label>
+                                                                    </label>
+                                                                </div>
+                                                                <div>
+                                                                    <small>Set your {social.label} page link</small>
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <small>Set your {social.label} page link</small>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        {checkedSocials[social.id] && (
-                                                            <div>
-                                                                <input value={data[social.id] ?? ''} onChange={(e) => { handleChange(social.id, e.target.value) }} type="text" placeholder={`${social.label} page`} className="form-control" />
-                                                            </div>
-                                                        )}
-                                                    </td>
-                                                </tr>
-                                            ))}
+                                                        </td>
+                                                        <td>
+                                                            {checkedSocials[social.id] && (
+                                                                <div>
+                                                                    <input value={data[social.id] ?? ''} onChange={(e) => { handleChange(social.id, e.target.value) }} type="text" placeholder={`${social.label} page`} className="form-control" />
+                                                                </div>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                ))}
                                             </tbody>
                                         </table>
                                     </div>
                                     <div className="row g-5">
 
                                         <div className="col-12 text-end">
-                                            <button type="button" className="btn btn-neutral me-2">Cancel</button>
+                                            <button type="button"  className="btn btn-neutral me-2">Cancel</button>
                                             <button type="submit" className="btn btn-primary">Save</button></div>
                                     </div>
                                 </form>

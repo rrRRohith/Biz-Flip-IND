@@ -63,6 +63,7 @@ class AdController extends BaseController{
             return redirect()->route('account.plans.index')->withError('Please purchase a plan to continue.');
         }
         return Inertia::render('Seller/AdForm', [
+            'API_KEY' => env('MAP_API_KEY'),
             'categories_options' => Category::selectRaw("id as value, name as label")->get()->toArray(),
             'business_categories_options' => BusinessCategory::selectRaw("id as value, name as label, business_categories.*")->get()->toArray(),
             'facilities_options' => Facility::selectRaw("id as value, name as label")->get()->toArray(),
@@ -85,8 +86,8 @@ class AdController extends BaseController{
                 'has_commission', 
                 'has_negotiation', 
                 'map_link', 
-                'lat', 
-                'lng', 
+                // 'lat', 
+                // 'lng', 
                 'title', 
                 'price', 
                 'description', 
@@ -109,6 +110,12 @@ class AdController extends BaseController{
                 'publish_at' => $request->status ? now() : null,
                 'slug' => Str::slug($request->title.'-'.Str::random(4)),
                 'commission' => $request->has_commission == 1 ? $request->commission : null,
+            ]);
+
+
+            $ad->update([
+                'lat' => $request->location['lat'] ?? null,
+                'lng' => $request->location['lng'] ?? null,
             ]);
 
             foreach($request->additional_info ?? [] as $information){
@@ -175,6 +182,7 @@ class AdController extends BaseController{
         
         $this->seller->ads()->findOrfail($ad->id);
         return Inertia::render('Seller/AdForm', [
+            'API_KEY' => env('MAP_API_KEY'),
             'ad' => new AdResource($ad),
             'business_categories_options' => BusinessCategory::selectRaw("id as value, name as label, business_categories.*")->get()->toArray(),
             'categories_options' => Category::selectRaw("id as value, name as label")->get()->toArray(),
@@ -197,8 +205,8 @@ class AdController extends BaseController{
                 'has_commission', 
                 'has_negotiation', 
                 'map_link', 
-                'lat', 
-                'lng', 
+                // 'lat', 
+                // 'lng', 
                 'title', 
                 'price', 
                 'description', 
@@ -219,6 +227,11 @@ class AdController extends BaseController{
             $ad->update([
                 'unique_code' => $this->seller->unique_code.$ad->id,
                 'publish_at' => $request->status ? now() : null,
+            ]);
+
+            $ad->update([
+                'lat' => $request->location['lat'] ?? null,
+                'lng' => $request->location['lng'] ?? null,
             ]);
 
             $ad->categories()->sync($request->category);

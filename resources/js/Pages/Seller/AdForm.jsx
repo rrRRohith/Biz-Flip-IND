@@ -9,8 +9,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AdFranchise from './AdFranchise';
+import { Picker } from 'react-gmap-picker';
 
-export default function PropertyForm({type_options, purpose_options, ad, auth, categories_options, facilities_options, features_options, province_options, business_categories_options }) {
+export default function PropertyForm({type_options, purpose_options, ad, auth, categories_options, facilities_options, features_options, province_options, business_categories_options, API_KEY }) {
 
     const [additionalInfo, setAdditionalInfo] = useState(ad ? ad.additional_info : []);
     const [ad_categories, setAdcategories] = useState([]);
@@ -95,6 +96,7 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
         await post(route(ad ? "account.ads.update" : "account.ads.store", {
             ad: ad ? ad.id : null,
             additional_info: additionalInfo,
+            location: location,
         }), {
             preserveScroll: true,
         });
@@ -172,6 +174,19 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
         // handleChange('business_category', value);
         // handleChange('category', null);
     }
+
+    
+    const INITIAL_LOCATION = { lat:  13.4, lng:  77.0 };
+    console.log(INITIAL_LOCATION);
+    const INITIAL_ZOOM = 10;
+
+    const [defaultLocation, setDefaultLocation] = useState(INITIAL_LOCATION);
+    const [location, setLocation] = useState(defaultLocation);
+    const [zoom, setZoom] = useState(INITIAL_ZOOM);
+
+    const handleChangeLocation = (lat, lng) => {
+        setLocation({ lat, lng });
+    };
 
     return (
         <>
@@ -388,7 +403,7 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
                                         </div>
                                         <div className="col-md-6">
                                             <div><label>Postcode</label>
-                                                <input value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
+                                                <input maxLength={7} value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
                                                 <InputError message={errors.postalcode} />
                                             </div>
                                         </div>
@@ -400,21 +415,32 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
                                         </div>
                                         {data.ad_type == 'sale' && (
                                             <>
-                                                <div className="col-md-12">
+                                            <div className="col-12">
+                                                <Picker
+                                                    defaultLocation={defaultLocation}
+                                                    zoom={zoom}
+                                                    mapTypeId="roadmap"
+                                                    style={{ height: '300px' }}
+                                                    onChangeLocation={handleChangeLocation}
+                                                    //onChangeZoom={handleChangeZoom}
+                                                    apiKey={API_KEY}
+                                                />
+                                            </div>
+                                                {/* <div className="col-md-12">
                                                     <div><label>Map link</label>
                                                         <input value={data.map_link} onChange={(e) => { handleChange('map_link', e.target.value) }} type="text" placeholder="Map link" className="form-control" />
                                                         <InputError message={errors.map_link} />
                                                     </div>
-                                                </div>
-                                                <div className="col-md-6">
+                                                </div> */}
+                                                <div className="col-md-6 d-none">
                                                     <div><label>Latitude</label>
-                                                        <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="text" placeholder="Latitude" className="form-control" />
+                                                        <input value={data.lat} onChange={(e) => { handleChange('lat', e.target.value) }} type="hidden" placeholder="Latitude" className="form-control" />
                                                         <InputError message={errors.lat} />
                                                     </div>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-6 d-none">
                                                     <div><label>Longitude</label>
-                                                        <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="text" placeholder="Longitude" className="form-control" />
+                                                        <input value={data.lng} onChange={(e) => { handleChange('lng', e.target.value) }} type="hidden" placeholder="Longitude" className="form-control" />
                                                         <InputError message={errors.lng} />
                                                     </div>
                                                 </div>
