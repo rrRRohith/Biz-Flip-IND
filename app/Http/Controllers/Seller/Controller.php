@@ -47,13 +47,20 @@ class Controller extends BaseController{
         $views = $this->seller->ad_views()->count();
         $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) max(($views / $leads), 1) : 1)) : 0;
         
-        session(['planFormShown' => false, 'agentFormShown' => false]);
+        //session(['planFormShown' => false, 'agentFormShown' => false]);
 
-        $showAgentForm = (($this->seller->seller && $this->seller->seller->has_public_view == '0') || session('forceAgentForm')) && !session('agentFormShown');
         //$showAgentForm = true;
         $showPlanForm = !$this->seller->current_subscription()->exists() && !session('planFormShown');
+        $showAgentForm = (($this->seller->seller && $this->seller->seller->has_public_view == '0') || session('forceAgentForm')) && !session('agentFormShown');
         
-        session(['planFormShown' => true, 'agentFormShown' => true]);
+        session(['planFormShown' => true]);
+
+        if($showPlanForm){
+            $showAgentForm = false;
+        }else{
+            session(['agentFormShown' => true]);
+        }
+
         return Inertia::render('Seller/Dashboard', [
             'API_KEY' => env('MAP_API_KEY'),
             'data' => [

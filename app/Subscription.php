@@ -33,7 +33,6 @@ trait Subscription{
                 'postalcode',
             ])
         );
-        
         $subscription_order->update([
             'billing_address_id' => $billing_address->id,
         ]);

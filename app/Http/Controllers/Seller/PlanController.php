@@ -66,6 +66,27 @@ class PlanController extends BaseController{
         ]);
     }
 
+    public function subscribePlan(Request $request, \App\Models\SubscriptionPlan $plan){
+        abort_if($this->seller->current_invoice, 403);
+        \App\Models\SubscriptionPlan::whereDefault('1')->whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);
+        \DB::beginTransaction();
+        try{
+            $request->merge($this->seller->default_billing_address);
+            $subscription = $this->subscribeToPlan($request, $plan, $this->seller);
+            try {
+                event(new \App\Events\NewNotification(1, $this->seller->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
+            } catch (\Exception $e) {}
+            \DB::commit();
+            return redirect()->route('account.invoices.show', ['invoice' => $subscription])->with('success', "Thank you, your subscription has been completed.");
+            
+        }
+        catch(\Exception $e){
+            \DB::rollBack();
+            return redirect()->back()
+            ->with('error', "Something went wrong, please try again.");
+        }
+    }
+
     public function update(\App\Http\Requests\PlanPurchaseRequest $request, \App\Models\SubscriptionPlan $plan){
         abort_if($this->seller->remaining_ads, 403, 'You still have unused ad benefits. Be sure to take advantage of them before making a new purchase.');
         \App\Models\SubscriptionPlan::whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);

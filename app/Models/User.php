@@ -66,6 +66,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public function getDefaultBillingAddressAttribute(){
+        return [
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'address' => $this->address, 
+            'city' => $this->city,
+            'province' => $this->province,
+            'postalcode' => $this->postalcode,
+        ];
+    }
+
     public function getNameAttribute(){
         return "{$this->firstname} {$this->lastname}";
     }

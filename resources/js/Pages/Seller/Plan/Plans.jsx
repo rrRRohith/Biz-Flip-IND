@@ -25,9 +25,20 @@ export default function Plans({ plans, can_purchase, current_invoice }) {
                                             {plan.default != '1' || !current_invoice ? (
                                                 <>
                                                     {can_purchase ? (
-                                                        <Link className="btn btn-primary mt-5 btn-sm text-overflow" href={route('account.plans.show', plan.id)}>
-                                                            Purchase {plan.name} <i className="bi bi-arrow-right"></i>
-                                                        </Link>
+                                                        <>
+                                                        {
+                                                            plan.default == '1' ? (
+                                                                <Link className="btn btn-primary mt-5 btn-sm text-overflow" href={route('account.plans.subscribe', plan.id)}>
+                                                                    Subscribe {plan.name} <i className="bi bi-arrow-right"></i>
+                                                                </Link>
+                                                            ) : (
+                                                                <Link className="btn btn-primary mt-5 btn-sm text-overflow" href={route('account.plans.show', plan.id)}>
+                                                                    Purchase {plan.name} <i className="bi bi-arrow-right"></i>
+                                                                </Link>
+                                                            )
+                                                        }
+                                                        </>
+
                                                     ) : (
                                                         <button className="btn btn-primary mt-5 btn-sm text-overflow" disabled>
                                                             Purchase {plan.name} <i className="bi bi-arrow-right"></i>

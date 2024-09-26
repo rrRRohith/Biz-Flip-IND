@@ -52,9 +52,11 @@ Route::group(['middleware' => ['userType:seller','auth', 'verified'], 'prefix'=>
     Route::get('/staffs/search', 'App\Http\Controllers\Seller\StaffController@search')->name('staffs.search');
     Route::resource('/staffs', App\Http\Controllers\Seller\StaffController::class);
 
+    Route::get('/plans/{plan}/subscribe', 'App\Http\Controllers\Seller\PlanController@subscribePlan')->name('plans.subscribe');
     Route::resource('/plans', App\Http\Controllers\Seller\PlanController::class, [
         'only' => ['index', 'show', 'update']
     ]);
+    
 
     Route::get('/invoices/search', 'App\Http\Controllers\Seller\InvoiceController@search')->name('invoices.search');
     Route::resource('/invoices', App\Http\Controllers\Seller\InvoiceController::class, [

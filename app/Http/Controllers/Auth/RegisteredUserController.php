@@ -80,6 +80,7 @@ class RegisteredUserController extends Controller
 
         try {
             event(new Registered($user));
+            event(new \App\Events\NewNotification(1, $user->id, 'Welcome to '.env('APP_NAME'), 'Welcome to '.env('APP_NAME'), route('account.index')));
         } catch (\Exception $th) {}
 
 
