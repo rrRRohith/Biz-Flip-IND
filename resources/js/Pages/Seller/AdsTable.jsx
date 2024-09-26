@@ -124,12 +124,12 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                                 <td>
                                                     <AdStatusBtn status={ad.status}></AdStatusBtn>
                                                 </td>
-                                                <td>
+                                                <td className='text-end'>
                                                     <PermissionAllow permission="Ad Create">
-                                                        <span className='position-absolute'>
+                                                        
                                                         <AdAction status={adStatus} ad={ad}></AdAction>
-                                                        </span>
-                                                        <Link type="button" className="btn btn-sm btn-square btn-neutral me-2"><i className="bi bi-pen"></i></Link>
+                                                        
+                                                        
                                                     </PermissionAllow>
                                                     <PermissionAllow permission="Ad Edit">
                                                         <Link type="button" href={route('account.ads.edit', ad.id)} className="btn btn-sm btn-square btn-neutral me-2"><i className="bi bi-pen"></i></Link>
