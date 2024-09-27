@@ -108,7 +108,7 @@ export default function Index({ typeList, auth, success = null, error = null }) 
                                                         <div dangerouslySetInnerHTML={{ __html: window.statusIcon(type.status) }} />
                                                         </Td>
                                                         {/* <Td>{window.formatDateTime(type.updated_at)}</Td> */}
-                                                        <Td>
+                                                        <Td className="text-end">
                                                             <PermissionAllow permission={'Ad Type Edit'}>
                                                                 <Link className='btn btn-transparent p-2 px-3' href={route('admin.ad_types.edit', type.id)}>
                                                                     <i className="bi bi-pencil"></i>

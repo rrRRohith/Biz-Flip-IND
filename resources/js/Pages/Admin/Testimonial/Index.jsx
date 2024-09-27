@@ -133,7 +133,7 @@ export default function Index({ testimonialList, auth, success = null, error = n
                                                                 <div dangerouslySetInnerHTML={{ __html: window.statusIcon(testimonial.status) }} />
                                                                 </Td>
                                                                 {/* <Td  onClick={() => handleShow(testimonial)}>{window.formatDateTime(testimonial.updated_at)}</Td> */}
-                                                                <Td> 
+                                                                <Td className="text-end"> 
                                                                     <PermissionAllow permission={'Testimonial Show'}>
                                                                         <span onClick={() => handleShow(testimonial)} className="btn btn-transparent p-2 px-3">
                                                                             <i className="bi bi-eye"></i></span>

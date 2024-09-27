@@ -104,7 +104,7 @@ export default function Index({ featuresList, auth, success = null, error = null
                                                                 <div dangerouslySetInnerHTML={{ __html: window.statusIcon(feature.status) }} />
                                                                 </Td>
                                                                 {/* <Td>{window.formatDateTime(feature.updated_at)}</Td> */}
-                                                                <Td>
+                                                                <Td className="text-end">
                                                                     <PermissionAllow permission={'Feature Edit'}>
                                                                         <Link className='btn btn-transparent p-2 px-3' href={route('admin.features.edit', feature.id)}>
                                                                             <i className="bi bi-pencil"></i>
