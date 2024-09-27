@@ -82,7 +82,7 @@ class SettingsController extends Controller{
             foreach($request->socials ?? [] as $social => $status){
                 $this->seller->socials()->create([
                     'site' => $social,
-                    'link ' => ($request->{$social} ?? null),
+                    'link' => ($request->{$social} ?? null),
                     'status' => $status
                 ]);
             }
@@ -154,7 +154,7 @@ class SettingsController extends Controller{
             foreach($request->socials ?? [] as $social => $status){
                 $this->seller->socials()->create([
                     'site' => $social,
-                    'link ' => ($request->{$social} ?? null),
+                    'link' => ($request->{$social} ?? null),
                     'status' => $status
                 ]);
             }

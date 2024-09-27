@@ -37808,17 +37808,18 @@ img.away, img.busy, img.offline, img.online {
   z-index: 9 !important;
   padding-inline: 5px !important;
   border-radius:5px !important;
-  transform: translate(5px, -14px) scale(0.8) !important;
+  transform: translate(5px, -14px) !important;
    background-color:#FFF !important;
-  
+   font-size: 1rem !important;
 }
 
 .form-group input:focus + .form-group__label,
 .form-group input:valid + .form-group__label {
   padding-inline: 5px ;
   border-radius:50%;
-  transform: translate(5px, -14px) scale(0.8);
+  transform: translate(5px, -14px);
   background-color:#FFF ;
+  font-size: .8rem;
 }
 
 
@@ -37954,7 +37955,7 @@ input[type="number"],
 input[type="password"],
 .form-group select,
 .form-group textarea,
-input,
+input:not([type="checkbox"]),
 select,
 textarea {
     border-width: 2px !important;
