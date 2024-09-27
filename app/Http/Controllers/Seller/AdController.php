@@ -291,11 +291,19 @@ class AdController extends BaseController{
     }
 
     public function status(Request $request, Ad $ad){
-        abort_if(in_array(['0', '-1', '3'], $ad->status), 403);
+        abort_if(in_array($ad->status, ['0', '-1', '3']), 403);
         $this->seller->ads()->findOrfail($ad->id);
-        $ad->update([
-            'status' => $request->status,
-        ]);
+        if($request->status == '0' || $request->status == '1'){
+            $ad->update([
+                'publish_at' => $request->status == '1' ? now() : null,
+                'status' => '1',
+            ]);
+        }else{
+            $ad->update([
+                'status' => $request->status,
+            ]);
+        }
+        
         return redirect()->back()->with('success', 'Ad updated successfully.');
     }
 

@@ -33,7 +33,7 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
         city: ad ? ad.city : '',
         postalcode: ad ? ad.postalcode : '',
         province: ad ? ad.province : '',
-        status: ad ? ad.status : 0,
+        status: (ad && ad.publish_at) ? 1 : 0,
         // lat: ad ? ad.lat : '',
         // lng: ad ? ad.lng : '',
         map_link: ad ? ad.map_link : '',

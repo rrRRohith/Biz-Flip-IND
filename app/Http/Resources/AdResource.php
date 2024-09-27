@@ -74,6 +74,7 @@ class AdResource extends JsonResource
             'created_at'  => $this->created_at,
             'updated_at'  => $this->updated_at,
             'ad_type' => $this->ad_type,
+            'publish_at' => $this->publish_at,
         ];
     }
 }

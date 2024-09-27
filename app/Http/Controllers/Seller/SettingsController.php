@@ -84,7 +84,6 @@ class SettingsController extends Controller{
                     'status' => $status
                 ]);
             }
-
             return redirect()->back()->with('success', 'Settings updated successfully.');
         }
         catch(Exception $e){
@@ -137,6 +136,7 @@ class SettingsController extends Controller{
             $seller->update([
                 'lat' => $request->location['lat'] ?? null,
                 'lng' => $request->location['lng'] ?? null,
+                'has_public_view' => 1,
             ]);
             session(['forceAgentForm' => true, 'agentFormShown' => false]);
             return redirect()->back()->with('success', 'Settings updated successfully.');
@@ -148,6 +148,14 @@ class SettingsController extends Controller{
 
     public function storeStep3(SellerUpdateStep3Request $request){
         try{	
+            $this->seller->socials()->delete();
+            foreach($request->socials ?? [] as $social => $status){
+                $this->seller->socials()->create([
+                    'site' => $social,
+                    'link ' => ($request->{$social} ?? null),
+                    'status' => $status
+                ]);
+            }
             session(['forceAgentForm' => false, 'agentFormShown' => true]);	
             return redirect()->back()->with('success', 'Settings updated successfully.');
         }

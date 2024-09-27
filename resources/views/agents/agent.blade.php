@@ -12,7 +12,7 @@
         <div class="my-5 w-100">
             @include('home.search')
         </div>
-    </div>     
+    </div>
     <div class="container mt-5">
         <ul class="breadcrumb">
             <li class="pe-1">
@@ -43,24 +43,53 @@
                 <div class='mt-4'>
                     {{ $seller->seller->description }}
                 </div>
+                <div>
+                    <div class="d-flex mt-3">
+                        @foreach ($seller->socials as $social)
+                            @switch($social->site)
+                                @case('facebook')
+                                <div class="col-auto me-2" role="button"><a target="_blank" href="{{ $social->link }}" class="btn btn-light border border-1 bg-white"><i class="bi bi-facebook"></i></a></div>
+                                @break
+
+                                @case('instagram')
+                                <div class="col-auto me-2" role="button"><a target="_blank" href="{{ $social->link }}" class="btn btn-light border border-1 bg-white"><i class="bi bi-instagram"></i></a></div>
+                                @break
+
+                                @case('linkedin')
+                                <div class="col-auto me-2" role="button"><a target="_blank" href="{{ $social->link }}" class="btn btn-light border border-1 bg-white"><i class="bi bi-linkedin"></i></a></div>
+                                @break
+
+                                @case('x')
+                                <div class="col-auto me-2" role="button"><a target="_blank" href="{{ $social->link }}" class="btn btn-light border border-1 bg-white"><i class="bi bi-twitter-x"></i></a></div>
+                                @break
+
+                                @case('youtube')
+                                <div class="col-auto me-2" role="button"><a target="_blank" href="{{ $social->link }}" class="btn btn-light border border-1 bg-white"><i class="bi bi-youtube"></i></a></div>
+                                @break
+                            @endswitch
+                        @endforeach
+                    </div>
+                </div>
                 <div class='mt-3'>
                     <a target="_blank" href="{{ $seller->seller->website }}"
                         class='btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none me-3'>Visit website
                         <i class="bi bi-box-arrow-up-right"></i></a>
-                    <a role="button" data-url="{{ request()->url() }}" data-title="{{ "{$seller->name} | {$seller->seller->company_name}" }}" class='share btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
+                    <a role="button" data-url="{{ request()->url() }}"
+                        data-title="{{ "{$seller->name} | {$seller->seller->company_name}" }}"
+                        class='share btn btn-sm btn-secondary border-0 rounded-3 text-decoration-none'>
                         Share <i class="bi bi-share"></i></a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-8 mb-4 m-lg-0">
-                @if ($seller->ads()->count())
+                @if ($seller->ads()->whereNotNull('publish_at')->whereStatus('1')->count())
                     <div class='mb-4'>
                         <div class="fw-semibold mb-3 fs-5">
                             Listings of {{ $seller->name }} from {{ $seller->seller->company_name }}
                         </div>
                         <div class="row">
-                            @foreach ($seller->ads()->limit(12)->get() as $ad)
+                            @foreach ($seller->ads()->whereNotNull('publish_at')->whereStatus('1')->limit(12)->get() as $ad)
                                 @include('partials.propertyList')
                             @endforeach
                         </div>

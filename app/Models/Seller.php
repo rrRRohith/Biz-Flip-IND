@@ -27,7 +27,8 @@ class Seller extends Model
         'lat',
         'lng',
         'slug',
-        'established'
+        'established',
+        'has_public_view'
 
     ];
 

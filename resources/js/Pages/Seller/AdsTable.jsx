@@ -122,7 +122,7 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                                     {ad.date_text}
                                                 </td> */}
                                                 <td>
-                                                    <AdStatusBtn status={ad.status}></AdStatusBtn>
+                                                    <AdStatusBtn ad={ad}></AdStatusBtn>
                                                 </td>
                                                 <td className='text-end'>
                                                     <PermissionAllow permission="Ad Create">

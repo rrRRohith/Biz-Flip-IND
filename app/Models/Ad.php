@@ -120,11 +120,11 @@ class Ad extends Model
     }
 
     public function seller_ads(){
-        return $this->hasManyDeepFromRelations($this->seller(), (new User())->ads())->where('ads.id', "!=", $this->id);
+        return $this->hasManyDeepFromRelations($this->seller(), (new User())->ads()->whereNotNull('publish_at')->whereStatus('1'))->where('ads.id', "!=", $this->id);
     }
 
     public function getSimilarAdsAttribute(){
-        return $this->category ?  $this->category->ads()->limit(4)->where('ads.id', "!=", $this->id)->get() : collect([]);
+        return $this->category ?  $this->category->ads()->whereNotNull('publish_at')->whereStatus('1')->limit(4)->where('ads.id', "!=", $this->id)->get() : collect([]);
     }
 
     public function scopeSearchListings($q, Request $request){

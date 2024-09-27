@@ -30,8 +30,8 @@ class Controller extends BaseController{
         $franchises = \App\Models\BusinessCategory::whereSlug('franchise')->first();
         return view('welcome', [
             'categories' => \App\Models\BusinessCategory::limit(6)->get(),
-            'businesses' => $businesses ? $businesses->ads()->whereStatus(1)->limit(4)->get() : collect([]),
-            'franchises' => $franchises ? $franchises->ads()->whereStatus(1)->limit(4)->get() : collect([]),
+            'businesses' => $businesses ? $businesses->ads()->whereStatus(1)->whereNotNull('publish_at')->limit(4)->get() : collect([]),
+            'franchises' => $franchises ? $franchises->ads()->whereStatus(1)->whereNotNull('publish_at')->limit(4)->get() : collect([]),
             'sellers' => \App\Models\User::sellers()->whereHas('seller', fn($q) => $q->where('has_public_view', '1'))->whereStatus('1')->limit(6)->get(),
             'search_purposeOptions' => ['Rental','Lease','Sale'],
             'testimonials' => \App\Models\Testimonial::latest()->limit(10)->get()->chunk(2)->map(function ($group) {

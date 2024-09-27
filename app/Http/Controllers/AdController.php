@@ -28,7 +28,7 @@ class AdController extends BaseController{
      * @param Request $request
      */
     public function index(Request $request){
-        $ads = Ad::search($request)->searchListings($request)->whereStatus(1)->paginate(24)->appends(request()->query());
+        $ads = Ad::search($request)->searchListings($request)->whereStatus(1)->whereNotNull('publish_at')->paginate(24)->appends(request()->query());
         $data = [
             'ads' => $ads,
             //'cities' => Ad::selectRaw("DISTINCT city as city")->pluck('city'),
