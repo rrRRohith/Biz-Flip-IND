@@ -27,7 +27,7 @@ class ContentPageResource extends JsonResource
             'seo_title'      => $this->seo_title,	
             'seo_keywords'   => $this->seo_keywords,	
             'seo_description'=> $this->seo_description,	
-            'status'         => $this->status == 1 ? 'Published' : 'Draft',
+            'status'         => $this->status,
             'image'          => Banner::where('id',$this->banner_id)->pluck('title','id')->first(), 
             'banner_id'      => $this->banner_id,
             'created_at'     => (new Carbon($this->created_at))->format('h:i a, d M'),

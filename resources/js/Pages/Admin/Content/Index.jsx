@@ -13,6 +13,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
 
     
     const [show, setShow] = useState(false);
+    const [title, setTitle] = useState('');
     const [data, setData] = useState(null);
     const handleClose = () => setShow(false);
     const handleShow = async (ad) => {
@@ -21,6 +22,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
             const responseData = response.data;
             setData(responseData);
             setShow(true);
+            setTitle(ad.title);
         } catch (error) {
             console.error('Error fetching data', error);
         }
@@ -66,13 +68,13 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                             <div className='col-lg-6'>
                                 <div className="d-flex align-items-center">
                                     <div className="me-auto">
-                                        <h4 className="page-title">Content Page</h4>
+                                        <h4 className="page-title">Pages</h4>
                                         <div className="align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
                                                 <PermissionAllow permission={'Content Pages Listing'}>
-                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Content Page</Link></li>
+                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Pages</Link></li>
                                                 </PermissionAllow>
                                                 
                                             </ol>
@@ -105,6 +107,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                                                         <Tr>
                                                             <Th>#</Th>
                                                             <Th>Title</Th>
+                                                            <Th>Url</Th>
                                                             <Th>Status</Th>
                                                             {/* <Th>Last Modified</Th> */}
                                                             <Th></Th>
@@ -115,9 +118,15 @@ export default function Index({ pageList, auth, success = null, error = null }) 
                                                             <Tr key={page.id} className="hover-primary">
                                                                 <Td>{page.id}</Td>
                                                                 <Td>{page.title}</Td>
-                                                                <Td>{page.status}</Td>
-                                                                {/* <Td>{page.updated_at}</Td> */}
                                                                 <Td>
+                                                                    <a target='blank' href={'/'+page.slug}>/{page.slug}</a>
+                                                                </Td>
+                                                                <td className=''>
+                                                                    <div dangerouslySetInnerHTML={{ __html: window.statusIcon(page.status) }} />
+                                                                </td>
+                                                                {/* <Td>{page.updated_at}</Td> */}
+                                                                <Td className="text-end">
+                                                                <a target='blank' href={'/'+page.slug} className="btn btn-transparent p-2 px-3"><i class="bi bi-globe-americas"></i></a>
                                                                     <span onClick={() => handleShow(page)} className="btn btn-transparent p-2 px-3"><i className="bi bi-eye"></i></span>
                                                                     <PermissionAllow permission={'Content Page Edit'}>
                                                                         <Link className='btn btn-transparent p-2 px-3' href={route('admin.content-page.edit', page.id)}>
@@ -149,7 +158,7 @@ export default function Index({ pageList, auth, success = null, error = null }) 
 
 
              {/* Display modal for  details */}
-             <ModalPopup show={show} handleClose={handleClose} size="lg" title="Page Show">
+             <ModalPopup show={show} handleClose={handleClose} size="lg" title={title}>
                 {data ? (
                     <PageView
                         collection={data}

@@ -119,8 +119,8 @@ export default function Create({ purpose_item, queryParams = null, auth }) {
                                                                 </div>
                                                                 <div className="col-md-6 mb-3">
                                                                     <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">Icon 
-                                                                            <span className="ms-5 text-danger"> (<a href="https://icons.getbootstrap.com/" className="text-danger" target="_nw">Get from icon name</a>)</span>
+                                                                    <InputLabel className="fw-700 fs-16 form-label form-group__label">Bootstrap icon class (eg bi-car-front-fill)
+                                                                            <span className="ms-5 text-danger"> - <a href="https://icons.getbootstrap.com/" className="text-danger" target="_nw">Open icon list</a></span>
                                                                         </InputLabel>
                                                                         
                                                                         <TextInput

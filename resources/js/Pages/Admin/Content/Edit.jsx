@@ -20,9 +20,9 @@ export default function Edit({ page_item, auth, imageList }) {
 
 
     const returnPageContent = ({
-                                    design: page_item.data,
-                                    html: page_item.content,
-                                });
+        design: page_item.data,
+        html: page_item.content,
+    });
 
     const { data, setData, post, errors, reset } = useForm({
         title: page_item.title || '',
@@ -32,7 +32,7 @@ export default function Edit({ page_item, auth, imageList }) {
         seo_description: page_item.seo_description || '',
         image: page_item.banner_id || '',
         pageContent: returnPageContent,
-        _method:'PUT'
+        _method: 'PUT'
     });
 
     const handleChange = (key, value) => {
@@ -49,7 +49,7 @@ export default function Edit({ page_item, auth, imageList }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        post(route('admin.content-page.update',page_item.id));
+        post(route('admin.content-page.update', page_item.id));
     };
 
     const onDesignChange = () => {
@@ -64,29 +64,29 @@ export default function Edit({ page_item, auth, imageList }) {
 
     const onReady = (unlayer) => {
         unlayer.setBodyValues({
-          contentWidth: 'inherit'
+            contentWidth: 'inherit'
         })
-      };
+    };
 
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Content Page/Edit</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Page/Edit</h2>}
         >
-            <Head title="Content Page Edit" />
+            <Head title="Page Edit" />
             <div className="content-wrapper me-4">
                 <div className="container-full">
                     <div className="content-header">
                         <div className='row'>
                             <div className='col-lg-6'>
                                 <div className="d-flex flex-column">
-                                    <h4 className="page-title"> Edit Content Page</h4>
+                                    <h4 className="page-title"> Edit Pages</h4>
                                     <div className="d-inline-block align-items-center mt-2">
                                         <nav>
                                             <ol className="breadcrumb">
                                                 <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
                                                 <PermissionAllow permission={'Content Pages Listing'}>
-                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Content Page</Link></li>
+                                                    <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Pages</Link></li>
                                                 </PermissionAllow>
                                                 <li className="breadcrumb-item active" aria-current="page">Edit</li>
                                             </ol>
@@ -109,7 +109,7 @@ export default function Edit({ page_item, auth, imageList }) {
                                                     <div className="row">
                                                         <div className="col-lg-12">
                                                             <div className="row">
-                                                                <div className="col-md-6 mb-3">
+                                                                <div className="col-md-12 mb-3">
                                                                     <div className="form-group">
                                                                         <InputLabel className="fw-700 fs-16 form-label form-group__label">Title</InputLabel>
                                                                         <TextInput
@@ -139,63 +139,66 @@ export default function Edit({ page_item, auth, imageList }) {
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Title</InputLabel>
-                                                                        <TextInput
-                                                                            id="seo_title"
-                                                                            type="text"
-                                                                            name="seo_title"
-                                                                            className="form-control"
-                                                                            value={data.seo_title}
-                                                                            onChange={(e) => handleChange("seo_title", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.seo_title} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Keywords</InputLabel>
-                                                                        <TextInput
-                                                                            id="seo_keywords"
-                                                                            type="text"
-                                                                            name="seo_keywords"
-                                                                            className="form-control"
-                                                                            value={data.seo_keywords}
-                                                                            onChange={(e) => handleChange("seo_keywords", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.seo_keywords} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-12 mb-3">
-                                                                    <div className="form-group">
-                                                                        <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Description</InputLabel>
-                                                                        <TextInput
-                                                                            id="seo_description"
-                                                                            type="text"
-                                                                            name="seo_description"
-                                                                            className="form-control"
-                                                                            value={data.seo_description}
-                                                                            onChange={(e) => handleChange("seo_description", e.target.value)}
-                                                                            autoComplete="off"
-                                                                        />
-                                                                        <InputError message={errors.seo_description} className="mt-2 col-12" />
-                                                                    </div>
-                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-md-12">
                                                             <div className="form-group">
-                                                                <InputLabel className="fw-700 fs-16 form-label form-label">Content</InputLabel>
+                                                                <InputLabel className="fw-700 fs-16 form-label form-label">Design page</InputLabel>
                                                                 <InputError message={errors.pageContent} className="mt-2 col-12" />
-                                                                <EmailEditor  onReady={onReady} ref={emailEditorRef} onLoad={() => {
+                                                                <EmailEditor onReady={onReady} ref={emailEditorRef} onLoad={() => {
                                                                     emailEditorRef.current.editor.addEventListener('design:updated', onDesignChange);
                                                                     emailEditorRef.current.editor.loadDesign(page_item.data);
                                                                 }} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row mt-3">
+                                                        <div className="col-md-12 mb-3">
+                                                            <div className="form-group">
+                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Title</InputLabel>
+                                                                <TextInput
+                                                                    id="seo_title"
+                                                                    type="text"
+                                                                    name="seo_title"
+                                                                    className="form-control"
+                                                                    value={data.seo_title}
+                                                                    onChange={(e) => handleChange("seo_title", e.target.value)}
+                                                                    autoComplete="off"
+                                                                />
+                                                                <InputError message={errors.seo_title} className="mt-2 col-12" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12 mb-3">
+                                                            <div className="form-group">
+                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Keywords</InputLabel>
+                                                                <TextInput
+                                                                    id="seo_keywords"
+                                                                    type="text"
+                                                                    name="seo_keywords"
+                                                                    className="form-control"
+                                                                    value={data.seo_keywords}
+                                                                    onChange={(e) => handleChange("seo_keywords", e.target.value)}
+                                                                    autoComplete="off"
+                                                                />
+                                                                <InputError message={errors.seo_keywords} className="mt-2 col-12" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12 mb-3">
+                                                            <div className="form-group">
+                                                                <InputLabel className="fw-700 fs-16 form-label form-group__label">SEO Description</InputLabel>
+                                                                <textarea rows={3}
+                                                                    id="seo_description"
+                                                                    type="text"
+                                                                    name="seo_description"
+                                                                    className="form-control"
+                                                                    value={data.seo_description}
+                                                                    onChange={(e) => handleChange("seo_description", e.target.value)}
+                                                                    autoComplete="off"
+                                                                />
+                                                                <InputError message={errors.seo_description} className="mt-2 col-12" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -218,8 +221,11 @@ export default function Edit({ page_item, auth, imageList }) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="form-actions mt-3 text-center">
-                                                        <button type="submit" className="btn btn-primary me-2">Save</button>
+                                                    <div className="row">
+
+                                                    </div>
+                                                    <div className="form-actions mt-3">
+                                                        <button type="submit" className="btn btn-success me-2">Save</button>
                                                     </div>
                                                 </div>
                                             </form>
