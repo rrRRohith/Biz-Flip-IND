@@ -115,7 +115,7 @@ class AdController extends BaseController{
 
             $ad->update([
                 'lat' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
-                'lng' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
+                'lng' => $request->isMapEnabled ? $request->location['lng'] ?? null : null,
             ]);
 
             foreach($request->additional_info ?? [] as $information){
@@ -199,6 +199,7 @@ class AdController extends BaseController{
      * @param Ad $ad
      */
     public function update(AdRequest $request, Ad $ad){
+        // dd($request->all());
         $this->seller->ads()->findOrfail($ad->id);
         try{
             $ad->update($request->only(
@@ -231,7 +232,7 @@ class AdController extends BaseController{
 
             $ad->update([
                 'lat' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
-                'lng' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
+                'lng' => $request->isMapEnabled ? $request->location['lng'] ?? null : null,
             ]);
 
             $ad->categories()->sync($request->category);
