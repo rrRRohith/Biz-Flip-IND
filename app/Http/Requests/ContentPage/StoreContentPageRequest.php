@@ -22,7 +22,7 @@ class StoreContentPageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'     => ['required', 'max:255'],
+            'title'     => ['required', 'unique:pages,title', 'max:255'],
             'pageContent' => ['required'],
             'seo_title'   => ['nullable'],
             'seo_keywords'   => ['nullable'],
