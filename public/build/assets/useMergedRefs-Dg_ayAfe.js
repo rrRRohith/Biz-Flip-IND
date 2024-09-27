@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:public/build/assets/useMergedRefs-Dg_ayAfe.js
 import{g as x,r as c}from"./app-BGtL1idN.js";var d={exports:{}};/*!
-========
-import{g as x,r as c}from"./app-Cv4J_obM.js";var d={exports:{}};/*!
->>>>>>>> 0489afd8f35de188ae832589e863e72546ac7e17:public/build/assets/useMergedRefs-DoppZSNR.js
 	Copyright (c) 2018 Jed Watson.
 	Licensed under the MIT License (MIT), see
 	http://jedwatson.github.io/classnames

@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:public/build/assets/Invoice-DEUapZYg.js
 import{j as s}from"./app-BGtL1idN.js";function a({invoice:e}){return s.jsxs(s.Fragment,{children:[s.jsx("style",{children:`
-========
-import{j as s}from"./app-Cv4J_obM.js";function a({invoice:e}){return s.jsxs(s.Fragment,{children:[s.jsx("style",{children:`
->>>>>>>> 0489afd8f35de188ae832589e863e72546ac7e17:public/build/assets/Invoice-B5kJK6N_.js
           @media print {
             /* Hide everything by default */
             body * {

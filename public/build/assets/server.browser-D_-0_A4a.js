@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:public/build/assets/server.browser-D_-0_A4a.js
 import{r as En}from"./app-BGtL1idN.js";var ne={},re={};/**
-========
-import{r as En}from"./app-Cv4J_obM.js";var ne={},re={};/**
->>>>>>>> 0489afd8f35de188ae832589e863e72546ac7e17:public/build/assets/server.browser-BCglxE77.js
  * @license React
  * react-dom-server-legacy.browser.production.min.js
  *
