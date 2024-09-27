@@ -70,22 +70,22 @@ export default function Create({ auth,imageList }) {
   return (
     <Authenticated
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Content Page/Create</h2>}
+      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Page/Create</h2>}
     >
-      <Head title="Content Page Create" />
+      <Head title="Page Create" />
       <div className="content-wrapper me-4">
         <div className="container-full">
           <div className="content-header">
             <div className='row'>
               <div className='col-lg-6'>
                 <div className="d-flex flex-column">
-                  <h4 className="page-title"> Create Content Page</h4>
+                  <h4 className="page-title"> Create Page</h4>
                   <div className="d-inline-block align-items-center mt-2">
                     <nav>
                       <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link href={route('admin.index')}><i className="bi bi-house"></i> Dashboard</Link></li>
                         <PermissionAllow permission={'Content Pages Listing'}>
-                        <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Content Page</Link></li>
+                        <li className="breadcrumb-item" aria-current="page"><Link href={route('admin.content-page.index')}>Pages</Link></li>
                         </PermissionAllow>
                         <li className="breadcrumb-item active" aria-current="page">Create</li>
                       </ol>
