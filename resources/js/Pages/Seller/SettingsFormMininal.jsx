@@ -54,6 +54,7 @@ const socials = [
 export default function SettingsFormMininal({ API_KEY, seller, province_options, handleClose }) {
     const [checkedDays, setCheckedDays] = useState(seller.days);
     const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
+    const [isMapEnabled, setIsMapEnabled] = useState(seller && seller.lat != '' && seller.lat != '' ? true : false);
 
     const { data, setData, post, errors, reset } = useForm({
         logo: '',
@@ -75,6 +76,7 @@ export default function SettingsFormMininal({ API_KEY, seller, province_options,
         lat: seller ? seller.lat : '',
         lng: seller ? seller.lng : '',
         established: seller ? seller.established : '',
+        isMapEnabled: seller && seller.lat != '' && seller.lat != '' ? true : false
     });
 
     const [imagePreview, setImagePreview] = useState('');
@@ -153,6 +155,11 @@ export default function SettingsFormMininal({ API_KEY, seller, province_options,
             [social]: !prevCheckedSocials[social]
         }));
     }
+
+    const handleCheckboxChangeMap = (event) => {
+        setIsMapEnabled(event.target.checked);
+        setData('isMapEnabled', event.target.checked)
+    };
 
     return (
         <>
@@ -269,18 +276,32 @@ export default function SettingsFormMininal({ API_KEY, seller, province_options,
                                         <InputError message={errors.lng} />
                                     </div>
                                 </div> */}
-                                <div className="col-12">
-
-                                    <Picker
-                                        defaultLocation={defaultLocation}
-                                        zoom={zoom}
-                                        mapTypeId="roadmap"
-                                        style={{ height: '300px' }}
-                                        onChangeLocation={handleChangeLocation}
-                                        //onChangeZoom={handleChangeZoom}
-                                        apiKey={API_KEY}
-                                    />
-                                </div>
+                                 <div className="col-12 mb-5">
+                                            <div className='mb-3'>
+                                                <input
+                                                    id="map"
+                                                    className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                    type="checkbox"
+                                                    name="map_enable"
+                                                    defaultChecked={isMapEnabled}
+                                                    onChange={handleCheckboxChangeMap}
+                                                />
+                                                <label
+                                                    role="button" className='ms-2' for="map"> Enable Map</label>
+                                            </div>
+                                            {isMapEnabled && (
+                                                <div>
+                                                    <Picker
+                                                        defaultLocation={defaultLocation}
+                                                        zoom={zoom}
+                                                        mapTypeId="roadmap"
+                                                        style={{ height: '300px' }}
+                                                        onChangeLocation={handleChangeLocation}
+                                                        apiKey={API_KEY}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
                             </div>
                             <div className="mb-5">
                                 <h4>Contact Information</h4>

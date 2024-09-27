@@ -16,6 +16,7 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
     const [additionalInfo, setAdditionalInfo] = useState(ad ? ad.additional_info : []);
     const [ad_categories, setAdcategories] = useState([]);
     const [isFranchise, setFranchise] = useState(ad && ad.business_category.slug == 'franchise');
+    const [isMapEnabled, setIsMapEnabled] = useState(ad && ad.lat != '' && ad.lat != '' ? true : false);
     const { data, setData, post, errors, reset } = useForm({
         _method: ad ? "PUT" : 'POST',
         title: ad ? ad.title : '',
@@ -59,8 +60,17 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
         franchising_since: ad && ad.franchise ? ad.franchise.franchising_since : '',
         territories: ad && ad.franchise ? ad.franchise.territories : '',
         ad_type: ad && ad.ad_type ? ad.ad_type : 'sale',
+        isMapEnabled : ad && ad.lat != '' && ad.lat != '' ? true : false
 
     });
+
+
+    
+    const handleCheckboxChangeMap = (event) => {
+        setIsMapEnabled(event.target.checked);
+        setData('isMapEnabled',event.target.checked)
+      };
+
 
     const handleChange = (key, value) => {
         setData(key, value);
@@ -415,16 +425,31 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
                                         </div>
                                         {data.ad_type == 'sale' && (
                                             <>
-                                            <div className="col-12">
-                                                <Picker
-                                                    defaultLocation={defaultLocation}
-                                                    zoom={zoom}
-                                                    mapTypeId="roadmap"
-                                                    style={{ height: '300px' }}
-                                                    onChangeLocation={handleChangeLocation}
-                                                    //onChangeZoom={handleChangeZoom}
-                                                    apiKey={API_KEY}
-                                                />
+                                            <div className="col-12 mb-5">
+                                                <div className='mb-3'>
+                                                    <input
+                                                        id="map"
+                                                        className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                        type="checkbox"
+                                                        name="map_enable"
+                                                        defaultChecked={isMapEnabled}
+                                                        onChange={handleCheckboxChangeMap}
+                                                    />
+                                                    <label
+                                                        role="button" className='ms-2' for="map"> Enable Map</label>
+                                                </div>
+                                                {isMapEnabled && (
+                                                    <div>
+                                                        <Picker
+                                                            defaultLocation={defaultLocation}
+                                                            zoom={zoom}
+                                                            mapTypeId="roadmap"
+                                                            style={{ height: '300px' }}
+                                                            onChangeLocation={handleChangeLocation}
+                                                            apiKey={API_KEY}
+                                                        />
+                                                    </div>
+                                                )}
                                             </div>
                                                 {/* <div className="col-md-12">
                                                     <div><label>Map link</label>

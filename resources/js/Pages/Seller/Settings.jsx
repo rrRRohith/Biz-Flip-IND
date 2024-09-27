@@ -55,6 +55,7 @@ const socials = [
 export default function Settings({ seller, auth, success, error, province_options, API_KEY }) {
     const [checkedDays, setCheckedDays] = useState(seller.days);
     const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
+    const [isMapEnabled, setIsMapEnabled] = useState(seller && seller.lat != '' && seller.lat != '' ? true : false);
 
     const { data, setData, post, errors, reset } = useForm({
         logo: '',
@@ -76,12 +77,16 @@ export default function Settings({ seller, auth, success, error, province_option
         lat: seller ? seller.lat : '',
         lng: seller ? seller.lng : '',
         established: seller ? seller.established : '',
+        isMapEnabled: seller && seller.lat != '' && seller.lat != '' ? true : false
 
     });
 
     const [imagePreview, setImagePreview] = useState('');
 
-
+    const handleCheckboxChangeMap = (event) => {
+        setIsMapEnabled(event.target.checked);
+        setData('isMapEnabled', event.target.checked)
+    };
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -207,8 +212,8 @@ export default function Settings({ seller, auth, success, error, province_option
                                         </div>
                                         <div className="col-md-6">
                                             <div><label>Established</label>
-                                           
-                                                <input maxLength={4}  value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
+
+                                                <input maxLength={4} value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
                                             </div>
                                             <InputError message={errors.established} />
                                         </div>
@@ -259,16 +264,31 @@ export default function Settings({ seller, auth, success, error, province_option
                                                 <InputError message={errors.lng} />
                                             </div>
                                         </div> */}
-                                        <div className="col-12">
-                                            <Picker
-                                                defaultLocation={defaultLocation}
-                                                zoom={zoom}
-                                                mapTypeId="roadmap"
-                                                style={{ height: '300px' }}
-                                                onChangeLocation={handleChangeLocation}
-                                                //onChangeZoom={handleChangeZoom}
-                                                apiKey={API_KEY}
-                                            />
+                                        <div className="col-12 mb-5">
+                                            <div className='mb-3'>
+                                                <input
+                                                    id="map"
+                                                    className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                    type="checkbox"
+                                                    name="map_enable"
+                                                    defaultChecked={isMapEnabled}
+                                                    onChange={handleCheckboxChangeMap}
+                                                />
+                                                <label
+                                                    role="button" className='ms-2' for="map"> Enable Map</label>
+                                            </div>
+                                            {isMapEnabled && (
+                                                <div>
+                                                    <Picker
+                                                        defaultLocation={defaultLocation}
+                                                        zoom={zoom}
+                                                        mapTypeId="roadmap"
+                                                        style={{ height: '300px' }}
+                                                        onChangeLocation={handleChangeLocation}
+                                                        apiKey={API_KEY}
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="mb-5">
@@ -356,7 +376,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                     <div className="row g-5">
 
                                         <div className="col-12 text-end">
-                                            <button type="button"  className="btn btn-neutral me-2">Cancel</button>
+                                            <button type="button" className="btn btn-neutral me-2">Cancel</button>
                                             <button type="submit" className="btn btn-primary">Save</button></div>
                                     </div>
                                 </form>

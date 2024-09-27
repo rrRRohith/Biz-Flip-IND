@@ -114,8 +114,8 @@ class AdController extends BaseController{
 
 
             $ad->update([
-                'lat' => $request->location['lat'] ?? null,
-                'lng' => $request->location['lng'] ?? null,
+                'lat' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
+                'lng' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
             ]);
 
             foreach($request->additional_info ?? [] as $information){
@@ -230,8 +230,8 @@ class AdController extends BaseController{
             ]);
 
             $ad->update([
-                'lat' => $request->location['lat'] ?? null,
-                'lng' => $request->location['lng'] ?? null,
+                'lat' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
+                'lng' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
             ]);
 
             $ad->categories()->sync($request->category);

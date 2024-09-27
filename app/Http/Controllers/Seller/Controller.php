@@ -47,7 +47,7 @@ class Controller extends BaseController{
         $views = $this->seller->ad_views()->count();
         $view_lead_ratio = $leads > 0 ? (int) (100 / ($views > 0 ? (int) max(($views / $leads), 1) : 1)) : 0;
         
-        //session(['planFormShown' => false, 'agentFormShown' => false]);
+        session(['planFormShown' => false, 'agentFormShown' => false]);
 
         
         $showPlanForm = !$this->seller->current_subscription()->exists() && !session('planFormShown');

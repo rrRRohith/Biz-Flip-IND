@@ -47,6 +47,7 @@ class SettingsController extends Controller{
     }
 
     public function store(SellerUpdateRequest $request){
+       
         try{		
             $this->seller->seller ? : $this->seller->seller()->create($request->validated());
             
@@ -55,11 +56,12 @@ class SettingsController extends Controller{
             $seller = $this->seller->seller;
 
             $seller->update($request->validated());
+            
             $seller->update([
                 'slug' => Str::slug($seller->company_name.'-'.Str::random(4)),
                 'has_public_view' => 1,
-                'lat' => $request->location['lat'] ?? null,
-                'lng' => $request->location['lng'] ?? null,
+                'lat' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
+                'lng' => $request->isMapEnabled ? $request->location['lng'] ?? null : null,
             ]);
 
             if ($request->has('logo') && $request->logo) {
@@ -134,8 +136,8 @@ class SettingsController extends Controller{
 
             $seller->update($request->validated());
             $seller->update([
-                'lat' => $request->location['lat'] ?? null,
-                'lng' => $request->location['lng'] ?? null,
+                'lat' => $request->isMapEnabled ? $request->location['lat'] ?? null : null,
+                'lng' => $request->isMapEnabled ? $request->location['lng'] ?? null : null,
                 'has_public_view' => 1,
             ]);
             session(['forceAgentForm' => true, 'agentFormShown' => false]);
