@@ -463,3 +463,6 @@ table th {
     border-radius: 10px !important;
     padding: 0px !important;
   }
+  .design-web .container{
+    max-width: 100% !important;
+  }

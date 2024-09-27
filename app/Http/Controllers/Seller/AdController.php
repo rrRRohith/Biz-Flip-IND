@@ -97,7 +97,7 @@ class AdController extends BaseController{
                 'city', 
                 'province', 
                 'postalcode', 
-                'status',
+                // 'status',
                 'space',
                 'seo_title',
                 'seo_keywords',
@@ -216,7 +216,7 @@ class AdController extends BaseController{
                 'city', 
                 'province', 
                 'postalcode', 
-                'status',
+                // 'status',
                 'space',
                 'seo_title',
                 'seo_keywords',
@@ -291,7 +291,7 @@ class AdController extends BaseController{
     }
 
     public function status(Request $request, Ad $ad){
-        abort_if($ad->status == -1, 403);
+        abort_if(in_array(['0', '-1', '3'], $ad->status), 403);
         $this->seller->ads()->findOrfail($ad->id);
         $ad->update([
             'status' => $request->status,

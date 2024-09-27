@@ -7,7 +7,7 @@ import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import RadioButtonLabel from '@/Components/RadioButtonLabel';
-import EmailEditor from 'react-email-editor';
+import EmailEditor, { EditorRef, EmailEditorProps } from 'react-email-editor';
 import PermissionAllow from "@/Components/PermissionAllow";
 import DynamicSelect from "@/Components/DynamicSelect";
 import Form from 'react-bootstrap/Form';
@@ -56,6 +56,14 @@ export default function Create({ auth,imageList }) {
           html : html,
       });
     });
+  };
+
+  //const emailEditorRef = useRef<EditorRef>(null);
+
+  const onReady = (unlayer) => {
+    unlayer.setBodyValues({
+      contentWidth: 'inherit'
+    })
   };
 
 
@@ -182,7 +190,7 @@ export default function Create({ auth,imageList }) {
                               <div className="form-group">
                                 <InputLabel className="fw-700 fs-16 form-label form-label">Content</InputLabel>
                                 <InputError message={errors.pageContent} className="mt-2 col-12" />
-                                <EmailEditor ref={emailEditorRef}  onLoad={() => {
+                                <EmailEditor onReady={onReady} ref={emailEditorRef}  onLoad={() => {
                                   emailEditorRef.current.editor.addEventListener('design:updated', onDesignChange);
                                 }} />
                               </div>
