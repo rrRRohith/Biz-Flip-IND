@@ -109,6 +109,7 @@ class AdController extends BaseController{
                 'unique_code' => $this->seller->unique_code.$ad->id,
                 'publish_at' => $request->status ? now() : null,
                 'slug' => Str::slug($request->title.'-'.Str::random(4)),
+                'status' => 0,
                 'commission' => $request->has_commission == 1 ? $request->commission : null,
             ]);
 
@@ -228,7 +229,6 @@ class AdController extends BaseController{
             $ad->update([
                 'unique_code' => $this->seller->unique_code.$ad->id,
                 'publish_at' => $request->status ? now() : null,
-                'status' => '0',
             ]);
 
             $ad->update([
