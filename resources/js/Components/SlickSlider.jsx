@@ -3,14 +3,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function SlickSlider({ images = [], slidesToShow = 4  , dots = false, arrow = false}) {
+export default function SlickSlider({ images = [], slidesToShow = 4, dots = false, arrow = false }) {
     const settings = {
         dots: dots,
-        infinite: true,
+        infinite: images.length > 1, // Disable infinite loop for a single image
         speed: 500,
-        slidesToShow: slidesToShow,
+        slidesToShow: images.length === 1 ? 1 : slidesToShow, // Show only one slide if there's only one image
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: images.length > 1, // Disable autoplay if there's only one image
         autoplaySpeed: 2000,
         arrows: arrow,
     };
@@ -26,8 +26,11 @@ export default function SlickSlider({ images = [], slidesToShow = 4  , dots = fa
                                     role="button"
                                     src={image}
                                     className="img-fluid rounded15 mb-15"
-                                    alt={image}
-                                    onError={(e) => { e.target.onerror = null; e.target.src = '/assets/admin/images/noimage.webp'; }}
+                                    alt={`Slide ${index}`}
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = '/assets/admin/images/noimage.webp';
+                                    }}
                                 />
                                 <h6></h6>
                             </div>
