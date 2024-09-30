@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function SlickSlider({ images = [], slidesToShow = 4, dots = false, arrow = false }) {
+export default function SlickSlider({ images = [], slidesToShow = 1, dots = false, arrow = false }) {
     const settings = {
         dots: dots,
         infinite: images.length > 1, // Disable infinite loop for a single image
