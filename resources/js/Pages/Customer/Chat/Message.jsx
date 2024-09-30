@@ -16,7 +16,7 @@ export default function Message({ chat, messages, user }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await post(route(user.type == 'customer' ? "customer.chats.update" : "seller.chats.update", chat.id), {
+        await post(route(user.type == 'customer' ? "customer.chats.update" : "account.chats.update", chat.id), {
             preserveScroll: true,
             onSuccess: () => {
                 reset('message');
