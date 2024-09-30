@@ -80,7 +80,7 @@ const Header = ({ user }) => {
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                         {menu.map((item, key) => (
                             <li key={item.id || key} className="nav-item me-auto">
-                                <Link className="nav-link p-2" href={item.link}>{item.title}</Link>
+                                <a className="nav-link p-2" href={item.link}>{item.title}</a>
                             </li>
                         ))}
                         {/* <li className="nav-item me-auto">
