@@ -5,8 +5,6 @@ import React, { useState } from 'react';
 import Spinner from '@/Components/Spinner';
 import Plans from './Plans';
 export default function Index({ auth, plans, can_purchase, current_invoice }) {
-
-
     return (
         <>
             <Head title="Plans" />
