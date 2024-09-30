@@ -189,7 +189,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function current_subscription(){
-        return $this->hasOne(SubscriptionOrder::class, 'seller_id', 'id')->where('expires_at', '>', now())->latest();
+        return $this->hasOne(SubscriptionOrder::class, 'seller_id', 'id')->latest();
+        //return $this->hasOne(SubscriptionOrder::class, 'seller_id', 'id')->where('expires_at', '>', now())->latest();
     }
 
     public function getRemainingAdsAttribute(){
@@ -205,5 +206,9 @@ class User extends Authenticatable implements MustVerifyEmail
             }
             return $this->hasMany(Chat::class, 'seller_id', 'id');
         }
+    }
+
+    public function getCanPostAdsAttribute(){
+        return $this->current_subscription && $this->remaining_ads && $this->current_subscription->is_active;
     }
 }

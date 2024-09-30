@@ -59,7 +59,7 @@ class AdController extends BaseController{
      * Show the form for creating a new resource.
      */
     public function create(){
-        if(!$this->seller->remaining_ads){
+        if(!$this->seller->can_post_ads){
             return redirect()->route('account.plans.index')->withError('Please purchase a plan to continue.');
         }
         return Inertia::render('Seller/AdForm', [
@@ -80,7 +80,7 @@ class AdController extends BaseController{
      * @param AdRequest $request
      */
     public function store(AdRequest $request){
-        abort_if(!$this->seller->remaining_ads, 403, 'Please purchase a subscription plan to list new ads.');
+        abort_if(!$this->seller->can_post_ads, 403, 'Please purchase a subscription plan to list new ads.');
         try{
             $ad = $this->seller->ads()->create($request->only(
                 'has_commission', 

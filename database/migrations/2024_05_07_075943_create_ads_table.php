@@ -40,7 +40,7 @@ return new class extends Migration
             $table->mediumText('tags')->comment('use comma multiple allowed')->nullable();
             $table->timestamp('publish_at')->nullable();
             $table->integer('position')->nullable();
-            $table->integer('status')->comment('0=pending,1=approved,-1=suspended')->nullable();
+            $table->integer('status')->default(0)->comment('0=pending,1=approved,-1=suspended')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

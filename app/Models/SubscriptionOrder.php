@@ -57,4 +57,8 @@ class SubscriptionOrder extends Model
     public function ads_posted(){
         return $this->belongsToMany(Ad::class, 'subscription_order_ads', 'subscription_order_id', 'ad_id');
     }
+
+    public function getIsActiveAttribute(){
+        return \Carbon\Carbon::parse($this->expires_at)->gt(\Carbon\Carbon::now());
+    }
 }
