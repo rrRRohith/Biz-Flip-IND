@@ -116,7 +116,7 @@
                         <label class="fw-semibold">Phone</label>
                         <input x-mask="(999) 999-9999" form="regForm" name="phone"
                             type="text" autocomplete="off" placeholder='Enter your phone'
-                            autocomplete="off" maxlength="14"
+                            autocomplete="off" maxlength="15"
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
                     </div>
                 </div>
