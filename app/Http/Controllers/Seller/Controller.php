@@ -53,6 +53,7 @@ class Controller extends BaseController{
         $showPlanForm = !$this->seller->current_subscription()->exists() && !session('planFormShown');
         $showAgentForm = (($this->seller->seller && $this->seller->seller->has_public_view == '0') || session('forceAgentForm')) && !session('agentFormShown');
         //$showAgentForm = true;
+        //$showPlanForm = true;
         session(['planFormShown' => true]);
 
         if($showPlanForm){

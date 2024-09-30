@@ -74,11 +74,12 @@ class PlanController extends BaseController{
         try{
             $request->merge($this->seller->default_billing_address);
             $subscription = $this->subscribeToPlan($request, $plan, $this->seller);
+            $this->freeSubscriptionOrder($subscription);
             try {
                 event(new \App\Events\NewNotification(1, $this->seller->id, 'Subscription plan activated successfully.', 'Subscription plan activated successfully.', route('account.invoices.index')));
             } catch (\Exception $e) {}
             \DB::commit();
-            return redirect()->route('account.invoices.show', ['invoice' => $subscription])->with('success', "Thank you, your subscription has been completed.");
+            return redirect()->route('account.index')->with('success', "Thank you, your subscription has been completed.");
             
         }
         catch(\Exception $e){

@@ -111,6 +111,16 @@ trait Emails{
         ]));
     }
 
+    public function freeSubscriptionOrder(SubscriptionOrder $order){
+        self::email(new Email([
+		    'emailClass' => 'DefaultMail',
+            'to' => $order->seller->email,
+            'name' => $order->seller->name,
+            'subject' => __("Your :plan Subscription is processed", ['plan' => $order->name]),
+            'contents' => view('email.sellerSubscriptionOrderFree')->withOrder($order)->render(),
+        ]));
+    }
+
     public function subscriptionOrder(SubscriptionOrder $order){
         self::email(new Email([
 		    'emailClass' => 'DefaultMail',
