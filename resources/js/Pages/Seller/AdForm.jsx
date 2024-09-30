@@ -11,7 +11,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AdFranchise from './AdFranchise';
 import { Picker } from 'react-gmap-picker';
 
-export default function PropertyForm({type_options, purpose_options, ad, auth, categories_options, facilities_options, features_options, province_options, business_categories_options, API_KEY }) {
+export default function PropertyForm({ type_options, purpose_options, ad, auth, categories_options, facilities_options, features_options, province_options, business_categories_options, API_KEY }) {
 
     const [additionalInfo, setAdditionalInfo] = useState(ad ? ad.additional_info : []);
     const [ad_categories, setAdcategories] = useState([]);
@@ -60,16 +60,16 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
         franchising_since: ad && ad.franchise ? ad.franchise.franchising_since : '',
         territories: ad && ad.franchise ? ad.franchise.territories : '',
         ad_type: ad && ad.ad_type ? ad.ad_type : 'sale',
-        isMapEnabled : ad && ad.lat != '' && ad.lat != '' ? true : false
+        isMapEnabled: ad && ad.lat != '' && ad.lat != '' ? true : false
 
     });
 
 
-    
+
     const handleCheckboxChangeMap = (event) => {
         setIsMapEnabled(event.target.checked);
-        setData('isMapEnabled',event.target.checked)
-      };
+        setData('isMapEnabled', event.target.checked)
+    };
 
 
     const handleChange = (key, value) => {
@@ -425,34 +425,34 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
                                         </div>
                                         {data.ad_type == 'sale' && (
                                             <>
-                                            <div className="col-12 mb-5">
-                                                <div className='mb-0 form-check form-check-lg'>
-                                                    <input
-                                                        id="map"
-                                                        className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
-                                                        type="checkbox"
-                                                        name="map_enable"
-                                                        defaultChecked={isMapEnabled}
-                                                        onChange={handleCheckboxChangeMap}
-                                                    />
-                                                    <label
-                                                        role="button" className='mt-1' for="map"> Enable Map</label>
-                                                    
-                                                </div>
-                                                <p className="small">Select map location to show in front end</p>
-                                                {isMapEnabled && (
-                                                    <div>
-                                                        <Picker
-                                                            defaultLocation={defaultLocation}
-                                                            zoom={zoom}
-                                                            mapTypeId="roadmap"
-                                                            style={{ height: '300px' }}
-                                                            onChangeLocation={handleChangeLocation}
-                                                            apiKey={API_KEY}
+                                                <div className="col-12 mb-5">
+                                                    <div className='mb-0 form-check form-check-lg'>
+                                                        <input
+                                                            id="map"
+                                                            className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                                            type="checkbox"
+                                                            name="map_enable"
+                                                            defaultChecked={isMapEnabled}
+                                                            onChange={handleCheckboxChangeMap}
                                                         />
+                                                        <label
+                                                            role="button" className='mt-1' for="map"> Enable Map</label>
+
                                                     </div>
-                                                )}
-                                            </div>
+                                                    <p className="small">Select map location to show in front end</p>
+                                                    {isMapEnabled && (
+                                                        <div>
+                                                            <Picker
+                                                                defaultLocation={defaultLocation}
+                                                                zoom={zoom}
+                                                                mapTypeId="roadmap"
+                                                                style={{ height: '300px' }}
+                                                                onChangeLocation={handleChangeLocation}
+                                                                apiKey={API_KEY}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div>
                                                 {/* <div className="col-md-12">
                                                     <div><label>Map link</label>
                                                         <input value={data.map_link} onChange={(e) => { handleChange('map_link', e.target.value) }} type="text" placeholder="Map link" className="form-control" />
@@ -580,6 +580,23 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
                                             <div className="text-muted small">Your ad will not visible to your clients if not published.</div>
                                             <InputError message={errors.status} />
                                         </div>
+                                        {ad ? (
+                                            <>
+                                                <div className="col-12">
+                                                    <div className="alert alert-warning">
+                                                        Any changes made to your ad will undergo review. It will remain disabled until the verification process is completed.
+                                                    </div>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                            <div className="col-12">
+                                                <div className="alert alert-warning">
+                                                    Your ad will be published only after verification by our team.
+                                                </div>
+                                            </div>
+                                        </>
+                                        )}
                                         <div className="col-12 text-end">
                                             <Link href={route('account.ads.index')} className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Save</button>

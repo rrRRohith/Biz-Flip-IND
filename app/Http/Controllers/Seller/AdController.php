@@ -229,6 +229,7 @@ class AdController extends BaseController{
             $ad->update([
                 'unique_code' => $this->seller->unique_code.$ad->id,
                 'publish_at' => $request->status ? now() : null,
+                'status' => '0',
             ]);
 
             $ad->update([
@@ -282,7 +283,10 @@ class AdController extends BaseController{
                 ]));
             }
 
-            event(new NewNotification(auth()->user()->id, 1, 'Your Post is Pending Stage', 'A post has been pending stage.', route('admin.ads.index')));
+            if($ad->status == '0'){
+                event(new NewNotification(auth()->user()->id, 1, 'Your Post is Pending Stage', 'A post has been pending stage.', route('admin.ads.index')));
+                $this->adPendingReview($ad);
+            }
 
             
             return to_route('account.ads.index')->with('success', 'Ad updated successfully.');
