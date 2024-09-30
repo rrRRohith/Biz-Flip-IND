@@ -64,7 +64,7 @@ class AgentController extends BaseController{
             'customer_id' => auth()->user()->id ?? null,
         ]);
 
-        if(auth()->check() && auth()->user()->type == 'customer'){
+        if(auth()->check()){
             $chat = $agent->chats()->firstOrCreate([
                 'customer_id' => auth()->user()->id,
             ]);

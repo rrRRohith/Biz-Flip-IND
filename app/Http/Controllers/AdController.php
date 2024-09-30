@@ -75,7 +75,7 @@ class AdController extends BaseController{
             'seller_id' => $ad->seller_id,
         ]);
 
-        if(auth()->check() && auth()->user()->type == 'customer'){
+        if(auth()->check()){
             $chat = $ad->seller->chats()->firstOrCreate([
                 'customer_id' => auth()->user()->id,
             ]);
