@@ -319,6 +319,11 @@ class AdController extends BaseController{
     public function destroy(Ad $ad){
         $this->seller->ads()->findOrfail($ad->id);
         $ad->delete();
+        if($ad->status != '1'){
+            try{
+                \DB::table('subscription_order_ads')->whereAdId($ad->id)->delete();
+            }catch(\Exception $e){}
+        }
         //Delete images if forceDeleted
         return to_route('account.ads.index')->with('success', "Ad was deleted");
     }

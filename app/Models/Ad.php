@@ -156,4 +156,5 @@ class Ad extends Model
     public function scopeSale($q){
         return $q->whereAdType('sale');
     }
+
 }
