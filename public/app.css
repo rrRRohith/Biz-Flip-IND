@@ -33,7 +33,12 @@ main.wrapper {
   min-height: 50vh;
 }
 
-
+form ul.dropdown-menu {
+  max-width: 300px;
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+}
 .mw-100 {
   max-width: 100px;
 }
