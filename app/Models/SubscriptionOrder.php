@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class SubscriptionOrder extends Model
 {
     use HasFactory;
-    protected $appends = ['remaining_ads'];
+    protected $appends = ['remaining_ads', 'is_active'];
 
     protected $casts = [
         'created_at' => 'datetime',
