@@ -71,18 +71,18 @@ export default function Invoice({ invoice }) {
                             <td className="py-2 border-bot">
                                 {invoice.name}
                                 <br />
-                                {invoice.ads} ads | ${invoice.price}/ {invoice.duration} month
+                                {invoice.ads} ads | {window.formatPrice(invoice.price)}/ {invoice.duration} month
                             </td>
                             <td className="text-end py-2">
-                                ${invoice.price}
+                                {window.formatPrice(invoice.price)}
                             </td>
                         </tr>
                     </table>
                 </div>
                 <div className="text-end text-lg">
-                    <div className="">Sub total. <strong>${invoice.price}</strong></div>
-                    <div className="">Tax amount. <strong>${invoice.tax_amount}</strong></div>
-                    <div className="">Grand total. <strong>${invoice.total_amount}</strong></div>
+                    <div className="">Sub total. <strong>{window.formatPrice(invoice.price)}</strong></div>
+                    <div className="">Tax amount. <strong>{window.formatPrice(invoice.tax_amount)}</strong></div>
+                    <div className="">Grand total. <strong>{window.formatPrice(invoice.total_amount)}</strong></div>
                 </div>
                 <div className="my-5 small">
                     Thank you for your subscription! We appreciate your continued support and look forward to providing you with excellent service.

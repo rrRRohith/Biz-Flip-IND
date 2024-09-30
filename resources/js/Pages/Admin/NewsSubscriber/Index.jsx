@@ -101,7 +101,7 @@ export default function Index({ subscribersList, auth, success = null, error = n
                                                                 <td>{subscriber.type_of_needed}</td>
                                                                 <td>{subscriber.status_text}</td>
                                                                 {/* <td>{subscriber.updated_at}</td> */}
-                                                                <td>
+                                                                <td className="text-end">
                                                                     <PermissionAllow permission={'Subscriber Edit'}>
                                                                         <Link className='btn btn-transparent p-2 px-3' href={route('admin.subscribers.edit', subscriber.id)}>
                                                                             <i className="bi bi-pencil"></i>

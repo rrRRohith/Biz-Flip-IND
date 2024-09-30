@@ -67,9 +67,10 @@ export default function Settings({ seller, auth, success, error, province_option
         description: seller.description,
         website: seller.website,
         facebook: seller.social_links.facebook,
-        twitter: seller.social_links.twitter,
+        x: seller.social_links.x,
         instagram: seller.social_links.instagram,
         linkedin: seller.social_links.linkedin,
+        youtube: seller.social_links.youtube,
         address: seller ? seller.address : '',
         city: seller ? seller.city : '',
         postalcode: seller ? seller.postalcode : '',
@@ -265,7 +266,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                             </div>
                                         </div> */}
                                         <div className="col-12 mb-5">
-                                            <div className='mb-3'>
+                                            <div className='mb-0 form-check form-check-lg'>
                                                 <input
                                                     id="map"
                                                     className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
@@ -275,8 +276,10 @@ export default function Settings({ seller, auth, success, error, province_option
                                                     onChange={handleCheckboxChangeMap}
                                                 />
                                                 <label
-                                                    role="button" className='ms-2' for="map"> Enable Map</label>
+                                                    role="button" className='mt-1' for="map"> Enable Map</label>
+
                                             </div>
+                                            <p className="small">Select map location to show in front end</p>
                                             {isMapEnabled && (
                                                 <div>
                                                     <Picker

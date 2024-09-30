@@ -21,8 +21,10 @@ class UpdateContentPageRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->id;
+        
         return [
-            'title'     => ['required', 'max:255'],
+            'title'     => ['required', 'unique:pages,title,'.$id, 'max:255'],
             'seo_title'   => ['nullable'],
             'seo_keywords'   => ['nullable'],
             'seo_description'   => ['nullable'],

@@ -93,7 +93,7 @@ export default function Index({ customersList, auth}) {
                                                                 <td>{customer.email}</td>
                                                                 <td>{customer.phone}</td>
                                                                 {/* <td>{customer.updated_at}</td> */}
-                                                                <td>
+                                                                <td className="text-end">
                                                                     {/* <PermissionAllow permission={'Subscriber Edit'}>
                                                                         <Link className='btn btn-transparent p-2 px-3' href={route('admin.customers.edit', customer.id)}>
                                                                             <i className="bi bi-pencil"></i>

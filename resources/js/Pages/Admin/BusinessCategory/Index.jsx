@@ -214,7 +214,7 @@ export default function Index({ categoryList, auth }) {
                                                                                         <div dangerouslySetInnerHTML={{ __html: window.statusIcon(category.status) }} />
                                                                                     </td>
                                                                                     {/* <td  className='text-center'>{window.formatDateTime(category.updated_at)}</td> */}
-                                                                                    <td align='right'>
+                                                                                    <td align='right' className="text-end">
                                                                                         <PermissionAllow permission={'Category Show'}>
                                                                                             <span onClick={() => handleShow(category)} className="btn btn-transparent p-2 px-3">
                                                                                                 <i className="bi bi-eye"></i></span>

@@ -167,7 +167,7 @@ export default function Index({ categoryList, auth, business_category_options })
                                                                     {category.business_categories_list}
                                                                 </Td>
                                                                 {/* <Td className='text-center'>{window.formatDateTime(category.updated_at)}</Td> */}
-                                                                <Td align='right'>
+                                                                <Td align='right' className="text-end">
                                                                     <PermissionAllow permission={'Category Show'}>
                                                                         <span onClick={() => handleShow(category)} className="btn btn-transparent p-2 px-3">
                                                                             <i className="bi bi-eye"></i></span>

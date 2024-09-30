@@ -91,7 +91,7 @@ export default function Index({ sellers, auth, success = null, error = null }) {
                                                         <td>{vendor.designation}</td>
                                                         <td>{vendor.status}</td>
                                                         {/* <td>{vendor.updated_at}</td> */}
-                                                        <td>
+                                                        <td className="text-end">
                                                             <Link className='btn btn-transparent p-2 px-3' href={route('admin.sellers.edit', vendor.user_id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>

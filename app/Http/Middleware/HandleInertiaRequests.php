@@ -55,6 +55,7 @@ class HandleInertiaRequests extends Middleware
             'captcha_validation_disable' => env('CAPTCHA_VALIDATION_DISABLE', false),
             'notifications' => $request->user() ? DashboardNotification::where('recipient_id', $request->user()->id)->whereNull('read_at')->limit(6)->get() : [],
             'menu' => $menu ? $menu->childs->toArray() : [],
+            'currency_code' => env('CURRENCY_CODE')
         ];
     }
 

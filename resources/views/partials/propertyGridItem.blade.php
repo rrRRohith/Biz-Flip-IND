@@ -26,10 +26,10 @@
                     </div>
                     <div class="ms-auto col">
                         @if ($ad->ad_type == 'wanted')
-                            <div class="fw-semibold text-end">${{ number_format($ad->price) }} -
-                                ${{ number_format($ad->price_max) }}</div>
+                            <div class="fw-semibold text-end">{{ amount($ad->price) }} -
+                                {{ amount($ad->price_max) }}</div>
                         @else
-                            <div class="fw-semibold text-end">${{ number_format($ad->price) }}</div>
+                            <div class="fw-semibold text-end">{{ amount($ad->price) }}</div>
                         @endif
                     </div>
                 </div>

@@ -17,7 +17,7 @@ export default function Plans({ plans, can_purchase, current_invoice }) {
                                         <div className="card-body text-center">
                                             <h5 className="card-title font-bolder">{plan.name}</h5>
                                             <div className="text-primary mb-3">
-                                                <h4 className="card-title text-primary">${plan.price} <small>/ {plan.duration} month</small> </h4>
+                                                <h4 className="card-title text-primary">{window.formatPrice(plan.price)} <small>/ {plan.duration} month</small> </h4>
                                             </div>
 
                                             <p className="card-text mb-3">{plan.description}</p>

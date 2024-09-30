@@ -13,10 +13,10 @@
                                 <h5 class="card-title fw-semibold">{{ $plan->name }}</h5>
                                 <div class="text-primary mb-3">
                                     @if ($plan->price > 0)
-                                        <h5 class="card-title fw-semibold">${{ $plan->price }} <small>/
+                                        <h5 class="card-title fw-semibold">{{ amount($plan->price) }} <small>/
                                             {{ $plan->duration > 1 ? "{$plan->duration} month" : 'month' }}</small></h5>
                                     @else
-                                        <h5 class="card-title fw-semibold">${{ $plan->price }} <small>/
+                                        <h5 class="card-title fw-semibold">{{ amount($plan->price) }} <small>/
                                             {{ $plan->duration > 1 ? "first {$plan->duration} month" : 'first month' }}</small>
                                         </h5>
                                     @endif

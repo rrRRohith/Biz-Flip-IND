@@ -100,7 +100,7 @@ export default function Index({ countryList, auth, success = null, error = null 
                                                                 <td>{country.position}</td>
                                                                 <td>{country.status}</td>
                                                                 {/* <td>{country.updated_at}</td> */}
-                                                                <td>
+                                                                <td className="text-end">
                                                                     <PermissionAllow permission={'Country Edit'}>
                                                                         <Link className='btn btn-transparent p-2 px-3' href={route('admin.country.edit', country.id)}>
                                                                             <i className="bi bi-pencil"></i>

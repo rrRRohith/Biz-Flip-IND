@@ -28,9 +28,9 @@
                 <div>
                     <h1 class="fs-2 fw-semibold">{{ $ad->title }}</h1>
                     @if($ad->ad_type == 'wanted')
-                    <div class="fs-5 fw-semibold">${{ number_format($ad->price) }} - ${{ number_format($ad->price_max) }}</div>
+                    <div class="fs-5 fw-semibold">{{ amount($ad->price) }} - {{ amount($ad->price_max) }}</div>
                     @else
-                    <div class="fs-5 fw-semibold">${{ number_format($ad->price) }}</div>
+                    <div class="fs-5 fw-semibold">{{ amount($ad->price) }}</div>
                     @endif
                     @if ($ad->is_franchise)
                         @include('franchise')
@@ -66,7 +66,7 @@
                         <div class="col-md-6">
                             <div class="d-flex mb-2">
                                 <span class="label w-35 text-muted me-2">Price:</span>
-                                <div class="content fw-semibold">${{ number_format($ad->price) }}</div>
+                                <div class="content fw-semibold">{{ amount($ad->price) }}</div>
                             </div>
                         </div>
 

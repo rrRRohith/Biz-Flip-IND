@@ -3,6 +3,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+function amount($amount = 0){
+    return env('CURRENCY_SYMBOL').number_format($amount);
+}
+
 function _uploadImage($request, $existing = '', $path = '') {
 
     if ($request->has($existing)) {

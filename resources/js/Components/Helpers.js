@@ -1,4 +1,6 @@
 
+import { usePage } from '@inertiajs/react'
+
 export function getImageAsset(image) {
     if (image && !image.startsWith('http')) {
         return `/images/${image}`;
@@ -6,7 +8,9 @@ export function getImageAsset(image) {
     return '/assets/admin/images/noimage.webp';
 }
 
-export function formatPrice(amount, currency = 'USD') {
+export function formatPrice(amount, currency = 'INR') {
+    const { currency_code } = usePage().props;
+    currency = currency_code;
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency,

@@ -68,7 +68,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                         <td>{menu.id}</td>
                                                         <td>{menu.title}</td>
                                                         {/* <td>{window.formatDateTime(menu.updated_at)}</td> */}
-                                                        <td>
+                                                        <td className="text-end">
                                                             <Link className='btn btn-transparent p-2 px-3' href={route('admin.navigation-menu.edit', menu.id)}>
                                                                 <i className="bi bi-pencil"></i>
                                                             </Link>

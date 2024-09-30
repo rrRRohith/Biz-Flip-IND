@@ -17,6 +17,7 @@ export default function Edit({ page_item, auth, imageList }) {
     }));
 
     const [editorDesign, setEditorDesign] = useState(null);
+    const [slug, setSlug] = useState(page_item.slug);
 
 
     const returnPageContent = ({
@@ -32,13 +33,27 @@ export default function Edit({ page_item, auth, imageList }) {
         seo_description: page_item.seo_description || '',
         image: page_item.banner_id || '',
         pageContent: returnPageContent,
-        _method: 'PUT'
+        _method: 'PUT',
+        id:page_item.id,
     });
 
     const handleChange = (key, value) => {
         setData(key, value);
     };
 
+    const titleChange = (value) => {
+        setData('title', value);
+        setSlug(slugify(value));
+    }
+    const slugify = (string) => {
+        return string
+            .toLowerCase()                      // Convert to lowercase
+            .trim()                             // Remove leading and trailing whitespace
+            .replace(/[\s-]+/g, '-')            // Replace spaces and hyphens with a single hyphen
+            .replace(/[^\w-]+/g, '')            // Remove all non-word characters
+            .replace(/--+/g, '-')               // Replace multiple hyphens with a single hyphen
+            .replace(/^-+|-+$/g, '');           // Remove leading and trailing hyphens
+    }
 
     const emailEditorRef = useRef(null);
 
@@ -118,9 +133,10 @@ export default function Edit({ page_item, auth, imageList }) {
                                                                             name="title"
                                                                             className="form-control"
                                                                             value={data.title}
-                                                                            onChange={(e) => handleChange("title", e.target.value)}
+                                                                            onChange={(e) => titleChange(e.target.value)}
                                                                             autoComplete="off"
                                                                         />
+                                                                        <label class="block font-medium text-sm text-blue fw-700 fs-16 form-label form-label">/{slug}</label>
                                                                         <InputError message={errors.title} className="mt-2 col-12" />
                                                                     </div>
                                                                 </div>

@@ -276,32 +276,34 @@ export default function SettingsFormMininal({ API_KEY, seller, province_options,
                                         <InputError message={errors.lng} />
                                     </div>
                                 </div> */}
-                                 <div className="col-12 mb-5">
-                                            <div className='mb-3'>
-                                                <input
-                                                    id="map"
-                                                    className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
-                                                    type="checkbox"
-                                                    name="map_enable"
-                                                    defaultChecked={isMapEnabled}
-                                                    onChange={handleCheckboxChangeMap}
-                                                />
-                                                <label
-                                                    role="button" className='ms-2' for="map"> Enable Map</label>
-                                            </div>
-                                            {isMapEnabled && (
-                                                <div>
-                                                    <Picker
-                                                        defaultLocation={defaultLocation}
-                                                        zoom={zoom}
-                                                        mapTypeId="roadmap"
-                                                        style={{ height: '300px' }}
-                                                        onChangeLocation={handleChangeLocation}
-                                                        apiKey={API_KEY}
-                                                    />
-                                                </div>
-                                            )}
+                                <div className="col-12 mb-5">
+                                    <div className='mb-0 form-check form-check-lg'>
+                                        <input
+                                            id="map"
+                                            className="form-check-input shadow-none border border-gray border-1 cursor-pointer"
+                                            type="checkbox"
+                                            name="map_enable"
+                                            defaultChecked={isMapEnabled}
+                                            onChange={handleCheckboxChangeMap}
+                                        />
+                                        <label
+                                            role="button" className='mt-1' for="map"> Enable Map</label>
+
+                                    </div>
+                                    <p className="small">Select map location to show in front end</p>
+                                    {isMapEnabled && (
+                                        <div>
+                                            <Picker
+                                                defaultLocation={defaultLocation}
+                                                zoom={zoom}
+                                                mapTypeId="roadmap"
+                                                style={{ height: '300px' }}
+                                                onChangeLocation={handleChangeLocation}
+                                                apiKey={API_KEY}
+                                            />
                                         </div>
+                                    )}
+                                </div>
                             </div>
                             <div className="mb-5">
                                 <h4>Contact Information</h4>
