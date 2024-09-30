@@ -61,4 +61,8 @@ class SubscriptionOrder extends Model
     public function getIsActiveAttribute(){
         return \Carbon\Carbon::parse($this->expires_at)->gt(\Carbon\Carbon::now());
     }
+
+    public function scopeNotfree($q){
+        return $q->where('price', '>', 0);
+    }
 }

@@ -32,7 +32,7 @@ class SubscriptionPlansController extends Controller
     }
 
     public function subscriptionInvoices(){
-        $invoices           = SubscriptionOrder::orderBy('id','desc')->get();
+        $invoices           = SubscriptionOrder::orderBy('id','desc')->notfree()->get();
         return Inertia::render('Admin/Subscription/InvoicesTable', [
             'invoices' => InvoiceResource::collection($invoices)
         ]);
