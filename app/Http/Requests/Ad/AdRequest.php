@@ -50,7 +50,7 @@ class AdRequest extends FormRequest
             // 'features.*' => 'exists:features,id',
             // 'facilities' => 'required|array',
             // 'facilities.*' => 'exists:facilities,id',
-            'address' => 'required_if:ad_type,sale|max:256|string|nullable',
+            'address' => 'sometimes|max:256|string|nullable',
             'city' => 'sometimes|max:256|string|nullable',
             'postalcode' => 'sometimes|max:10|nullable',
             'province' => 'sometimes|nullable|exists:provinces,name',
