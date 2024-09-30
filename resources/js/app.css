@@ -149,9 +149,11 @@ img.ad-image {
 
     position: relative;
 }
+
 .mainContainer {
     min-height: 80vh;
 }
+
 .sub-tree {
     position: relative;
 }
@@ -308,18 +310,24 @@ span.small.font-normal {
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl {
     border-radius: 10px;
     padding: 2px;
-    border-color: #dcdcdc !important;;
+    border-color: #dcdcdc !important;
+    ;
     border-width: 2px !important;
 }
-fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+
+fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
     border-radius: 10px;
     padding: 2px;
-    border-color: #dcdcdc !important;;
+    border-color: #dcdcdc !important;
+    ;
     border-width: 2px !important;
 }
+
 .form-group .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-    border: 1px solid #dcdcdc !important;;
-    border-color: #dcdcdc !important;;
+    border: 1px solid #dcdcdc !important;
+    ;
+    border-color: #dcdcdc !important;
+    ;
 }
 
 .seller-count {
@@ -456,13 +464,19 @@ table th {
     border-bottom: 2px solid #5c60f5;
 }
 
-.css-13cymwt-control, .css-t3ipsp-control{
+.css-13cymwt-control,
+.css-t3ipsp-control {
     border-width: 2px !important;
     border-color: #dcdcdc !important;
     box-shadow: none !important;
     border-radius: 10px !important;
     padding: 0px !important;
-  }
-  .design-web .container{
+}
+
+.design-web .container {
     max-width: 100% !important;
-  }
+}
+
+.active-menu {
+    background: #e7e7e7;
+}
