@@ -102,9 +102,9 @@ export default function ({ ads, confirmDelete, minimal = false, searchResult }) 
                                                 </td>
                                                 <td className="text-overflow w-24 text-end" onClick={(e) => showAd(ad)}>
                                                     {ad.ad_type == 'sale' ?  (
-                                                        <>${ad.price_text}</>
+                                                        <>{window.formatPrice(ad.price)}</>
                                                     ) : (
-                                                        <> <span className="small">from.</span> ${ad.price_text}</>
+                                                        <> <span className="small">from.</span> {window.formatPrice(ad.price)}</>
                                                     )}
                                                     
                                                 </td>

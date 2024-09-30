@@ -124,7 +124,7 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                                                                 <td onClick={(e) => showInvoice(invoice)}>
                                                                     <div>{invoice.name}</div>
                                                                     <div className="small">
-                                                                        ${invoice.price} <small>/ {invoice.duration} month</small>
+                                                                        {window.formatPrice(invoice.price)} <small>/ {invoice.duration} month</small>
                                                                     </div>
                                                                 </td>
                                                                 <td onClick={(e) => showInvoice(invoice)}>
@@ -134,7 +134,7 @@ export default function Index({ auth, invoices, current_invoice, newInvoice }) {
                                                                     <div>{invoice.expire_date}</div>
                                                                 </td>
                                                                 <td onClick={(e) => showInvoice(invoice)}>
-                                                                    <div>${invoice.total_amount}</div>
+                                                                    <div>{window.formatPrice(invoice.total_amount)}</div>
                                                                 </td>
                                                                 <td>
                                                                     <PermissionAllow permission="Invoice View">

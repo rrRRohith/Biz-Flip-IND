@@ -181,7 +181,7 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                                 <div className="card-body text-center">
                                                     <h5 className="card-title font-bolder">{plan.name}</h5>
                                                     <div className="text-primary mb-3">
-                                                        <h4 className="card-title text-primary">${plan.price} <small>/ {plan.duration} month</small> </h4>
+                                                        <h4 className="card-title text-primary">{window.formatPrice(plan.price)} <small>/ {plan.duration} month</small> </h4>
                                                     </div>
 
                                                     <p className="card-text mb-3">{plan.description}</p>
@@ -189,9 +189,9 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                             </div>
                                             <div className="mb-5">
                                                 <div className="text-end">
-                                                    <div>Sub total. <span className="font-bolder">${plan.price}</span></div>
-                                                    <div>Tax. <span className="font-bolder">${plan.tax_amount}</span></div>
-                                                    <div>Grand total. <span className="font-bolder">${plan.total_amount}</span></div>
+                                                    <div>Sub total. <span className="font-bolder">{window.formatPrice(plan.price)}</span></div>
+                                                    <div>Tax. <span className="font-bolder">{window.formatPrice(plan.tax_amount)}</span></div>
+                                                    <div>Grand total. <span className="font-bolder">{window.formatPrice(plan.total_amount)}</span></div>
                                                 </div>
                                             </div>
                                             {plan.default != '1' && (
@@ -230,7 +230,7 @@ export default function Plan({ auth, plan, error, success, province_options, add
                                                 </>
                                             ) : (
                                                 <>
-                                                    <button type="submit" className="btn d-block btn-primary w-full">Pay <span className="font-bolder">${plan.total_amount}</span> </button>
+                                                    <button type="submit" className="btn d-block btn-primary w-full">Pay <span className="font-bolder">{window.formatPrice(plan.total_amount)}</span> </button>
                                                 </>
                                             )}
 

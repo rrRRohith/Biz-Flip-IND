@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\LeadEnquiry;
 use Inertia\Inertia;
 use App\Http\Resources\{SellerPlanResource};
+use App\Http\Resources\{InvoiceResource};
 
 class PlanController extends BaseController{
     public $user;

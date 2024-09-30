@@ -61,18 +61,18 @@
         <td style="border-top: 1px solid #dadada;border-bottom: 1px solid #dadada;padding:10px 0px;">
             {{ $order->name }}
             <div>
-                {{ $order->ads }} ads | ${{ $order->price }}/ {{ $order->duration }} month
+                {{ $order->ads }} ads | {{ amount($order->price) }}/ {{ $order->duration }} month
             </div>
         </td>
         <td style="border-top: 1px solid #dadada;text-align: right;border-bottom: 1px solid #dadada;padding:10px 0px;">
-            ${{ $order->price }}
+            {{ amount($order->price) }}
         </td>
     </tr>
     <tr>
         <td style="text-align: right;padding:10px 0px;" colspan="2">
-            <h4 style="font-weight: 400;margin: 0px;margin-bottom: 4px;">Sub total. ${{ $order->price }}</h4>
-            <h4 style="font-weight: 400;margin: 0px;margin-bottom: 4px;">Tax amount. ${{ $order->tax_amount }}</h4>
-            <h4 style="font-weight: 400;margin: 0px;margin-bottom: 4px;">Grant total. ${{ $order->total_amount }}
+            <h4 style="font-weight: 400;margin: 0px;margin-bottom: 4px;">Sub total. {{ amount($order->price) }}</h4>
+            <h4 style="font-weight: 400;margin: 0px;margin-bottom: 4px;">Tax amount. {{ amount($order->tax_amount) }}</h4>
+            <h4 style="font-weight: 400;margin: 0px;margin-bottom: 4px;">Grant total. {{ amount($order->total_amount) }}
             </h4>
         </td>
     </tr>
