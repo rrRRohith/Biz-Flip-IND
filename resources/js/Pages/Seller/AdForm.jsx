@@ -259,7 +259,7 @@ export default function PropertyForm({type_options, purpose_options, ad, auth, c
                                             <Select defaultValue={{ value: data.business_category, label: ad ? ad.business_category.label : 'Select...' }} onChange={(e) => { handleChange('business_category', e.value), changeAdCategories(e.value) }} options={business_categories_options}></Select>
                                             <InputError message={errors.business_category} />
                                         </div>
-                                        <div className="col-md-6">
+                                        <div className="col-md-12">
                                             <div>
                                                 <label>Title</label>
                                                 <input value={data.title} onChange={(e) => { handleChange('title', e.target.value) }} type="text" placeholder="Title" className="form-control" />

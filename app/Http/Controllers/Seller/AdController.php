@@ -228,6 +228,7 @@ class AdController extends BaseController{
             $ad->update([
                 'unique_code' => $this->seller->unique_code.$ad->id,
                 'publish_at' => $request->status ? now() : null,
+                'status' => '0',
             ]);
 
             $ad->update([
