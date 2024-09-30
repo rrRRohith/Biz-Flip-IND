@@ -108,7 +108,7 @@ export default function Index({ facilityList, auth, success = null, error = null
                                                         <div dangerouslySetInnerHTML={{ __html: window.statusIcon(facility.status) }} />
                                                         </Td>
                                                         {/* <Td>{window.formatDateTime(facility.updated_at)}</Td> */}
-                                                        <Td>
+                                                        <Td className="text-end">
                                                             <PermissionAllow permission={'Facility Edit'}>
                                                                 <Link className='btn btn-transparent p-2 px-3' href={route('admin.facilities.edit', facility.id)}>
                                                                     <i className="bi bi-pencil"></i>

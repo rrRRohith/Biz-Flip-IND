@@ -54,7 +54,7 @@ export default function AdminSidebar() {
                                 </PermissionAllow>
                                 <PermissionAllow permission={'Ads'}>
                                     <li className={`treeview ${openDropdown === 'ads' ? 'active' : ''}`}>
-                                        <Link  href={route('admin.ads.index')}>
+                                        <Link href={route('admin.ads.index')}>
                                             <i className="bi bi-badge-ad" title="ads"></i>
                                             <span>Ads</span>
                                         </Link>
@@ -81,7 +81,7 @@ export default function AdminSidebar() {
                                         </a>
                                         {openDropdown === 'locations' && (
                                             <ul className="treeview-menu">
-                                            {/*
+                                                {/*
                                                 <PermissionAllow permission={'Locations'}>
                                                     <li>
                                                         <Link href={route('admin.country.index')}>
@@ -97,20 +97,20 @@ export default function AdminSidebar() {
                                                         </Link>
                                                     </li>
                                                 </PermissionAllow>
-                                                
+
                                                 <PermissionAllow permission={'Locations'}>
                                                     <li>
                                                         <Link href={route('admin.city.index')}>
                                                             <i className="icon-Commit"></i>Cities
                                                         </Link>
-                                                    </li> 
+                                                    </li>
                                                 </PermissionAllow>
                                             </ul>
                                         )}
                                     </li>
 
                                 </PermissionAllow>
-                                
+
                                 <PermissionAllow permission={'Staff Management'}>
                                     <li className="treeview">
                                         <Link href={route('admin.staff.index')}>
@@ -145,15 +145,40 @@ export default function AdminSidebar() {
                                     </li>
 
                                 </PermissionAllow> */}
+
+
                                 <PermissionAllow permission={'Subscribers'}>
-                                    <li>
-                                        <Link href={route('admin.subscription.index')}>
-                                            <i className="bi bi-cash-coin" title="Subscription plans"></i>
-                                            <span>Subscription plans</span>
-                                        </Link>
+                                    <li className={`treeview ${openDropdown === 'Subscription' ? 'active' : ''}`}>
+                                        <a href="#" onClick={() => handleToggle('Subscription')}>
+                                            <i className="bi bi-cash-coin" title="Subscription"></i>
+                                            <span>Subscription</span>
+                                            <span className="pull-right-container">
+                                                <i className={`fa ${openDropdown === 'Subscription' ? 'fa-angle-down' : 'fa-angle-right'} pull-right`}></i>
+                                            </span>
+                                        </a>
+                                        {openDropdown === 'Subscription' && (
+                                            <ul className="treeview-menu">
+                                              
+                                                    <li>
+                                                        <Link href={route('admin.subscription.index')}>
+                                                            <i title="Subscription plans"></i>
+                                                            <span>Subscription plans</span>
+                                                        </Link>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <Link href={route('admin.subscription.subscription-invoices')}>
+                                                            <i title="Subscription plans"></i>
+                                                            <span>Invoices</span>
+                                                        </Link>
+                                                    </li>
+                                            </ul>
+                                        )}
                                     </li>
 
                                 </PermissionAllow>
+                                
+                                
                                 <PermissionAllow permission={'Collections'}>
                                     <li className={`treeview ${openDropdown === 'collections' ? 'active' : ''}`}>
                                         <a href="#" onClick={() => handleToggle('collections')}>
@@ -166,60 +191,60 @@ export default function AdminSidebar() {
                                         {openDropdown === 'collections' && (
                                             <ul className="treeview-menu">
                                                 <PermissionAllow permission={'Banners'}>
-                                                <li>
-                                                    <Link href={route('admin.banners.index')}>
-                                                        <i className="icon-Commit"></i>Banners
-                                                    </Link>
-                                                </li>
+                                                    <li>
+                                                        <Link href={route('admin.banners.index')}>
+                                                            <i className="icon-Commit"></i>Banners
+                                                        </Link>
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Navigation Menu'}>
-                                                <li>
-                                                    <Link href={route('admin.navigation-menu.index')}>
-                                                        <i className="icon-Commit"></i>Navigation Menu
-                                                    </Link>
-                                                </li>
+                                                    <li>
+                                                        <Link href={route('admin.navigation-menu.index')}>
+                                                            <i className="icon-Commit"></i>Navigation Menu
+                                                        </Link>
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Testimonials'}>
-                                                <li>
-                                                    <Link href={route('admin.testimonial.index')}>
-                                                        <i className="icon-Commit"></i>Testimonials
-                                                    </Link>
-                                                </li>
+                                                    <li>
+                                                        <Link href={route('admin.testimonial.index')}>
+                                                            <i className="icon-Commit"></i>Testimonials
+                                                        </Link>
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Content Pages'}>
-                                                <li>
-                                                    <Link href={route('admin.content-page.index')}>
-                                                        <i className="icon-Commit"></i>Pages
-                                                    </Link>
-                                                </li>
+                                                    <li>
+                                                        <Link href={route('admin.content-page.index')}>
+                                                            <i className="icon-Commit"></i>Pages
+                                                        </Link>
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Features'}>
-                                                <li>
-                                                    <Link href={route('admin.features.index')}>
-                                                        <i className="icon-Commit"></i>Features
-                                                    </Link>
-                                                </li>
+                                                    <li>
+                                                        <Link href={route('admin.features.index')}>
+                                                            <i className="icon-Commit"></i>Features
+                                                        </Link>
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Ad Types'}>
-                                                <li>
-                                                    <Link href={route('admin.ad_types.index')}>
-                                                        <i className="icon-Commit"></i>Ad types
-                                                    </Link>
-                                                </li>
+                                                    <li>
+                                                        <Link href={route('admin.ad_types.index')}>
+                                                            <i className="icon-Commit"></i>Ad types
+                                                        </Link>
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Ad Purposes'}>
-                                                <li>
-                                                    <Link href={route('admin.ad_purposes.index')}>
-                                                        <i className="icon-Commit"></i>Ad purposes
-                                                    </Link>
-                                                </li>
+                                                    <li>
+                                                        <Link href={route('admin.ad_purposes.index')}>
+                                                            <i className="icon-Commit"></i>Ad purposes
+                                                        </Link>
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Facilities'}>
-                                                <li>
-                                                    <Link href={route('admin.facilities.index')}>
-                                                        <i className="icon-Commit"></i>Facilities
-                                                    </Link>
-                                                </li>
+                                                    <li>
+                                                        <Link href={route('admin.facilities.index')}>
+                                                            <i className="icon-Commit"></i>Facilities
+                                                        </Link>
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Feature Label'}>
                                                     <li>
@@ -263,16 +288,16 @@ export default function AdminSidebar() {
                                                         <Link href={route('admin.role-responsibilities.index')}>
                                                             <i className="icon-Commit"></i>Role & Responsibilities
                                                         </Link>
-                                                    </li>  
+                                                    </li>
                                                 </PermissionAllow>
                                                 <PermissionAllow permission={'Role and Responsibilities'}>
                                                     <li>
                                                         <Link href={route('admin.backups.index')}>
                                                             <i className="icon-Commit"></i>Backups
                                                         </Link>
-                                                    </li>  
+                                                    </li>
                                                 </PermissionAllow>
-                                               
+
                                             </ul>
                                         )}
                                     </li>

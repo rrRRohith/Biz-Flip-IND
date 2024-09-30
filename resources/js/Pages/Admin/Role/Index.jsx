@@ -111,7 +111,7 @@ export default function Index({ roleList, auth, success = null, error = null }) 
                                                             <Td>{role.name}</Td>
                                                             <Td>{Object.keys(role.permissions).length}</Td>
                                                             {/* <Td>{window.formatDateTime(role.updated_at)}</Td> */}
-                                                            <Td>
+                                                            <Td className="text-end">
                                                                 <span title='Show' onClick={() => handleShow(role)} className="btn btn-transparent p-2 px-3"><i className="bi bi-eye"></i></span>
                                                                 <Link title='Edit' className='btn btn-transparent p-2 px-3' href={route('admin.role-responsibilities.edit', role.id)}>
                                                                     <i className="bi bi-pencil"></i>

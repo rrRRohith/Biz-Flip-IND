@@ -118,7 +118,7 @@ export default function Index({ MenuList, auth, success = null, error = null }) 
                                                                 <td>{menu.id}</td>
                                                                 <td>{menu.title}</td>
                                                                 {/* <td>{window.formatDateTime(menu.updated_at)}</td> */}
-                                                                <td>
+                                                                <td className="text-end">
                                                                     <PermissionAllow permission={'Navigation Menu Edit'}>
                                                                         <span title='Show' onClick={() => handleShow(menu)} className="btn btn-transparent p-2 px-3"><i className="bi bi-eye"></i></span>
                                                                     </PermissionAllow>

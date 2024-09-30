@@ -113,7 +113,7 @@ export default function Index({ bannersList, auth, success = null, error = null 
                                                                 <div dangerouslySetInnerHTML={{ __html: window.statusIcon(banner.status) }} />
                                                                 </Td>
                                                                 {/* <Td>{banner.updated_at}</Td> */}
-                                                                <Td>
+                                                                <Td className="text-end">
                                                                     <PermissionAllow permission={'Banner Edit'}>
                                                                         <Link className='btn btn-transparent p-2 px-3' href={route('admin.banners.edit', banner.id)}>
                                                                             <i className="bi bi-pencil"></i>

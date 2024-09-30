@@ -20,13 +20,20 @@ class SubscriptionPlansController extends Controller
         $plans              = SubscriptionPlan::get();
         $subscribedAgents   = SubscriptionOrder::with('seller')->orderBy('id','desc')->get();
   
-        $freePlanAgents     = SubscriptionOrder::orderBy('id','desc')->paginate(30);
-        $invoices           = SubscriptionOrder::orderBy('id','desc')->paginate(30);
+        $freePlanAgents     = SubscriptionOrder::orderBy('id','desc')->get();
+        $invoices           = SubscriptionOrder::orderBy('id','desc')->get();
         
         return Inertia::render('Admin/Subscription/Plans', [
             'plans' => SubscriptionPlanResource::collection($plans),
             'subscribedAgents' => SubscriptionOrderResource::collection($subscribedAgents),
             'freePlanAgents' => SubscriptionOrderResource::collection($freePlanAgents),
+            'invoices' => InvoiceResource::collection($invoices)
+        ]);
+    }
+
+    public function subscriptionInvoices(){
+        $invoices           = SubscriptionOrder::orderBy('id','desc')->get();
+        return Inertia::render('Admin/Subscription/InvoicesTable', [
             'invoices' => InvoiceResource::collection($invoices)
         ]);
     }

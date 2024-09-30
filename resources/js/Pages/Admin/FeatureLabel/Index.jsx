@@ -109,7 +109,7 @@ export default function Index({ labelList, auth, success = null, error = null })
                                                                 <div dangerouslySetInnerHTML={{ __html: window.statusIcon(label.status) }} />
                                                                 </Td>
                                                                 {/* <Td>{window.formatDateTime(label.updated_at)}</Td> */}
-                                                                <Td>
+                                                                <Td className="text-end">
                                                                     <PermissionAllow permission={'Feature Label Edit'}>
                                                                         <Link className='btn btn-transparent p-2 px-3' href={route('admin.feature-label.edit', label.id)}>
                                                                             <i className="bi bi-pencil"></i>
