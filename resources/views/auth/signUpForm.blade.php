@@ -67,6 +67,9 @@
 
 
             {{-- //common user details --}}
+            <div className="mb-5">
+                <h5>Login information</h5>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group label-top mb-4">
@@ -95,6 +98,11 @@
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
                     </div>
                 </div>
+                <div class="col-12">
+                    <div className="mb-5">
+                        <h5>Personal information</h5>
+                    </div>
+                </div>
                 <div class="col-md-6">
                     <div class="form-group label-top mb-4">
                         <label class="fw-semibold">First name</label>
@@ -120,6 +128,11 @@
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
                     </div>
                 </div>
+                <div class="col-12" x-show="accountType == 'agent'">
+                    <div className="mb-5">
+                        <h5>Business information</h5>
+                    </div>
+                </div>
                 <div class="col-md-12" x-show="accountType == 'agent'">
                     <div class="form-group label-top mb-4">
                         <label class="fw-semibold">Business name</label>
@@ -135,7 +148,11 @@
                             placeholder='Tell us about your business' class="form-control border-1 border rounded-1 border-gray shadow-none"></textarea>
                     </div>
                 </div>
-
+                <div class="col-12" x-show="accountType == 'agent'">
+                    <div className="mb-5">
+                        <h5>Business address</h5>
+                    </div>
+                </div>
                 <div class="col-md-12" x-show="accountType == 'agent'">
                     <div class="form-group label-top mb-4">
                         <label class="fw-semibold">Address</label>

@@ -220,7 +220,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                         </div>
                                     </div>
                                     <div className="mb-5">
-                                        <h4>Address</h4>
+                                        <h4>Business Address</h4>
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-6">

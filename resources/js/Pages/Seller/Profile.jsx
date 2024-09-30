@@ -103,7 +103,7 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                             <InputError message={errors.phone} />
                                         </div>
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 mt-5">
                                         <h4>Address</h4>
                                     </div>
                                     <div className="row g-5 mb-5">
