@@ -50,6 +50,7 @@ class InvoiceResource extends JsonResource
                 'country' => $this->billing_address->country ?? 'Canada', // Default value if null
             ],
             'seller' => new SellerInvoiceResource($this->seller),
+            'is_active' => $this->is_active,
         ];
     }
 }

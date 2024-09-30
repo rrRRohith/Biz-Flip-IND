@@ -60,7 +60,6 @@ class Controller extends BaseController{
         }else{
             session(['agentFormShown' => true]);
         }
-
         return Inertia::render('Seller/Dashboard', [
             'API_KEY' => env('MAP_API_KEY'),
             'data' => [

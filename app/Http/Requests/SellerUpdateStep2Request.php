@@ -7,6 +7,17 @@ use Illuminate\Validation\Rule;
 
 class SellerUpdateStep2Request extends FormRequest
 {
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator){
+        // Set the session values
+        session(['forceAgentForm' => true, 'agentFormShown' => false]);
+
+        // Handle the failed validation
+        throw new \Illuminate\Http\Exceptions\HttpResponseException(
+            redirect()->back()
+                ->withErrors($validator)
+                ->withInput()
+        );
+    }
     /**
      * Get the validation rules that apply to the request.
      *
