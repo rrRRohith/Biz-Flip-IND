@@ -171,15 +171,19 @@ export default function AdminSidebar() {
                                     </li>
 
                                 </PermissionAllow> */}
+
+
                                 <PermissionAllow permission={'Subscribers'}>
                                     <li>
-                                        <Link className={urlMatches(path, '/admin/subscription-plans*') ? 'active-menu' : ''} href={route('admin.business-category.index')} href={route('admin.subscription.index')}>
+                                        <Link href={route('admin.subscription.index')}>
                                             <i className="bi bi-cash-coin" title="Subscription plans"></i>
                                             <span>Subscription plans</span>
                                         </Link>
                                     </li>
 
                                 </PermissionAllow>
+                                
+                                
                                 <PermissionAllow permission={'Collections'}>
                                     <li className={`treeview ${openDropdown === 'collections' || urlMatches(path, [
                                             '/admin/banners*',
