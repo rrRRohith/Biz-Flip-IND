@@ -115,7 +115,7 @@
                 <div class="mt-4">
                     {!! $ad->description !!}
                 </div>
-                @if($ad->ad_type == 'sale')
+                @if($ad->ad_type == 'sale' && $ad->lat && $ad->lng)
                 <div class='mt-4 mb-4 not-embed'>
                     <div class="fw-semibold mb-3 fs-5">
                         Locate {{ $ad->title }}
