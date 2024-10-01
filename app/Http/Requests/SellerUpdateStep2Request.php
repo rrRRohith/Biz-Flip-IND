@@ -47,4 +47,11 @@ class SellerUpdateStep2Request extends FormRequest
             // 'established' => 'required|digits:4',
         ];
     }
+
+    public function getValidatorInstance(){
+        $this->merge([
+            'phone' => str_replace('-','',filter_var($this->phone, FILTER_SANITIZE_NUMBER_INT)),
+        ]);
+        return parent::getValidatorInstance();
+    }
 }

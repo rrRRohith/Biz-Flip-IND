@@ -4,14 +4,29 @@ import Wrapper from './layout/Wrapper';
 import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
 import Select from 'react-select';
+import { useMask } from '@react-input/mask';
 
 export default function Profile({ user, queryParams = null, auth, success, error, province_options }) {
+    const inputPhone = useMask({ mask: '(___) ___-____', replacement: { _: /\d/ } });
+
+    const formatPhone = (value) => {
+        if (!value) return ''; // Return empty string if no value is passed
+
+        // Ensure the value has at least 10 digits for proper formatting
+        const cleaned = value.replace(/\D/g, ''); // Remove non-digit characters
+        if (cleaned.length < 10) return value; // Return as-is if there aren't enough digits
+
+        // Format as (XXX) XXX-XXXX
+        const formatted = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+        return formatted;
+    };
+    
     const { data, setData, post, errors, reset } = useForm({
         picture: '',
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
-        phone: user.phone,
+        phone: formatPhone(user.phone),
         password: '',
         confirm_password: '',
         address: user ? user.address : '',
@@ -99,7 +114,9 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                             <InputError message={errors.email} />
                                         </div> */}
                                         <div className="col-md-6">
-                                            <div><label>Phone number</label> <small className='text-danger'>(Cant be changed)</small> <input disabled value={data.phone} type="tel" onChange={(e) => handleChange("phone", e.target.value)} placeholder="Your phone number" className="form-control" /></div>
+                                            <div><label>Phone number</label> <span class="text-danger"> *</span>
+                                                <input disabled ref={inputPhone} value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
+                                            </div>
                                             <InputError message={errors.phone} />
                                         </div>
                                     </div>

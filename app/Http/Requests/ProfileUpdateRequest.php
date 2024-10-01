@@ -29,4 +29,11 @@ class ProfileUpdateRequest extends FormRequest
             //'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }
+
+    public function getValidatorInstance(){
+        $this->merge([
+            'phone' => str_replace('-','',filter_var($this->phone, FILTER_SANITIZE_NUMBER_INT)),
+        ]);
+        return parent::getValidatorInstance();
+    }
 }

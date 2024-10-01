@@ -1,6 +1,15 @@
 
 import { usePage } from '@inertiajs/react'
 
+export function formatPhone(value) {
+    if (!value) return ''; // Return an empty string if no value is passed
+
+    // Custom formatting to match the mask pattern: +0 (___) ___-__-__
+    const formatted = `+${value[0]} (${value.slice(1, 4)}) ${value.slice(4, 7)}-${value.slice(7, 9)}-${value.slice(9, 11)}`;
+    return formatted;
+}
+
+
 export function getImageAsset(image) {
     if (image && !image.startsWith('http')) {
         return `/images/${image}`;
@@ -43,22 +52,22 @@ export function capitalize(text) {
 export function statusIcon(status = 0) {
     var Icn = '';
     var title = '';
-    if(status == 1){
+    if (status == 1) {
         Icn = `bi-check fs-2 text-success`;
         title = "Active";
     }
-    else if(status == 0){
+    else if (status == 0) {
         Icn = `bi-eye-slash fs-20 text-info`;
         title = "Inactive";
     }
-    else if(status == -1){
+    else if (status == -1) {
         Icn = `bi-ban fs-20 text-danger`;
         title = "Suspended";
     }
-    else{
+    else {
         Icn = `bi-hourglass-split fs-2 text-warning`;
         title = "Pending";
     }
 
-    return `<span role="button" class="bi `+Icn+`" title='`+ title +`'></span>`;
+    return `<span role="button" class="bi ` + Icn + `" title='` + title + `'></span>`;
 }

@@ -55,17 +55,31 @@ const socials = [
 import { useMask } from '@react-input/mask';
 
 export default function Settings({ seller, auth, success, error, province_options, API_KEY }) {
+    
     const inputPhone = useMask({ mask: '(___) ___-____', replacement: { _: /\d/ } });
 
     const [checkedDays, setCheckedDays] = useState(seller.days);
     const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
     const [isMapEnabled, setIsMapEnabled] = useState(seller && seller.lat != '' && seller.lat != '' ? true : false);
 
+    const formatPhone = (value) => {
+        if (!value) return ''; // Return empty string if no value is passed
+
+        // Ensure the value has at least 10 digits for proper formatting
+        const cleaned = value.replace(/\D/g, ''); // Remove non-digit characters
+        if (cleaned.length < 10) return value; // Return as-is if there aren't enough digits
+
+        // Format as (XXX) XXX-XXXX
+        const formatted = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+        return formatted;
+    };
+
+
     const { data, setData, post, errors, reset } = useForm({
         logo: '',
         company_name: seller.company_name,
         email: seller.email,
-        phone: seller.phone,
+        phone: formatPhone(seller.phone),
         employee: seller.employee,
         short_description: seller.short_description,
         description: seller.description,
