@@ -48,6 +48,9 @@ class PlanController extends BaseController{
      * @param Role $role
      */
     public function show(Request $request, \App\Models\SubscriptionPlan $plan){
+        if($this->seller->can_post_ads){
+            return redirect()->route('account.plans.index')->withError("You still have unused ad benefits. Be sure to take advantage of them before making a new purchase.");
+        }
         abort_if($this->seller->can_post_ads, 403, 'You still have unused ad benefits. Be sure to take advantage of them before making a new purchase.');
         \App\Models\SubscriptionPlan::whereStatus('1')->whereVisibility('1')->orderBy('price')->findOrfail($plan->id);
         abort_if($this->seller->current_invoice && $plan->default == '1', 404);
