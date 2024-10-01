@@ -40,7 +40,7 @@ class UpdateRoleRequest extends FormRequest
                 'string',
                 "roleName"
             ],
-            'permissions' => 'required|array',
+            'permissions' => 'sometimes|nullable|array',
             'permissions.*' => 'exists:permissions,id',
         ];
     }

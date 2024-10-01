@@ -87,11 +87,11 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                     </div>
                                     <div className="row g-5">
                                         <div className="col-md-6">
-                                            <div><label>First name</label> <input value={data.firstname} onChange={(e) => handleChange("firstname", e.target.value)} type="text" placeholder="Your first name" className="form-control" id="first_name" /></div>
+                                            <div><label>First name</label> <span class="text-danger"> *</span> <input value={data.firstname} onChange={(e) => handleChange("firstname", e.target.value)} type="text" placeholder="Your first name" className="form-control" id="first_name" /></div>
                                             <InputError message={errors.firstname} />
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Last name</label><input value={data.lastname} onChange={(e) => handleChange("lastname", e.target.value)} type="text" placeholder="Your last name" className="form-control" /></div>
+                                            <div><label>Last name</label> <span class="text-danger"> *</span> <input value={data.lastname} onChange={(e) => handleChange("lastname", e.target.value)} type="text" placeholder="Your last name" className="form-control" /></div>
                                             <InputError message={errors.lastname} />
                                         </div>
                                         {/* <div className="col-md-6">
@@ -99,11 +99,11 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                             <InputError message={errors.email} />
                                         </div> */}
                                         <div className="col-md-6">
-                                            <div><label>Phone number</label> <input disabled value={data.phone} type="tel" onChange={(e) => handleChange("phone", e.target.value)} placeholder="Your phone number" className="form-control" /></div>
+                                            <div><label>Phone number</label> <small className='text-danger'>(Cant be changed)</small> <input disabled value={data.phone} type="tel" onChange={(e) => handleChange("phone", e.target.value)} placeholder="Your phone number" className="form-control" /></div>
                                             <InputError message={errors.phone} />
                                         </div>
                                     </div>
-                                    <div className="mb-5 mt-5">
+                                    {/* <div className="mb-5 mt-5">
                                         <h4>Address</h4>
                                     </div>
                                     <div className="row g-5 mb-5">
@@ -131,7 +131,7 @@ export default function Profile({ user, queryParams = null, auth, success, error
                                                 <InputError message={errors.province} />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     {/* <div className="mb-5 mt-5">
                                         <h4>Change password</h4>
                                     </div>

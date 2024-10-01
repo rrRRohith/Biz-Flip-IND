@@ -12,12 +12,12 @@
     </div>
     <form data-errorcallback="refreshCaptcha1" id="loginForm" method="post" action="/login" class="ajax mb-4">
         <div class="form-group label-top mb-4">
-            <label class="fw-semibold">Email</label>
+            <label class="fw-semibold">Email</label> <span class="text-danger"> *</span>
             <input form="loginForm" name="email" type="email" placeholder='Enter your email address'
                 class="form-control border-1 border rounded-1 border-gray shadow-none" />
         </div>
         <div class="form-group label-top mb-4">
-            <label class="fw-semibold">Password</label>
+            <label class="fw-semibold">Password</label> <span class="text-danger"> *</span>
             <input form="loginForm" name="password" type="password" placeholder='Enter your secret password'
                 class="form-control border-1 border rounded-1 border-gray shadow-none" />
         </div>

@@ -18,42 +18,42 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group label-top mb-4">
-                                    <label class="fw-semibold">First name</label>
+                                    <label class="fw-semibold">First name</label> <span class="text-danger"> *</span>
                                     <input form="contactForm" name="firstname" type="text" placeholder='Enter your first name'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group label-top mb-4">
-                                    <label class="fw-semibold">Last name</label>
+                                    <label class="fw-semibold">Last name</label> <span class="text-danger"> *</span>
                                     <input form="contactForm" name="lastname" type="text" placeholder='Enter your last name'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group label-top mb-4">
-                                    <label class="fw-semibold">Email</label>
+                                    <label class="fw-semibold">Email</label> <span class="text-danger"> *</span>
                                     <input form="contactForm" name="email" type="email" placeholder='Enter your email address'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group label-top mb-4">
-                                    <label class="fw-semibold">Phone Number</label>
+                                    <label class="fw-semibold">Phone Number</label> <span class="text-danger"> *</span>
                                     <input form="contactForm" name="phone" type="text" placeholder='Enter your phone'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group label-top mb-4">
-                                    <label class="fw-semibold">Subject</label>
+                                    <label class="fw-semibold">Subject</label> <span class="text-danger"> *</span>
                                     <input form="contactForm" name="subject" type="text" placeholder='Enter subject'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group label-top mb-4">
-                                    <label class="fw-semibold">Your message</label>
+                                    <label class="fw-semibold">Your message</label> <span class="text-danger"> *</span>
                                     <textarea form="contactForm" name="message" type="text" placeholder='Enter your message'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none"></textarea>
                                 </div>

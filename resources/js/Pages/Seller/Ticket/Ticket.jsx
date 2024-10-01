@@ -93,7 +93,7 @@ export default function Ticket({ ticket, messages, auth, success, error }) {
                                 <form onSubmit={handleSubmit}>
                                     <div className="row g-5">
                                         <div className="col-md-12">
-                                            <label>Your message</label>
+                                            <label>Your message</label><span class="text-danger"> *</span>
                                             <textarea value={data.message} name="message" id="message" onChange={(e) => { handleChange('message', e.target.value) }} placeholder="Tell us about how can we help you!" className="form-control"></textarea>
                                             <InputError message={errors.message} />
                                             <div className="text-muted small">

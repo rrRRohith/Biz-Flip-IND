@@ -64,13 +64,13 @@ export default function Create({ auth, success, error }) {
                                             <h4>Subject and message</h4>
                                         </div>
                                         <div className="col-md-12">
-                                            <label>Subject</label>
+                                            <label>Subject</label> <span class="text-danger"> *</span>
                                             <input value={data.subject} onChange={(e) => { handleChange('subject', e.target.value) }} placeholder="Enter your subject" className="form-control" />
                                             <InputError message={errors.subject} />
                                             <div className="small text-muted">Right subject will help us assign right team member to your ticket.</div>
                                         </div>
                                         <div className="col-md-12">
-                                            <label>Your message</label>
+                                            <label>Your message</label> <span class="text-danger"> *</span>
                                             <textarea onChange={(e) => { handleChange('message', e.target.value) }} placeholder="Tell us about how can we help you!" className="form-control">{data.message}</textarea>
                                             <InputError message={errors.message} />
                                             <div className="text-muted small">

@@ -1,6 +1,6 @@
 @if (!env('CAPTCHA_VALIDATION_DISABLE'))
     <div class="form-group label-top mb-4">
-        <label class="fw-semibold">Captcha</label>
+        <label class="fw-semibold">Captcha</label> <span class="text-danger"> *</span>
         <div class="input-group mb-0">
 
             <span class="input-group-text bg-white border-bottom-2 bi bi-question-circle" id="basic-addon1"></span>

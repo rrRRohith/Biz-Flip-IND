@@ -23,27 +23,27 @@
             @method('PUT')
             @csrf
             <div class="form-group label-top mb-3">
-                <label class="fw-semibold">First name</label>
+                <label class="fw-semibold">First name</label> <span class="text-danger"> *</span>
                 <input value="{{ auth()->user()->firstname ?? null }}" form="contactForm" name="firstname" type="text" placeholder='Enter your first name'
                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
             </div>
             <div class="form-group label-top mb-3">
-                <label class="fw-semibold">Last name</label>
+                <label class="fw-semibold">Last name</label> <span class="text-danger"> *</span>
                 <input value="{{ auth()->user()->lastname ?? null }}"  form="contactForm" name="lastname" type="text" placeholder='Enter your last name'
                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
             </div>
             <div class="form-group label-top mb-3">
-                <label class="fw-semibold">Email</label>
+                <label class="fw-semibold">Email</label> <span class="text-danger"> *</span>
                 <input value="{{ auth()->user()->email ?? null }}" form="contactForm" name="email" type="email" placeholder='Enter your email address'
                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
             </div>
             <div class="form-group label-top mb-3">
-                <label class="fw-semibold">Phone</label>
+                <label class="fw-semibold">Phone</label> <span class="text-danger"> *</span>
                 <input value="{{ auth()->user()->phone ?? null }}" form="contactForm" name="phone" type="text" placeholder='Enter phone number'
                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
             </div>
             <div class="form-group label-top mb-3">
-                <label class="fw-semibold">Message</label>
+                <label class="fw-semibold">Message</label> <span class="text-danger"> *</span>
                 <textarea form="contactForm" name="message" placeholder='Enter your message' class="form-control border-1 border rounded-1 border-gray shadow-none"></textarea>
             </div>
             <div class="form-group mb-4">

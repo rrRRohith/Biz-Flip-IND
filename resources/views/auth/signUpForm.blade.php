@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Email</label>
+                        <label class="fw-semibold">Email</label><span class="text-danger"> *</span>
                         <input form="regForm" autocomplete="off" name="email" type="email"
                             placeholder='Your email address'
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
@@ -82,7 +82,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Password</label>
+                        <label class="fw-semibold">Password</label> <span class="text-danger"> *</span>
                         <input form="regForm" autocomplete="new-password" name="password"
                             type="password" placeholder='Set your password'
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
@@ -91,7 +91,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Confirm Password</label>
+                        <label class="fw-semibold">Confirm Password</label> <span class="text-danger"> *</span>
                         <input form="regForm" 
                             name="password_confirmation" autocomplete="new-password" type="password"
                             placeholder='Set your password'
@@ -105,7 +105,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">First name</label>
+                        <label class="fw-semibold">First name</label> <span class="text-danger"> *</span>
                         <input form="regForm" name="firstname" type="text"
                             autocomplete="off" placeholder='Your first name'
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
@@ -113,7 +113,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Last name</label>
+                        <label class="fw-semibold">Last name</label> <span class="text-danger"> *</span>
                         <input form="regForm" name="lastname" type="text" autocomplete="off"
                             placeholder='Your last name'
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
@@ -121,7 +121,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Phone</label>
+                        <label class="fw-semibold">Phone</label> <span class="text-danger"> *</span>
                         <input x-mask="(999) 999-9999" form="regForm" name="phone"
                             type="text" autocomplete="off" placeholder='Enter your phone'
                             autocomplete="off" maxlength="15"
@@ -135,7 +135,7 @@
                 </div>
                 <div class="col-md-12" x-show="accountType == 'agent'">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Business name</label>
+                        <label class="fw-semibold">Business name</label> <span class="text-danger"> *</span>
                         <input form="regForm" name="company_name" type="text"
                             autocomplete="off" placeholder='Your business name'
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
@@ -143,7 +143,7 @@
                 </div>
                 <div class="col-12" x-show="accountType == 'agent'">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Description</label>
+                        <label class="fw-semibold">Description</label> <span class="text-danger"> *</span>
                         <textarea form="regForm" name="description" autocomplete="off" type="text"
                             placeholder='Tell us about your business' class="form-control border-1 border rounded-1 border-gray shadow-none"></textarea>
                     </div>
@@ -155,7 +155,7 @@
                 </div>
                 <div class="col-md-12" x-show="accountType == 'agent'">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Address</label>
+                        <label class="fw-semibold">Address <small>(optional)</small> </label>
                         <input form="regForm" name="address" type="text"
                             autocomplete="off" placeholder='Your address'
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
@@ -163,7 +163,7 @@
                 </div>
                 <div class="col-md-4" x-show="accountType == 'agent'">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">City</label>
+                        <label class="fw-semibold">City <small>(optional)</small></label>
                         <input form="regForm" name="city" type="text"
                             autocomplete="off" placeholder='Your city'
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-md-4" x-show="accountType == 'agent'">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Postal code</label>
+                        <label class="fw-semibold">Postal code <small>(optional)</small></label>
                         <input form="regForm" x-mask="999 9999" maxlength="8"
                             name="postalcode" type="text" autocomplete="off"
                             placeholder='Your postalcode'
@@ -180,7 +180,7 @@
                 </div>
                 <div class="col-md-4" x-show="accountType == 'agent'">
                     <div class="form-group label-top mb-4">
-                        <label class="fw-semibold">Province</label>
+                        <label class="fw-semibold">Province <small>(optional)</small></label>
                         <select form="regForm" name="province" class="form-control border-1 border rounded-1 border-gray shadow-none">
                             <option disabled selected value="">Select province</option>
                             @foreach($provinces as $province)

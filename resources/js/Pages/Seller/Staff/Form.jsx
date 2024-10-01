@@ -57,19 +57,19 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                     </div>
                                     <div className="row g-5">
                                         <div className="col-md-6">
-                                            <div><label>First name</label> <input value={data.firstname} onChange={(e) => handleChange("firstname", e.target.value)} type="text" placeholder="Your first name" className="form-control" id="first_name" /></div>
+                                            <div><label>First name</label> <span class="text-danger"> *</span> <input value={data.firstname} onChange={(e) => handleChange("firstname", e.target.value)} type="text" placeholder="Your first name" className="form-control" id="first_name" /></div>
                                             <InputError message={errors.firstname} />
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Last name</label><input value={data.lastname} onChange={(e) => handleChange("lastname", e.target.value)} type="text" placeholder="Your last name" className="form-control" /></div>
+                                            <div><label>Last name</label><span class="text-danger"> *</span><input value={data.lastname} onChange={(e) => handleChange("lastname", e.target.value)} type="text" placeholder="Your last name" className="form-control" /></div>
                                             <InputError message={errors.lastname} />
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label htmlFor="email">Email</label> <input value={data.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="Your email address" type="email" className="form-control" /></div>
+                                            <div><label htmlFor="email">Email</label> <span class="text-danger"> *</span><input value={data.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="Your email address" type="email" className="form-control" /></div>
                                             <InputError message={errors.email} />
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Phone number</label> <input value={data.phone} type="tel" onChange={(e) => handleChange("phone", e.target.value)} placeholder="Your phone number" className="form-control" /></div>
+                                            <div><label>Phone number</label> <span class="text-danger"> *</span><input value={data.phone} type="tel" onChange={(e) => handleChange("phone", e.target.value)} placeholder="Your phone number" className="form-control" /></div>
                                             <InputError message={errors.phone} />
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                     </div>
                                     <div className="row g-5">
                                         <div className="col-md-6">
-                                            <label>Role</label>
+                                            <label>Role</label><span class="text-danger"> *</span>
                                             <Select defaultValue={{value:data.role_id, label:data.role_name}} onChange={(e) => { handleSelect('role_id', e) }} name="role_id" options={roles}></Select>
                                             <InputError message={errors.role_id} />
                                         </div>
@@ -94,11 +94,11 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                     </div>
                                     <div className="row g-5">
                                         <div className="col-md-6">
-                                            <div><label>New password</label> <input type="password" value={data.password} onChange={(e) => handleChange("password", e.target.value)} name="password" id="password" placeholder="Your new secret password" className="form-control" /></div>
+                                            <div><label>New password</label> <small>(optional)</small><input type="password" value={data.password} onChange={(e) => handleChange("password", e.target.value)} name="password" id="password" placeholder="Your new secret password" className="form-control" /></div>
                                             <InputError message={errors.password} />
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Conform new password</label> <input type="password" value={data.confirm_password} onChange={(e) => handleChange("confirm_password", e.target.value)} name="confirm_password" id="confirm_password" placeholder="Confirm your secret password" className="form-control" /></div>
+                                            <div><label>Conform new password</label> <small>(optional)</small><input type="password" value={data.confirm_password} onChange={(e) => handleChange("confirm_password", e.target.value)} name="confirm_password" id="confirm_password" placeholder="Confirm your secret password" className="form-control" /></div>
                                             <InputError message={errors.confirm_password} />
                                         </div>
                                         <div className="col-12 text-end">

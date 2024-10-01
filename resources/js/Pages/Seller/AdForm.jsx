@@ -255,13 +255,13 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-6">
-                                            <label>Category</label>
+                                            <label>Category</label><span class="text-danger"> *</span>
                                             <Select defaultValue={{ value: data.business_category, label: ad ? ad.business_category.label : 'Select...' }} onChange={(e) => { handleChange('business_category', e.value), changeAdCategories(e.value) }} options={business_categories_options}></Select>
                                             <InputError message={errors.business_category} />
                                         </div>
                                         <div className="col-md-12">
                                             <div>
-                                                <label>Title</label>
+                                                <label>Title</label><span class="text-danger"> *</span>
                                                 <input value={data.title} onChange={(e) => { handleChange('title', e.target.value) }} type="text" placeholder="Title" className="form-control" />
                                                 <InputError message={errors.title} />
                                             </div>
@@ -269,13 +269,13 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                         {data.ad_type == 'sale' ? (
                                             <>
                                                 <div className="col-md-6">
-                                                    <div><label>Price</label>
+                                                    <div><label>Price</label><span class="text-danger"> *</span>
                                                         <input value={data.price} onChange={(e) => { handleChange('price', e.target.value) }} type="text" placeholder="Price" className="form-control" />
                                                         <InputError message={errors.price} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
-                                                    <div><label>Space/Length/Area</label>
+                                                    <div><label>Space/Length/Area</label><span class="text-danger"> *</span>
                                                         <input value={data.space} onChange={(e) => { handleChange('space', e.target.value) }} type="text" placeholder="Space/Length/Area" className="form-control" />
                                                         <InputError message={errors.space} />
                                                     </div>
@@ -284,19 +284,19 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                         ) : (
                                             <>
                                                 <div className="col-md-4">
-                                                    <div><label>Price min</label>
+                                                    <div><label>Price min</label><span class="text-danger"> *</span>
                                                         <input value={data.price} onChange={(e) => { handleChange('price', e.target.value) }} type="text" placeholder="Price min" className="form-control" />
                                                         <InputError message={errors.price} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-4">
-                                                    <div><label>Price max</label>
+                                                    <div><label>Price max</label><span class="text-danger"> *</span>
                                                         <input value={data.price_max} onChange={(e) => { handleChange('price_max', e.target.value) }} type="text" placeholder="Price max" className="form-control" />
                                                         <InputError message={errors.price_max} />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-4">
-                                                    <div><label>Space/Length/Area</label>
+                                                    <div><label>Space/Length/Area</label><span class="text-danger"> *</span>
                                                         <input value={data.space} onChange={(e) => { handleChange('space', e.target.value) }} type="text" placeholder="Space/Length/Area" className="form-control" />
                                                         <InputError message={errors.space} />
                                                     </div>
@@ -340,7 +340,7 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                             <InputError message={errors.description} />
                                         </div> */}
                                         <div className="col-md-12">
-                                            <label>Description</label>
+                                            <label>Description</label><span class="text-danger"> *</span>
                                             <CKEditor
                                                 editor={ClassicEditor}
                                                 data={data.description}
@@ -356,27 +356,27 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                             <InputError message={errors.description} />
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Type</label>
+                                            <label>Type</label><span class="text-danger"> *</span>
                                             <Select defaultValue={{ value: data.property_type, label: data.property_type ? data.property_type : 'Select...' }} onChange={(e) => { handleChange('property_type', e.value) }} options={type_options}></Select>
                                             <InputError message={errors.property_type} />
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Purpose</label>
+                                            <label>Purpose</label><span class="text-danger"> *</span>
                                             <Select defaultValue={{ value: data.ad_purpose, label: data.ad_purpose ? data.ad_purpose : 'Select...' }} onChange={(e) => { handleChange('ad_purpose', e.value) }} options={purpose_options}></Select>
                                             <InputError message={errors.ad_purpose} />
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Industry</label>
+                                            <label>Industry</label><span class="text-danger"> *</span>
                                             <Select defaultValue={{ value: data.category, label: ad ? ad.category.label : 'Select...' }} onChange={(e) => { handleChange('category', e.value) }} options={ad_categories}></Select>
                                             <InputError message={errors.category} />
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Facilities</label>
+                                            <label>Facilities</label><small> (optional)</small>
                                             <Select defaultValue={ad ? ad.facilities : []} isMulti onChange={(selectedOptions) => { handleChange('facilities', selectedOptions ? selectedOptions.map(option => option.value) : []); }} options={facilities_options}></Select>
                                             <InputError message={errors.facilities} />
                                         </div>
                                         <div className="col-md-6">
-                                            <label>Features</label>
+                                            <label>Features</label><small> (optional)</small>
                                             <Select defaultValue={ad ? ad.features : []} isMulti onChange={(selectedOptions) => { handleChange('features', selectedOptions ? selectedOptions.map(option => option.value) : []); }} options={features_options}></Select>
                                             <InputError message={errors.features} />
                                         </div>
@@ -398,7 +398,7 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                     <div className="row g-5 mb-5">
                                         {data.ad_type == 'sale' && (
                                             <div className="col-md-6">
-                                                <div><label>Address</label>
+                                                <div><label>Address</label><small> (optional)</small>
                                                     <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Address" className="form-control" />
                                                     <InputError message={errors.address} />
                                                 </div>
@@ -406,19 +406,19 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                         )}
 
                                         <div className="col-md-6">
-                                            <div><label>City</label>
+                                            <div><label>City</label><small> (optional)</small>
                                                 <input value={data.city} onChange={(e) => { handleChange('city', e.target.value) }} type="text" placeholder="City" className="form-control" />
                                                 <InputError message={errors.city} />
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Postcode</label>
+                                            <div><label>Postcode</label><small> (optional)</small>
                                                 <input maxLength={7} value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
                                                 <InputError message={errors.postalcode} />
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Province</label>
+                                            <div><label>Province</label><small> (optional)</small>
                                                 <Select defaultValue={{ value: data.province, label: data.province ? data.province : 'Select...' }} onChange={(e) => { handleChange('province', e.value) }} options={province_options}></Select>
                                                 <InputError message={errors.province} />
                                             </div>
@@ -436,7 +436,7 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                                             onChange={handleCheckboxChangeMap}
                                                         />
                                                         <label
-                                                            role="button" className='mt-1' for="map"> Enable Map</label>
+                                                            role="button" className='mt-1' for="map"> Enable Map</label><small> (optional)</small>
 
                                                     </div>
                                                     <p className="small">Select map location to show in front end</p>
@@ -475,8 +475,8 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                         )}
                                     </div>
                                     <hr />
-                                    <div className="mb-5">
-                                        <h4>Gallery</h4>
+                                    <div className="mb-5 d-flex">
+                                        <h4>Gallery </h4><small className='ms-1'> (optional)</small>
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-12">
@@ -534,8 +534,8 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                         <InputError className='mt-0' message={errors.images} />
                                     </div>
                                     <hr />
-                                    <div className="mb-5">
-                                        <h4>Additional info</h4>
+                                    <div className="mb-5 d-flex">
+                                        <h4>Additional info</h4><small className='ms-1'> (optional)</small>
                                     </div>
                                     <div className="row g-5 mb-5">
                                         {additionalInfo.map(info => (
@@ -555,18 +555,18 @@ export default function PropertyForm({ type_options, purpose_options, ad, auth, 
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-12">
                                             <div>
-                                                <label>Title</label>
+                                                <label>Title</label><small> (optional)</small>
                                                 <input value={data.seo_title} onChange={(e) => { handleChange('seo_title', e.target.value) }} type="text" placeholder="Seo title" className="form-control" />
                                                 <InputError message={errors.seo_title} />
                                             </div>
                                         </div>
                                         <div className="col-md-12">
-                                            <label>Keywords</label>
+                                            <label>Keywords</label><small> (optional)</small>
                                             <textarea value={data.seo_keywords} onChange={(e) => { handleChange('seo_keywords', e.target.value) }} placeholder="Seo keywords" className="form-control"></textarea>
                                             <InputError message={errors.seo_keywords} />
                                         </div>
                                         <div className="col-md-12">
-                                            <label>Description</label>
+                                            <label>Description</label><small> (optional)</small>
                                             <textarea value={data.seo_description} onChange={(e) => { handleChange('seo_description', e.target.value) }} placeholder="Seo description" className="form-control"></textarea>
                                             <InputError message={errors.seo_description} />
                                         </div>

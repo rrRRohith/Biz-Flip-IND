@@ -185,7 +185,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-12">
-                                            <label>Business name</label>
+                                            <label>Business name</label><span class="text-danger"> *</span>
                                             <input value={data.company_name} onChange={(e) => { handleChange('company_name', e.target.value) }} placeholder="Your business name" className="form-control" />
                                             <InputError message={errors.company_name} />
                                         </div>
@@ -196,23 +196,23 @@ export default function Settings({ seller, auth, success, error, province_option
                                             <InputError message={errors.short_description} />
                                         </div> */}
                                         <div className="col-md-12">
-                                            <label>Description</label>
+                                            <label>Description</label><span class="text-danger"> *</span>
                                             <textarea rows={10} onChange={(e) => { handleChange('description', e.target.value) }} placeholder="Tell us about your business in detail" className="form-control" defaultValue={data.description}></textarea>
                                             <InputError message={errors.description} />
                                         </div>
                                         <div className="col-md-6">
-                                            <label>No of employees</label>
+                                            <label>No of employees</label><small> (optional)</small>
                                             <Select defaultValue={{ value: data.employee, label: data.employee }} onChange={(e) => { handleSelect('employee', e) }} name="employee" options={employee_options}></Select>
                                             <InputError message={errors.employee} />
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Website</label>
+                                            <div><label>Website</label><small> (optional)</small>
                                                 <input value={data.website} onChange={(e) => { handleChange('website', e.target.value) }} type="text" placeholder="Your website url" className="form-control" />
                                             </div>
                                             <InputError message={errors.website} />
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Established</label>
+                                            <div><label>Established</label><span class="text-danger"> *</span>
 
                                                 <input maxLength={4} value={data.established} onChange={(e) => { handleChange('established', e.target.value) }} type="text" placeholder="Established year" className="form-control" />
                                             </div>
@@ -224,25 +224,25 @@ export default function Settings({ seller, auth, success, error, province_option
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-6">
-                                            <div><label>Address</label>
+                                            <div><label>Address</label> <small>(optional)</small>
                                                 <input value={data.address} onChange={(e) => { handleChange('address', e.target.value) }} type="text" placeholder="Address" className="form-control" />
                                                 <InputError message={errors.address} />
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>City</label>
+                                            <div><label>City</label> <small>(optional)</small>
                                                 <input value={data.city} onChange={(e) => { handleChange('city', e.target.value) }} type="text" placeholder="City" className="form-control" />
                                                 <InputError message={errors.city} />
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Postcode</label>
+                                            <div><label>Postcode</label> <small>(optional)</small>
                                                 <input maxLength={7} value={data.postalcode} onChange={(e) => { handleChange('postalcode', e.target.value) }} type="text" placeholder="Postcode" className="form-control" />
                                                 <InputError message={errors.postalcode} />
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Province</label>
+                                            <div><label>Province</label> <small>(optional)</small>
                                                 <Select defaultValue={{ value: data.province, label: data.province ? data.province : 'Select...' }} onChange={(e) => { handleChange('province', e.value) }} options={province_options}></Select>
                                                 <InputError message={errors.province} />
                                             </div>
@@ -299,13 +299,13 @@ export default function Settings({ seller, auth, success, error, province_option
                                     </div>
                                     <div className="row g-5 mb-5">
                                         <div className="col-md-6">
-                                            <div><label htmlFor="email">Email</label>
+                                            <div><label htmlFor="email">Email</label> <span class="text-danger">*</span>
                                                 <input value={data.email} onChange={(e) => { handleChange('email', e.target.value) }} placeholder="Your email address" type="email" className="form-control" />
                                             </div>
                                             <InputError message={errors.email} />
                                         </div>
                                         <div className="col-md-6">
-                                            <div><label>Phone number</label>
+                                            <div><label>Phone number</label> <span class="text-danger"> *</span>
                                                 <input maxLength={12} value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
                                             </div>
                                             <InputError message={errors.phone} />

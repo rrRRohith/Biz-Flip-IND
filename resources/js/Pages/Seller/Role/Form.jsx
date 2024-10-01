@@ -62,7 +62,7 @@ export default function Form({ role, permissions, auth, success, error }) {
                                             <h4>Role name</h4>
                                         </div>
                                         <div className="col-md-12">
-                                            <label>Name</label>
+                                            <label>Name</label> <span class="text-danger"> *</span>
                                             <input value={data.name} onChange={(e) => { handleChange('name', e.target.value) }} placeholder="Enter name" className="form-control" />
                                             <InputError message={errors.name} />
                                         </div>

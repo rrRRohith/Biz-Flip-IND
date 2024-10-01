@@ -16,15 +16,15 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['sometimes', 'nullable', 'same:confirm_password', new \App\Rules\StrongPassword],
+            //'password' => ['sometimes', 'nullable', 'same:confirm_password', new \App\Rules\StrongPassword],
             'picture' => ['nullable', 'image'],
-            'confirm_password' => 'sometimes|nullable',
+            //'confirm_password' => 'sometimes|nullable',
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'address' => 'required|max:256|string',
-            'city' => 'required|max:256|string',
-            'postalcode' => 'required|max:10|string',
-            'province' => 'required|exists:provinces,name',
+            //'address' => 'required|max:256|string',
+            //'city' => 'required|max:256|string',
+            //'postalcode' => 'required|max:10|string',
+            //'province' => 'required|exists:provinces,name',
             //'phone' => ['required', 'numeric', 'digits:10'],
             //'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
