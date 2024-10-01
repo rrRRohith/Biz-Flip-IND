@@ -80,7 +80,7 @@ Route::group(['middleware' => ['userType:admin', 'auth', 'verified'], 'prefix'=>
     Route::post('subscription-invoices/{id}', 'SubscriptionPlansController@subscriptionInvoicesShow')->name('subscription.subscription-invoices.show');
 
 
-    Route::resource('/profile', ProfileController::class, [
+    Route::resource('/profile', \ProfileController::class, [
         'only' => ['index', 'store']
     ])->parameters([
         'profiles' => 'profile'
