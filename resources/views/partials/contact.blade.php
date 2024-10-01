@@ -37,9 +37,9 @@
                 <input value="{{ auth()->user()->email ?? null }}" form="contactForm" name="email" type="email" placeholder='Enter your email address'
                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
             </div>
-            <div class="form-group label-top mb-3">
+            <div x-data class="form-group label-top mb-3">
                 <label class="fw-semibold">Phone</label> <span class="text-danger"> *</span>
-                <input value="{{ auth()->user()->phone ?? null }}" form="contactForm" name="phone" type="text" placeholder='Enter phone number'
+                <input x-mask="(999) 999-9999" value="{{ auth()->user()->phone ?? null }}" form="contactForm" name="phone" type="text" placeholder='Enter phone number'
                     class="form-control border-1 border rounded-1 border-gray shadow-none" />
             </div>
             <div class="form-group label-top mb-3">

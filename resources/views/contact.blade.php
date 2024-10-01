@@ -40,7 +40,7 @@
                             <div class="col-md-6">
                                 <div class="form-group label-top mb-4">
                                     <label class="fw-semibold">Phone Number</label> <span class="text-danger"> *</span>
-                                    <input form="contactForm" name="phone" type="text" placeholder='Enter your phone'
+                                    <input x-data form="contactForm" name="phone" type="text" placeholder='Enter your phone'
                                         class="form-control border-1 border rounded-1 border-gray shadow-none" />
                                 </div>
                             </div>

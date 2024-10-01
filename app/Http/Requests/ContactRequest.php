@@ -36,6 +36,13 @@ class ContactRequest extends FormRequest{
             'message' => 'required|string'
         ];
     }
+
+    public function getValidatorInstance(){
+        $this->merge([
+            'phone' => str_replace('-','',filter_var($this->phone, FILTER_SANITIZE_NUMBER_INT)),
+        ]);
+        return parent::getValidatorInstance();
+    }
 }
 
 

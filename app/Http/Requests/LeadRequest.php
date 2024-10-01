@@ -35,6 +35,13 @@ class LeadRequest extends FormRequest{
             'message' => 'required'
         ];
     }
+
+    public function getValidatorInstance(){
+        $this->merge([
+            'phone' => str_replace('-','',filter_var($this->phone, FILTER_SANITIZE_NUMBER_INT)),
+        ]);
+        return parent::getValidatorInstance();
+    }
 }
 
 

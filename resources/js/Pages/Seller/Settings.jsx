@@ -52,7 +52,11 @@ const socials = [
     { id: 'youtube', label: 'Youtube' },
 ];
 
+import { useMask } from '@react-input/mask';
+
 export default function Settings({ seller, auth, success, error, province_options, API_KEY }) {
+    const inputPhone = useMask({ mask: '(___) ___-____', replacement: { _: /\d/ } });
+
     const [checkedDays, setCheckedDays] = useState(seller.days);
     const [checkedSocials, setCheckedSocials] = useState(seller.social_settings);
     const [isMapEnabled, setIsMapEnabled] = useState(seller && seller.lat != '' && seller.lat != '' ? true : false);
@@ -306,7 +310,7 @@ export default function Settings({ seller, auth, success, error, province_option
                                         </div>
                                         <div className="col-md-6">
                                             <div><label>Phone number</label> <span class="text-danger"> *</span>
-                                                <input maxLength={12} value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
+                                                <input ref={inputPhone} value={data.phone} onChange={(e) => { handleChange('phone', e.target.value) }} type="tel" placeholder="Your phone number" className="form-control" />
                                             </div>
                                             <InputError message={errors.phone} />
                                         </div>
