@@ -56,6 +56,7 @@ class HandleInertiaRequests extends Middleware
             'notifications' => $request->user() ? DashboardNotification::where('recipient_id', $request->user()->id)->whereNull('read_at')->latest()->limit(6)->get() : [],
             'menu' => $menu ? $menu->childs->toArray() : [],
             'currency_code' => 'INR',//env('CURRENCY_CODE')
+            'social_links' => \App\Models\SocailLink::where('user_id', 1)->get(),
         ];
     }
 

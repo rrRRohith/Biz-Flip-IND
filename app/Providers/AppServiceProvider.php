@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->loadGoogleStorageDriver();
+        //View::share('social_links', \App\Models\SocailLink::where('user_id', 1)->get());
         View::share('provinces', \App\Models\Province::orderBy('name')->whereStatus(1)->get());
     }
 

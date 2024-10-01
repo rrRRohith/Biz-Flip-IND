@@ -68,31 +68,7 @@
                             Follow us on social media
                         </div>
                         <div class="d-flex align-items-center fs-3 text-muted">
-                            <div class="col" role="button">
-                                <div class="btn btn-light border border-1 bg-white">
-                                    <i class="bi bi-instagram"></i>
-                                </div>
-                            </div>
-                            <div class="col" role="button">
-                                <div class="btn btn-light border border-1 bg-white">
-                                    <i class="bi bi-twitter-x"></i>
-                                </div>
-                            </div>
-                            <div class="col" role="button">
-                                <div class="btn btn-light border border-1 bg-white">
-                                    <i class="bi bi-facebook"></i>
-                                </div>
-                            </div>
-                            <div class="col" role="button">
-                                <div class="btn btn-light border border-1 bg-white">
-                                    <i class="bi bi-youtube"></i>
-                                </div>
-                            </div>
-                            <div class="col" role="button">
-                                <div class="btn btn-light border border-1 bg-white">
-                                    <i class="bi bi-linkedin"></i>
-                                </div>
-                            </div>
+                            @include('socialMedia', ['socials' => \App\Models\SocailLink::whereUserId(1)->get()])
                         </div>
                     </div>
                 </div>
