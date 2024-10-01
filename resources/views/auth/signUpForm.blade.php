@@ -98,6 +98,9 @@
                             class="form-control border-1 border rounded-1 border-gray shadow-none" />
                     </div>
                 </div>
+                <div class="col-12 mt--4 mb-4">
+                    <div class="small">Password must be at least 8 characters long and include a mix of uppercase, lowercase, numbers, and special characters.</div>
+                </div>
                 <div class="col-12">
                     <div className="mb-5">
                         <h5>Personal information</h5>

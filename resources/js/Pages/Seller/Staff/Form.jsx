@@ -101,6 +101,9 @@ export default function Form({ staff, permissions, auth, success, error, roles }
                                             <div><label>Conform new password</label> <small>(optional)</small><input type="password" value={data.confirm_password} onChange={(e) => handleChange("confirm_password", e.target.value)} name="confirm_password" id="confirm_password" placeholder="Confirm your secret password" className="form-control" /></div>
                                             <InputError message={errors.confirm_password} />
                                         </div>
+                                        <div className="col-12 mt-0">
+                                            <div className="small">Password must be at least 8 characters long and include a mix of uppercase, lowercase, numbers, and special characters.</div>
+                                        </div>
                                         <div className="col-12 text-end">
                                             <Link href={route('account.staffs.index')} className="btn btn-neutral me-2">Cancel</Link>
                                             <button type="submit" className="btn btn-primary">Save</button></div>

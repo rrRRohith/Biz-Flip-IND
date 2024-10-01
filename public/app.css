@@ -39,12 +39,17 @@ form ul.dropdown-menu {
   max-height: 300px;
   overflow-y: auto;
 }
+
 .mw-100 {
   max-width: 100px;
 }
 
 .mw-150 {
   max-width: 150px !important;
+}
+
+.mt--4 {
+  margin-top: -1.0rem !important;
 }
 
 .mw-200 {
@@ -843,22 +848,29 @@ ul.dropdown-menu {
   max-width: 300px;
   min-width: 200px;
 }
+
 hr.light {
   border-color: #d1d1d1 !important;
   margin: 10px 0px;
 }
+
 .mt--200 {
   margin-top: -200px;
 }
 
-.profile-dropdown .dropdown-item, .profile-dropdown .dropdown-item.active, .profile-dropdown .dropdown-item:active, .profile-dropdown .dropdown-item:hover {
+.profile-dropdown .dropdown-item,
+.profile-dropdown .dropdown-item.active,
+.profile-dropdown .dropdown-item:active,
+.profile-dropdown .dropdown-item:hover {
   color: var(--bs-primary) !important;
   background-color: transparent !important;
 }
-.profile-dropdown .dropdown-item{
+
+.profile-dropdown .dropdown-item {
   color: var(--bs-dark) !important;
   background-color: transparent !important;
 }
+
 .advertise-divider {
   width: 4px;
   height: 60px !important;
@@ -877,6 +889,7 @@ hr.light {
   border-radius: 50%;
   background: #ff579a;
 }
+
 nav.not-embed {
   border-bottom: 1px solid #e7eaf0;
 }
@@ -884,11 +897,14 @@ nav.not-embed {
 button.franchise-button {
   background: var(--bs-gray-300) !important;
 }
-.dropdown-item.active, .dropdown-item:active {
+
+.dropdown-item.active,
+.dropdown-item:active {
   color: var(--bs-dropdown-link-active-color);
   text-decoration: none;
   background-color: var(--bs-dark) !important;
 }
+
 button.franchise-button::after {
   opacity: 0;
   display: none;
@@ -917,8 +933,10 @@ body.embeded .not-embed {
 } */
 
 @media (min-width: 992px) {
-  .modal-lg, .modal-xl {
-      --bs-modal-width: 600px !important;
+
+  .modal-lg,
+  .modal-xl {
+    --bs-modal-width: 600px !important;
   }
 }
 
@@ -929,8 +947,14 @@ img.header-image {
 }
 
 @media (min-width: 1400px) {
-  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-      max-width: 1480px !important;
+
+  .container-xxl,
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 1480px !important;
   }
 }
 
@@ -943,6 +967,6 @@ img.header-image {
   left: 10px;
 }
 
-.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root{
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
   border-radius: 10px !important;
 }

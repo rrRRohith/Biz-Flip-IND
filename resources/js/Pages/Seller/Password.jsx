@@ -57,7 +57,9 @@ export default function Password({ user, queryParams = null, auth, success, erro
                                             <div><label>Conform new password</label> <input type="password" value={data.confirm_password} onChange={(e) => handleChange("confirm_password", e.target.value)} name="confirm_password" id="confirm_password" placeholder="Confirm your secret password" className="form-control" /></div>
                                             <InputError message={errors.confirm_password} />
                                         </div>
-
+                                        <div className="col-12 mt-0">
+                                            <div className="small">Password must be at least 8 characters long and include a mix of uppercase, lowercase, numbers, and special characters.</div>
+                                        </div>
                                     </div>
                                     <div className="row g-5">
                                         <div className="col-12 text-end mt-10">
