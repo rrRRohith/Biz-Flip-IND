@@ -10,6 +10,11 @@ body {
     font-family: var(--app-font) !important;
 }
 
+.form-check .form-check-input {
+    margin-left: -1.5em;
+    border-width: 2px !important;
+}
+
 .navbar-brand img {
     max-width: 150px !important;
     height: unset !important;
@@ -139,7 +144,8 @@ nav#navbarVertical {
     margin-left: 270px;
 } */
 
-.whitespace-wrap, .table td.whitespace-wrap {
+.whitespace-wrap,
+.table td.whitespace-wrap {
     white-space: unset !important;
 }
 
@@ -150,7 +156,8 @@ nav#navbarVertical {
     border-color: #e7eaf0 !important;
 }
 
-.rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus, .rs-input-group:focus-within {
+.rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus,
+.rs-input-group:focus-within {
     border-color: var(--x-primary) !important;
     border-color: var(--x-primary) !important;
     box-shadow: none !important;
